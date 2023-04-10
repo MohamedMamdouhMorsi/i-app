@@ -83,10 +83,11 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
 ``` javascript
 {
     /* No cote ',' or ';'  */ 
-    /*you can easy render any componet app by i_root:"filename" 
+    /*you can easy render any componet app by 
+    I:"filename" or IRoute:"filename"
     anther keys will return false in that case
     */
-    i_root:"menu"
+    I:"menu"
     /** i: its element key its like id in html but its not
      *  render atterbute for security you can also use 
      *  id: insted for
