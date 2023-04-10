@@ -77,6 +77,7 @@ const i_app = (()=>{
   const ReturnScriptFunctions = {};
   const popJsD = {};
   const sLang = {};
+  let poJSOB = [];
   this.sli_MEM = [];
   this.lastScroll = 0;
   this.S_DAY = "0";
@@ -638,10 +639,7 @@ const slIsViewInfo = (el) => {
             if (op === cl) {
               done = true;
             }
-            if(cr[c] !== '{' && cr[c] !== '}'){
-              vv += cr[c];
-            }
-           
+            vv += cr[c];
           } else if (done) {
             aft += cr[c];
           }
@@ -684,6 +682,7 @@ const slIsViewInfo = (el) => {
       str = str.replace(/] "/g, '] , "'); // missing comma
       str = str.replace(/} "/g, '} , "'); // missing comma
       str = str.replace(/} {/g, '} , {'); // missing comma
+      str = str.replace(/" {/g, '" , {'); // missing comma
       // handel function obj
      
       str = str.replace(/([a-z0-9A-Z_]+) "/g, '$1 , "'); // missing comma
@@ -772,6 +771,7 @@ const URS =()=>{
   return{
     E_I_S:E_I_S,
     E_I_V:E_I_V,
+    G_SRC:G_SRC,
     MW_SW_L:createAppTxt,
     s_Lang:s_Lang,
     createAppTxt:createAppTxt,
@@ -783,6 +783,7 @@ const URS =()=>{
     SW_CL:SW_CL,
     cmar:cmar,
     LIN:LIN,
+    theme:i_app_theme,
     HT_:HT_,
     CE_:CE_,
     A_H:A_H,
@@ -799,7 +800,22 @@ const URS =()=>{
     particlesJS:poJS,
     I_SCROL:I_SCROL,
     switchTheme:switchTheme,
-    scrollToTop:scrollToTop
+    scrollToTop:scrollToTop,
+    CL_:CL_
+  }
+}
+const L_CSS = (f)=>{
+           
+  if(!E_I(`css_${f}`)){
+  const src = CE_('link');
+  src.id = `css_${f}`;
+  let currentDate = new Date();
+  let tt = currentDate.getTime() ;
+  src.id = f;
+  src.href = `${app.dir.css}${f}.css?${tt}`;
+  src.rel = "stylesheet";
+  const head = E_T("head")[0]
+head.appendChild(src);
   }
 }
 const L_SCRIPT = (f,v)=>{
@@ -859,6 +875,7 @@ const HT_ = (ob) => {
   } 
 
   const tagNames = {
+    "tring": "tring",
     "ti": "h2",
     "tx": "p",
     "ly": "div",
@@ -1011,40 +1028,73 @@ const onInputChange_ =(k)=> {
 *
 * @param {string} text -t.{ hello-world }!! v.{ num }
 * @returns {string} id -element id
+* @returns {string} data { object of element data }
+* q.{data-key} 
+* qt.{data-key} and return it to t.{data-value} to translate 
 * t.{ hello-world } translation var  Hello World
 * v.{ num } var num = 0 ;
 *  
 */
-function replacePattern(text,id) {
+function replacePattern(text,id,data) {
  
+  const txtQ = /q\.\{\s*(?<query>[^\}]+)\s*\}/g;
+  const txtQTranslate = /qt\.\{\s*(?<queryTranslate>[^\}]+)\s*\}/g;
+  
   const txtTranslate = /t\.\{\s*(?<translate>[^\}]+)\s*\}/g;
   const txtvalues = /v\.\{\s*(?<values>[^\}]+)\s*\}/g;
   const txtInput = /val\.\{\s*(?<input>[^\}]+)\s*\}/g;
   let output = text;
-      output = text.replace(txtTranslate, (_, translate) =>
+
+      output = text.replace(txtQ, (_, query) =>
    {
-    if(i_app_select_lang[translate.trim()]){
    
-      if(onTxtChange[translate.trim()] ){
-        let itExsit = false;
-        for(let x = 0 ; x < onTxtChange[translate.trim()].length;x++){
-            if(onTxtChange[translate.trim()][x][0] == id){ 
-              itExsit = true;
-            }
-        }
-        if(!itExsit){
-          onTxtChange[translate.trim()].push([id,text])
-        }
-      }else{
-        onTxtChange[translate.trim()] =[[id,text]]
-      }
-     
-      return  `${i_app_select_lang[translate.trim()]}`
+    if(data[query.trim()]){
+      return `${data[query.trim()]}`;
     }else{
-      return translate.trim()
+      return query.trim();
     }
+     
+    
+  }
+  );
   
-  });
+  output = output.replace(txtQTranslate, (_, queryTranslate) =>
+  {
+  
+   if(data[queryTranslate.trim()]){
+     return `t.{${data[queryTranslate.trim()]}}`;
+   }else{
+     return queryTranslate.trim();
+   }
+    
+   
+ }
+ );
+
+  output = output.replace(txtTranslate, (_, translate) =>
+  {
+   if(i_app_select_lang[translate.trim()]){
+  
+     if(onTxtChange[translate.trim()] ){
+       let itExsit = false;
+       for(let x = 0 ; x < onTxtChange[translate.trim()].length;x++){
+           if(onTxtChange[translate.trim()][x][0] == id){ 
+             itExsit = true;
+           }
+       }
+       if(!itExsit){
+         onTxtChange[translate.trim()].push([id,text])
+       }
+     }else{
+       onTxtChange[translate.trim()] =[[id,text]]
+     }
+    
+     return  `${i_app_select_lang[translate.trim()]}`
+   }else{
+     return translate.trim()
+   }
+ 
+ });
   
   output = output.replace(txtvalues, (_, values) =>{
   if(i_app_v.hasOwnProperty(values.trim())){
@@ -1360,29 +1410,30 @@ clearTimeout(mySliTimeFunc);
 setTimeout(PLAY_SLI_T, 3000);
 }
 const poJS = ([m, w]) => {
-
+  poJSOB = [m, w];
 window.pJSDom = [];
 var nm = m.replace(/_/g, '');
-if (!popJsD.color) {
-    popJsD.stroke = w.particles.shape.stroke;
-    popJsD.color = w.particles.color.value;
-    popJsD.line_linked = w.particles.line_linked.color;
-} else if (popJsD.color) {
-    w.particles.shape.stroke = popJsD.stroke;
-    w.particles.color.value = popJsD.color;
-    w.particles.line_linked.color = popJsD.line_linked;
-}
-w.particles.shape.stroke = GET_COLOR(w.particles.shape.stroke);
-w.particles.color.value = GET_COLOR(w.particles.color.value);
-w.particles.line_linked.color = GET_COLOR(w.particles.line_linked.color);
-var elmMAR = E_I_S(w.parent.i).childNodes;
+  if (!popJsD.color) {
+      popJsD.stroke = {...w.particles.shape.stroke};
+      popJsD.color = w.particles.color.value;
+      popJsD.line_linked = w.particles.line_linked.color;
+  } else if (popJsD.color) {
+      w.particles.shape.stroke = {...popJsD.stroke};
+      w.particles.color.value = popJsD.color;
+      w.particles.line_linked.color = popJsD.line_linked;
+  }
+
+  w.particles.shape.stroke.color = GET_COLOR(w.particles.shape.stroke.color);
+  w.particles.color.value = GET_COLOR(w.particles.color.value);
+  w.particles.line_linked.color = GET_COLOR(w.particles.line_linked.color);
+  var elmMAR = E_I_S(w.parent.i).childNodes;
 
 if (w.parent.i) {
     if (w.parent.w !== "100%") {
-        w.parent.w = `${elmMAR[1].offsetWidth}px`;
+        w.parent.w = `${ E_I_S(w.parent.i).offsetWidth}px`;
     }
     if (w.parent.h !== "100%") {
-        w.parent.h = `${elmMAR[1].offsetHeight}px`;
+        w.parent.h = `${ E_I_S(w.parent.i).offsetHeight}px`;
     }
 
 
@@ -1391,7 +1442,7 @@ let isExistFn  = false;
 
 if(window.particlesJS && typeof window.particlesJS === 'function'){
   isExistFn  =true ;
- setTimeout(() => {  window.particlesJS(nm, w) }, 3000);
+ setTimeout(() => {  window.particlesJS(nm, w) }, 1000);
 }else{
 
     L_SCRIPT("parti",false);
@@ -2040,7 +2091,7 @@ const eTxt = (txt,id,data)=>{
 let txtv = "";
 if(typeof txt === 'string'){
   txt = txt.replace(/} ,/g, '}'); 
-  txtv =  replacePattern(txt,id);
+  txtv =  replacePattern(txt,id,data);
 }else if(isAr(txt)){
   for(var x = 0 ; x < txt.length;x++){
     const cur_txt_ob = txt[x];
@@ -2109,11 +2160,29 @@ const cr_ob_title = (ob,id,e)=>{
   }
 }
 const  ESF = (ob)=>{
+
 if(ob.a){
 let ev = ob.a.e ? ob.a.e : 'click' ;  
 const fnSt = EC_(ob.a.fn);
-const fn = new Function (fnSt);
-ob.i_e.addEventListener(ev,()=>{this.v = i_app_v ;this._ = URS(); return fn(this.v,this._)})
+const fn =new Function (fnSt);
+const newFunc = ()=>{
+          this.v = i_app_v ;
+          this._ = URS();
+          try{ 
+            return fn(this.v,this._);
+        }catch(err){
+          CL_("your function return error"+err);
+        }
+        }
+
+//
+if( ev === 'auto' ){
+setTimeout(newFunc,300);
+}else{
+  ob.i_e.addEventListener(ev,newFunc)
+}
+
+
 }
 }
 const cele = (e)=>{
@@ -2139,6 +2208,8 @@ if(chick.length > 1){
   }else   if(chick[0] == "G"){
     return `${app.dir.img}${chick[1]}.gif`;
   }
+}else{
+  return `${app.dir.img}${src}`
 }
 }
 /**
@@ -2219,6 +2290,7 @@ ob_type = ob.typ;
 if(ob_type == null ){
 ob_type = "ly";
 ob.typ = "ly";
+ob.t = "ly";
 }
 //set ob_css 
 if(ob.c){
@@ -2253,6 +2325,11 @@ ob.offset = 0;
 if(ob.script){
 L_SCRIPT(ob.script.n,ob.script.v)
 }
+// css style options
+if(ob.css){
+  L_CSS(ob.css)
+  }
+
 //img options
 if(ob.src){
 e.src = G_SRC(ob.src)
@@ -2319,9 +2396,9 @@ if(ob.q && ob.q.i && ob.q.s){
   }
 
 }
-if(ob.IRoute){
-  
-  G_root(`${app.dir.dir}${ob.IRoute}.${app.dir.file}`,L_ROUTE,[ob.i,data]);
+if(ob.IRoute || ob.I){
+  const IROUTE = ob.IRoute ? ob.IRoute : ob.I;
+  G_root(`${app.dir.dir}${IROUTE}.${app.dir.file ? app.dir.file :'app'}`,L_ROUTE,[ob.i,data]);
 }
 // up = make is the element appended to parent
 let up = false;
@@ -2651,6 +2728,7 @@ case "B":
         if(c[1] == "R") {
           /**
            * border radius
+           * B_R_B_R_5
            */
           if(c.length === 3) return `.${cs} {border-radius: ${c[2]}px}  `;
           else if(c.length === 5) {
@@ -2875,7 +2953,9 @@ case "V":
   }
   break;
 case "ST":
-    if ( c.length == 3) {
+  if ( c.length == 4 && c[3] == "D") {
+    return `.${cs} { border:${c[2]}px var(--${c[1]}) dotted;} `;
+} else  if ( c.length == 3) {
       return `.${cs} { border:${c[2]}px var(--${c[1]}) solid;} `;
   } else if ( c[1] == "T" && c.length == 4) {
       return `.${cs} { border-top:${c[3]}px var(--${c[2]}) solid;} `;
@@ -3311,6 +3391,9 @@ const switchTheme  = ()=>{
     createAppTheme("light");
     updateThemeIcon();
     IND("theme","light");
+  }
+  if(poJSOB.length > 0){
+    poJS(poJSOB)
   }
 }
 const createAppContent = (i_app_OB) => {
