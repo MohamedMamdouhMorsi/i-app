@@ -23,7 +23,7 @@ i-app is a revolutionary new full-stack open-source programming language that ai
 To install i-app, simply run:
 ``` bash
 
-npm install i-app
+npm i @i-app/i-app
 
 ```
 

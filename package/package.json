@@ -1,5 +1,5 @@
 {
-  "name": "i-app",
+  "name": "@i-app/i-app",
   "version": "1.0.0",
   "description": "> BETA  ( javascript , nodejs )",
   "main": "i-app.js",
