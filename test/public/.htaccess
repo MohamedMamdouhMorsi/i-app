@@ -1,0 +1,23 @@
+# Turn on the rewrite engine
+RewriteEngine On
+
+# Set the default index page
+DirectoryIndex index.php index.html index.app
+
+# Deny access to sensitive files and directories
+<FilesMatch "(^\.|\/\.|\/?includes|\/?config|\/?downloads|\/?docs|\/?private|\/?temp|\/?logs)">
+    Deny from all
+</FilesMatch>
+
+# Set the default charset
+AddDefaultCharset UTF-8
+
+# Set the cache control headers for static files
+<FilesMatch "\.(css|js|png|gif|jpeg|jpg|ico)$">
+    Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
+
+# Redirect all requests to index.app, except for files that actually exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.html [L]
