@@ -1,0 +1,1 @@
+const db ={type:"static"}
