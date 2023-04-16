@@ -9,6 +9,7 @@
     version:"0.0.1"
     type:"website"
     domain:"localhost"
+    port:3000
     lang: ["en","ar"]
     mode:"dev"
     dir:{

@@ -139,25 +139,57 @@ const setDateTime =()=>{
   setTimeout(setDateTime, 1000);
 }
 
-const isAr =(ar)=>{
-if(Array.isArray(ar)){
-  return true;
-}else{
-  return false;
-}
-}
-const stToAr = (st)=>{
-const ar  = [];
-const stAr =typeof st === 'string' && st.length > 0 ? st.split(" "):[];
-if(isAr(stAr)){
-for(let s = 0 ; s < stAr.length;s++){
-  if(stAr[s] !== "" && stAr[s] !== " " && stAr[s] !== null){
-    ar.push(stAr[s]);
+
+// Convert a string to an array of words
+const stToAr = (st) => {
+  const ar = [];
+
+  // Split the string into an array of words
+  const stAr = typeof st === 'string' && st.length > 0 ? st.split(" ") : [];
+
+  // Check if the resulting array is valid
+  if (isAr(stAr)) {
+    // Loop through the array and add non-empty words to the output array
+    for (let s = 0; s < stAr.length; s++) {
+      if (stAr[s] !== "" && stAr[s] !== " " && stAr[s] !== null) {
+        ar.push(stAr[s]);
+      }
+    }
+    return ar;
   }
 }
-return ar;
+
+// Convert an array of words to a string
+const arToSt = (ar) => {
+  let st = "";
+
+  // Check if the input array is valid
+  if (isAr(ar)) {
+    // Loop through the array and add non-empty words to the output string
+    for (let a = 0; a < ar.length; a++) {
+      if (ar[a] !== "" && ar[a] !== " " && ar[a] !== null) {
+        st += " " + ar[a];
+      }
+    }
+    return st;
+  }
 }
+
+// Check if a value is an array
+const isAr = (value) => {
+  return Array.isArray(value);
 }
+
+/**
+* Logs a message to the console.
+* @param {*} message - The message to log.
+*/
+const CL_ = (message) => {
+  console.log(message);
+  };
+  
+
+
 const selectStyleToOb =(ar)=>{
   const ob = {};
   for(var o = 0 ; o < ar.length; o++){
@@ -166,19 +198,6 @@ const selectStyleToOb =(ar)=>{
   }
   return ob;
 }
-const arToSt = (ar)=>{
-let st  = "";
-
-if(isAr(ar)){
-for(let a = 0 ; a < ar.length;a++){
-  if(ar[a] !== "" && ar[a] !== " " && ar[a] !== null){
-    st +=" "+ar[a];
-  }
-}
-return st;
-}
-}
-
 
 
 
@@ -220,13 +239,6 @@ const CE_ = (tag) => {
 return document.createElement(tag);
 };
 
-/**
-* Logs a message to the console.
-* @param {*} message - The message to log.
-*/
-const CL_ = (message) => {
-console.log(message);
-};
 
 /**
 * Returns the origin of the current window.
@@ -3229,6 +3241,7 @@ const U_CSS = (cs) => {
   } else {
      csAr = stToAr(cs);
   }
+  
   for (var w = 0; w < csAr.length; w++) {
     /// clean class name string for auto fix 
     let cleanStr_class =csAr[w];//csAr[w].replace(/PR_D/g, "PRD");
