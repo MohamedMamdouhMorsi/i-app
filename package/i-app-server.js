@@ -6,6 +6,7 @@ const os = require('os');
 const {getDirectoryTree, getContentType, searchFiles, iAppReader} = require('./modules/main');
 const {CL_, DC_, EC_, JDS_, JD_, arToSt, stToAr,getfileName} =require('./modules/tools');
 const { CLIENT_RENEG_LIMIT } = require('tls');
+const { dirname } = require('path');
 const messages = {
   iappError:"Please add i.app file in your project main directory : "
 }
@@ -65,11 +66,20 @@ const Iapp = ()=>{
     const is_app_file = searchFiles(tree,app_file_test)
  
     let filePath = path.join(userDir, 'public', req.url === '/' ? 'index.html' : req.url);
+    if(is_app_file.type){
+      filePath = path.join(__dirname, 'index.html');
+    }else
     if (req.url === '/i.app') {
       res.writeHead(200, { 'Content-Type': 'application/app' });
       res.end(i_app_st);
+    }else  if (req.url === '/i-app-ui.js') {
+      filePath = path.join(__dirname, 'i-app-ui.js');
+      
+    }else   if (req.url === '/i-app.css') {
+      filePath = path.join(__dirname, 'i-app.css');
+      
     }else if (req.url === '/') {
-      filePath = path.join(userDir, 'public', 'index.html');
+      filePath = path.join(__dirname, 'index.html');
     }else{
       const search = req.url.split('?');
       if(search.length > 1){
@@ -82,7 +92,7 @@ const Iapp = ()=>{
         }*/
         if(searchFiles(tree,fileName+".app") && searchFiles(tree,fileName+".app").name || searchFiles(tree,fileName+".json") && searchFiles(tree,fileName+".json").name){
        
-          filePath = path.join(userDir, 'public', 'index.html');
+          filePath = path.join(__dirname, 'index.html');
         }
       }
     }
@@ -101,6 +111,7 @@ const Iapp = ()=>{
           res.writeHead(500, { 'Content-Type': 'text/html' });
           res.end('<h1>500 Internal Server Error</h1><p>Sorry, there was a problem loading the requested URL.</p>');
         } else {
+         
           res.writeHead(200, { 'Content-Type': contentType });
           res.end(data);
         }

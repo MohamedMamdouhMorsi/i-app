@@ -1,8 +1,8 @@
 {
   "name": "@i-app/i-app",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "> BETA  ( javascript , nodejs )",
-  "main": "i-app.js",
+  "main": "i-app-server.js",
   "scripts": {
     "test": "i-app"
   },
@@ -13,7 +13,7 @@
   "author": "Mohamed Mammdouh - MWN Software",
   "license": "MIT",
   "keywords": [
-    "i-app"
+    "i-app-server","i-app-ui"
   ],
   "bugs": {
     "url": "https://github.com/MohamedMamdouhMorsi/i-app/issues"
