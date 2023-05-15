@@ -3,7 +3,7 @@ const selectColumn = require('./selectColumn');
 const insertValues = require('./insertValues');
 const insertQuery = (ob,tables)=>{
     const tableName = ob.n;
-    console.log(["insertQuery",ob,tables])
+   
     if(tables[tableName]){
 
     const notId = tables[tableName].filter(e=>{

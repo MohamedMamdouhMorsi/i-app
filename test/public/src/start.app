@@ -108,16 +108,16 @@
             i:'inputValue'
             c:'card4'
             e:[
-              {
-                                t:'tx'
-                                s:'input value : val.{inElm}'
-                            }
-                            {
-                                t:'in'
-                                c:'inBB F_B'
-                                i:'inElm'
-                                mod:'text'
-                            }
+                {
+                    t:'tx'
+                    s:'input value : val.{inElm}'
+                }
+                {
+                    t:'in'
+                    c:'inBB F_B'
+                    i:'inElm'
+                    mod:'text'
+                }
             ]
         }
    

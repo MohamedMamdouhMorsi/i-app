@@ -801,7 +801,8 @@ const i_app = (()=>{
       });
   };
   
-  const _POST = (url,data)=>{
+  const _POST = (url,data,callback)=>{
+  
     fetch(url, {
   method: "POST",
   body: JSON.stringify(data),
@@ -809,7 +810,11 @@ const i_app = (()=>{
     "Content-type": "application/json; charset=UTF-8"
   }
 }) .then((res) => {
-  console.log(res)
+  res.json().then((json) => {
+    callback(json, data);
+    
+  });
+ 
 });
   }
   const SWV =(data)=>{
@@ -986,7 +991,7 @@ const i_app = (()=>{
     for(var i = 0 ; i < onValueChange[k].length ; i++){
       const elm    = E_I_S(onValueChange[k][i][0]);
       const OB     =  I_O(onValueChange[k][i][0]) ;
-      const data   = OB.data ? OB.data : false; 
+      const data   = OB.Q ? OB.Q : false; 
    
       if(elm){
       elm.innerText = eTxt(onValueChange[k][i][1],onValueChange[k][i][0],data);
@@ -1019,7 +1024,7 @@ const i_app = (()=>{
      
       const elm    = E_I_S(onTxtChange[k][i][0]);
       const OB     =  I_O(onTxtChange[k][i][0]) ;
-      const data   = OB.data ? OB.data : false; 
+      const data   = OB.Q ? OB.Q : false; 
       
       if(elm){
         elm.innerText = eTxt(onTxtChange[k][i][1],onTxtChange[k][i][0],data);
@@ -2345,6 +2350,26 @@ const i_app = (()=>{
    * @param {array} data 
    * 
    */
+
+  const dataQuery = (ob)=>{
+     
+    const callback = (res,data)=>{
+     res = res.res;
+     console.log([ob,res])
+     const models = ob.model;
+     const elmId = ob.i;
+      for(var i = 0; i < res.length ; i++){
+        const obData = res[i];
+        for(var m =0 ; m < models.length;m++){
+          const model = models[m];
+          const toElm = model.to ? model.to : elmId
+          CR_(model,toElm,obData);
+        }
+     
+      }
+    }
+    _POST('/api',{query:ob.data},callback)
+  }
   const CR_ =async (body,id,data)=>{
 
     if(!i_app_lang[selectLang]){
@@ -2373,13 +2398,11 @@ const i_app = (()=>{
   body_ = body.default.body;
   }else if(body.body){
   body_ = body.body;
-  }else if(body.data){
-  body_ = body.data.body;
   }
   const ob = MW_COPY_OB(body_);
 
   if(data){
-   ob.data = data;   
+   ob.Q = data;   
   }
   let ob_type = null ,ob_css = null,ob_css_list = [];
   /// set ob_type
@@ -2507,6 +2530,9 @@ const i_app = (()=>{
         ob.i =  `${id}_${ob.offset ?ob.offset:0 }`;
     }
   
+  }
+  if(ob.data){
+    dataQuery(ob)
   }
   if(ob.IRoute || ob.I){
     const IROUTE = ob.IRoute ? ob.IRoute : ob.I;
