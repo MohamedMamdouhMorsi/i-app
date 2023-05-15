@@ -12,6 +12,7 @@
     port:3000
     lang: ["en","ar"]
     mode:"dev"
+    pwa:"true"
     dir:{
         dir:"/src/"
         start:"start.app"
