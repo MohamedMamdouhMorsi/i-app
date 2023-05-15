@@ -41,9 +41,13 @@ i-app start by one function i-app() default with loading
 const i_app = (()=>{
 
     'use strict';
+<<<<<<< HEAD
+    const I_APP_DIR = "/i.app";
+=======
   
     const I_APP_DIR = "/i.app";
     const META_TAG = `<meta charset="utf-8"><meta i_app="true"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /><meta http-equiv="X-UA-Compatible" content="ie=edge"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"<meta name="full-screen" content="yes"><meta name="screen-orientation" content="portrait"><link rel="manifest"  href="/manifest.json" ><link rel="apple-touch-icon" type="image/png" href="/img/web/apple-icon.png" ><link rel="apple-touch-icon" href="/img/web/apple-icon-120x120.png"><style id="T_ASS"></style><style id="TC_ASS"></style><style id="C_ASS"></style><style id="F_ASS"></style><style id="F_ASSB"></style><style id="F_ASSC"></style><link href="/i-app.css" rel="stylesheet" type="text/css" /><style id="PASSSTYLE">:root {--W:#fff;--B:#000;--BODYB: #ffffff;--BODYF: #000000;--WH__: 1000px;--WW__: 1000px;}.F_PR {color: var(--BODYF);}.B_PR {background: var(--BODYB);}</style><style id="STYLE_DIR">:root {--DirL: left;--DirR: right;}</style><style id="AUTO_DIR"></style><style> .FWI{color:#ffffff;}.FBI{color:#000000;}</style><link href="https://fonts.googleapis.com/css?family=Cairo:400,900&display=swap"  rel="stylesheet"   type="text/css"  media="print"  onload="this.media='all'" /><link href="https://fonts.googleapis.com/css?family=Mada:400,900&display=swap"   rel="stylesheet"   type="text/css"  media="print"  onload="this.media='all'" /><link href="/css/icofont.css"   rel="stylesheet"   type="text/css"  media="print"  onload="this.media='all'" /><style id="S_FONT">h1,h2,h3,h4,h5,h6,p,button,input,table,th,td,nav,div,table,a,b,tr,ul,li,tbody,select,svg,textarea,title {font-family: "Lucida Sans Unicode", "Lucida Grande", "Cairo", sans-serif;}</style> `;
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
     /** app connection & loading state */
     var is_online    = true;
     var first        = true;
@@ -86,6 +90,10 @@ const i_app = (()=>{
     this.V_DAY = 0;
     this.V_MONTH = 0;
     this.V_YEAR = 0;
+<<<<<<< HEAD
+    this.sw = null;
+=======
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
     this.scrollVerison = 0;
     var mySliTimeFunc ,scollerTime;
     window.pJSDom = [];
@@ -667,10 +675,36 @@ const i_app = (()=>{
     // Return an object containing the root name and directory with the specified file extension
     return { name: i_root, dir: `${i_root}${ex}` };
   };
+<<<<<<< HEAD
+
+=======
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
     function convertStrToOb (str) {
       str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
     
         str = funcHandel(str);
+<<<<<<< HEAD
+     
+        str = str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
+   
+        str = str.toString().trim(); // convert to string and remove leading / trailing whitespace
+   
+        str = str.replace(/(\"\w+\"\s*:\s*[^,\{\[\]]+)\s*(\}|,|\])/g, '$1,$2');
+
+        str = str.replace(/\s+/g, ' '); // replace multiple spaces with single space
+       
+        str = str.replace(/\t/g, ' '); // replace tabs with spaces
+
+        str = str.replace(/\\"/g, '"'); // remove escaped quotes
+    
+        str = str.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2": '); // add quotes around property names
+            //update string : 
+          
+        str = str.replace(/'/g, '"'); // replace single quotes with double quotes
+     
+        str = str.replace(/,\s*}/g, '}'); // remove trailing commas
+       
+=======
         str = str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
    
         str = str.toString().trim(); // convert to string and remove leading/trailing whitespace
@@ -690,6 +724,7 @@ const i_app = (()=>{
      
         str = str.replace(/,\s*}/g, '}'); // remove trailing commas
   
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
         // Add missing commas
         str = str.replace(/" "/g, '" , "'); // missing comma
         str = str.replace(/] "/g, '] , "'); // missing comma
@@ -702,10 +737,22 @@ const i_app = (()=>{
         str = str.replace(/}"/g, '} , "'); // missing comma
         str = str.replace(/}{/g, '} , {'); // missing comma
         str = str.replace(/"{/g, '" , {'); // missing comma
+<<<<<<< HEAD
+
+      
+        // handel function obj
+       
+        str = str.replace(/([a-z0-9A-Z_]+) "/g, '$1 , "'); // delete last comma comma
+        str = str.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '$2 :'); // add quotes around property names
+       
+        // str = cleanStr(str);
+      
+=======
         // handel function obj
        
         str = str.replace(/([a-z0-9A-Z_]+) "/g, '$1 , "'); // delete last comma comma
        // str = cleanStr(str);
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
         return str;
       };
   
@@ -721,6 +768,15 @@ const i_app = (()=>{
     return str;
   };
   
+<<<<<<< HEAD
+  const OBJ_ = (st)=>{
+    
+    const fn = new Function("{return "+st+"}")
+   
+    return fn();
+  }
+=======
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   // This function fetches data from a URL, cleans the text response, and passes the resulting JSON to a callback
   const G_root = async(url, callback, data) => {
     // Fetch data from the specified URL
@@ -743,10 +799,17 @@ const i_app = (()=>{
               var jsonOb ;
               if(isJson(txt)){
                   // Clean the text response using the cleanSt function   
+<<<<<<< HEAD
+                  jsonOb = OBJ_(txt);
+              } else{
+                  var jsonTx = cleanSt(txt);
+                      jsonOb = OBJ_(jsonTx);
+=======
                   jsonOb = JD_(txt);
               } else{
                   var jsonTx = cleanSt(txt);
                       jsonOb = JD_(jsonTx);
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
               }
 
               // Log the cleaned JSON to the console for debugging
@@ -789,12 +852,41 @@ const i_app = (()=>{
       });
   };
   
+<<<<<<< HEAD
+  const _POST = (url,data,callback)=>{
+    fetch(url, {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                  "Content-type": "application/json; charset=UTF-8"
+                }
+              }) .then((res) => {
+                res.json().then((json) => {
+                  console.log(["api",json])
+                return  callback(json, data);
+                  
+                });
+              });
+  }
+
+  const SWV =(data)=>{
+    if(typeof SWITCH_VOICE === 'function'){
+      return SWITCH_VOICE(data)
+    }
+  }
+  
+  const URS =()=>{
+    return{
+      E_I_S:E_I_S,
+      E_I:E_I,
+=======
   const _POST = ()=>{
     
   }
   const URS =()=>{
     return{
       E_I_S:E_I_S,
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
       E_I_V:E_I_V,
       G_SRC:G_SRC,
       MW_SW_L:createAppTxt,
@@ -807,6 +899,10 @@ const i_app = (()=>{
       D_CL:D_CL,
       SW_CL:SW_CL,
       cmar:cmar,
+<<<<<<< HEAD
+      SWITCH_VOICE:SWV,
+=======
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
       LIN:LIN,
       theme:i_app_theme,
       HT_:HT_,
@@ -862,8 +958,15 @@ const i_app = (()=>{
         ReturnScriptFunctions[f] = (a,b)=>{return window[f](a,b)}; 
        
         var rFd = ()=>{
+<<<<<<< HEAD
+        
+            if(typeof ReturnScriptFunctions[f] ===  'function'){
+             CL_(["script loaded :", ReturnScriptFunctions])
+              return  ReturnScriptFunctions[f](v,[srcFn]); 
+=======
             if(typeof ReturnScriptFunctions[f] ===  'function'){
                 return  ReturnScriptFunctions[f](v,[srcFn]); 
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
             }else{
                 setTimeout(rFd,300);
             }
@@ -954,9 +1057,18 @@ const i_app = (()=>{
   const onValueChange_ =(k,v)=> {
   if(onValueChange[k]){
     for(var i = 0 ; i < onValueChange[k].length ; i++){
+<<<<<<< HEAD
+      const elm    = E_I_S(onValueChange[k][i][0]);
+      const OB     =  I_O(onValueChange[k][i][0]) ;
+      const data   = OB.Q ? OB.Q : false; 
+   
+      if(elm){
+      elm.innerText = eTxt(onValueChange[k][i][1],onValueChange[k][i][0],data);
+=======
       const elm = E_I_S(onValueChange[k][i][0]);
       if(elm){
       elm.innerText = eTxt(onValueChange[k][i][1],onValueChange[k][i][0],false);
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
     }
     }
   }
@@ -983,9 +1095,19 @@ const i_app = (()=>{
   const onTxtChange_ =(k,v)=> {
   if(onTxtChange[k]){
     for(var i = 0 ; i < onTxtChange[k].length ; i++){
+<<<<<<< HEAD
+     
+      const elm    = E_I_S(onTxtChange[k][i][0]);
+      const OB     =  I_O(onTxtChange[k][i][0]) ;
+      const data   = OB.Q ? OB.Q : false; 
+      
+      if(elm){
+        elm.innerText = eTxt(onTxtChange[k][i][1],onTxtChange[k][i][0],data);
+=======
       const elm = E_I_S(onTxtChange[k][i][0]);
       if(elm){
         elm.innerText = eTxt(onTxtChange[k][i][1],onTxtChange[k][i][0],false);
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
       }
     }
   }
@@ -1069,6 +1191,35 @@ const i_app = (()=>{
     const txtTranslate = /t\.\{\s*(?<translate>[^\}]+)\s*\}/g;
     const txtvalues = /v\.\{\s*(?<values>[^\}]+)\s*\}/g;
     const txtInput = /val\.\{\s*(?<input>[^\}]+)\s*\}/g;
+<<<<<<< HEAD
+    const txtApp = /app\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
+    let output = text;
+  
+        output = text.replace(txtQ, (_, query) =>
+        {
+        
+          if(data[query.trim()]){
+            return `${data[query.trim()]}`;
+          }else{
+            return query.trim();
+          }
+
+        }
+    );
+  
+    output = output.replace(txtApp, (_, appTxt) =>
+    {
+    
+     if(app[appTxt.trim()]){
+       return `t.{${app[appTxt.trim()]}}`;
+     }else{
+       return appTxt.trim();
+     }
+      
+     
+   }
+   );
+=======
     let output = text;
   
         output = text.replace(txtQ, (_, query) =>
@@ -1084,6 +1235,7 @@ const i_app = (()=>{
     }
     );
     
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
     output = output.replace(txtQTranslate, (_, queryTranslate) =>
     {
     
@@ -2189,7 +2341,13 @@ const i_app = (()=>{
   
   if(ob.a){
   let ev = ob.a.e ? ob.a.e : 'click' ;  
+<<<<<<< HEAD
+  console.log(ob.a.fn)
   const fnSt = EC_(ob.a.fn);
+  console.log(fnSt)
+=======
+  const fnSt = EC_(ob.a.fn);
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   const fn =new Function (fnSt);
   const newFunc = ()=>{
             this.v = i_app_v ;
@@ -2233,6 +2391,11 @@ const i_app = (()=>{
             return `${app.dir.img}${chick[1]}.png`;
           }else   if(chick[0] == "G"){
             return `${app.dir.img}${chick[1]}.gif`;
+<<<<<<< HEAD
+          }else{
+            return `${app.dir.img}${src}`;
+=======
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
           }
       }else{
         return `${app.dir.img}${src}`;
@@ -2288,6 +2451,35 @@ const i_app = (()=>{
     return newData;
   }
   /**
+<<<<<<< HEAD
+   * 
+   * @param {*} body element have a query data and model to render
+   * for each query row
+   */
+  const bodyData = (body)=>{
+    console.log(["body",body]);
+    const callBack = (res)=>{
+     
+      res= res.res
+      for(var i =0 ; i < res.length; i++){
+       
+        for(var j = 0 ; j < body.model.length; j++){
+        
+          if(body.model[j].to){
+            CR_(body.model[j],body.model[j].to,res[i]);
+          }else{
+            CR_(body.model[j],body.i,res[i]);
+          }
+          
+        }
+      }
+      
+    }
+    _POST('/api',{query:body.data},callBack)
+  }
+  /**
+=======
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
    * create elment
    * from i-app object
    * 
@@ -2297,7 +2489,11 @@ const i_app = (()=>{
    * 
    */
   const CR_ =async (body,id,data)=>{
+<<<<<<< HEAD
+    
+=======
 
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
     if(!i_app_lang[selectLang]){
       const reload = ()=>{
         CR_(body,id,data);
@@ -2324,10 +2520,19 @@ const i_app = (()=>{
   body_ = body.default.body;
   }else if(body.body){
   body_ = body.body;
+<<<<<<< HEAD
+  }
+  const ob = MW_COPY_OB(body_);
+
+  if(data){
+   ob.Q = data;   
+  }
+=======
   }else if(body.data){
   body_ = body.data.body;
   }
   const ob = MW_COPY_OB(body_);
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   let ob_type = null ,ob_css = null,ob_css_list = [];
   /// set ob_type
   
@@ -2393,8 +2598,13 @@ const i_app = (()=>{
   // autoBool
   // it one of slider options for to make circle toggel buttons to control silder 
   if (ob.sliBol && !ob.sliBolDone) {
+<<<<<<< HEAD
+      ob.elm = SL_P(ob);
+      ob.sliBolDone = true;
+=======
   ob.elm = SL_P(ob);
   ob.sliBolDone = true;
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   }
   //// isHideElement hide elemnent cases 
   //// when want use element with out render it
@@ -2463,7 +2673,19 @@ const i_app = (()=>{
         CR_(i_app_model[IROUTE],ob.i,data)
     }
   }
+<<<<<<< HEAD
+  /**
+   * data 
+   * model 
+   * query DB
+   * 
+   *  */
+   if(ob.data){
+    bodyData(ob)
+  }
+=======
   
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   // up = make is the element appended to parent
   let up = false;
   /**
@@ -2498,9 +2720,25 @@ const i_app = (()=>{
     }
   }
   if(ob.hr){
+<<<<<<< HEAD
+    if(ob.hr.http ){
+    
+      e.href = `http://${ob.hr.http}`;
+    }else if(ob.hr.https){
+      e.href = `http://${ob.hr.https}`;
+    }else if(ob.hr.tel){
+      e.href = `tel:${ob.hr.tel}`;
+    }else if(ob.hr.mailto){
+      e.href = `mailto:${ob.hr.mailto}`;
+    }else{
+      e.href = ob.hr;
+    }
+    
+=======
       ob.hr = ob.hr.replace(/mailto/,'mailto:') ;
       ob.hr = ob.hr.replace(/tel/,'tel:') ;
       e.href = ob.hr;
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   }
   /// handel element event function
   if(ob.a){
@@ -2599,10 +2837,17 @@ const i_app = (()=>{
   //  create elm own index data row 
   if(ob.while){
   for(let i = 0 ; i < ob.while.length;i++){
+<<<<<<< HEAD
+    const dataOb = MW_COPY_OB(ob.while[i]);
+    const model = MW_COPY_OB(ob.whileElm);
+    model.offset = i;
+    CR_(model,ob.i,dataOb);
+=======
     const data = MW_COPY_OB(ob.while[i]);
     const model = MW_COPY_OB(ob.whileElm);
     model.offset = i;
     CR_(model,ob.i,data);
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   }
   }
  
@@ -2640,6 +2885,9 @@ const i_app = (()=>{
      //i-app engine
   
   
+<<<<<<< HEAD
+
+=======
   // This function checks if a global object with the current root name exists and logs it to the console
   
   const createAppHead =async ()=>{
@@ -2655,6 +2903,7 @@ const i_app = (()=>{
     head.innerHTML += META_TAG;
     return true;
   }
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   ///////////////// TEXT BUILD SECTION
   const getBrowserLang = ()=>{
     let browserLangData = navigator.languages;
@@ -2792,28 +3041,69 @@ const i_app = (()=>{
           } else {
             if(c.length === 2) {
               const cc = (cs === "B_B_") ? "B_" : cs.replace(/B_/g, "");
+<<<<<<< HEAD
+              if(selected_theme_colors[cc] ){
+               
               return `.${cs} {background-color: var(--${cc});}  `;
+              }else{
+                return  false;
+              }
+=======
+              return `.${cs} {background-color: var(--${cc});}  `;
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
             }else  if(c.length === 3 && cs === "B_PR_D") {
               return `.${cs} {background-color: var(--PR_D);}  `;
             }
           }
+<<<<<<< HEAD
+              break;
+=======
           break;
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   case "LH":
               if(c.length === 2) return `.${cs} { line-height:  ${c[1]};} `;
               break;
   case "F":
               if(c[1] == "S") {
+<<<<<<< HEAD
+                
+                if(c.length === 3) return `.${cs} { font-size:${c[2]}px;}  `;
+              
+              } else {
+                const cc = cs.replace(/F_/g, "");
+                
+                if(selected_theme_colors[cc] ){
+                
+                  return `.${cs} {color: var(--${cc});}  `;
+                
+                }else{
+                
+                  return false;
+                
+                }
+=======
                 if(c.length === 3) return `.${cs} { font-size:${c[2]}px;}  `;
               } else {
                 const cc = cs.replace(/F_/g, "");
                 return `.${cs} {color: var(--${cc});}  `;
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
               }
               break;
   case "PD":
               if(c[1] == "P") {
+<<<<<<< HEAD
+              
+                if(c.length === 3) return `.${cs} { padding:${c[2]}%;}  `;
+                  
+              } else if(c.length === 2) {
+              
+                return `.${cs} { padding:${c[1]}px;}  `;
+              
+=======
                 if(c.length === 3) return `.${cs} { padding:${c[2]}%;}  `;
               } else if(c.length === 2) {
                 return `.${cs} { padding:${c[1]}px;}  `;
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
               }
               break;
   case "":
@@ -3384,8 +3674,16 @@ const i_app = (()=>{
   var selectThemeColors = i_app_theme == "light" ? 
   i_app_style.lc :
   i_app_style.dc;
+<<<<<<< HEAD
+ 
+ 
+  i_app_theme_colors = [...selectThemeColors,...i_app_colors];
+  selected_theme_colors = selectStyleToOb(i_app_theme_colors);
+
+=======
   selected_theme_colors = selectStyleToOb(selectThemeColors);
   i_app_theme_colors = [...selectThemeColors,...i_app_colors];
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   let w = "";
   let b = "";
   
@@ -3403,7 +3701,11 @@ const i_app = (()=>{
    * create and update Head Tag
    */
    if(!theme){
+<<<<<<< HEAD
+ 
+=======
   createAppHead();
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   await  CREATE_COLOR_ROOT_VAR(i_app_theme_colors,"TC_ASS");
   await  CREATE_COLOR_ROOT_VAR(i_app_theme_colors,"T_ASS");
   E_I("PASSSTYLE").innerHTML = newCss; 
@@ -3467,7 +3769,18 @@ const i_app = (()=>{
     setDateTime();
     // If the current root name is 'start', load the 'start.app' file
     app = i_a;
+<<<<<<< HEAD
+    /**
+     * load PWA services worker 
+     * if app mode ist not developing mode
+     * i.app { mode : ""}
+     */
+     if(app.mode !== "dev"){
+      startSw();
+    }
+=======
   
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
     await createApp();
     if (i_root == "start") {
       G_root(`${app.dir.dir}${app.dir.start}`, createAppContent);
@@ -3477,7 +3790,28 @@ const i_app = (()=>{
       G_root(`${app.dir.dir}${i_root_().dir}`, createAppContent);
     }
   };
+<<<<<<< HEAD
+  const startSw = ()=>{
+    if(!E_I("divTools")){
+     
+        if ('serviceWorker' in navigator) {
+            this.sw =  navigator.serviceWorker.register('/sw.js');
+
+          window.addEventListener('appinstalled', () => {
+
+            // Hide the app-provided install promotion
+            hideInstallPromotion();
+            // Clear the deferredPrompt so it can be garbage collected
+            deferredPrompt = null;
+            // Optionally, send analytics event to indicate successful install
+         
+          });
+        }
+      }
+  }
+=======
   
+>>>>>>> 117db8da418fa51858a0edef02ddc01e37faa508
   // This function loads the app data and starts the i-app
   const i_app_start = () => {
     /** 
