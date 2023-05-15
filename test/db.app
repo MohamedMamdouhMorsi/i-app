@@ -1,10 +1,10 @@
 {
     mysql:[
             {
-                host: '160.153.133.172'
-                user: 'nodeDU'
-                password: 'Meem@25#30'
-                database: 'nodeData'
+                host: 'server'
+                user: 'userName'
+                password: 'db@password'
+                database: 'databaseName'
                 tables:{
                     users:['id' 'name']
                 }
