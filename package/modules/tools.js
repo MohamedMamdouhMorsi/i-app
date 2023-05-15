@@ -83,7 +83,7 @@ const stToAr = (st) => {
    
     if(reqStAr.length > 1){
      
-return reqStAr[reqStAr.length - 1]
+  return reqStAr[reqStAr.length - 1]
     }
   }
 
