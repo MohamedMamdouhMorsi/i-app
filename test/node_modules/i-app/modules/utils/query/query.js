@@ -9,7 +9,9 @@ const query = (body,res_)=>{
         res.end(JSON.stringify({ res: data }));
     }
 
-    mysqlConnect(body,res_,callBack);
+    return   mysqlConnect(body,res_,callBack);
+
+  
 
 }
 

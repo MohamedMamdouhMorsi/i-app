@@ -1,11 +1,11 @@
 
-const iAppReader = require('./utils/iAppReader');
-const getDirectoryTree = require('./utils/getDirectoryTree');
-const getContentType = require('./utils/getContentType');
-const searchFiles = require('./utils/searchInFiles');
-const manifestMaker = require('./utils/manifestMaker');
-const getDirectoryArray = require('./utils/getDirectoryArray');
-const createAppHead = require('./utils/createAppHead');
+const iAppReader = require('./utils/toolsFN/iAppReader');
+const getDirectoryTree = require('./utils/toolsFN/getDirectoryTree');
+const getContentType = require('./utils/toolsFN/getContentType');
+const searchFiles = require('./utils/toolsFN/searchInFiles');
+const manifestMaker = require('./utils/toolsFN/manifestMaker');
+const getDirectoryArray = require('./utils/toolsFN/getDirectoryArray');
+const createAppHead = require('./utils/toolsFN/createAppHead');
 const api = require('./utils/api');
 module.exports  = {
     iAppReader,

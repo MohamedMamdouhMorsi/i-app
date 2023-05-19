@@ -1,0 +1,5 @@
+{
+    "users":["id","username","firstname","lastname","activate"],
+    "usersSessions":["id","username","firstname","lastname","activate"],
+    "usersPasswords":["id","username","firstname","lastname","activate"]
+}

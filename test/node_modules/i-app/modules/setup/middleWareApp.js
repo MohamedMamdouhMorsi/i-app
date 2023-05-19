@@ -1,30 +1,17 @@
 const path = require('path');
 const fs = require('fs');
-const {searchFiles,getContentType,api} = require('../main');
+const sessionsControl = require('./sessionsControl');
+const {searchFiles,getContentType,api,createAppHead} = require('../main');
 const {JDS_,CL_,JD_,getfileName} = require('../tools');
 let red = 0;
-const  createNewSession= ()=>{
-    red++;
-    return 'ghfffff'+red;
-    }
-    const sessions = {}
-const middleWareApp =(req,res,[htmlBody,manifest,tree,userDir,i_app_st,swScript])=>{
-    const newSessionId = createNewSession();
-    let sessionId = req.headers.cookie && req.headers.cookie.split('=')[1];
 
-    
-    if(sessionId && sessions[sessionId]){
-     // CL_(['sessionGet',req.headers.cookie])
-      }else{
-        sessionId = newSessionId;
-        res.setHeader('Set-Cookie', `sessionId=${newSessionId}; HttpOnly; SameSite=Strict`);
-        sessions[sessionId] = {};
-       // CL_('sessionSet')
-      }
+   
+const middleWareApp =(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript])=>{
+    const userData = sessionsControl(req,res,i_app);
     const fileName = getfileName(req);
     const app_file_test = fileName+".app";
     const is_app_file = searchFiles(tree,app_file_test);
-
+    const htmlBody = createAppHead(i_app,colorPR_D,userData);
     let backBodyError = `<h1>404 Not Found</h1><p>The requested URL ${req.url} was not found on this server.</p>`;
     let backBody = backBodyError;
     let contentType = 'text/html';

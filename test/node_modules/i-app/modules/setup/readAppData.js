@@ -1,21 +1,22 @@
 const path = require('path');
 const fs = require('fs');
 const {JDS_,CL_,JD_} = require('../tools');
-const {searchFiles,manifestMaker,createAppHead,iAppReader} = require('../main');
-const appDir= require('./appDir');
+const {searchFiles,manifestMaker,iAppReader} = require('../main');
+const appDirFn= require('./appDir');
+const dataBaseUpddate = require('./dataBaseSetup/datBaseUpdate');
 const readAppData = (makeAppServer)=>{
   // basic dir appDir
-const {tree,userDir,userPublicDir,i_app_path,assetArray} =appDir();
+const {tree,appDir,userPublicDir,i_app_path,assetArray} =appDirFn();
 
   let messages =  {
-    iappError: "Please add i.app file in your project main directory",
+    iappError: "Please add i.app file to your project main directory",
     themeError: "Please fix style.json and make sure it's in the same directory as .css in i.app"
   };
   let i_app    = {};
   let manifest = "";
   let port     = 6000;
   let i_app_st = "";
-  let htmlBody = "";
+
   // 
   let swScript = "";
   if(assetArray.length > 0){
@@ -31,12 +32,12 @@ const {tree,userDir,userPublicDir,i_app_path,assetArray} =appDir();
       );
   }
   if(!fs.existsSync(i_app_path)){
-    CL_(messages.iappError+" "+userDir)
+    CL_(messages.iappError+" "+appDir)
     return false;
   }else{
     fs.readFile(i_app_path, (err, data) => {
       if (err) {
-        CL_(messages.iappError+" "+userDir)
+        CL_(messages.iappError+" "+appDir)
       }else{
       i_app_st = data.toString();
       let cleanDataSt = iAppReader(i_app_st)
@@ -67,14 +68,16 @@ const {tree,userDir,userPublicDir,i_app_path,assetArray} =appDir();
                             return e.v;
                         }
                     })[0];
-                    htmlBody = createAppHead(i_app,PR_D.v);
+                    
                     manifest = manifestMaker(i_app,{PR_D : PR_D , PR : PR})
-                    makeAppServer(port,[htmlBody,manifest,tree,userDir,i_app_st,swScript]);
+                    makeAppServer(port,[i_app, PR_D.v,manifest,tree,appDir,i_app_st,swScript]);
+                    dataBaseUpddate(i_app);
                   }
               });
             }else{
               manifest = manifestMaker(i_app,false)
-              makeAppServer(port,[htmlBody,manifest,tree,userDir,i_app_st,swScript])
+              makeAppServer(port,[i_app, PR_D.v,manifest,tree,appDir,i_app_st,swScript]);
+              dataBaseUpddate(i_app);
             }
             
     
@@ -90,7 +93,7 @@ const {tree,userDir,userPublicDir,i_app_path,assetArray} =appDir();
   
     return{
         tree:tree,
-        userDir:userDir,
+        appDir:appDir,
         userPublicDir:userPublicDir,
         i_app_path:i_app_path
     }

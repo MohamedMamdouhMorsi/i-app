@@ -1,5 +1,5 @@
-const getDirectoryTree = require('../utils/getDirectoryTree');
-const getDirectoryArray = require('../utils/getDirectoryArray');
+const getDirectoryTree = require('../utils/toolsFN/getDirectoryTree');
+const getDirectoryArray = require('../utils/toolsFN/getDirectoryArray');
 const {JDS_,CL_} = require('../tools');
 const path = require('path');
 

@@ -2,6 +2,7 @@ const getQuery =   require('./queryData/getQuery');
 const insertQuery =   require('./queryData/insertQuery');
 const updateQuery =   require('./queryData/updateQuery');
 const deleteQuery =   require('./queryData/deleteQuery');
+const checkQuery =   require('./queryData/checkQuery');
 const makeQuery =(body,tables)=>{
     const queryOB  = body.query;
     let queryText = "";
@@ -22,6 +23,14 @@ const makeQuery =(body,tables)=>{
         }else  if(queryAction === "del"){
           
             queryText += deleteQuery(cureOB,tables);
+        
+        }else  if(queryAction === "check"){
+          
+            queryText += checkQuery(cureOB,tables);
+        
+        }else  if(queryAction === "create"){
+          
+            queryText += cureOB.d;
         
         }
     }
