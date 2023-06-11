@@ -1220,7 +1220,7 @@ input[type="search"]::-webkit-search-decoration {
 .F_WHITE{
     color: #ffffff;
 }
-.inBB {
+.input {
     border: none;
     border-bottom: 4px solid var(--PR);
     padding: 5px 10px;
@@ -2675,7 +2675,6 @@ body::-webkit-scrollbar-track {
 .BBGLASS{
     background-color:rgba(0, 0, 0, 0.432);
     backdrop-filter: blur(2px);
-
 }
 .WWGLASS{
     background-color:rgba(255, 255, 255, 0.3);
@@ -4409,7 +4408,6 @@ audio::-webkit-media-controls-play-button{}
 audio::-webkit-media-controls-timeline-container{display: none;}
 
 audio::-webkit-media-controls-current-time-display{display: none;}
-
 audio::-webkit-media-controls-time-remaining-display{display: none;}
 audio::-webkit-media-controls-volume-control-container {}
 audio::-webkit-media-controls-volume-control-container.closed {}

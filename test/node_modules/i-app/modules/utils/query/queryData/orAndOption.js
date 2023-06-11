@@ -16,9 +16,22 @@ const orAndOption =(op,table)=>{
         for(var andOp = 0; andOp < OrOB.length; andOp++){
             const AndOB = OrOB[andOp];
            
-            const columnIndex = AndOB[0] - 1;
-            const columnName = table[columnIndex];
-            
+            let columnIndex = AndOB[0] ;
+            let columnName = table[columnIndex];
+            if(typeof columnIndex === 'string' ){
+                let coulmnExist = false;
+                for(var i = 0 ; i < table.length; i++){
+                    if(table[i] == columnIndex){
+                        coulmnExist = true;
+                    }
+                }
+                if(coulmnExist){
+                    columnName = columnIndex
+                }
+            }else if(typeof columnIndex === 'number' ){
+                 columnIndex = columnIndex - 1;
+                 columnName = table[columnIndex];
+            }
             const realtionText = AndOB[2]
             const realtion = realationSympole[realtionText] ? realationSympole[realtionText] : 'false';
             const Value = AndOB[1];

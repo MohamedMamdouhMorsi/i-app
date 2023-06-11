@@ -1,5 +1,6 @@
 {
-    "users":["id","username","firstname","lastname","activate"],
-    "usersSessions":["id","username","firstname","lastname","activate"],
-    "usersPasswords":["id","username","firstname","lastname","activate"]
+    "users":["id","username","firstname","lastname","email","phonenumber","activate"],
+    "usersSessions":["id","deviceToken","scureToken"],
+    "usersPasswords":["id","password"],
+    "usersPermissions":["id","userId","permission","state","permissionGroup"]
 }

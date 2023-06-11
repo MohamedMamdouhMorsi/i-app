@@ -19,8 +19,7 @@ const middleWareApp =(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,sw
 
     if(req.url === '/api'){
         return api(req,res);
-    }else
-    if(is_app_file.type || req.url === '/'){
+    }else  if(is_app_file.type || req.url === '/'){
         backBody = htmlBody;
     }else if (req.url === '/manifest.json') {
         contentType =  'application/json';
@@ -28,15 +27,20 @@ const middleWareApp =(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,sw
     }else if (req.url === '/sw.js') {
         contentType =  'text/javascript';
         backBody = swScript;
-    }else if (req.url === '/i.app') {
+    }else  if (req.url.match(/\/img\/flags\//)) {
+      const img = req.url.replace(/\/img\/flags\//,'');
+      filePath = path.join(__dirname, '..','..','img','flags',img);
+  }else if (req.url === '/i.app') {
         contentType =  'application/json';
         backBody =i_app_st;
     }else if (req.url === '/i-app-ui.js' ) {
         filePath = path.join(__dirname, '..','..','i-app-ui.js');
+    }else  if (req.url === '/sl.app' ) {
+      filePath = path.join(__dirname, '..','..','elements','sl.app');
     }else if (req.url === '/icofont.css') {
         filePath = path.join(__dirname,'..','..','css', 'icofont.css');
-    }else if (req.url === '/i-app.css' ) {
-        filePath = path.join(__dirname,'..','..','css', 'i-app.css');
+    }else if (req.url === '/i-app-basic.css' ) {
+        filePath = path.join(__dirname,'..','..','css', 'i-app-basic.css');
     }else{
         const search = req.url.split('?');
         if(search.length > 1){
@@ -46,18 +50,17 @@ const middleWareApp =(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,sw
               if(fileNameSearch == "" || searchFiles(tree,fileNameSearch+".app") && searchFiles(tree,fileNameSearch+".app").name || searchFiles(tree,fileNameSearch+".json") && searchFiles(tree,fileNameSearch+".json").name){
                 backBody = htmlBody;
               }else{
-                filePath = path.join(userDir,'public', search[0]);
+                filePath = path.join(userDir,'public', search[0].toString());
               }
-  
-        }else{
-          if(searchFiles(tree,fileName+".app") && searchFiles(tree,fileName+".app").name ||
+    }else{
+    
+        if(searchFiles(tree,fileName+".app") && searchFiles(tree,fileName+".app").name ||
            searchFiles(tree,fileName+".json") && searchFiles(tree,fileName+".json").name){
             backBody = htmlBody;
           }else{
             filePath = path.join(userDir,'public', req.url);
           }
-  
-        }
+    }
        
     }
     if(filePath !== null){

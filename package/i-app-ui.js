@@ -38,6 +38,103 @@ i-app start by one function i-app() default with loading
 
 // This function immediately invokes itself and starts the i-app
 
+/**
+ * global functions
+ */
+  /**
+  * Returns the element with the specified ID attribute.
+  * @param {string} id - The ID of the element to retrieve.
+  * @returns {(Element|false)} - The element with the specified ID or false if the element was not found.
+  */
+   const E_I = (id) => {
+    const element = document.getElementById(id);
+    return element !== null ? element : false;
+  };
+    /**
+  * Logs a message to the console.
+  * @param {*} message - The message to log.
+  */
+     const CL_ = (message) => {
+      console.log(message);
+      };
+       /**
+  * Creates a new element with the specified tag name.
+  * @param {string} tag - The name of the tag to create.
+  * @returns {Element} - The newly created element.
+  */
+  const CE_ = (tag) => {
+    return document.createElement(tag);
+    };
+      /**
+  * Returns an array of all elements with the specified tag name.
+  * @param {string} tag - The name of the tag to search for.
+  * @returns {Element[]} - An array of elements with the specified tag name.
+  */
+  const E_T = (tag) => {
+    return document.getElementsByTagName(tag).length > 0 ? document.getElementsByTagName(tag) : [];
+    };
+    
+  /**
+   * i-app functions
+   */
+this.isFired = false;
+const configFire = (con, lan,ty,theme,sendNumber) => {
+
+
+    const loadFire = ()=>{
+        if(!this.isFired){
+            firebase.initializeApp(con);
+            firebase.auth().languageCode = lan;
+            CL_(["configFire Done"])
+            this.isFired = true;
+        }
+
+        if(ty == "reC"){
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+            'theme':theme,
+            'callback': (response) => {
+                // reCAPTCHA solved, allow signInWithPhoneNumber.
+                sendNumber();
+              }
+            });
+            recaptchaVerifier.render();
+            
+        }
+    }
+    if(!E_I("fireSrc")){
+        CL_(["No script script"]);
+        const src = CE_("script");
+        src.src = "https://www.gstatic.com/firebasejs/6.0.2/firebase.js";
+        src.id = "fireSrc";
+        E_T("head")[0].appendChild(src);
+        src.onload =()=>{
+          CL_(["this is script"]);
+         
+          setTimeout(loadFire,3000);
+        }
+      
+    }else{
+        loadFire();
+    }
+}
+
+const GOS = (function(d, s, id) {
+    var hh = d.getElementsByTagName('head')[0];
+   
+    hh.innerHTML += '<meta name="google-signin-scope" content="profile email">';
+    hh.innerHTML += '<meta name="google-signin-client_id" content="94508468930-rnl3toalkm9akk5kri0qff4i6f39fcv9.apps.googleusercontent.com">';
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+        return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = 'https://apis.google.com/js/platform.js';
+    fjs.parentNode.insertBefore(js, fjs)
+}(document,  'script','google-jssdk'));
+
+
+var fcmCon = {};
 const i_app = (()=>{
 
     'use strict';
@@ -185,15 +282,7 @@ const i_app = (()=>{
   
   
   
-  /**
-  * Returns the element with the specified ID attribute.
-  * @param {string} id - The ID of the element to retrieve.
-  * @returns {(Element|false)} - The element with the specified ID or false if the element was not found.
-  */
-    const E_I = (id) => {
-      const element = document.getElementById(id);
-      return element !== null ? element : false;
-    };
+
       /**
   * Returns the element with the specified I Scure .
   * @param {string} id - The ID of the element to retrieve.
@@ -203,31 +292,9 @@ const i_app = (()=>{
         return I_O(id)? I_O(id).i_e : false;
     
       };
-  /**
-  * Returns an array of all elements with the specified tag name.
-  * @param {string} tag - The name of the tag to search for.
-  * @returns {Element[]} - An array of elements with the specified tag name.
-  */
-  const E_T = (tag) => {
-  return document.getElementsByTagName(tag).length > 0 ? document.getElementsByTagName(tag) : [];
-  };
-  
-  /**
-  * Creates a new element with the specified tag name.
-  * @param {string} tag - The name of the tag to create.
-  * @returns {Element} - The newly created element.
-  */
-  const CE_ = (tag) => {
-  return document.createElement(tag);
-  };
-  
-  /**
-  * Logs a message to the console.
-  * @param {*} message - The message to log.
-  */
-  const CL_ = (message) => {
-  console.log(message);
-  };
+
+ 
+
   
   /**
   * Returns the origin of the current window.
@@ -311,14 +378,14 @@ const i_app = (()=>{
   * @returns {void}
   */
   const Hide = (id) => {
-  E_I(id).style.display = _T[20];
+  E_I(id).style.display = "D_N";
   };
   /**
   
   Displays an element by setting its display property to "block".
   @param {string} mw - The element to display.
   */
-  const Show = (mw) => { return E_I(mw).style.display = _T[21]; }
+  const Show = (mw) => { return E_I(mw).style.display = 'block'; }
   /**
   
   Sets an item in local storage.
@@ -380,6 +447,8 @@ const i_app = (()=>{
   Inserts an element before another element in the DOM.
   @param {Element} p - The element to insert before.
   @param {Element} c - The element to be inserted.
+
+  
   */
   const IN_B = (p,c)=>{p.parentNode.insertBefore(c,p);}
   /**
@@ -388,7 +457,7 @@ const i_app = (()=>{
   @param {object} mw - The object to be copied.
   @returns {object} A deep copy of the object.
   */
-  const MW_COPY_OB = (mw) => {mw == undefined ? CL_(mw):'cc'; return JSON.parse(JSON.stringify(mw)) }  
+  const COPY_OB = (mw) => {mw == undefined ? CL_(mw):'cc'; return JSON.parse(JSON.stringify(mw)) }  
   /**
   * Returns the current timestamp in milliseconds
   * @returns {number} The current timestamp in milliseconds
@@ -485,6 +554,30 @@ const i_app = (()=>{
   }
     return n;
   }
+  const IN_V = (element,value)=>{
+    var id = null;
+    if(typeof element === 'string'){
+        id = element;
+    }
+    if(id !== null){
+      if(E_I(id)){
+        E_I(id).value = value;
+      }else if(E_I_S(id)){
+        E_I_S(id).value = value;
+      }
+    }else{
+      element.value = value;
+    }
+  }
+
+  const elmChange = (e)=>{
+ 
+    if(E_I(e) && E_I(e).onchange){
+      E_I(e).onchange();
+    }else  if(E_I_S(e) && E_I_S(e).onchange){
+      E_I_S(e).onchange();
+    }
+  }
   const I_IN_V = (m) => {
     var dd = {};
     for (var qq = 0; qq < m.length; qq++) {
@@ -498,6 +591,7 @@ const i_app = (()=>{
     }
     return [dd];
   }
+  
   const D_CL = ([m, w]) => {
       
     var e = isString(m) ? E_I_S(m) : m;
@@ -547,7 +641,7 @@ const i_app = (()=>{
     }
   
   }
-  const SW_CL = ([m, w]) => {
+  const SW_CL = (m, w) => {
   
     if (E_I_S(m)) {
         if (E_I_S(m).className) {
@@ -595,6 +689,57 @@ const i_app = (()=>{
     }
     return `w:${vWidth} - right : ${rect.right} = des: ${des}`;
   }
+
+
+  /**
+   * Firebase 
+   */
+
+const FCMTCS = (e) => {
+    var n = E_I_V(e);
+
+    firebase.auth().signInWithPhoneNumber(n, window.recaptchaVerifier).then(function(confirmationResult) {
+        window.confirmationResult = confirmationResult;
+        E_I('recaptcha-container').innerHTML = '';
+        var ms = GTX("we-send-sms-act");
+        AL_(ms);
+    }).catch(function(error) {
+        AL_(error.message);
+    });
+}
+const FCMTC = (e) => {
+  if(E_I_V(e) !== ''){
+
+    const sendNumber = ()=>{
+      FCMTCS(e);
+    }
+   
+    const callback =(res)=>{
+      res = res.res;
+      if(res == true){
+        AL_('number is allready exist !!');
+      }else{
+        configFire(app.fcm, selectLang,"reC",i_app_theme,sendNumber);
+      }
+    
+    }
+    _POST('/api',{order:'checkUser',phonenumber:E_I_V(e)},callback);
+  }
+}
+
+const FCMTA = ([i, h]) => {
+    var c = E_I_V(i);
+    window.confirmationResult.confirm(c).then(function(r) {
+        var ms = GTX("activation-done");
+        AL_(ms);
+      
+        GT(`/mwn/P?A=${MW_NT._ADB.at}_${MW_NT._ST.MWU_nt}_${MW_NT._ST.MWU_st}`);
+    }).catch(function(error) {
+        alert(error.message);
+        GT("/");
+    });
+
+}
     // functions
   
     /**
@@ -666,10 +811,44 @@ const i_app = (()=>{
     // Return an object containing the root name and directory with the specified file extension
     return { name: i_root, dir: `${i_root}${ex}` };
   };
-
+  function escapeKeysSym(str) {
+    const strArr = str.split('');
+    var start = false;
+    var type = '';
+    var out = '';
+    for(var i = 0; i < strArr.length; i++){
+    const cureValue = strArr[i];
+      if(cureValue == '"' ){
+        if(start == true && type == cureValue){
+          type = '';
+          start=  false;
+        }else{
+          type = '"';
+          start=  true;
+        }
+       
+      }
+      if(cureValue == "'"){
+        if(start == true && type == cureValue){
+          type = '';
+          start=  false;
+        }else{
+          type = "'";
+          start=  true;
+        }
+      }
+      if(start && cureValue ==':' ){
+        out +='aaa@aaa';
+      }else{
+        out +=cureValue;
+      }
+    }
+    return out;
+    }
     function convertStrToOb (str) {
-      str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
     
+      str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
+      str = escapeKeysSym(str);
         str = funcHandel(str);
      
         str = str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
@@ -836,6 +1015,7 @@ const i_app = (()=>{
       DEL_E_E:DEL_E_E,
       In_S:In_S,
       A_CL:A_CL,
+      IN_V:IN_V,
       D_CL:D_CL,
       SW_CL:SW_CL,
       cmar:cmar,
@@ -856,11 +1036,14 @@ const i_app = (()=>{
       openRoot:openRoot,
       PLAY_SLI:PLAY_SLI,
       ANI_CARD:ANI_CARD,
+      filterSearchItems:filterSearchItems,
       particlesJS:poJS,
       I_SCROL:I_SCROL,
+      elmChange:elmChange,
       switchTheme:switchTheme,
       scrollToTop:scrollToTop,
-      CL_:CL_
+      CL_:CL_,
+      FCMTC:FCMTC
     }
   }
   const L_CSS = (f)=>{
@@ -923,7 +1106,7 @@ const i_app = (()=>{
      return true;
   }
   const HT_ = (ob) => {
-    let typ;
+    let typ = '';
     if(ob.typ ){
       typ = ob.typ;
     } else  if(ob.t ){
@@ -934,7 +1117,7 @@ const i_app = (()=>{
       THST(ob.r);
       return "false";
     } 
-  
+
     const tagNames = {
       "tring": "tring",
       "ti": "h2",
@@ -971,12 +1154,16 @@ const i_app = (()=>{
       "thead": "thead",
       "tbody": "tbody"
     };
-  
+ 
     // Use the input value as the key to retrieve the corresponding tag name from the dictionary object
-    const tagName = tagNames[typ];
-  
-    return tagName || "div"; // Return the tag name, or an empty string if no matching tag name was found
-  }
+   if(tagNames[typ]){
+    return  tagNames[typ];
+   }else  if(typ == ''){
+    return  "div";
+   }else {
+    return typ;
+   }
+}
   
   
   /**
@@ -2240,27 +2427,30 @@ const i_app = (()=>{
     }
   }
   const  ESF = (ob)=>{
-  
+
   if(ob.a){
   let ev = ob.a.e ? ob.a.e : 'click' ;  
-  const fnSt = EC_(ob.a.fn);
-  const fn =new Function (fnSt);
-  const newFunc = ()=>{
-            this.v = i_app_v ;
-            this._ = URS();
-            try{ 
-              return fn(this.v,this._);
-          }catch(err){
-            CL_("your function return error"+err);
-          }
-          }
+
+    const fnSt = EC_(ob.a.fn);
+    const fn =new Function (fnSt);
+    const newFunc = ()=>{
+              this.v = i_app_v ;
+              this._ = URS();
+              try{ 
+                return fn(this.v,this._);
+            }catch(err){
+              CL_("your function return error"+err);
+            }
+            }
+    
+    //
+    if( ev === 'auto' ){
+    setTimeout(newFunc,300);
+    }else{
+      ob.i_e.addEventListener(ev,newFunc)
+    }
   
-  //
-  if( ev === 'auto' ){
-  setTimeout(newFunc,300);
-  }else{
-    ob.i_e.addEventListener(ev,newFunc)
-  }
+ 
   
   
   }
@@ -2297,9 +2487,8 @@ const i_app = (()=>{
   */
   const act_FN =(act,e)=>{
     if (act.E == "al") {
-  
         setTimeout(() => { _FN(act.F, "FALSE", e); }, 3000);
-        }else {
+        }else{
             e.addEventListener(act.E, function() {
                 return _FN(act.F,"FALSE", e);
             });
@@ -2341,6 +2530,173 @@ const i_app = (()=>{
 
     return newData;
   }
+  function filterData(e, array) {
+    const matchingIndices = [];
+    const inputField = E_I_V(e);
+    for (let i = 0; i < array.length; i++) {
+      const keys = Object.keys(array[i]);
+      let isMatch = false;
+  
+      for (let j = 0; j < keys.length; j++) {
+        const value = array[i][keys[j]];
+        
+        if (value && value.toString().toLowerCase().includes(inputField.toLowerCase())) {
+          isMatch = true;
+          break;
+        }
+      }
+  
+      if (isMatch) {
+        matchingIndices.push(i);
+      }
+    }
+  
+    return matchingIndices;
+  }
+  
+
+const filterSearchItems = (e,data)=>{
+  const searchElement  =  `${e}_selectSearch`;
+  if(data){
+
+    //filter data 
+    if(E_I_V(searchElement) == ''){
+      for(var i =0 ; i < data.length; i++){
+        const element =  `${i}_item`;
+        D_CL([element,'D_N'])
+      }
+    }else{
+      const matchData = filterData(searchElement,data);
+      if(matchData.length >0){
+        for(var i =0 ; i < data.length; i++){
+          const element =  `${i}_item`;
+          A_CL(element,'D_N')
+        }
+          for(var i =0 ; i < matchData.length; i++){
+            const element =  `${matchData[i]}_item`;
+            D_CL([element,'D_N'])
+          }
+      }else{
+        for(var i =0 ; i < data.length; i++){
+          const element =  `${i}_item`;
+          D_CL([element,'D_N'])
+        }
+      }
+      
+    }
+  
+  }else{
+
+  }
+}
+/**
+ * select element
+ */
+ const selectElement =(ob,data)=>{
+  const holderId = `${ob.i}_holder`;
+    if(!i_app_model['sl'] ){
+          const callback = (body)=>{
+            i_app_model['sl'] = body;
+            selectElement(ob,data);
+          }
+        G_root('sl.app',callback,false);
+    }else{
+        const selectModel = COPY_OB(i_app_model['sl']);
+        const fnSt = `{_.SW_CL("${ob.i}_selectScreen","D_N")}`;
+        const fnStDC = DC_(fnSt);
+       
+        selectModel.e[0].i = `${ob.i}_selectButton`;
+        selectModel.e[0].a = {fn: fnStDC}
+        if(ob.c){
+          if(!ob.c.match(/pointer/)){
+            ob.c += ' pointer';
+          }
+          selectModel.e[0].c = ob.c;
+        }
+        const searchFnSt = `{_.filterSearchItems("${ob.i}",${data && data.length > 0 ? JDS_(data) : false})}`;
+        const searchFnStDC = DC_(searchFnSt);
+        const clearInputFnSt = `{_.IN_V("${ob.i}_selectSearch",'');}`;
+        const clearInputFnStDC = DC_(clearInputFnSt);
+        selectModel.e[1].e[0].e[0].a =  {fn: fnStDC}
+        selectModel.e[1].i = `${ob.i}_selectScreen`;
+        selectModel.e[1].e[0].e[1].e[0].i = `${ob.i}_selectSearch`;
+        selectModel.e[1].e[0].e[1].e[1].a ={fn: clearInputFnStDC};
+        selectModel.e[1].e[0].e[1].e[0].s = `Search Your Country Code (+00)`;
+        selectModel.e[1].e[0].e[1].e[0].a = {e:'input',fn:searchFnStDC};
+        selectModel.e[1].e[0].e[2].i = `${ob.i}_selectItems`;
+        selectModel.e[1].e[0].e[2].e =[];
+        if(ob.e && ob.e.length > 0){
+
+          selectModel.e[1].e[0].e[2].e =[...ob.e];
+          for(var i = 0; i < selectModel.e[1].e[0].e[2].e.length;i++){
+            if(selectModel.e[1].e[0].e[2].e[i].v || selectModel.e[1].e[0].e[2].e[i].val){
+              const val =selectModel.e[1].e[0].e[2].e[i].v?selectModel.e[1].e[0].e[2].e[i].v: selectModel.e[1].e[0].e[2].e[i].val;
+              const fnStItem = `{_.IN_V("${ob.i}","${val}");_.SW_CL("${ob.i}_selectScreen","D_N");_.elmChange('${ob.i}');}`;
+              const fnStItemDC = DC_(fnStItem);
+                    selectModel.e[1].e[0].e[2].e[i].a = {fn:fnStItemDC};
+                    selectModel.e[1].e[0].e[2].e[i].i = `${i}_item`;
+            }
+          
+          }
+          selectModel.e[0].s = selectModel.e[1].e[0].e[2].e[0] && selectModel.e[1].e[0].e[2].e[0].s ?selectModel.e[1].e[0].e[2].e[0].s : 'No Items';
+          CR_(selectModel,holderId,data);
+        }else if(data){
+          if(ob.mod == 'phonecode'){
+            for(var i = 0 ; i < data.length ; i++){
+             
+          
+              const lowerCode  = data[i].code.toLowerCase();
+              const imgSrc     = `flags/${lowerCode}.png`;
+              const fnStItem   = `{
+                _.IN_V("${ob.i}","${data[i].dialCode}");
+                _.SW_CL("${ob.i}_selectScreen","D_N");
+                _.elmChange('${ob.i}_dialCode');
+                _.E_I_S('${ob.i}_flag').src = _.G_SRC('${imgSrc}');
+                _.E_I_S('${ob.i}_code').innerText = '${data[i].dialCode}';
+              }`;
+              //CL_(fnStItem)
+              const fnStItemDC = DC_(fnStItem);
+
+              const selectItem = {
+                c:'WW ST_B_GRY8_1 pointer PD_4',
+                i: `${i}_item`,
+                e:[
+                  {
+                    t:'img',
+                    c:'W_20',
+                    src:imgSrc
+                  },
+                  {
+                    t:'sp',
+                    s:'q.{dialCode} ',
+                    c:'F_GRY7 W_50 mL_10 '
+                  },{
+                    t:'sp',
+                    s:'q.{name} ',
+                    c:'F_S_12 '
+                  },{
+                    t:'sp',
+                    s:' ( q.{originalName} )',
+                    c:'F_S_12 '
+                  }
+                ],
+                Q:data[i] ,
+                a:{fn:fnStItemDC}
+            }
+            selectModel.e[1].e[0].e[2].e.push(selectItem);
+            }
+            const firstLowerCode  = data[0].code.toLowerCase();
+            const firstImgSrc     = `flags/${firstLowerCode}.png`;
+            selectModel.e[0].e =[{t:'img',i:`${ob.i}_flag`,src: firstImgSrc ,c:'W_20'},{t:'sp',i:`${ob.i}_code`,s: data[0].dialCode ,c:'mL_5'},{t:'icon',c:'ICO-caret-down mL_5'}];
+            CR_(selectModel,holderId,false);
+          }
+         
+        }
+       
+        
+    }
+ }
+
   /**
    * create elment
    * from i-app object
@@ -2352,23 +2708,42 @@ const i_app = (()=>{
    */
 
   const dataQuery = (ob)=>{
-     
-    const callback = (res,data)=>{
-     res = res.res;
-     console.log([ob,res])
-     const models = ob.model;
-     const elmId = ob.i;
-      for(var i = 0; i < res.length ; i++){
-        const obData = res[i];
-        for(var m =0 ; m < models.length;m++){
-          const model = models[m];
-          const toElm = model.to ? model.to : elmId
-          CR_(model,toElm,obData);
+     ////
+   
+      const callback = (res,data)=>{
+        res = res.res;
+        var models = [];
+        if(ob.model){
+          models = [...ob.model];
+          CL_(['callback',models])
+        }else{
+          if(ob.t && ob.t == 'sl'){
+            models = [{t:'op',vq:ob.vq,s:'q.{name}'}]
+          }
+          
         }
-     
-      }
+        const elmId = ob.i;
+        
+         for(var i = 0; i < res.length ; i++){
+           const obData = res[i];
+           for(var m =0 ; m < models.length;m++){
+             const model = models[m];
+             const toElm = model.to ? model.to : elmId;
+          
+             CR_(model,toElm,obData);
+           }
+         }
+
+         if(ob.t && ob.t == 'sl' && ob.mod && ob.mod == 'phonecode'){
+          selectElement(ob,res);
+         }
+       }
+       if(ob.data.order){
+        _POST('/api',{order:ob.data.order},callback);
+      }else{
+      _POST('/api',{query:ob.data},callback);
     }
-    _POST('/api',{query:ob.data},callback)
+  
   }
   const CR_ =async (body,id,data)=>{
 
@@ -2380,6 +2755,7 @@ const i_app = (()=>{
       return false;
     }
   let body_ = body;
+  const holder ={};
   /**
   * Basic app Sittings 
   */
@@ -2399,10 +2775,13 @@ const i_app = (()=>{
   }else if(body.body){
   body_ = body.body;
   }
-  const ob = MW_COPY_OB(body_);
+  const ob = COPY_OB(body_);
 
   if(data){
    ob.Q = data;   
+  }else  if(ob.Q){
+    
+    data = ob.Q ;  
   }
   let ob_type = null ,ob_css = null,ob_css_list = [];
   /// set ob_type
@@ -2439,7 +2818,7 @@ const i_app = (()=>{
   }
   }
   
-  const e = CE_(HT_(ob));
+ 
   /// element type options
   
   let isI_APP = false;
@@ -2461,10 +2840,7 @@ const i_app = (()=>{
     L_CSS(ob.css)
     }
   
-  //img options
-  if(ob.src){
-  e.src = G_SRC(ob.src)
-  }
+ 
   
   // autoBool
   // it one of slider options for to make circle toggel buttons to control silder 
@@ -2483,21 +2859,47 @@ const i_app = (()=>{
   if(ob_css_list.includes("D_N")){
   isHideElement =true;
   }
-  
+  if(ob.mod && ob.mod == 'phone'){
+    const updateInputFnST =`{
+      const code= _.E_I_V("${ob.i}_dialCode");
+       const num =_.E_I_V('${ob.i}_view'); 
+        const st =code +''+num;_.IN_V('${ob.i}','');
+        if(num !== ''){
+          _.IN_V('${ob.i}',st);
+        }
+      }`; 
+    const updateInputFnSTDC = DC_(updateInputFnST);
+    const countryCode = {t:'sl',vq:'dialCode',i:`${ob.i}_dialCode`,c:'input F_PR F_S_12',mod:'phonecode',a:{e:'change',fn:updateInputFnSTDC}}
+   CR_(countryCode,id,false);
+   const viewInput = COPY_OB(ob);
+   viewInput.i = `${ob.i}_view`;
+   viewInput.a ={e:'input',fn:updateInputFnSTDC}
+   viewInput.mod = 'tel'
+   CR_(viewInput,id,false);
+   isHideElement =true;
+  }
   }
   
-  if(ob_type == "sl" ){
-  //select type
-  isHideElement =true;
+  if(ob_type == "sl"){
+    // select type
+   
+      if(ob.mod == 'phonecode'){
+        ob.data = {order:'countries'}
+      }
+     isHideElement =true;
+        holder.t = 'span';
+        holder.i = `${ob.i}_holder`;
   }
-  
+  /// create HTML Element
+  const e = CE_(HT_(ob));
   ///  object id can be public by using id: key 
   ///  or privte by using i or q  auto {string_idkey} 
   ///  for element query data
-  
-  
-  // first layout options basic app div
-  
+  ///  first layout options basic app div
+   //img options
+   if(ob.src){
+    e.src = G_SRC(ob.src)
+    }
   if(isI_APP){
   
   /// set global varabils
@@ -2532,7 +2934,9 @@ const i_app = (()=>{
   
   }
   if(ob.data){
-    dataQuery(ob)
+    if(!data){
+      dataQuery(ob);
+    }
   }
   if(ob.IRoute || ob.I){
     const IROUTE = ob.IRoute ? ob.IRoute : ob.I;
@@ -2545,37 +2949,31 @@ const i_app = (()=>{
   
   // up = make is the element appended to parent
   let up = false;
-  /**
-  * 
-  * ob options 
-  * to create new elm
-  * 
-  */
-  
-  e.setAttribute('i',ob.i);//for develope {{{delete me for porduction}}}
-  ob.i_e = e;// link html elm to the ob 
-  I_OB[ob.i] = ob;//set the ob in i-app objects tree define by i 
-  
+
   // handel element text
   if(ob.s || ob.txt){
   const st = ob.s ? ob.s : ob.txt
   const txt = eTxt(st,ob.i,data);
-  if(ob_type == "in" ){
-    e.placeholder = txt !== undefined ? txt : '';
-  }else{
-  e.innerText = txt;
+    if(ob_type == "in" ){
+      e.placeholder = txt !== undefined ? txt : '';
+    }else{
+      e.innerText = txt;
+    }
   }
-  }
+
   if(ob_type == "in"){
     if(ob.mod){
         e.type = ob.mod;
     }
-    if(ob.val){
-        e.value = ob.val
-    }else  if(ob.value){
-      e.value = ob_value(ob);
-    }
+  
   }
+  if(ob.val){
+    e.value = ob.val;
+}else   if(ob.vq){
+  e.value = data[ob.vq]?data[ob.vq]:e.vq;
+}else   if(ob.value){
+  e.value = ob_value(ob);
+}
   if(ob.hr){
     if(ob.hr.http ){
     
@@ -2591,13 +2989,7 @@ const i_app = (()=>{
     }
     
   }
-  /// handel element event function
-  if(ob.a){
-  ESF(ob)
-  }
-  if(ob.act){
-    act_FN(ob.act,e)
-  }
+ 
   /// handel element style
   if(ob.style){
     set_style(e,ob.style);
@@ -2637,43 +3029,102 @@ const i_app = (()=>{
   if (ob.dir) {
     e.setAttribute("dir", ob.dir);
   }
+  if(e.type == 'tel'){
+    e.setAttribute("pattern","[0-9]{3}-[0-9]{2}-[0-9]{3}");
+  }
+
+  var HolderElement = null;
+  if(holder.t){
+     HolderElement = CE_(HT_(holder));
+     HolderElement.setAttribute("i", holder.i);
+  }
   /**
   * append child to parent
   */
-  if(!isHideElement){
+  
   if(isI_APP){
   //set the basic screen object i_sc
   i_sc.e = e;
   // append to html body
+
   document.body.appendChild(e);
+  
+  if(holder.t){
+    document.body.appendChild(HolderElement);
+
+  }
+
+  
   up = true;
   
   }else if(id && E_I(id)){
   // append to element have public id
+  if(!isHideElement){
   E_I(id).appendChild(e);
+  }
+  if(holder.t){
+  E_I(id).appendChild(HolderElement);
+  }
   up =true;
   
   }else if(id && E_I_S(id)){
   // append to element have privte id
+  if(!isHideElement){
   E_I_S(id).appendChild(e);
+  }
+  if(holder.t){
+    CL_(['holde',holder.t]);
+    E_I_S(id).appendChild(HolderElement);
+  }
   up =true;
   
   }
-  }
- 
+  
+   /**
+  * 
+  * ob options 
+  * to create new elm
+  * 
+  */
+  
+    e.setAttribute('i',ob.i);//for develope {{{delete me for porduction}}}
+    ob.i_e = e;// link html elm to the ob 
+    I_OB[ob.i] = ob;//set the ob in i-app objects tree define by i 
+    if(isHideElement){
+      if(ob_type == "sl"){
+        if(ob.mod && ob.mod == 'phonecode'){
+
+        }else{
+          selectElement(ob,data);
+        }
+       
+        if(holder.i){
+          holder.i_e = HolderElement
+          I_OB[holder.i]  = holder;
+        }
+      }
+    }
+     /// handel element event function
+  if(ob.a){
+    
+    ESF(ob)
+    }
+    if(ob.act){
+      act_FN(ob.act,e)
+    }
   /**
   * if elm have childs
   */
   if(ob.e || ob.elm){
   const elm = ob.e ? ob.e : ob.elm;
   if(up){
-  if(Array.isArray(elm)){
-    for(let i = 0 ; i < elm.length;i++){
-      const ch = MW_COPY_OB(elm[i]);
-      ch.offset = i;
-      CR_(ch,ob.i,data);
-    }
-  }
+          if(Array.isArray(elm)){
+            for(let i = 0 ; i < elm.length;i++){
+              const ch = COPY_OB(elm[i]);
+              ch.offset = i;
+              CR_(ch,ob.i,data);
+            }
+          }
   }
   }
   /**
@@ -2688,8 +3139,8 @@ const i_app = (()=>{
   //  create elm own index data row 
   if(ob.while){
   for(let i = 0 ; i < ob.while.length;i++){
-    const dataOb = MW_COPY_OB(ob.while[i]);
-    const model = MW_COPY_OB(ob.whileElm);
+    const dataOb = COPY_OB(ob.while[i]);
+    const model = COPY_OB(ob.whileElm);
     model.offset = i;
     CR_(model,ob.i,dataOb);
   }
@@ -2758,7 +3209,7 @@ const i_app = (()=>{
     
      }else{
      
-      let url =`${app.dir.txt}/${selectLang}.json`; 
+      let url =`${app.dir.txt}${selectLang}.json`; 
          G_Json(url,(l)=>{ i_app_lang[selectLang] ={...l}; setTxtV(l); });
      
      } 
@@ -3552,8 +4003,8 @@ const i_app = (()=>{
      * load bassc app colors
      * i.app dir{css:'/css/'}
      */
-    let urlColors =`${app.dir.css}/colors.json`;
-    let urlStyle =`${app.dir.css}/style.json`;
+    let urlColors =`${app.dir.css}colors.json`;
+    let urlStyle =`${app.dir.css}style.json`;
     G_Json(urlColors,(c)=>{i_app_colors =c;G_Json(urlStyle,(s)=>{i_app_style =s;createAppTheme();});});
     return true;
     

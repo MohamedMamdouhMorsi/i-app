@@ -12,7 +12,7 @@ const appDir = ()=>{
     const assetArray = ['/',...getDirectoryArray(tree,'')];
     return{
         tree:tree,
-        userDir:userDir,
+        userDir:userDir.toString(),
         userPublicDir:userPublicDir,
         i_app_path:i_app_path,
         assetArray:assetArray,

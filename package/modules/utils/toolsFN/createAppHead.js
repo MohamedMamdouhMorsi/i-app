@@ -15,7 +15,7 @@
     innerHTML += `<link rel="icon" type="image/png" href="${app.dir.icon}favicon-16x16.png" sizes="16x16">`;
     innerHTML += `<link rel="icon" type="image/png" href="${app.dir.icon}favicon-32x32.png" sizes="32x32">`;
     innerHTML += `<link rel="apple-touch-icon" href="${app.dir.icon}apple-icon-120x120.png">`;
-    innerHTML += `<link href=${app.mode == "dev" ? "/i-app.css" : "/i-app.min.css"} rel="stylesheet" type="text/css" />`;
+    innerHTML += `<link href=${app.mode == "dev" ? "/i-app-basic.css" : "/i-app-basic.min.css"} rel="stylesheet" type="text/css" />`;
     
 
     innerHTML += `<meta property="og:title" content="${app.title}" />`;

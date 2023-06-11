@@ -26,7 +26,7 @@ const makeQuery =(body,tables)=>{
         
         }else  if(queryAction === "check"){
           
-            queryText += checkQuery(cureOB,tables);
+            queryText += checkQuery(cureOB);
         
         }else  if(queryAction === "create"){
           

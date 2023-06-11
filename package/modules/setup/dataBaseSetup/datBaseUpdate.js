@@ -25,95 +25,114 @@ if(i_app.users){
             
                 let dbSt  = data.toString();
                 let cleanDataSt = iAppReader(dbSt)
-                let jsonData    = JD_(cleanDataSt);
-                const basicDB = ['users','usersSessions','usersPasswords'];
-                let needDB =[];
-                const createdDB = [];
-                if(jsonData.tables){
-                
+                const jsonData    = JD_(cleanDataSt);
+                if(jsonData.mysql && jsonData.mysql.length > 0){
+                    
+                const basicDataBase = jsonData.mysql[0];
+                const basicTables =basicDataBase.tables ?basicDataBase.tables: false ; 
+                const basicDB = ['users','usersSessions','usersPasswords','usersPermissions'];
+                let needDB      = [];
+                const editDB = [];
+              
+                if(basicTables){
+                    
                     for(var k = 0 ; k < basicDB.length;k++){
-                        
-                            const testDB = basicDB[k];
+                            const testDB  = basicDB[k];
+                            const isExist = basicTables[testDB]? true: false;
                             
-                            let isExist = false;
-                        
-                      
-                                if(jsonData.tables[testDB]){
-                                    isExist = true;
-                                }
-                            
-
                             if(!isExist){
                                 needDB.push(testDB);
-                            }else{
-                                createdDB.push(dbName)
                             }
                     }
 
                }else{
                 needDB = basicDB;
                }
-            
-            
-               for(var i = 0 ; i < needDB.length; i++){
-                const dbName = needDB[i];
-                const connect = db({query:[{a:'check',n:dbName}]}, false, callBack);
-                console.log('connect : '+connect)
-                        if(connect === undefined){
-                            const sqlFileName = `${dbName}.sql`;
-                            const sqlFilePath = path.join(__dirname, 'basicDB',sqlFileName);
-                            fs.readFile(sqlFilePath, (err, sqlData) => {
-                                if(err){
-                                    
-                                    console.log('sql file is missing '+dbName)
-                                }else{
-                                    const sqlDataST = sqlData.toString();
-                                  
-                                    const createDBOrder = db({query:[{a:'create',d:sqlDataST}]}, false, callBack);
-                                    console.log(['createDBOrder',createDBOrder])
-                                    if(  createDBOrder){
-                                        createdDB.push(dbName)
-                                    }else{
-                                        createdDB.push(dbName)
-                                    }
-                                }
-                              
-                            });
-                           
-                        }else{
-                            createdDB.push(dbName);
-                        }        
-               }
-               console.log(['createdDB',createdDB])
-               if(createdDB.length > 0){
-               
-                        const basicDBPath = path.join(__dirname, 'basicDB','basicDB.json');
-                            fs.readFile(basicDBPath, (err, basicDBdata) => {
-                                if (err) {
-                                    console.log('sql basicDB.json is missing')
-                                    return false;
-                                }else{
-                                    for(var d = 0 ; d < createdDB.length; d++){
-                                        const createdDBName = createdDB[d]; 
-                                        jsonData.tables[createdDBName] = basicDBdata[createdDBName];
-                                    }
-                                    const db_app = JDS_(jsonData);
-                                    const db_app_file =iAppFileMaker(db_app);
-                                    fs.writeFile(i_app_db_path, db_app_file, (err) => {
-                                        if (err)
-                                          console.log(err);
-                                        else {
-                                          console.log("db.app update");
-                                     
-                                        }
-                                      });
-                                }
-
-                            });
-                
-               }
               
-         
+            const updateDBFILE = ()=>{
+              
+                if(editDB.length > 0){
+               
+                    const basicDBPath = path.join(__dirname, 'basicDB','basicDB.json');
+                        fs.readFile(basicDBPath, (err, basicDBdata) => {
+                            if (err) {
+                                console.log('sql basicDB.json is missing')
+                                return false;
+                            }else{
+                                const basicDBdataJD = JD_(basicDBdata.toString())
+                                CL_(["updateDBFILE",basicDBdataJD,editDB]);
+                                for(var d = 0 ; d < editDB.length; d++){
+                                    
+                                    const createdDBName = editDB[d]; 
+                                    CL_(["createdDBName",createdDBName]);
+                                   if(! jsonData.mysql[0].tables){
+                                    jsonData.mysql[0].tables = {}
+                                   }
+                                    jsonData.mysql[0].tables[createdDBName] = basicDBdataJD[createdDBName];
+                                }
+                                const db_app = JDS_(jsonData);
+                                const db_app_file =iAppFileMaker(db_app);
+                                fs.writeFile(i_app_db_path, db_app_file, (err) => {
+                                    if (err)
+                                      console.log(err);
+                                    else {
+                                      console.log("db.app update");
+                                 
+                                    }
+                                  });
+                            }
+    
+                        });
+            
+                }
+            }
+            if(needDB.length > 0){
+                console.log(["needDB",JSON.stringify(needDB)])
+            const lastDB = needDB[needDB.length - 1];
+               for(var i = 0 ; i < needDB.length; i++){
+                    const dbName = needDB[i];
+                     db({query:[{a:'check',n:dbName}]}, false, callBack).then(result=>{
+                       if(result.length > 0){
+                        editDB.push(dbName)
+                        if(lastDB == dbName){
+                            console.log('ok its work');
+                            updateDBFILE();
+                           }
+                       }else{
+                        const sqlFileName = `${dbName}.sql`;
+                        const sqlFilePath = path.join(__dirname, 'basicDB',sqlFileName);
+                        fs.readFile(sqlFilePath, (err, sqlData) => {
+                            if(err){
+                                
+                                console.log('sql file is missing '+dbName)
+                            }else{
+                                const sqlDataST = sqlData.toString();
+                                 db({query:[{a:'create',d:sqlDataST}]}, false, callBack).then(creatResult=>{
+                                    editDB.push(dbName)
+                                    console.log(' DB :'+dbName+' created');
+                                });
+                                
+                              
+                            }
+                       if(lastDB == dbName){
+                        console.log('ok its work');
+                        updateDBFILE();
+                       }
+                        });
+                       }
+                    }).catch(err=>{
+                        console.log('err :'+err)
+                    });
+               
+                       
+               }
+            }
+   
+      
+              
+        }else{
+            console.log('Please add db.app to your project main directory with your Database conifguration or delete or comment users key from i-app')
+        }
     }
 
 });

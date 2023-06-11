@@ -62,15 +62,52 @@ const funcHandel = (str) => {
     return str;
   }
 }
+function escapeKeysSym(str) {
+const strArr = str.split('');
+var start = false;
+var type = '';
+var out = '';
+for(var i = 0; i < strArr.length; i++){
+const cureValue = strArr[i];
+  if(cureValue == '"' ){
+    if(start == true && type == cureValue){
+      type = '';
+      start=  false;
+    }else{
+      type = '"';
+      start=  true;
+    }
+   
+  }
+  if(cureValue == "'"){
+    if(start == true && type == cureValue){
+      type = '';
+      start=  false;
+    }else{
+      type = "'";
+      start=  true;
+    }
+  }
+  if(start && cureValue ==':' ){
+    out +='aaa@aaa';
+  }else{
+    out +=cureValue;
+  }
+}
+return out;
+}
+
+
 
 function convertStrToOb (str) {
+  str = escapeKeysSym(str);
   str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
 
     str = funcHandel(str);
     str = str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
 
     str = str.toString().trim(); // convert to string and remove leading/trailing whitespace
-
+  
     str = str.replace(/(\"\w+\"\s*:\s*[^,\{\[\]]+)\s*(\}|,|\])/g, '$1,$2');
 
    
@@ -95,6 +132,7 @@ function convertStrToOb (str) {
    
     str = str.replace(/([a-z0-9A-Z_]+) "/g, '$1 , "'); // missing comma
    // str = cleanStr(str);
+   str = str.replace(/aaa@aaa/g, ':'); // missing comma
     return str;
   };
 

@@ -1,15 +1,6 @@
 
-const checkQuery = (ob,tables)=>{
+const checkQuery = (ob)=>{
     const tableName = ob.n;
-
-    if(tables[tableName]){
-
-    let getText = `show tables like '${tableName}'`;
-
-        return getText;
-    }else{
-        console.log(`table ${tableName} is not exist`);
-        return false;
-    }
+        return `show tables like '${tableName}'`;
 }
 module.exports = checkQuery

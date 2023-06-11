@@ -1,6 +1,6 @@
 const db = require('../../query/mysqlConnect');
 
-const addUser = (userData)=>{
+const addUser = (userData,res)=>{
  
 }
 module.exports = addUser;

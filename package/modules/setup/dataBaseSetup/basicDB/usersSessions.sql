@@ -1,8 +1,5 @@
 CREATE TABLE usersSessions (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `firstname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `activate` int(1) NOT NULL,
-  PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL ,
+  `deviceToken` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `scureToken` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
