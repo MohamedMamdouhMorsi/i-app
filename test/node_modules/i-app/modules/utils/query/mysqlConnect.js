@@ -1,18 +1,21 @@
-const appDir = require('../../setup/appDir');
+
 const iAppReader = require('../toolsFN/iAppReader');
-const {JDS_,CL_,JD_} = require('../../tools');
+const {JD_,COPY_OB} = require('../../tools');
+const path = require('path');
 const fs = require('fs');
 const mysql = require('mysql');
 const makeQuery    = require('./makeQuery');
 const mysqlConnect = async (body, res_, callBack) => {
-  const i_app_db_path = appDir().i_app_db_path;
+ 
+  const userDir = path.dirname(require.main.filename); 
+  const i_app_db_path = path.join(userDir, 'db.app');
+  
 
-  try {
-    const DBfileData = await fs.promises.readFile(i_app_db_path);
+//  try {
+    const DBfileData = await fs.readFileSync(i_app_db_path);
     const dbConfigTx = iAppReader(DBfileData.toString());
     const dbConfig = JD_(dbConfigTx).mysql[0];
-    const queryText = makeQuery(body, dbConfig.tables);
-
+    const queryText = await makeQuery(body, dbConfig.tables);
     const connection = mysql.createConnection({
       host: dbConfig.host,
       user: dbConfig.user,
@@ -33,16 +36,22 @@ const mysqlConnect = async (body, res_, callBack) => {
         }
       });
     });
+    const backResult = COPY_OB(results);
+if(typeof callBack === 'function'){
+  callBack(backResult, res_);
+}
 
-    callBack(results, res_);
-    return results;
-  } catch (err) {
+    return backResult;
+/*} catch (err) {
     console.log(
       "No db.app file exists!! To connect to the MySQL DB, you need to create db.app file to store your db connection data"
     );
-    callBack(err.message, res_);
+   
+    if(typeof callBack === 'function'){
+      callBack(err.message, res_);
+    }
     return false;
-  }
+  }*/
 };
 
 module.exports = mysqlConnect;

@@ -156,6 +156,7 @@ const i_app = (()=>{
         }
         return ob;
      }
+     //**userDataArea**//
     let i_app_v = {};
     let i_app_colors =[];
     let i_app_style = {};
@@ -168,8 +169,11 @@ const i_app = (()=>{
     let i_root = "start";
     let selectLang = "en";
     let selectLangDirection = "l";
+    let historyIndex = 0;
     /**Functions Varibles */
+    const windowHistory = [];
     const ReturnScriptFunctions = {};
+    const locationWrapper = {};
     const popJsD = {};
     const sLang = {};
     let poJSOB = [];
@@ -237,6 +241,18 @@ const i_app = (()=>{
     setTimeout(setDateTime, 1000);
   }
   
+  /**
+   * wait_ () 
+   * setTimeout with callback function
+   * @param {callBack,time}  
+   * @returns true
+   */
+  const wait_ = async(callBack,time)=>{
+    const backFunc = ()=>{
+     return callBack;
+    }
+    setTimeout(backFunc,time);
+  }
   const isAr =(ar)=>{
   if(Array.isArray(ar)){
     return true;
@@ -457,7 +473,10 @@ const i_app = (()=>{
   @param {object} mw - The object to be copied.
   @returns {object} A deep copy of the object.
   */
-  const COPY_OB = (mw) => {mw == undefined ? CL_(mw):'cc'; return JSON.parse(JSON.stringify(mw)) }  
+  const COPY_OB = (mw) => {  
+    mw == undefined ? CL_(mw):'cc'; 
+    return structuredClone(mw) ;
+  }  
   /**
   * Returns the current timestamp in milliseconds
   * @returns {number} The current timestamp in milliseconds
@@ -707,19 +726,35 @@ const FCMTCS = (e) => {
         AL_(error.message);
     });
 }
-const FCMTC = (e) => {
+const readyNumber = {}
+const FCMTC = (e,numberHolder,activeHolder) => {
   if(E_I_V(e) !== ''){
 
     const sendNumber = ()=>{
-      FCMTCS(e);
+    
+    if(readyNumber[E_I_V(e)]){
+     // FCMTCS(e);
+      D_CL([activeHolder,"D_N"]);
+      A_CL(numberHolder,"D_N");
+      var ms = GTX("we-send-sms-act");
+      AL_(ms);
+    }else{
+      var ms = GTX("re-send-code");
+      AL_(ms);
+    }
+
     }
    
     const callback =(res)=>{
       res = res.res;
       if(res == true){
-        AL_('number is allready exist !!');
+        readyNumber[E_I_V(e)] = true;
+        E_I_S(`${e}_view`).setAttribute('disabled','true');
+        E_I_S("recaptcha-container-tx").innerText = "Solve Recaptcha";
+     //   configFire(app.fcm, selectLang,"reC",i_app_theme,sendNumber);
+     sendNumber();
       }else{
-        configFire(app.fcm, selectLang,"reC",i_app_theme,sendNumber);
+        AL_('number is allready exist !!');
       }
     
     }
@@ -727,17 +762,21 @@ const FCMTC = (e) => {
   }
 }
 
-const FCMTA = ([i, h]) => {
+const FCMTA = (i,a,b) => {
+  CL_(['it work',i,a,b])
     var c = E_I_V(i);
-    window.confirmationResult.confirm(c).then(function(r) {
+    D_CL([b,"D_N"]);
+    A_CL(a,"D_N");
+  /*  
+  window.confirmationResult.confirm(c).then(function(r) {
         var ms = GTX("activation-done");
         AL_(ms);
-      
-        GT(`/mwn/P?A=${MW_NT._ADB.at}_${MW_NT._ST.MWU_nt}_${MW_NT._ST.MWU_st}`);
     }).catch(function(error) {
         alert(error.message);
-        GT("/");
+       
     });
+    
+    */
 
 }
     // functions
@@ -749,64 +788,67 @@ const FCMTA = ([i, h]) => {
         return str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
     }
     
-    const funcHandel = (str) => {
-      /**
-       * encrypt avale of key  a:  
-       * to handel json object
-       */
-      const ar = str.split('fn:');
-      if (ar.length > 1) {
+const funcHandel = (str) => {
+  /**
+   * encrypt avale of key  a:  
+   * to handel json object
+   */
+  const ar = str.split('fn:');
+  if (ar.length > 1) {
+
   
-      
-        
-        let ls = '';
-        for(let a = 0 ; a < ar.length;a++){
-          if(a<1){
-            ls = ar[0]
+    
+    let ls = '';
+    for(let a = 0 ; a < ar.length;a++){
+      if(a<1){
+        ls = ar[0]
+      }
+      let op = 0;
+    let cl = 0;
+    let vv = '';
+    let aft = '';
+    let done = false;
+      const cr = ar[a].split('');
+      if(a > 0 && ar[a] !== '' ){
+      for (let c = 0; c < cr.length; c++) {
+        if (!done) {
+          if (cr[c] === '{') {
+            op++;
           }
-          let op = 0;
-        let cl = 0;
-        let vv = '';
-        let aft = '';
-        let done = false;
-          const cr = ar[a].split('');
-          if(a > 0 && ar[a] !== '' ){
-          for (let c = 0; c < cr.length; c++) {
-            if (!done) {
-              if (cr[c] === '{') {
-                op++;
-              }
-              if (cr[c] === '}') {
-                cl++;
-              }
-            }
-      
-            if (!done) {
-              if (op === cl) {
-                done = true;
-              }
-              vv += cr[c];
-            } else if (done) {
-              aft += cr[c];
-            }
+          if (cr[c] === '}') {
+            cl++;
           }
         }
-        const enc = DC_(vv);
-        ls  += ` fn: '${enc}' ${aft}`;
+  
+        if (!done) {
+          if (op === cl) {
+            done = true;
+          }
+          vv += cr[c];
+        } else if (done) {
+          aft += cr[c];
         }
-        return ls;
-      } else {
-        return str;
       }
     }
+    const enc = DC_(vv);
+    ls  += ` fn: '${enc}' ${aft}`;
+    }
+    return ls;
+  } else {
+    return str;
+  }
+}
+   
   // This function returns the root name and directory of the current page's JavaScript file
   const i_root_ = () => {
     // Set a default file extension of '.app'
     let ex =  app.dir && app.dir.file ? app.dir.file :'.app';
-  
+  const root = window.location.pathname.replace(/\//g,"");
     // If the current URL includes a query string, use it as the root name instead of the default
-    if (window.location.pathname !== "/") {
-      i_root =window.location.pathname.replace(/\//g,"");
+    if ( root!== "") {
+      i_root =root;
+    }else{
+      i_root ="start";
     }
     // Return an object containing the root name and directory with the specified file extension
     return { name: i_root, dir: `${i_root}${ex}` };
@@ -846,11 +888,9 @@ const FCMTA = ([i, h]) => {
     return out;
     }
     function convertStrToOb (str) {
-    
-      str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
-      str = escapeKeysSym(str);
-        str = funcHandel(str);
-     
+        str = funcHandel(str)
+        str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
+        str = escapeKeysSym(str);
         str = str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
    
         str = str.toString().trim(); // convert to string and remove leading / trailing whitespace
@@ -888,7 +928,7 @@ const FCMTA = ([i, h]) => {
        
         str = str.replace(/([a-z0-9A-Z_]+) "/g, '$1 , "'); // delete last comma comma
         str = str.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '$2 :'); // add quotes around property names
-       
+        str = str.replace(/fndc/g, 'fn'); // clear fndc
         // str = cleanStr(str);
       
         return str;
@@ -1043,7 +1083,13 @@ const FCMTA = ([i, h]) => {
       switchTheme:switchTheme,
       scrollToTop:scrollToTop,
       CL_:CL_,
-      FCMTC:FCMTC
+      FCMTC:FCMTC,
+      FCMTA:FCMTA,
+      AL_:AL_,
+      IS_EMAIL:IS_EMAIL,
+      IS_USERNAME:IS_USERNAME,
+      wait_:wait_,
+      U_CSS:U_CSS
     }
   }
   const L_CSS = (f)=>{
@@ -1061,8 +1107,9 @@ const FCMTA = ([i, h]) => {
     }
   }
   const L_SCRIPT = (f,v)=>{
-    if(!E_I(`js_${f}`)){
     const srcFn = URS();
+    if(!E_I(`js_${f}`)){
+   
     const src = CE_('script');
     src.id = `js_${f}`;
     // Get the number of milliseconds since midnight
@@ -1090,6 +1137,29 @@ const FCMTA = ([i, h]) => {
         setTimeout(rFd,300);
     };
     src.addEventListener('load',srcOnLoad)
+    }
+  }else{
+    if(E_I(`js_${f}`)){
+      if(v){
+       
+       
+        const srcOnLoad = ()=> {
+        
+         
+          var rFd = ()=>{
+          
+              if(typeof ReturnScriptFunctions[f] ===  'function'){
+               CL_(["script loaded :", ReturnScriptFunctions])
+                return  ReturnScriptFunctions[f](v,[srcFn]); 
+              }else{
+                  setTimeout(rFd,300);
+              }
+          } 
+         
+          setTimeout(rFd,300);
+      };
+      srcOnLoad();
+      }
     }
   }
   }
@@ -1256,27 +1326,39 @@ const FCMTA = ([i, h]) => {
     }
     }
     const setInputV = async (k) => {
-      
-        Object.defineProperty(i_app_select_lang, k, {
+      if(elementValue[i_root][k]){
+        CL_(`Error Please Insert  Unique input name , ${k} is already used , that To make the i-app track changes on elements`);
+      }else{
+        Object.defineProperty(elementValue[i_root], k, {
           get: () => this[k],
           set: (_v) => {
             this[k] = _v;
           
           },
         });
+      }
+    
     
       };
     const setInputEvent = async (i) => {
       E_I_S(i).addEventListener('input', () => {
         
-        elementValue[i] = E_I_V(i);
+        elementValue[i_root][i] = E_I_V(i);
         onInputChange_(i);
       });
-      setInputV(i)
+      setInputV(i);
       };
   /**
   * TEXT builder
   */
+
+
+  /**
+   * create for each page route version of ob value
+   */
+  const createAppObjV = (root)=>{
+    elementValue[root] = {};
+  }
   /**
   * Replaces all occurrences of the pattern "v.{variable}" in the input string
   * with the corresponding variable name.
@@ -1290,6 +1372,7 @@ const FCMTA = ([i, h]) => {
   * v.{ num } var num = 0 ;
   *  
   */
+ 
   function replacePattern(text,id,data) {
    
     const txtQ = /q\.\{\s*(?<query>[^\}]+)\s*\}/g;
@@ -1299,6 +1382,7 @@ const FCMTA = ([i, h]) => {
     const txtvalues = /v\.\{\s*(?<values>[^\}]+)\s*\}/g;
     const txtInput = /val\.\{\s*(?<input>[^\}]+)\s*\}/g;
     const txtApp = /app\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
+    const txtUser = /u\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
     let output = text;
   
         output = text.replace(txtQ, (_, query) =>
@@ -1325,6 +1409,18 @@ const FCMTA = ([i, h]) => {
      
    }
    );
+   output = output.replace(txtUser, (_, appTxt) =>
+   {
+   
+    if(userData[appTxt.trim()]){
+      return userData[appTxt.trim()];
+    }else{
+      return appTxt.trim();
+    }
+     
+    
+  }
+  );
     output = output.replace(txtQTranslate, (_, queryTranslate) =>
     {
     
@@ -1398,8 +1494,8 @@ const FCMTA = ([i, h]) => {
             }else{
               onInputChange[input.trim()] =[[id,text]]
             }
-            if(elementValue[input.trim()]){
-         return `${elementValue[input.trim().toString()]}`;
+            if(elementValue[i_root][input.trim()]){
+         return `${elementValue[i_root][input.trim().toString()]}`;
         }else{ 
           return  '';
         }
@@ -2431,8 +2527,12 @@ const FCMTA = ([i, h]) => {
   if(ob.a){
   let ev = ob.a.e ? ob.a.e : 'click' ;  
 
-    const fnSt = EC_(ob.a.fn);
-    const fn =new Function (fnSt);
+
+    if(ob.a.fn){
+    
+    let fnSt = EC_(ob.a.fn);
+    const fn = new Function (fnSt);
+
     const newFunc = ()=>{
               this.v = i_app_v ;
               this._ = URS();
@@ -2451,7 +2551,7 @@ const FCMTA = ([i, h]) => {
     }
   
  
-  
+    }
   
   }
   }
@@ -2463,9 +2563,11 @@ const FCMTA = ([i, h]) => {
     }
   }
   const L_ROUTE = (body,[id,data,i_route])=>{
-    if(! i_app_model[i_route] ){
-      i_app_model[i_route] = body;
+  
+    if(!i_app_model[i_route] ){
+      i_app_model[i_route] = COPY_OB(body);
     }
+   
       CR_(body,id,data);
   }
   const G_SRC = (src)=>{
@@ -2478,9 +2580,9 @@ const FCMTA = ([i, h]) => {
           }else   if(chick[0] == "G"){
             return `${app.dir.img}${chick[1]}.gif`;
           }
-      }else{
+        }
         return `${app.dir.img}${src}`;
-      }
+      
   }
   /**
   * element actions EventListner
@@ -2747,6 +2849,7 @@ const filterSearchItems = (e,data)=>{
   }
   const CR_ =async (body,id,data)=>{
 
+
     if(!i_app_lang[selectLang]){
       const reload = ()=>{
         CR_(body,id,data);
@@ -2754,7 +2857,9 @@ const filterSearchItems = (e,data)=>{
       setTimeout(reload,1000)
       return false;
     }
+   
   let body_ = body;
+
   const holder ={};
   /**
   * Basic app Sittings 
@@ -2933,19 +3038,21 @@ const filterSearchItems = (e,data)=>{
     }
   
   }
+  if(body.t && body.t == 'in' && body.label){
+    const inputLabelHolder = {
+      t:'label',
+      i:`${ob.i}_inputHolder`
+    }
+    CR_(inputLabelHolder,id,data);
+    id = `${ob.i}_inputHolder`;
+
+  }
   if(ob.data){
     if(!data){
       dataQuery(ob);
     }
   }
-  if(ob.IRoute || ob.I){
-    const IROUTE = ob.IRoute ? ob.IRoute : ob.I;
-    if(! i_app_model[IROUTE] ){
-    G_root(`${app.dir.dir}${IROUTE}.${app.dir.file ? app.dir.file :'app'}`,L_ROUTE,[ob.i,data]);
-    }else{
-        CR_(i_app_model[IROUTE],ob.i,data)
-    }
-  }
+
   
   // up = make is the element appended to parent
   let up = false;
@@ -2956,8 +3063,39 @@ const filterSearchItems = (e,data)=>{
   const txt = eTxt(st,ob.i,data);
     if(ob_type == "in" ){
       e.placeholder = txt !== undefined ? txt : '';
+      if(ob.label){
+        const label = {
+          t:'b',
+          c:'D_N F_PR F_S_10  TT_0 mT_-20 POS_AB',
+          i:`${ob.i}_label`,
+          s:txt
+        }
+        CR_(label,id,false);
+        e.addEventListener('input',()=>{
+       
+          if(E_I_V(ob.i) == ''){
+            A_CL( `${ob.i}_label`,"D_N");
+          }else{
+            D_CL( [`${ob.i}_label`,"D_N"]);
+          }
+        });
+      }
     }else{
-      e.innerText = txt;
+      if(ob.write){
+        const speed = ob.write.speed ?  ob.write.speed: 100;
+      const callBack = ()=>  typeString(ob.i,txt,speed);
+      setTimeout(callBack,300);
+      }else if(ob.writeWait){
+        let speed = 100;
+        if(ob.writeWait.speed){
+            speed =  ob.writeWait.speed;
+        }
+        const callBack = ()=>  waitTypeString(ob.i,txt,speed);
+        setTimeout(callBack,300);
+        }else{
+        e.innerText = txt;
+      }
+    
     }
   }
 
@@ -3054,7 +3192,7 @@ const filterSearchItems = (e,data)=>{
 
   }
 
-  
+
   up = true;
   
   }else if(id && E_I(id)){
@@ -3107,11 +3245,12 @@ const filterSearchItems = (e,data)=>{
      /// handel element event function
   if(ob.a){
     
-    ESF(ob)
+    ESF(ob);
     }
     if(ob.act){
       act_FN(ob.act,e)
     }
+  
   /**
   * if elm have childs
   */
@@ -3120,12 +3259,28 @@ const filterSearchItems = (e,data)=>{
   if(up){
           if(Array.isArray(elm)){
             for(let i = 0 ; i < elm.length;i++){
-              const ch = COPY_OB(elm[i]);
+              let el = elm[i];
+          
+              const ch = COPY_OB(el);
               ch.offset = i;
               CR_(ch,ob.i,data);
             }
           }
   }
+  }
+  if(ob.IRoute || ob.I){
+  
+    const IROUTE = ob.IRoute ? ob.IRoute : ob.I;
+    
+    if(! i_app_model[IROUTE] ){
+    G_root(`${app.dir.dir}${IROUTE}.${app.dir.file ? app.dir.file :'app'}`,L_ROUTE,[ob.i,data,IROUTE]);
+    }else if(i_app_model[IROUTE]){
+    
+     const I_R = i_app_model[IROUTE];
+    
+      CR_(I_R,ob.i,data);
+  
+    }
   }
   /**
    * input value update
@@ -3133,6 +3288,24 @@ const filterSearchItems = (e,data)=>{
    */
    if(ob_type == "in" ){
     setInputEvent(ob.i);
+    if(ob.mod == 'password'){
+      const funcSt = `{
+        if(_.E_I_S('${ob.i}').type == 'password'){
+          _.E_I_S('${ob.i}').type = 'text';
+        }else   if(_.E_I_S('${ob.i}').type == 'text'){
+          _.E_I_S('${ob.i}').type = 'password';
+        }
+      }`;
+      const funcStDC = DC_(funcSt);
+      const viewPassword = {
+        t:'icon',
+        c:'ICO-eye F_PR F_S_20 pointer LL_0 mL_-20',
+        a:{
+          fn:funcStDC
+        }
+      }
+      CR_(viewPassword,id,false)
+    }
   }
   // auto elm create
   // while key = static data for each data index in while array
@@ -3147,10 +3320,28 @@ const filterSearchItems = (e,data)=>{
   }
  
   }
+  const IS_EMAIL = (em) => {
+    var ema = em.split("@");
+    var dema = em.split(".");
+    var res = false;
 
+    if (Array.isArray(ema) && ema.length > 1 && Array.isArray(dema) && dema.length > 1) {
+        res = true;
+    }
+    return res;
+}
+  const IS_USERNAME = (un)=>{
+    // Remove non-alphanumeric characters and ensure lowercase
+    var filteredUsername = un.replace(/[^a-z0-9]/g, "").toLowerCase();
+
+    // Check if the filtered username meets the criteria
+    var isValid = filteredUsername.length >= 5 && filteredUsername.length <= 25 && /^[a-z0-9]+$/.test(filteredUsername);
   
+    // Return valid username or false
+    return isValid ? filteredUsername : false;
+  }
   const F_LO = ([i_route]) => {
-  
+
     window.history.pushState({ page: window.location.pathname }, window.location.pathname, i_route);
     I_OB = {};
     scrollToTop();
@@ -3160,38 +3351,53 @@ const filterSearchItems = (e,data)=>{
        CR_(i_app_model[i_route],"i-app",false)
     }else{
         
-        G_root(`${app.dir.dir}${i_route}.${app.dir.file ?app.dir.file :'app' }`,L_ROUTE,["i-app",false]);
+        G_root(`${app.dir.dir}${i_route}.${app.dir.file ?app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route]);
     }
   }
   const openRoot = (i_route) => {
-  
-    window.history.pushState({ page: window.location.pathname }, window.location.pathname, i_route);
+    const appRoot = app.dir.start.replace(/.app/g,'');
+
+    i_root_();
+    
+    E_I("i-app").remove();
     I_OB = {};
     scrollToTop();
-    E_I("i-app").remove();
-    if(i_app_model[i_route]){
-        i_sc.ob = i_app_model[i_route]
-       CR_(i_app_model[i_route],"i-app",false)
-    }else{
-        
-        G_root(`${app.dir.dir}${i_route}.${app.dir.file ?app.dir.file :'app' }`,L_ROUTE,["i-app",false]);
-    }
+   
+    createAppObjV(i_route);
+        if(i_app_model[i_route]){
+          CL_('open found:'+i_route)
+         i_sc.ob = COPY_OB(i_app_model[i_route]);
+                CR_(i_sc.ob,"i-app",false);
+                for(var i = 0 ; i < windowHistory.length; i++){
+                  if(i_route === windowHistory[i]){
+                    historyIndex =i;
+                  }
+                }
+        }else{
+            window.history.pushState({ page: window.location.pathname }, window.location.pathname, i_route);
+                if(windowHistory.length < 1){
+                  windowHistory.push(appRoot);
+                }
+            windowHistory.push(i_route);
+            historyIndex  = windowHistory.length - 1;
+          
+            G_root(`${app.dir.dir}${i_route}.${app.dir.file ? app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route]);
+        }
   }
-     //i-app engine
-  
-  
 
-  ///////////////// TEXT BUILD SECTION
-  const getBrowserLang = ()=>{
+///////////////// TEXT BUILD SECTION
+
+const getBrowserLang = ()=>{
     let browserLangData = navigator.languages;
     let browserLang = browserLangData[1];
     return browserLang;
   }
-  const createAppTxt =async(lang)=>{
+
+const createAppTxt =async(lang)=>{
   
     if(!lang){
       if(GTD('lang')){
-        selectLang =GTD('lang');
+        selectLang = GTD('lang');
       }else{
       let browserLang = getBrowserLang();
           if(app.lang.includes(browserLang)){
@@ -3205,17 +3411,14 @@ const filterSearchItems = (e,data)=>{
     }
     
     if( i_app_lang[selectLang] && i_app_lang[selectLang] !== undefined){
-     setTxtV(i_app_lang[selectLang]);
-    
+              setTxtV(i_app_lang[selectLang]);
      }else{
-     
-      let url =`${app.dir.txt}${selectLang}.json`; 
-         G_Json(url,(l)=>{ i_app_lang[selectLang] ={...l}; setTxtV(l); });
-     
+            let url =`${app.dir.txt}${selectLang}.json`; 
+            G_Json(url,(l)=>{ i_app_lang[selectLang] ={...l}; setTxtV(l); });
      } 
     if(selectLang == "ar" || selectLang == "he"){
       selectLangDirection = "r";
-     document.body.style.direction = "rtl";
+      document.body.style.direction = "rtl";
     }else{
       selectLangDirection = "l";
       document.body.style.direction = "ltr";
@@ -3224,13 +3427,13 @@ const filterSearchItems = (e,data)=>{
   
   var BL = 'left';
   var BR = 'right';
-  if (selectLangDirection == 'r') {
-      BL = 'right';
-      BR = 'left';
-  }
+    if (selectLangDirection == 'r') {
+        BL = 'right';
+        BR = 'left';
+    }
   var newDir = `:root {
-    --DirL: ${BL};
-    --DirR:  ${BR};
+    --DirL : ${BL};
+    --DirR :  ${BR};
     --WH__ :${window.innerHeight}px;
     --WW__ :${window.innerWidth}px;
     }`;  
@@ -3260,345 +3463,394 @@ const filterSearchItems = (e,data)=>{
   // If the class is not recognized or invalid, the function returns null.
   *@return {css class}
   */
-  
+  const CR_ani = (cs)=>{
+    
+    const deg   = cs.replace(/a_rotate/g,'');
+    let mins = '-';
+    let   key   = deg;
+
+    if(deg > 0){
+      mins = '';
+    }else{
+      key = deg.replace(/-/g,'');
+    }
+    const rotateData = {  
+          rotate1: 22.5,
+          rotate2: 45,
+          rotate3: 67.5,
+          rotate4: 90,
+          rotate5: 112.5,
+          rotate6: 135,
+          rotate7: 157.5,
+          rotate8: 180  
+        }
+
+  const rotateName = `rotate${key}`;
+  const selectRotateData = rotateData[rotateName];
+  const animationName = cs.replace(/a_/g,'');
+  return [`  @keyframes ${animationName} {
+          0%{ 
+            transform: rotate(0deg); 
+          }
+          100%{ 
+            transform: rotate(${mins}${selectRotateData}deg); 
+            }
+    }
+ `,`   .${ cs }{' +
+  transform: rotate(0deg);
+  animation-name: ${ animationName};
+  animation-duration: var(--scaleUp-time);
+  animation-timing-function: ease-in;
+  animation-delay: var(--slideDown-time);
+  animation-fill-mode: forwards;
+  }
+`];
+
+
+  }
   
   const G_CSS = (cs) => {
   const c = cs.split("_");
   let borderProps, borderStyle;
-  switch(c[0]){
-      case "sc":
-    if (c.length === 3) {
-      return `.${cs} {transform: scale(${c[1]}.${c[2]});} `;
-    }
-    break;
-  case "XO":
-    if (c[1] !== "ST") {
-      let cc = c[1];
-      if (c.length === 3 && c[1] === "PR" && c[2] === "D") {
-        cc = "PR_D";
-      }
-      const ssB = `.XO_${cc}{ width: 100%; height: 100%; background: transparent;}`;
-      const ssC = `.XO_${cc}::before { content: ""; clip-path: polygon(100% 50%, 88% 81%, 0% 82%, 0% 81%,87.7% 80%,99% 50.00%,87.7% 19%, 0% 19%,0% 18%, 88% 18%); background:var(--${cc}); width: 50%; height: 100%; position: absolute; left: 0;}`;
-      const ssD = `.XO_${cc}::after { content: ""; clip-path: polygon(0% 50%, 12% 82%, 100% 82%, 100% 81%,12.3% 80%,0.8% 50.00%,12.3% 19%, 100% 19%,100% 18%, 12% 18%); background:var(--${cc}); width: 50%; height: 100%; position: absolute; left: 50%;}`;
-      return [ssB, ssC, ssD];
-    }
-    break;
-  case "hex":
-    if (c[1] !== "ST") {
-      let cc = c[1];
-      if (c.length === 3 && c[1] === "PR" && c[2] === "D") {
-        cc = "PR_D";
-      }
-      const ssA = `.hex_${cc} { content: ""; clip-path: polygon(16.67% 50.00%, 33.33% 78.87%, 66.67% 78.87%, 83.33% 50.00%, 66.67% 21.13%, 33.33% 21.13%); background:var(--${cc}); width: 100%; height: 100%;}`;
-      return ssA;
-    }
-    break;
-  case "OPC":
-          if(c.length === 2) return `.${cs} {opacity: 0.${c[1]};} `;
+      switch(c[0]){
+        case "a":
+        if(c[1].match(/rotate/)){
+          return CR_ani(cs);
+        }
           break;
-  case "B":
-          if(c[1] == "R") {
-            /**
-             * border radius
-             * B_R_B_R_5
-             */
-            if(c.length === 3) return `.${cs} {border-radius: ${c[2]}px}  `;
-            else if(c.length === 5) {
-              switch(c[2]+c[3]) {
-                case "TL":
-                  return `.${cs} {border-top-left-radius: ${c[4]}px;} `;
-                case "TR":
-                  return `.${cs} {border-top-right-radius: ${c[4]}px;} `;
-                case "BL":
-                  return `.${cs} {border-bottom-left-radius: ${c[4]}px;} `;
-                case "BR":
-                  return `.${cs} {border-bottom-right-radius: ${c[4]}px;} `;
-              }
-            }
-          } else {
-            if(c.length === 2) {
-              const cc = (cs === "B_B_") ? "B_" : cs.replace(/B_/g, "");
-              if(selected_theme_colors[cc] ){
-               
-              return `.${cs} {background-color: var(--${cc});}  `;
-              }else{
-                return  false;
-              }
-            }else  if(c.length === 3 && cs === "B_PR_D") {
-              return `.${cs} {background-color: var(--PR_D);}  `;
-            }
+        case "sc":
+        if (c.length === 3) {
+          return `.${cs} {transform: scale(${c[1]}.${c[2]});} `;
+        }
+        break;
+      case "XO":
+        if (c[1] !== "ST") {
+          let cc = c[1];
+          if (c.length === 3 && c[1] === "PR" && c[2] === "D") {
+            cc = "PR_D";
           }
+          const ssB = `.XO_${cc}{ width: 100%; height: 100%; background: transparent;}`;
+          const ssC = `.XO_${cc}::before { content: ""; clip-path: polygon(100% 50%, 88% 81%, 0% 82%, 0% 81%,87.7% 80%,99% 50.00%,87.7% 19%, 0% 19%,0% 18%, 88% 18%); background:var(--${cc}); width: 50%; height: 100%; position: absolute; left: 0;}`;
+          const ssD = `.XO_${cc}::after { content: ""; clip-path: polygon(0% 50%, 12% 82%, 100% 82%, 100% 81%,12.3% 80%,0.8% 50.00%,12.3% 19%, 100% 19%,100% 18%, 12% 18%); background:var(--${cc}); width: 50%; height: 100%; position: absolute; left: 50%;}`;
+          return [ssB, ssC, ssD];
+        }
+        break;
+      case "hex":
+        if (c[1] !== "ST") {
+          let cc = c[1];
+          if (c.length === 3 && c[1] === "PR" && c[2] === "D") {
+            cc = "PR_D";
+          }
+          const ssA = `.hex_${cc} { content: ""; clip-path: polygon(16.67% 50.00%, 33.33% 78.87%, 66.67% 78.87%, 83.33% 50.00%, 66.67% 21.13%, 33.33% 21.13%); background:var(--${cc}); width: 100%; height: 100%;}`;
+          return ssA;
+        }
+        break;
+      case "OPC":
+              if(c.length === 2) return `.${cs} {opacity: 0.${c[1]};} `;
               break;
-  case "LH":
-              if(c.length === 2) return `.${cs} { line-height:  ${c[1]};} `;
-              break;
-  case "F":
-              if(c[1] == "S") {
-                
-                if(c.length === 3) return `.${cs} { font-size:${c[2]}px;}  `;
-              
+      case "B":
+              if(c[1] == "R") {
+                /**
+                 * border radius
+                 * B_R_B_R_5
+                 */
+                if(c.length === 3) return `.${cs} {border-radius: ${c[2]}px}  `;
+                else if(c.length === 5) {
+                  switch(c[2]+c[3]) {
+                    case "TL":
+                      return `.${cs} {border-top-left-radius: ${c[4]}px;} `;
+                    case "TR":
+                      return `.${cs} {border-top-right-radius: ${c[4]}px;} `;
+                    case "BL":
+                      return `.${cs} {border-bottom-left-radius: ${c[4]}px;} `;
+                    case "BR":
+                      return `.${cs} {border-bottom-right-radius: ${c[4]}px;} `;
+                  }
+                }
               } else {
-                const cc = cs.replace(/F_/g, "");
-                
-                if(selected_theme_colors[cc] ){
-                
-                  return `.${cs} {color: var(--${cc});}  `;
-                
-                }else{
-                
-                  return false;
-                
+                if(c.length === 2) {
+                  const cc = (cs === "B_B_") ? "B_" : cs.replace(/B_/g, "");
+                  if(selected_theme_colors[cc] ){
+                  
+                  return `.${cs} {background-color: var(--${cc});}  `;
+                  }else{
+                    return  false;
+                  }
+                }else  if(c.length === 3 && cs === "B_PR_D") {
+                  return `.${cs} {background-color: var(--PR_D);}  `;
                 }
               }
-              break;
-  case "PD":
-              if(c[1] == "P") {
-              
-                if(c.length === 3) return `.${cs} { padding:${c[2]}%;}  `;
+                  break;
+      case "LH":
+                  if(c.length === 2) return `.${cs} { line-height:  ${c[1]};} `;
+                  break;
+      case "F":
+                  if(c[1] == "S") {
+                    
+                    if(c.length === 3) return `.${cs} { font-size:${c[2]}px;}  `;
                   
-              } else if(c.length === 2) {
-              
-                return `.${cs} { padding:${c[1]}px;}  `;
-              
+                  } else {
+                    const cc = cs.replace(/F_/g, "");
+                    
+                    if(selected_theme_colors[cc] ){
+                    
+                      return `.${cs} {color: var(--${cc});}  `;
+                    
+                    }else{
+                    
+                      return false;
+                    
+                    }
+                  }
+                  break;
+      case "PD":
+                  if(c[1] == "P") {
+                  
+                    if(c.length === 3) return `.${cs} { padding:${c[2]}%;}  `;
+                      
+                  } else if(c.length === 2) {
+                  
+                    return `.${cs} { padding:${c[1]}px;}  `;
+                  
+                  }
+                  break;
+      case "":
+                      if (c[1] === "MR" && c.length === 3) {
+                        return `.${cs} { margin:${c[2]}px;} `;
+                      }
+                      break;
+      case "H":
+                      if (c[1] === "P" && c.length === 3) {
+                        return `.${cs} {height:${c[2]}%;}   `;
+                      }else  if (c.length === 2) {
+                        return `.${cs} {height:${c[1]}px;}  `;
+                      }
+                      break;
+      case "W":
+                      if (c[1] === "P" && c.length === 3) {
+                        return `.${cs} {width:${c[2]}%;}   `;
+                      }else   if (c.length === 2) {
+                        return `.${cs} {width:${c[1]}px;}  `;
+                      }
+                      break;
+      case "MHP":
+        if (c.length === 2) {
+                        return `.${cs} {max-height:${c[1]}%;} `;
+                      }
+                      break;
+      case "MWP":
+                      if (c.length === 2) {
+                        return `.${cs} {max-width:${c[1]}%;}  `;
+                      }
+                      break;
+      case "NHP":
+                      if (c.length === 2) {
+                        return `.${cs} {min-height:${c[1]}%;}  `;
+                      } else if (c.length === 2) {
+                        return `.${cs} {min-width:${c[1]}%;} `;
+                      }
+                      break;
+      case "Line":
+                      if (c[1] === "H" && c[2] === "P" && c.length === 4) {
+                        return `.${cs} {line-height:${c[3]}%;}  `;
+                      }
+                      break;
+      case "Z":
+                      if (c[1] === "I" && c.length === 3) {
+                        return `.${cs} {z-index:${c[2]};} `;
+                      }
+                      break;
+      case "Box":
+                      if (c.length === 2) {
+                        return `.${cs} {width:${c[1]}px;height:${c[1]}px;} `;
+                      }
+                      break;
+      case "pT":
+                      if (c.length === 2) {
+                        return `.${cs} {padding-top:${c[1]}px;} `;
+                      } else if (c[1] === "P" && c.length === 3) {
+                        return `.${cs} {padding-top:${c[2]}%;}  `;
+                      }
+                      break;
+      case "pB":
+                        if (c.length === 2) {
+                          return `.${cs} {padding-bottom:${c[1]}px;} `;
+                        } else if (c[1] === "P" && c.length === 3) {
+                          return `.${cs} {padding-bottom:${c[2]}%;}  `;
+                        }
+                        break;
+      case "pL":
+                      if (c.length === 2) {
+                        return `.${cs} {padding-left:${c[1]}px;} `;
+                      } else if (c[1] === "P" && c.length === 3) {
+                        return `.${cs} {padding-left:${c[2]}%;}  `;
+                      }
+                      break;
+      case "pR":
+                      if (c.length === 2) {
+                        return `.${cs} {padding-right:${c[1]}px;} `;
+                      } else if (c[1] === "P" && c.length === 3) {
+                        return `.${cs} {padding-right:${c[2]}%;}  `;
+                      }
+                      break;
+      case "MH":
+                        if (c.length === 2) {
+                          return `.${cs} {max-height:${c[1]}px;}  `;
+                        }
+                        break;
+      case "MW":
+                        if (c.length === 2) {
+                          return `.${cs} {max-width:${c[1]}px;}  `;
+                        }
+                        break;
+      case "NH":
+                        if (c.length === 2) {
+                          return `.${cs} {min-height:${c[1]}px;}  `;
+                        }
+                        break;
+      case "NW":
+                        if (c.length === 2) {
+                          return `.${cs} {min-width:${c[1]}px;}  `;
+                        }
+                        break;
+      case "mT":
+                        if (c.length === 2) {
+                          return `.${cs} {margin-top:${c[1]}px;} `;
+                        }
+                        break;
+      case "mL":
+                        if (c.length === 2) {
+                          return `.${cs} {margin-left:${c[1]}px;} `;
+                        }
+                        break;
+      case "mR":
+                        if (c.length === 2) {
+                          return `.${cs} {margin-right:${c[1]}px;} `;
+                        }
+                        break;
+      case "mB":
+                        if (c.length === 2) {
+                          return `.${cs} {margin-bottom:${c[1]}px;} `;
+                        }
+                        break;
+      case "mP":
+                        if (c.length === 2) {
+                          return `.${cs} {margin:${c[1]}%;} `;
+                        }
+                        break;
+      case "mTP":
+                        if (c.length === 2) {
+                          return `.${cs} {margin-top:${c[1]}%;} `;
+                        }
+                        break;
+      case "mLP":
+                        if (c.length === 2) {
+                          return `.${cs} {margin-left:${c[1]}%;} `;
+                        }
+                        break;
+      case "mRP":
+                        if (c.length === 2) {
+                          return `.${cs} {margin-right:${c[1]}%;} `;
+                        }
+                        break;
+      case "mBP":
+                        if (c.length === 2) {
+                          return `.${cs} {margin-bottom:${c[1]}%;} `;
+                        }
+                        break;
+      case "TT":
+                          return (c.length === 2) ? `.${cs} {top:${c[1]}px;}` :
+                            (c[1] === "P" && c.length === 3) ? `.${cs} {top:${c[2]}%;}` :
+                            '';
+      case "LL":
+                          return (c.length === 2) ? `.${cs} {left:${c[1]}px;}` :
+                            (c[1] === "P" && c.length === 3) ? `.${cs} {left:${c[2]}%;}` :
+                            '';
+      case "RR":
+                          return (c.length === 2) ? `.${cs} {right:${c[1]}px;}` :
+                            (c[1] === "P" && c.length === 3) ? `.${cs} {right:${c[2]}%;}` :
+                            '';
+      case "BB":
+                          return (c.length === 2) ? `.${cs} {bottom:${c[1]}px;}` :
+                            (c[1] === "P" && c.length === 3) ? `.${cs} {bottom:${c[2]}%;}` :
+                            '';
+      case "BG":
+            switch (c[2]) {
+              case "W":
+                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #ffffff 51%, var(--${c[1]}) 100%)}` : '';
+              case "B":
+                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #000000 51%, var(--${c[1]}) 100%)}` : '';
+              case "BL":
+                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #0300c0 51%, var(--${c[1]}) 100%)}` : '';
+              case "YL":
+                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #f7fb00 51%, var(--${c[1]}) 100%)}` : '';
+              case "GR":
+                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #04ff00 51%, var(--${c[1]}) 100%)}` : '';
+              default:
+                return '';
               }
-              break;
-  case "":
-                  if (c[1] === "MR" && c.length === 3) {
-                    return `.${cs} { margin:${c[2]}px;} `;
-                  }
-                  break;
-  case "H":
-                  if (c[1] === "P" && c.length === 3) {
-                    return `.${cs} {height:${c[2]}%;}   `;
-                  }else  if (c.length === 2) {
-                    return `.${cs} {height:${c[1]}px;}  `;
-                  }
-                  break;
-  case "W":
-                  if (c[1] === "P" && c.length === 3) {
-                    return `.${cs} {width:${c[2]}%;}   `;
-                  }else   if (c.length === 2) {
-                    return `.${cs} {width:${c[1]}px;}  `;
-                  }
-                  break;
-  case "MHP":
-    if (c.length === 2) {
-                    return `.${cs} {max-height:${c[1]}%;} `;
-                  }
-                  break;
-  case "MWP":
-                  if (c.length === 2) {
-                    return `.${cs} {max-width:${c[1]}%;}  `;
-                  }
-                  break;
-  case "NHP":
-                  if (c.length === 2) {
-                    return `.${cs} {min-height:${c[1]}%;}  `;
-                  } else if (c.length === 2) {
-                    return `.${cs} {min-width:${c[1]}%;} `;
-                  }
-                  break;
-  case "Line":
-                  if (c[1] === "H" && c[2] === "P" && c.length === 4) {
-                    return `.${cs} {line-height:${c[3]}%;}  `;
-                  }
-                  break;
-  case "Z":
-                  if (c[1] === "I" && c.length === 3) {
-                    return `.${cs} {z-index:${c[2]};} `;
-                  }
-                  break;
-  case "Box":
-                  if (c.length === 2) {
-                    return `.${cs} {width:${c[1]}px;height:${c[1]}px;} `;
-                  }
-                  break;
-  case "pT":
-                  if (c.length === 2) {
-                    return `.${cs} {padding-top:${c[1]}px;} `;
-                  } else if (c[1] === "P" && c.length === 3) {
-                    return `.${cs} {padding-top:${c[2]}%;}  `;
-                  }
-                  break;
-  case "pB":
-                    if (c.length === 2) {
-                      return `.${cs} {padding-bottom:${c[1]}px;} `;
-                    } else if (c[1] === "P" && c.length === 3) {
-                      return `.${cs} {padding-bottom:${c[2]}%;}  `;
-                    }
-                    break;
-  case "pL":
-                  if (c.length === 2) {
-                    return `.${cs} {padding-left:${c[1]}px;} `;
-                  } else if (c[1] === "P" && c.length === 3) {
-                    return `.${cs} {padding-left:${c[2]}%;}  `;
-                  }
-                  break;
-  case "pR":
-                  if (c.length === 2) {
-                    return `.${cs} {padding-right:${c[1]}px;} `;
-                  } else if (c[1] === "P" && c.length === 3) {
-                    return `.${cs} {padding-right:${c[2]}%;}  `;
-                  }
-                  break;
-  case "MH":
-                    if (c.length === 2) {
-                      return `.${cs} {max-height:${c[1]}px;}  `;
-                    }
-                    break;
-  case "MW":
-                    if (c.length === 2) {
-                      return `.${cs} {max-width:${c[1]}px;}  `;
-                    }
-                    break;
-  case "NH":
-                    if (c.length === 2) {
-                      return `.${cs} {min-height:${c[1]}px;}  `;
-                    }
-                    break;
-  case "NW":
-                    if (c.length === 2) {
-                      return `.${cs} {min-width:${c[1]}px;}  `;
-                    }
-                    break;
-  case "mT":
-                    if (c.length === 2) {
-                      return `.${cs} {margin-top:${c[1]}px;} `;
-                    }
-                    break;
-  case "mL":
-                    if (c.length === 2) {
-                      return `.${cs} {margin-left:${c[1]}px;} `;
-                    }
-                    break;
-  case "mR":
-                    if (c.length === 2) {
-                      return `.${cs} {margin-right:${c[1]}px;} `;
-                    }
-                    break;
-  case "mB":
-                    if (c.length === 2) {
-                      return `.${cs} {margin-bottom:${c[1]}px;} `;
-                    }
-                    break;
-  case "mP":
-                    if (c.length === 2) {
-                      return `.${cs} {margin:${c[1]}%;} `;
-                    }
-                    break;
-  case "mTP":
-                    if (c.length === 2) {
-                      return `.${cs} {margin-top:${c[1]}%;} `;
-                    }
-                    break;
-  case "mLP":
-                    if (c.length === 2) {
-                      return `.${cs} {margin-left:${c[1]}%;} `;
-                    }
-                    break;
-  case "mRP":
-                    if (c.length === 2) {
-                      return `.${cs} {margin-right:${c[1]}%;} `;
-                    }
-                    break;
-  case "mBP":
-                    if (c.length === 2) {
-                      return `.${cs} {margin-bottom:${c[1]}%;} `;
-                    }
-                    break;
-  case "TT":
-                      return (c.length === 2) ? `.${cs} {top:${c[1]}px;}` :
-                        (c[1] === "P" && c.length === 3) ? `.${cs} {top:${c[2]}%;}` :
-                        '';
-  case "LL":
-                      return (c.length === 2) ? `.${cs} {left:${c[1]}px;}` :
-                        (c[1] === "P" && c.length === 3) ? `.${cs} {left:${c[2]}%;}` :
-                        '';
-  case "RR":
-                      return (c.length === 2) ? `.${cs} {right:${c[1]}px;}` :
-                        (c[1] === "P" && c.length === 3) ? `.${cs} {right:${c[2]}%;}` :
-                        '';
-  case "BB":
-                      return (c.length === 2) ? `.${cs} {bottom:${c[1]}px;}` :
-                        (c[1] === "P" && c.length === 3) ? `.${cs} {bottom:${c[2]}%;}` :
-                        '';
-  case "BG":
-        switch (c[2]) {
-          case "W":
-            return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #ffffff 51%, var(--${c[1]}) 100%)}` : '';
-          case "B":
-            return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #000000 51%, var(--${c[1]}) 100%)}` : '';
-          case "BL":
-            return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #0300c0 51%, var(--${c[1]}) 100%)}` : '';
-          case "YL":
-            return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #f7fb00 51%, var(--${c[1]}) 100%)}` : '';
-          case "GR":
-            return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #04ff00 51%, var(--${c[1]}) 100%)}` : '';
-          default:
-            return '';
-          }
-  case "V":
-    if (c[1] === "B" && c.length === 3) {
-      return `.V.${cs} {border-color: var(--${c[2]}) transparent transparent transparent;} `;
-    } else if (c[1] === "B" && c[2] === "PR" && c[3] === "D" && c.length === 4) {
-      return `.V.V_B_PR_D {border-color: var(--PR_D) transparent transparent transparent;} `;
-    }
-    break;
-  case "ST":
-    if ( c.length == 4 && c[3] == "D") {
-      return `.${cs} { border:${c[2]}px var(--${c[1]}) dotted;} `;
-  } else  if ( c.length == 3) {
-        return `.${cs} { border:${c[2]}px var(--${c[1]}) solid;} `;
-    } else if ( c[1] == "T" && c.length == 4) {
-        return `.${cs} { border-top:${c[3]}px var(--${c[2]}) solid;} `;
-    } else if ( c[1] == "L" && c.length == 4) {
-        return `.${cs} { border-left:${c[3]}px var(--${c[2]}) solid;} `;
-    } else if ( c[1] == "R" && c.length == 4) {
-        return `.${cs} { border-right:${c[3]}px var(--${c[2]}) solid;} `;
-    } else if ( c[1] == "B" && c.length == 4) {
-        return `.${cs} { border-bottom:${c[3]}px var(--${c[2]}) solid;} `;
-    } else if ( c[1] == "T" && c[3] !== "D" && c[4] == "D" && c.length == 5) {
-        return `.${cs} { border-top:${c[3]}px var(--${c[2]}) dotted;} `;
-    } else if ( c[1] == "L" && c[3] !== "D" && c[4] == "D" && c.length == 5) {
-        return `.${cs} { border-left:${c[3]}px var(--${c[2]}) dotted;} `;
-    } else if ( c[1] == "R" && c[3] !== "D" && c[4] == "D" && c.length == 5) {
-        return `.${cs} { border-right:${c[3]}px var(--${c[2]}) dotted;} `;
-    } else if ( c[1] == "B" && c[3] !== "D" && c[4] == "D" && c.length == 5) {
-        return `.${cs} { border-bottom:${c[3]}px var(--${c[2]}) dotted;} `;
-    } else if ( c[1] == "PR" && c[2] == "D" && c.length == 4) {
-        return `.${cs} { border:${c[3]}px var(--PR_D) solid;} `;
-    } else if ( c[1] == "T" && c[2] == "PR" && c[3] == "D" && c.length == 5) {
-        return `.${cs} { border-top:${c[4]}px var(--PR_D) solid;} `;
-    } else if ( c[1] == "L" && c[2] == "PR" && c[3] == "D" && c.length == 5) {
-        return `.${cs} { border-left:${c[4]}px var(--PR_D) solid;} `;
-    } else if ( c[1] == "R" && c[2] == "PR" && c[3] == "D" && c.length == 5) {
-        return `.${cs} { border-right:${c[4]}px var(--PR_D) solid;} `;
-    } else if ( c[1] == "B" && c[2] == "PR" && c[3] == "D" && c.length == 5) {
-        return `.${cs} { border-bottom:${c[4]}px var(--PR_D) solid;} `;
-    } else if ( c[1] == "T" && c[1] == "PR" && c[3] == "D" && c[5] == "D" && c.length == 6) {
-        return `.${cs} { border-top:${c[5]}px var(--PR_D) dotted;} `;
-    } else if ( c[1] == "L" && c[1] == "PR" && c[3] == "D" && c[5] == "D" && c.length == 6) {
-        return `.${cs} { border-left:${c[5]}px var(--PR_D) dotted;} `;
-    } else if ( c[1] == "R" && c[1] == "PR" && c[3] == "D" && c[5] == "D" && c.length == 6) {
-        return `.${cs} { border-right:${c[5]}px var(--PR_D) dotted;} `;
-    } else if ( c[1] == "B" && c[1] == "PR" && c[3] == "D" && c[5] == "D" && c.length == 6) {
-        return `.${cs} { border-bottom:${c[5]}px var(--PR_D) dotted;} `;
-    }
-    break;
-    default:
-      return false;
-  }
+      case "V":
+        if (c[1] === "B" && c.length === 3) {
+          return `.V.${cs} {border-color: var(--${c[2]}) transparent transparent transparent;} `;
+        } else if (c[1] === "B" && c[2] === "PR" && c[3] === "D" && c.length === 4) {
+          return `.V.V_B_PR_D {border-color: var(--PR_D) transparent transparent transparent;} `;
+        }
+        break;
+      case "ST":
+        if ( c.length == 4 && c[3] == "D") {
+          return `.${cs} { border:${c[2]}px var(--${c[1]}) dotted;} `;
+      } else  if ( c.length == 3) {
+            return `.${cs} { border:${c[2]}px var(--${c[1]}) solid;} `;
+        } else if ( c[1] == "T" && c.length == 4) {
+            return `.${cs} { border-top:${c[3]}px var(--${c[2]}) solid;} `;
+        } else if ( c[1] == "L" && c.length == 4) {
+            return `.${cs} { border-left:${c[3]}px var(--${c[2]}) solid;} `;
+        } else if ( c[1] == "R" && c.length == 4) {
+            return `.${cs} { border-right:${c[3]}px var(--${c[2]}) solid;} `;
+        } else if ( c[1] == "B" && c.length == 4) {
+            return `.${cs} { border-bottom:${c[3]}px var(--${c[2]}) solid;} `;
+        } else if ( c[1] == "T" && c[3] !== "D" && c[4] == "D" && c.length == 5) {
+            return `.${cs} { border-top:${c[3]}px var(--${c[2]}) dotted;} `;
+        } else if ( c[1] == "L" && c[3] !== "D" && c[4] == "D" && c.length == 5) {
+            return `.${cs} { border-left:${c[3]}px var(--${c[2]}) dotted;} `;
+        } else if ( c[1] == "R" && c[3] !== "D" && c[4] == "D" && c.length == 5) {
+            return `.${cs} { border-right:${c[3]}px var(--${c[2]}) dotted;} `;
+        } else if ( c[1] == "B" && c[3] !== "D" && c[4] == "D" && c.length == 5) {
+            return `.${cs} { border-bottom:${c[3]}px var(--${c[2]}) dotted;} `;
+        } else if ( c[1] == "PR" && c[2] == "D" && c.length == 4) {
+            return `.${cs} { border:${c[3]}px var(--PR_D) solid;} `;
+        } else if ( c[1] == "T" && c[2] == "PR" && c[3] == "D" && c.length == 5) {
+            return `.${cs} { border-top:${c[4]}px var(--PR_D) solid;} `;
+        } else if ( c[1] == "L" && c[2] == "PR" && c[3] == "D" && c.length == 5) {
+            return `.${cs} { border-left:${c[4]}px var(--PR_D) solid;} `;
+        } else if ( c[1] == "R" && c[2] == "PR" && c[3] == "D" && c.length == 5) {
+            return `.${cs} { border-right:${c[4]}px var(--PR_D) solid;} `;
+        } else if ( c[1] == "B" && c[2] == "PR" && c[3] == "D" && c.length == 5) {
+            return `.${cs} { border-bottom:${c[4]}px var(--PR_D) solid;} `;
+        } else if ( c[1] == "T" && c[1] == "PR" && c[3] == "D" && c[5] == "D" && c.length == 6) {
+            return `.${cs} { border-top:${c[5]}px var(--PR_D) dotted;} `;
+        } else if ( c[1] == "L" && c[1] == "PR" && c[3] == "D" && c[5] == "D" && c.length == 6) {
+            return `.${cs} { border-left:${c[5]}px var(--PR_D) dotted;} `;
+        } else if ( c[1] == "R" && c[1] == "PR" && c[3] == "D" && c[5] == "D" && c.length == 6) {
+            return `.${cs} { border-right:${c[5]}px var(--PR_D) dotted;} `;
+        } else if ( c[1] == "B" && c[1] == "PR" && c[3] == "D" && c[5] == "D" && c.length == 6) {
+            return `.${cs} { border-bottom:${c[5]}px var(--PR_D) dotted;} `;
+        }
+        break;
+        default:
+          return false;
+      }
   }
   
   const GET_COLOR = (colorKey) => {
-  
-  var colorVal = "";
-  for (var k = 0; k < i_app_theme_colors.length; k++) {
-      if (i_app_theme_colors[k].k == colorKey) {
-          colorVal = i_app_theme_colors[k].v;
-      }
-  }
-  return colorVal;
+        
+        var colorVal = "";
+        for (var k = 0; k < i_app_theme_colors.length; k++) {
+            if (i_app_theme_colors[k].k == colorKey) {
+                colorVal = i_app_theme_colors[k].v;
+            }
+        }
+        return colorVal;
   }
   
   const CREATE_COLOR_ROOT_VAR = async(colors,styleElm) => {
@@ -3610,6 +3862,84 @@ const filterSearchItems = (e,data)=>{
   
   E_I(styleElm).innerHTML = `:root { ${myRoot} }`;
   return true;
+  }
+
+  let isTyping = false;
+  let typingElementIndex = '';
+  let typeElements = [];
+  const  waitTypeString = (e,st, speed)=> {
+    let i = 0;
+  const str = st.split(''); 
+    function typeNextCharacter() {
+      let isNew = true;
+      for(var k = 0 ; k < typeElements.length; k++){
+        if(typeElements[k].i == e){
+          isNew =  false;
+        }
+      }
+      if(isNew){
+        typingElementIndex = e;
+        
+        typeElements.push({i:e,st:st,speed:speed});
+      }
+      if(E_I_S(e)){
+        if (i < str.length) {
+          isTyping = true;
+          E_I_S(e).innerHTML += str[i];
+          i++;
+          setTimeout(typeNextCharacter, speed);
+        }else{
+          if(isTyping){
+            isTyping = false;
+           const  typeElementsNew = [];
+           for(var u = 0 ; u < typeElements.length;u++){
+            if(typeElements[u].i !== typingElementIndex){
+              typeElementsNew.push(typeElements[u]);
+            }
+           }
+           
+            typeElements = [...typeElementsNew];
+            typingElementIndex = '';
+            if(typeElements.length > 0){
+              typingElementIndex = typeElements[0].i ;
+              D_CL([typingElementIndex,"D_N"]);
+               waitTypeString(typeElements[0].i ,typeElements[0].st,typeElements[0].speed )
+            }
+          
+
+          }
+        }
+      }
+   
+    }
+  if(isTyping){
+    if(typingElementIndex == e){
+      typeNextCharacter();
+    }else{
+ 
+      typeElements.push({i:e,st:st,speed:speed});
+      A_CL(e,"D_N");
+    }
+   
+  }else{
+    typeNextCharacter();
+  }
+  
+  }
+  const typeString = (e,st, speed)=>{
+    let i = 0;
+    const str = st.split(''); 
+    function typeNextCharacterX() {
+      if (i < str.length) {
+        if(E_I_S(e)){
+        E_I_S(e).innerHTML += str[i];
+        i++;
+        setTimeout(typeNextCharacterX, speed);
+        }
+      }
+    }
+  
+    typeNextCharacterX();
   }
   const makeAiTime = () => {
   
@@ -3994,9 +4324,19 @@ const filterSearchItems = (e,data)=>{
       poJS(poJSOB)
     }
   }
+
   const createAppContent = (i_app_OB) => {
-    i_sc.ob = i_app_OB
-    CR_(i_app_OB,"i-app",false)
+    i_sc.ob = i_app_OB;
+    const root = window.location.pathname.replace(/\//g,"");
+    if(root == ''){
+      const appRoot = app.dir.start.replace(/.app/g,'');
+      i_app_model[appRoot] = i_app_OB;
+    }
+  
+    createAppObjV(i_root);
+    CR_(i_app_OB,"i-app",false);
+    
+
     };
   const createApp = async()=>{
     /**
@@ -4009,11 +4349,32 @@ const filterSearchItems = (e,data)=>{
     return true;
     
   }
+
+
+  function handleHistoryChange(event) {
+    // Check if the user navigated backward or forward
+
+
+
+      let newRoot     = window.location.pathname.replace(/\//g,"");
+      
+      if(newRoot == ''){
+    window.location = '/';
+      }
+     
+      if(newRoot !== windowHistory[historyIndex]){
+        
+      openRoot(newRoot);
+      }
+    
+  }
   
-  
+  // Add event listener for popstate event
+  window.addEventListener('popstate', handleHistoryChange);
   const i_app_load = async(i_a) => {
     //setDateTime
     setDateTime();
+ 
     // If the current root name is 'start', load the 'start.app' file
     app = i_a;
     /**

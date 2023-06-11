@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const saveSpeechSynthesis = require('./saveSpeechSynthesis');
 const speechSynthesisData = (body,res) => {
-    console.log("speechSynthesisData")
+  
   const inputData = body.data;
   const dir = __dirname.replace(/orders/g, '');
   const filePath = path.join(dir, 'dataSet', 'voicesDB.json');
@@ -14,7 +14,6 @@ const speechSynthesisData = (body,res) => {
         console.log("error :", err);
       } else {
         const dataSet = JSON.parse(data);
-        console.log(["dataSet",dataSet.length])
         const newVoices = [];
         const back = [];
         for (var i = 0; i < inputData.length; i++) {

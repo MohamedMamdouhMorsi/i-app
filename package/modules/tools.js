@@ -20,7 +20,7 @@ Encodes a string to base64.
 @param {string} mw - The string to be encoded.
 @returns {string} The encoded string.
 */
-const DC_ = (mw) => { var n = btoa(unescape(encodeURIComponent(mw))); return n; }
+const DC_ = (mw) => {return Buffer.from(mw).toString('base64');  }
 /**
 
 Parses a JSON string.
@@ -78,15 +78,21 @@ const stToAr = (st) => {
   }
   const getfileName = (req)=>{
     const reqUrl = req.url;
-  
-    const reqStAr = reqUrl.split("/")
-   
+    const reqStAr = reqUrl.split("/");
+
     if(reqStAr.length > 1){
-     
-  return reqStAr[reqStAr.length - 1]
+        const fileNameEx =  reqStAr[reqStAr.length - 1];
+        const fileNameExArr = fileNameEx.split('.');
+        const fileName = fileNameExArr[0];
+        return fileName;
+    }else{
+
+      return '';
     }
   }
-
+const COPY_OB = (ob)=>{
+  return JSON.parse(JSON.stringify(ob));
+}
   
 module.exports = {
     CL_,
@@ -96,6 +102,7 @@ module.exports = {
     JD_,
     arToSt,
     stToAr,
+    COPY_OB,
     getfileName
 
 }

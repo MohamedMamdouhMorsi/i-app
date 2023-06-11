@@ -29,7 +29,7 @@ const api = (req, res) => {
       req.on('end', () => {
         // Do something with the request body here
        
-        apiRes(reqBody,res);
+        apiRes(reqBody,req,res);
       });
      }else{
       destroySession();

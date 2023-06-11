@@ -5,21 +5,21 @@ const {JDS_,CL_,JD_} = require('../../tools');
 const path = require('path');
 const iAppFileMaker = require('../../utils/toolsFN/iAppFileMaker');
 const fs = require('fs');
-const dataBaseUpddate = (i_app)=>{
-    const i_app_db_path = appDir().i_app_db_path;
+const dataBaseUpddate =async (i_app)=>{
+    const {i_app_db_path} =await appDir();
 //check if users system
 if(i_app.users){
     const callBack =(res)=>{}
     if(!fs.existsSync(i_app_db_path)){
         
-        console.log('Please add db.app to your project main directory with your Database conifguration or delete or comment users key from i-app')
+        console.log('Please add db.app to your project main directory with your Database conifguration or delete or comment users key from i-app'+i_app_db_path)
         return false;
 
       }else{
 
         fs.readFile(i_app_db_path, (err, data) => {
             if (err) {
-                console.log('Please add db.app to your project main directory with your Database conifguration or delete or comment users key from i-app')
+                console.log('Please add db.app to your project main directory with your Database conifguration or delete or comment users key from i-app'+i_app_db_path)
                 return false;
             }else{
             
@@ -27,7 +27,7 @@ if(i_app.users){
                 let cleanDataSt = iAppReader(dbSt)
                 const jsonData    = JD_(cleanDataSt);
                 if(jsonData.mysql && jsonData.mysql.length > 0){
-                    
+
                 const basicDataBase = jsonData.mysql[0];
                 const basicTables =basicDataBase.tables ?basicDataBase.tables: false ; 
                 const basicDB = ['users','usersSessions','usersPasswords','usersPermissions'];
@@ -60,11 +60,11 @@ if(i_app.users){
                                 return false;
                             }else{
                                 const basicDBdataJD = JD_(basicDBdata.toString())
-                                CL_(["updateDBFILE",basicDBdataJD,editDB]);
+                              
                                 for(var d = 0 ; d < editDB.length; d++){
                                     
                                     const createdDBName = editDB[d]; 
-                                    CL_(["createdDBName",createdDBName]);
+                                  
                                    if(! jsonData.mysql[0].tables){
                                     jsonData.mysql[0].tables = {}
                                    }
@@ -94,8 +94,8 @@ if(i_app.users){
                      db({query:[{a:'check',n:dbName}]}, false, callBack).then(result=>{
                        if(result.length > 0){
                         editDB.push(dbName)
-                        if(lastDB == dbName){
-                            console.log('ok its work');
+                        if(needDB.length == editDB.length){
+                            console.log('all needed DB table Created');
                             updateDBFILE();
                            }
                        }else{
@@ -110,14 +110,15 @@ if(i_app.users){
                                  db({query:[{a:'create',d:sqlDataST}]}, false, callBack).then(creatResult=>{
                                     editDB.push(dbName)
                                     console.log(' DB :'+dbName+' created');
+                                    if(needDB.length == editDB.length){
+                                        console.log('all needed DB table Created');
+                                        updateDBFILE();
+                                       }
                                 });
                                 
                               
                             }
-                       if(lastDB == dbName){
-                        console.log('ok its work');
-                        updateDBFILE();
-                       }
+                       
                         });
                        }
                     }).catch(err=>{
