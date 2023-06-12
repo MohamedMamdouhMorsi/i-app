@@ -1,92 +1,54 @@
-const path = require('path');
-const fs = require('fs');
+
 const sessionsControl = require('./sessionsControl');
-const {searchFiles,getContentType,api,createAppHead} = require('../main');
-const {JDS_,CL_,JD_,getfileName} = require('../tools');
-let red = 0;
+const {api} = require('../main');
+const {getfileName} = require('../tools');
 
-   
-const middleWareApp =(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript])=>{
-    const userData = sessionsControl(req,res,i_app);
-    const fileName = getfileName(req);
-    const app_file_test = fileName+".app";
-    const is_app_file = searchFiles(tree,app_file_test);
-    const htmlBody = createAppHead(i_app,colorPR_D,userData);
-    let backBodyError = `<h1>404 Not Found</h1><p>The requested URL ${req.url} was not found on this server.</p>`;
-    let backBody = backBodyError;
-    let contentType = 'text/html';
-    let filePath = null;
+const is_api_ = require('./middelWare/is_api');
+const is_app_ = require('./middelWare/is_app');
+const is_asset_ = require('./middelWare/is_asset');
+const is_route_ = require('./middelWare/is_route');
+const app_file = require('./middelWare/app_file');
+const asset_file = require('./middelWare/asset_file');
+const route_file = require('./middelWare/route_file');
 
-    if(req.url === '/api'){
-        return api(req,res);
-    }else  if(is_app_file.type || req.url === '/'){
-        backBody = htmlBody;
-    }else if (req.url === '/manifest.json') {
-        contentType =  'application/json';
-        backBody = JDS_(manifest);
-    }else if (req.url === '/sw.js') {
-        contentType =  'text/javascript';
-        backBody = swScript;
-    }else  if (req.url.match(/\/img\/flags\//)) {
-      const img = req.url.replace(/\/img\/flags\//,'');
-      filePath = path.join(__dirname, '..','..','img','flags',img);
-  }else if (req.url === '/i.app') {
-        contentType =  'application/json';
-        backBody =i_app_st;
-    }else if (req.url === '/i-app-ui.js' ) {
-        filePath = path.join(__dirname, '..','..','i-app-ui.js');
-    }else  if (req.url === '/sl.app' ) {
-      filePath = path.join(__dirname, '..','..','elements','sl.app');
-    }else if (req.url === '/icofont.css') {
-        filePath = path.join(__dirname,'..','..','css', 'icofont.css');
-    }else if (req.url === '/i-app-basic.css' ) {
-        filePath = path.join(__dirname,'..','..','css', 'i-app-basic.css');
-    }else{
-        const search = req.url.split('?');
-        if(search.length > 1){
-          let fileNameSearch = search[0];
-          fileNameSearch = fileNameSearch.replace(/\//g,'');
+const middleWareApp = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript])=>{
+
+  const appWare = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript],userData)=>{
+    const path = require('path');
   
-              if(fileNameSearch == "" || searchFiles(tree,fileNameSearch+".app") && searchFiles(tree,fileNameSearch+".app").name || searchFiles(tree,fileNameSearch+".json") && searchFiles(tree,fileNameSearch+".json").name){
-                backBody = htmlBody;
-              }else{
-                filePath = path.join(userDir,'public', search[0].toString());
-              }
-    }else{
-    
-        if(searchFiles(tree,fileName+".app") && searchFiles(tree,fileName+".app").name ||
-           searchFiles(tree,fileName+".json") && searchFiles(tree,fileName+".json").name){
-            backBody = htmlBody;
-          }else{
-            filePath = path.join(userDir,'public', req.url);
-          }
-    }
-       
-    }
-    if(filePath !== null){
-        const extname = path.extname(filePath);
-         contentType = getContentType(extname);
-        fs.access(filePath, fs.constants.F_OK, (err) => {
-            if (err) {
-              res.writeHead(404, { 'Content-Type': 'text/html' });
-              res.end(`<h1>404 Not Found</h1><p>The requested URL ${req.url} was not found on this server.</p>`);
-            } else {
-              fs.readFile(filePath, (err, data) => {
-                if (err) {
-                  res.writeHead(500, { 'Content-Type': 'text/html' });
-                  res.end('<h1>500 Internal Server Error</h1><p>Sorry, there was a problem loading the requested URL.</p>');
-                } else {
-                 
-                  res.writeHead(200, { 'Content-Type': contentType });
-                  res.end(data);
-                }
-              });
-            }
-          });
-    }else{
-        res.writeHead(200, { 'Content-Type': contentType });
-        res.end(backBody);
-    }
+    const url = req.url;
+  const extname = path.extname(req.url);
+  const is_api   = is_api_(url);
+  const is_app   = is_app_(extname);
+  const is_asset = is_asset_(extname);
+  const is_route = is_route_(extname);
+  const fileName = getfileName(req);
+  if(is_api){
+    return api(req,res);
+  }else if(is_app){
+    return app_file(req,res,extname,fileName,manifest,i_app_st,tree,userDir,i_app);
+  }else if(is_asset){
+    return asset_file(req,res,userDir,swScript,userData);
+  }else if(is_route){
+    return route_file(req,res,i_app,colorPR_D);
+  }else{
+    res.writeHead(400, { 'Content-Type': 'text/html' });
+    res.end('<h1>500 Internal Server Error</h1><p>Sorry, there was a problem loading the requested URL.</p>');
+  
+  }
+  }
+
+
+
+  if (i_app.users &&req.url === '/i-app-ui.js' ) {
+ sessionsControl(req,res,appWare,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript]);
+ 
+}else{
+  appWare(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript], {id:0,notBasic:true});
+}
+
+
+
 
 }
 module.exports = middleWareApp

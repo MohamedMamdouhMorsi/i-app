@@ -1,5 +1,4 @@
 CREATE TABLE usersPermissions (
-  `id` int(11) NOT NULL ,
   `userId` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `permission` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `state` int(1) NOT NULL,

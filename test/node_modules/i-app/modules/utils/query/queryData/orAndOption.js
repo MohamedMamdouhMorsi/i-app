@@ -9,7 +9,7 @@ const realationSympole ={
     like:'LIKE'
 }
 const orAndOption =(op,table)=>{
-    let opText = ""
+    let opText = "";
     for(var orOp = 0 ; orOp < op.length; orOp++){
         const OrOB = op[orOp];
   
@@ -17,7 +17,7 @@ const orAndOption =(op,table)=>{
             const AndOB = OrOB[andOp];
            
             let columnIndex = AndOB[0] ;
-            let columnName = table[columnIndex];
+            let columnName ;
             if(typeof columnIndex === 'string' ){
                 let coulmnExist = false;
                 for(var i = 0 ; i < table.length; i++){
@@ -34,8 +34,11 @@ const orAndOption =(op,table)=>{
             }
             const realtionText = AndOB[2]
             const realtion = realationSympole[realtionText] ? realationSympole[realtionText] : 'false';
-            const Value = AndOB[1];
-            const AndText = '';
+            var Value = AndOB[1];
+            if(typeof Value === 'string'){
+                Value = `'${Value}'`
+            }
+            let AndText = '';
             
             if(OrOB[andOp +1]){
                 AndText = 'AND';
@@ -53,6 +56,7 @@ const orAndOption =(op,table)=>{
             opText += ' OR ';
         }
     }
+
 return opText;
 }
 module.exports = orAndOption

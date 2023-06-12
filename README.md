@@ -1,8 +1,8 @@
-# i-app - 
+# i-app 
 > BETA  ( javascript , nodejs, mysql) v-1.0.5
 
 
-### i-app is a full-stack language designed to simplify the development of web applications. It is built with pure JavaScript and can be easily integrated into your project. i-app supports multiple technologies, including JavaScript, Node.js, PHP, and Python.
+## i-app is a full-stack language designed to simplify the development of web applications. It is built with pure JavaScript and can be easily integrated into your project. i-app supports multiple technologies, including JavaScript, Node.js, PHP, and Python.
 
 [![Discord Chat](https://img.shields.io/badge/chat-discord-blue.svg)](https://discord.gg/N5Z7Z8NF)
 

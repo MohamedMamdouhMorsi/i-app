@@ -1,39 +1,79 @@
-const sessions = {}
-const creatAUTH = require('../utils/toolsFN/createAUTH')
+
+const creatAUTH = require('../utils/toolsFN/createAUTH');
+const getDeviceInfo = require('../utils/toolsFN/getDeviceInfo');
 const db = require('../utils/query/mysqlConnect');
-const setNewSession  = (res,userIP,expires)=>{
-    const newSessionId = creatAUTH(expires.toUTCString());
-    res.setHeader('Set-Cookie', `sessionId=${newSessionId}; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`);
-    sessions[newSessionId] = {ip:userIP};
-   }
 
-const sessionsControl =(req,res,appData)=>{
+
+const sessionsControl = async (req,res,app,data)=>{
+  let userData = {id:0 };
+ 
+    const deviceInfo = getDeviceInfo(req);
+    const fingerPrint   = deviceInfo.fingerPrint;
    
-    let sessionId = req.headers.cookie && req.headers.cookie.split('=')[1]? req.headers.cookie.split('=')[1] : false;
-    const expires = new Date(Date.now() + 86400 * 1000);
-    const userIP = (req.headers['x-forwarded-for'] || '').split(',').pop().trim() || 
-    req.socket.remoteAddress;
-    
-    if(req.url === '/'){
-        if(appData.uesrs){
-       if(sessionId ){
-                db({a:'get',n:'usersSessions',q:[[[2,sessionId,'eq']]],l:1},false,(userData)=>{
-                    
-                        if(userIP == sessions[sessionId].ip){
-                            console.log(userData);
-                            res.setHeader('Set-Cookie', `sessionId=${sessionId}; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`);
-                        }else{
-                            setNewSession(res,userIP,expires);
-                        }
+    let cookies = req.headers.cookie ? req.headers.cookie.split('; ') : [];
 
-                        return userData;
-                });
+    let deviceId ,timestamp;
+    let userId = '1';
     
-         }else{
-            setNewSession(res,userIP,expires);
-           }
-         }
-        }
-      
+    for (let cookie of cookies) {
+      let [name, value] = cookie.split('=');
+      if (name === 'deviceId') {
+        deviceId = value;
+      } else  if (name === 'timestamp') {
+        timestamp = value;
+      } else if (name === 'userId') {
+        userId = value;
+      }
+    }
+    
+    if (userId && deviceId && timestamp) {
+      const authSt = `${fingerPrint}-${timestamp}`;
+      const cureDeviceId = creatAUTH(authSt);
+      if(deviceId === cureDeviceId){
+            const isUser = (res_,res)=>{
+             
+              if(res_.length > 0){
+                userData =  res_[0];
+               app(req,res,data, userData);
+              }else{
+                userData.notSecureDB = true;
+                app(req,res,data, userData);
+              }
+            
+            }
+
+              db({
+                query:[
+                  {
+                     a:'getJ',
+                     n:'usersSessions',
+                     q:[[[2,deviceId,'eq']]],
+                     l:1,
+                     j: [{
+                      n: "users",
+                      q: [
+                          [
+                              [1, { "t": "q", "d": "userId" }, "eq"]
+                          ]
+                      ],
+                      s: ["username"],
+                      l: 1
+                  }]
+                    }
+                  ]
+                },
+              res,
+              isUser);
+                      
+      }else{
+        userData.notSecure = true;
+        app(req,res,data, userData);
+      }
+    }   else{
+      userData.noAuth = true;
+      app(req,res,data, userData);
+    }
+ 
+   
 }
 module.exports = sessionsControl
