@@ -100,12 +100,7 @@ if(!fs.existsSync(i_app_path)){
 
 
 
-return {
-  tree:tree,
-  appDir:userDir,
-  userPublicDir:userPublicDir,
-  i_app_path:i_app_path
-}
+return true
 
 }
 module.exports = readAppData

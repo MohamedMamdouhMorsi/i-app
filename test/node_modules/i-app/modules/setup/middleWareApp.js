@@ -10,9 +10,11 @@ const is_route_ = require('./middelWare/is_route');
 const app_file = require('./middelWare/app_file');
 const asset_file = require('./middelWare/asset_file');
 const route_file = require('./middelWare/route_file');
-
+const router = require('../utils/router/router');
 const middleWareApp = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript])=>{
 
+  const userRouter =  router.match(req,res);
+  if(!userRouter){
   const appWare = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript],userData)=>{
     const path = require('path');
   
@@ -23,6 +25,7 @@ const middleWareApp = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,s
   const is_asset = is_asset_(extname);
   const is_route = is_route_(extname);
   const fileName = getfileName(req);
+
   if(is_api){
     return api(req,res);
   }else if(is_app){
@@ -41,14 +44,13 @@ const middleWareApp = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,s
 
 
   if (i_app.users &&req.url === '/i-app-ui.js' ) {
- sessionsControl(req,res,appWare,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript]);
- 
+  sessionsControl(req,res,appWare,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript]);
 }else{
   appWare(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript], {id:0,notBasic:true});
 }
 
 
-
+  }
 
 }
 module.exports = middleWareApp
