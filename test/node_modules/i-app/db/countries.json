@@ -1997,141 +1997,159 @@
         "name": "Turks and Caicos Islands",
         "nameInLanguage": "Turks and Caicos Islands",
         "language": "English",
-        "languageAbbreviation": "en",
+        "languageCode": "en",
         "dialCode": "+1649",
-        "code": "TC"
+        "code": "TC",
+        "languageNative": "English"
     },
     {
         "name": "Tuvalu",
         "nameInLanguage": "Tuvalu",
         "language": "Tuvaluan, English",
-        "languageAbbreviation": "tvl,en",
+        "languageCode": "tvl,en",
         "dialCode": "+688",
-        "code": "TV"
+        "code": "TV",
+        "languageNative": "Tuvaluan, English"
     },
     {
         "name": "Uganda",
         "nameInLanguage": "Uganda",
         "language": "English, Swahili",
-        "languageAbbreviation": "en,sw",
+        "languageCode": "en,sw",
         "dialCode": "+256",
-        "code": "UG"
+        "code": "UG",
+        "languageNative": "English, Swahili"
     },
     {
         "name": "Ukraine",
         "nameInLanguage": "Україна",
         "language": "Ukrainian",
-        "languageAbbreviation": "uk",
+        "languageCode": "uk",
         "dialCode": "+380",
-        "code": "UA"
+        "code": "UA",
+        "languageNative": "Українська"
     },
     {
         "name": "United Arab Emirates",
         "nameInLanguage": "دولة الإمارات العربية المتحدة",
         "language": "Arabic",
-        "languageAbbreviation": "ar",
+        "languageCode": "ar",
         "dialCode": "+971",
-        "code": "AE"
+        "code": "AE",
+        "languageNative": "العربية"
     },
     {
         "name": "United Kingdom",
         "nameInLanguage": "United Kingdom",
         "language": "English",
-        "languageAbbreviation": "en",
+        "languageCode": "en",
         "dialCode": "+44",
-        "code": "GB"
+        "code": "GB",
+        "languageNative": "English"
     },
     {
         "name": "Uruguay",
         "nameInLanguage": "Uruguay",
         "language": "Spanish",
-        "languageAbbreviation": "es",
+        "languageCode": "es",
         "dialCode": "+598",
-        "code": "UY"
+        "code": "UY",
+        "languageNative": "Español"
     },
     {
         "name": "Uzbekistan",
         "nameInLanguage": "Ўзбекистон",
         "language": "Uzbek",
-        "languageAbbreviation": "uz",
+        "languageCode": "uz",
         "dialCode": "+998",
-        "code": "UZ"
+        "code": "UZ",
+        "languageNative": "Oʻzbekcha"
     },
     {
         "name": "Vanuatu",
         "nameInLanguage": "Vanuatu",
         "language": "Bislama, English, French",
-        "languageAbbreviation": "bi,en,fr",
+        "languageCode": "bi,en,fr",
         "dialCode": "+678",
-        "code": "VU"
+        "code": "VU",
+        "languageNative": "Bislama, English, Français"
     },
     {
         "name": "Venezuela, Bolivarian Republic of Venezuela",
         "nameInLanguage": "Venezuela",
         "language": "Spanish",
-        "languageAbbreviation": "es",
+        "languageCode": "es",
         "dialCode": "+58",
-        "code": "VE"
+        "code": "VE",
+        "languageNative": "Español"
     },
     {
         "name": "Vietnam",
         "nameInLanguage": "Việt Nam",
         "language": "Vietnamese",
-        "languageAbbreviation": "vi",
+        "languageCode": "vi",
         "dialCode": "+84",
-        "code": "VN"
-    }, {
+        "code": "VN",
+        "languageNative": "Tiếng Việt"
+    },
+    {
         "name": "Virgin Islands, British",
         "nameInLanguage": "Virgin Islands, British",
         "language": "English",
         "languageInLanguage": "English",
-        "languageAbbreviation": "en",
+        "languageCode": "en",
         "dialCode": "+1284",
-        "code": "VG"
+        "code": "VG",
+        "languageNative": "English"
     },
     {
         "name": "Virgin Islands, U.S.",
         "nameInLanguage": "Virgin Islands, U.S.",
         "language": "English",
         "languageInLanguage": "English",
-        "languageAbbreviation": "en",
+        "languageCode": "en",
         "dialCode": "+1340",
-        "code": "VI"
+        "code": "VI",
+        "languageNative": "English"
     },
     {
         "name": "Wallis and Futuna",
         "nameInLanguage": "Wallis and Futuna",
         "language": "French",
         "languageInLanguage": "Français",
-        "languageAbbreviation": "fr",
+        "languageCode": "fr",
         "dialCode": "+681",
-        "code": "WF"
+        "code": "WF",
+        "languageNative": "Français"
     },
     {
         "name": "Yemen",
         "nameInLanguage": "Yemen",
         "language": "Arabic",
         "languageInLanguage": "العربية",
-        "languageAbbreviation": "ar",
+        "languageCode": "ar",
         "dialCode": "+967",
-        "code": "YE"
+        "code": "YE",
+        "languageNative": "العربية"
     },
     {
         "name": "Zambia",
         "nameInLanguage": "Zambia",
         "language": "English",
         "languageInLanguage": "English",
-        "languageAbbreviation": "en",
+        "languageCode": "en",
         "dialCode": "+260",
-        "code": "ZM"
+        "code": "ZM",
+        "languageNative": "English"
     },
     {
         "name": "Zimbabwe",
         "nameInLanguage": "Zimbabwe",
         "language": "English",
         "languageInLanguage": "English",
-        "languageAbbreviation": "en",
+        "languageCode": "en",
         "dialCode": "+263",
-        "code": "ZW"
+        "code": "ZW",
+        "languageNative": "English"
     }
 ]

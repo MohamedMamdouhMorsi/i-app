@@ -13,8 +13,16 @@ Decodes a base64-encoded string.
 @param {string} mw - The string to be decoded.
 @returns {string|false} The decoded string or false if there was an error.
 */
-const EC_ = (mw) => { var n; try{ n= atob(mw);return n;}catch(e){ CL_(["error EC_ => ",n]); return false; }}
-/**
+const EC_ = (mw) => {
+  let n;
+  try {
+    n = Buffer.from(mw, 'base64').toString('ascii');
+    return n;
+  } catch (e) {
+    console.log("Error EC_ =>", n);
+    return false;
+  }
+};/**
 
 Encodes a string to base64.
 @param {string} mw - The string to be encoded.
@@ -93,7 +101,21 @@ const stToAr = (st) => {
 const COPY_OB = (ob)=>{
   return JSON.parse(JSON.stringify(ob));
 }
+function checkForSqlInjection(postData) {
+  const sqlInjectionPattern = /\b(ALTER|CREATE|DELETE|DROP|EXEC(UTE)?|INSERT(INTO)?|MERGE|SELECT|UPDATE)\b/i;
   
+  for (const key in postData) {
+    if (postData.hasOwnProperty(key)) {
+      const value = postData[key];
+      if (typeof value === 'string' && sqlInjectionPattern.test(value)) {
+        // Potential SQL injection detected
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
 module.exports = {
     CL_,
     DC_,
@@ -103,6 +125,7 @@ module.exports = {
     arToSt,
     stToAr,
     COPY_OB,
-    getfileName
+    getfileName,
+    checkForSqlInjection
 
 }
