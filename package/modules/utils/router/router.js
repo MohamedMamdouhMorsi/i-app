@@ -1,23 +1,23 @@
-const tools = {
-    start(){
-        console.log('start tools');
-    }
-}
+const {checkForSqlInjection} = require('../../tools');
 const router = {
     routes: {},
     get(url, callback,data) {
-        console.log(url, callback,data)
       this.routes[url]= { callback,data };
     },
     match(req, res) {
+      const checkInjection = checkForSqlInjection(req.url);
+      if(!checkInjection){
       if (this.routes[req.url]) {
-       // console.log(matchingRoute)
-       this.routes[req.url].callback(req, res,this.routes[req.url].data,tools);
+       this.routes[req.url].callback(req, res,this.routes[req.url].data);
         return true;
       } else {
-       // console.log(this.routes)
         return false;
       }
+    } else {
+      res.statusCode = 500;
+      res.writeHead('Content-Type', 'application/json');
+      res.end(JSON.stringify({ message: 'Invalid request method' }));
+    }
     }
   };
   

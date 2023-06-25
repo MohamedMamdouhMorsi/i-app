@@ -8,18 +8,21 @@ const asset_file =(req,res,userDir,swScript,userData)=>{
     var backBody = null;
     var contentType = null;
     var isUiJs = false;
+    
     if (req.url === '/sw.js') {
       contentType =  'text/javascript';
       backBody = swScript;
     }else  if (req.url.match(/\/img\/flags\//)) {
         const img = req.url.replace(/\/img\/flags\//,'');
         filePath = path.join(__dirname, '..','..','..','img','flags',img);
-    } if (req.url === '/i-app-ui.js' ) {
+    }else if (req.url === '/i-app-ui.js' ) {
         filePath = path.join(__dirname, '..','..','..','i-app-ui.js');
         isUiJs = true;
     }else if (req.url === '/icofont.css') {
         filePath = path.join(__dirname,'..','..','..','css', 'icofont.css');
-    }else if (req.url === '/i-app-basic.css' ) {
+    }else  if (req.url === '/app.png') {
+      filePath = path.join(__dirname,'..','..','..','img', 'app.png');
+  }else if (req.url === '/i-app-basic.css' ) {
         filePath = path.join(__dirname,'..','..','..','css', 'i-app-basic.css');
     }else {
       let is_get = false;

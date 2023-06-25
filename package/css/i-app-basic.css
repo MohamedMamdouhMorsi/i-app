@@ -67,7 +67,10 @@ a:active,
 a:hover {
     outline: 0;
 }
-
+input{
+    outline:2px solid var(--PR);
+    color: var(--B);
+}
 a {
     text-decoration: none;
 }
@@ -104,8 +107,12 @@ input::-moz-focus-inner {
 textarea,
 input {
     line-height: normal;
-    color: var(--F);
     background: var(--W);
+    outline: none;
+    color: var(--B);
+}
+input:focus{
+    outline:2px solid var(--PR);
 }
 
 input[type="checkbox"],
@@ -555,15 +562,19 @@ custom element class
 /****************************************************
 custom element
 */
+
+
 .input {
     border: none;
     border-bottom: 4px solid var(--PR);
     color:var(--B);
     padding: 5px 10px;
-    margin-bottom: 5px;
-    outline: none
-}
 
+}
+.inputLabel{
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
 /* The switch - the box around the slider */
 
 .switch {

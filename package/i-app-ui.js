@@ -170,6 +170,13 @@ const i_app = (()=>{
     let selectLang = "en";
     let selectLangDirection = "l";
     let historyIndex = 0;
+    const destroySession = ()=>{
+      deleteConstKeys(userData)
+      app = {};
+      I_OB = {};
+      document.innerHTML = '';
+      window.location = '/login';
+   }
     /**Functions Varibles */
     const windowHistory = [];
     const ReturnScriptFunctions = {};
@@ -512,6 +519,28 @@ const i_app = (()=>{
   }
   }
   };
+  const deleteConstKeys =(obj)=> {
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        const value = obj[key];
+        if (typeof value === 'object' && value !== null) {
+          deleteConstKeys(value); // Recursive call for nested objects
+        }
+        if (Object.isFrozen(obj) || Object.isSealed(obj)) {
+          delete obj[key];
+        }
+      }
+    }
+  }
+
+const hideOtherKeys = (k,obj)=>{
+    for (const key in obj) {
+      const body = obj[key];
+      if(key !== 'infoTab'){
+        A_CL(body,'D_N');
+      }
+}
+  }
   const isString = (x) => {
     return Object.prototype.toString.call(x) === "[object String]"
   }
@@ -529,6 +558,15 @@ const i_app = (()=>{
     }
   
   }
+  const DEL_E = (mw) => {
+    const myNode = isString(mw) ? E_I_S(mw) : mw;
+    if (myNode && myNode.childNodes && myNode.childNodes.length > 0) {
+        while (myNode.firstChild) {
+            myNode.removeChild(myNode.firstChild);
+        }
+    }
+
+}
   const GTX = (txt)=>{
     return i_app_select_lang[txt] ? i_app_select_lang[txt] : txt;
   }
@@ -614,7 +652,9 @@ const i_app = (()=>{
   const D_CL = ([m, w]) => {
       
     var e = isString(m) ? E_I_S(m) : m;
+   
     if (e && e.className) {
+    
         var cc = e.className;
         var ic = cc.split(" ");
         var kw = '';
@@ -929,6 +969,8 @@ const funcHandel = (str) => {
         str = str.replace(/([a-z0-9A-Z_]+) "/g, '$1 , "'); // delete last comma comma
         str = str.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '$2 :'); // add quotes around property names
         str = str.replace(/fndc/g, 'fn'); // clear fndc
+        str = str.replace(/aaa@aaa/g, ':');
+        
         // str = cleanStr(str);
       
         return str;
@@ -953,10 +995,18 @@ const funcHandel = (str) => {
     return fn();
   }
   // This function fetches data from a URL, cleans the text response, and passes the resulting JSON to a callback
+  
+  const wait_root = {}
+  
+  
   const G_root = async(url, callback, data) => {
     // Fetch data from the specified URL
     const isJsonFile = !url.includes('.app') && url.includes('.json')?true:false ;
-    
+    if(!wait_root[url]){
+      wait_root[url] = [[callback,data]];
+    }else{
+      wait_root[url].push([callback,data]);
+    }
     
     fetch(url)
       .then((res) => {
@@ -965,7 +1015,12 @@ const funcHandel = (str) => {
   
           if(isJsonFile){
             res.json().then((json) => {
-              callback(json, data);
+              for(var u = 0 ; u < wait_root[url].length ; u++){
+                const callBack_ = wait_root[url][u][0];
+                const data_ = wait_root[url][u][1];
+                callBack_(json, data_);
+              }
+             delete  wait_root[url];
               
             });
   
@@ -1019,18 +1074,26 @@ const funcHandel = (str) => {
         }
       });
   };
-  
+
   const _POST = (url,data,callback)=>{
-  
     fetch(url, {
-  method: "POST",
-  body: JSON.stringify(data),
-  headers: {
-    "Content-type": "application/json; charset=UTF-8"
-  }
-}) .then((res) => {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                  "Content-type": "application/json; charset=UTF-8"
+                }
+          }
+) .then((res) => {
+
   res.json().then((json) => {
-    callback(json, data);
+    if(json.res && json.res == 'destroySession'){
+        destroySession();
+    }else{
+    if(typeof callback === 'function'){
+     
+      callback(json, data);
+    }
+  }
     
   });
  
@@ -1042,56 +1105,56 @@ const funcHandel = (str) => {
     }
   }
   
-  const URS =()=>{
-    return{
-      E_I_S:E_I_S,
-      E_I:E_I,
-      E_I_V:E_I_V,
-      G_SRC:G_SRC,
-      MW_SW_L:createAppTxt,
-      s_Lang:s_Lang,
-      createAppTxt:createAppTxt,
-      SLIDER_SW:SLIDER_SW,
-      DEL_E_E:DEL_E_E,
-      In_S:In_S,
-      A_CL:A_CL,
-      IN_V:IN_V,
-      D_CL:D_CL,
-      SW_CL:SW_CL,
-      cmar:cmar,
-      SWITCH_VOICE:SWV,
-      LIN:LIN,
-      theme:i_app_theme,
-      HT_:HT_,
-      CE_:CE_,
-      A_H:A_H,
-      U_CSS:U_CSS,
-      cele:cele,
-      selD:selD,
-      CR_:CR_,
-      I_O:I_O,
-      _POST:_POST,
-      GTX:GTX,
-      F_LO:F_LO,
-      openRoot:openRoot,
-      PLAY_SLI:PLAY_SLI,
-      ANI_CARD:ANI_CARD,
-      filterSearchItems:filterSearchItems,
-      particlesJS:poJS,
-      I_SCROL:I_SCROL,
-      elmChange:elmChange,
-      switchTheme:switchTheme,
-      scrollToTop:scrollToTop,
-      CL_:CL_,
-      FCMTC:FCMTC,
-      FCMTA:FCMTA,
-      AL_:AL_,
-      IS_EMAIL:IS_EMAIL,
-      IS_USERNAME:IS_USERNAME,
-      wait_:wait_,
-      U_CSS:U_CSS
-    }
-  }
+  const URS = () => Object.freeze({
+    E_I_S: E_I_S,
+    E_I: E_I,
+    E_I_V: E_I_V,
+    G_SRC: G_SRC,
+    MW_SW_L: createAppTxt,
+    s_Lang: s_Lang,
+    createAppTxt: createAppTxt,
+    SLIDER_SW: SLIDER_SW,
+    DEL_E_E: DEL_E_E,
+    In_S: In_S,
+    A_CL: A_CL,
+    IN_V: IN_V,
+    D_CL: D_CL,
+    SW_CL: SW_CL,
+    cmar: cmar,
+    SWITCH_VOICE: SWV,
+    LIN: LIN,
+    theme: i_app_theme,
+    HT_: HT_,
+    CE_: CE_,
+    A_H: A_H,
+    U_CSS: U_CSS,
+    cele: cele,
+    selD: selD,
+    CR_: CR_,
+    I_O: I_O,
+    _POST: _POST,
+    GTX: GTX,
+    F_LO: F_LO,
+    openRoot: openRoot,
+    PLAY_SLI: PLAY_SLI,
+    ANI_CARD: ANI_CARD,
+    filterSearchItems: filterSearchItems,
+    particlesJS: poJS,
+    I_SCROL: I_SCROL,
+    elmChange: elmChange,
+    switchTheme: switchTheme,
+    scrollToTop: scrollToTop,
+    CL_: CL_,
+    FCMTC: FCMTC,
+    FCMTA: FCMTA,
+    AL_: AL_,
+    IS_EMAIL: IS_EMAIL,
+    IS_USERNAME: IS_USERNAME,
+    wait_: wait_,
+    E_C: E_C,
+    hideOtherKeys: hideOtherKeys
+  });
+  
   const L_CSS = (f)=>{
              
     if(!E_I(`css_${f}`)){
@@ -2546,7 +2609,9 @@ const funcHandel = (str) => {
     //
     if( ev === 'auto' ){
     setTimeout(newFunc,300);
-    }else{
+    }else if( ev === 'change' ){
+      ob.i_e.onchange = newFunc()
+      }else{
       ob.i_e.addEventListener(ev,newFunc)
     }
   
@@ -2571,6 +2636,9 @@ const funcHandel = (str) => {
       CR_(body,id,data);
   }
   const G_SRC = (src)=>{
+    if(src == 'app.png'){
+      return src;
+    }
   let chick = src.split("_");
       if(chick.length > 1){
         if(chick[0] == "J"){
@@ -2697,11 +2765,12 @@ const filterSearchItems = (e,data)=>{
  const selectElement =(ob,data)=>{
   const holderId = `${ob.i}_holder`;
     if(!i_app_model['sl'] ){
-          const callback = (body)=>{
+          const callback = (body,[ob,data])=>{
             i_app_model['sl'] = body;
             selectElement(ob,data);
           }
-        G_root('sl.app',callback,false);
+        G_root('sl.app',callback,[ob,data]);
+      
     }else{
         const selectModel = COPY_OB(i_app_model['sl']);
         const fnSt = `{_.SW_CL("${ob.i}_selectScreen","D_N")}`;
@@ -2719,11 +2788,12 @@ const filterSearchItems = (e,data)=>{
         const searchFnStDC = DC_(searchFnSt);
         const clearInputFnSt = `{_.IN_V("${ob.i}_selectSearch",'');}`;
         const clearInputFnStDC = DC_(clearInputFnSt);
+        const basicSearchText = ob.s ? ob.s : 'search-text'
         selectModel.e[1].e[0].e[0].a =  {fn: fnStDC}
         selectModel.e[1].i = `${ob.i}_selectScreen`;
         selectModel.e[1].e[0].e[1].e[0].i = `${ob.i}_selectSearch`;
         selectModel.e[1].e[0].e[1].e[1].a ={fn: clearInputFnStDC};
-        selectModel.e[1].e[0].e[1].e[0].s = `Search Your Country Code (+00)`;
+        selectModel.e[1].e[0].e[1].e[0].s = ob.mod == 'phonecode' ? `Search Your Country Code (+00)` :basicSearchText;
         selectModel.e[1].e[0].e[1].e[0].a = {e:'input',fn:searchFnStDC};
         selectModel.e[1].e[0].e[2].i = `${ob.i}_selectItems`;
         selectModel.e[1].e[0].e[2].e =[];
@@ -2745,8 +2815,6 @@ const filterSearchItems = (e,data)=>{
         }else if(data){
           if(ob.mod == 'phonecode'){
             for(var i = 0 ; i < data.length ; i++){
-             
-          
               const lowerCode  = data[i].code.toLowerCase();
               const imgSrc     = `flags/${lowerCode}.png`;
               const fnStItem   = `{
@@ -2756,9 +2824,8 @@ const filterSearchItems = (e,data)=>{
                 _.E_I_S('${ob.i}_flag').src = _.G_SRC('${imgSrc}');
                 _.E_I_S('${ob.i}_code').innerText = '${data[i].dialCode}';
               }`;
-              //CL_(fnStItem)
-              const fnStItemDC = DC_(fnStItem);
 
+              const fnStItemDC = DC_(fnStItem);
               const selectItem = {
                 c:'WW ST_B_GRY8_1 pointer PD_4',
                 i: `${i}_item`,
@@ -2787,10 +2854,47 @@ const filterSearchItems = (e,data)=>{
             }
             selectModel.e[1].e[0].e[2].e.push(selectItem);
             }
+
             const firstLowerCode  = data[0].code.toLowerCase();
             const firstImgSrc     = `flags/${firstLowerCode}.png`;
-            selectModel.e[0].e =[{t:'img',i:`${ob.i}_flag`,src: firstImgSrc ,c:'W_20'},{t:'sp',i:`${ob.i}_code`,s: data[0].dialCode ,c:'mL_5'},{t:'icon',c:'ICO-caret-down mL_5'}];
+            selectModel.e[0].e    = [{t:'img',i:`${ob.i}_flag`,src: firstImgSrc ,c:'W_20'},{t:'sp',i:`${ob.i}_code`,s: data[0].dialCode ,c:'mL_5'},{t:'icon',c:'ICO-caret-down mL_5'}];
             CR_(selectModel,holderId,false);
+
+          }else{
+
+              if(ob.model){
+              
+                for(var i = 0 ; i < data.length ; i++){
+                    for(var m = 0 ; m < ob.model.length ; m++){
+                      const model_ = ob.model[m]; 
+                      const fnStItem   = `{
+                        _.IN_V("${ob.i}","${data[i][model_.vq]}");
+                        _.elmChange('${ob.i}');
+                        _.SW_CL("${ob.i}_selectScreen","D_N");
+                      }`;
+                      const fnStItemDC = DC_(fnStItem);
+                    
+                      const selectItem = {
+                        c:'WW ST_B_GRY8_1 pointer PD_4',
+                        i: `${i}_item`,
+                        e:[
+                          {
+                            t:'sp',
+                            s:model_.s,
+                            c:'F_S_12 '
+                          }
+                        ],
+                        Q:data[i] ,
+                        a:{fn:fnStItemDC}
+                    }
+
+                    selectModel.e[1].e[0].e[2].e.push(selectItem);
+                    }
+                }
+                selectModel.e[0].e    = [{t:'sp',Q:data[0],i:`${ob.i}_code`,s:ob.s ,c:'mL_5'}];
+                CR_(selectModel,holderId,false);
+              }
+             
           }
          
         }
@@ -2816,9 +2920,9 @@ const filterSearchItems = (e,data)=>{
         res = res.res;
         var models = [];
         if(ob.model){
-          models = [...ob.model];
+          models =ob.model;
           CL_(['callback',models])
-        }else{
+        }else  if(!ob.model){
           if(ob.t && ob.t == 'sl'){
             models = [{t:'op',vq:ob.vq,s:'q.{name}'}]
           }
@@ -2836,7 +2940,7 @@ const filterSearchItems = (e,data)=>{
            }
          }
 
-         if(ob.t && ob.t == 'sl' && ob.mod && ob.mod == 'phonecode'){
+         if(ob.t && ob.t == 'sl'){
           selectElement(ob,res);
          }
        }
@@ -2846,6 +2950,110 @@ const filterSearchItems = (e,data)=>{
       _POST('/api',{query:ob.data},callback);
     }
   
+  }
+  const formTableObj = (body)=>{
+    const form = {c:'TT_0 mT_37',e:[]}
+    let obj = {};
+    if(body.i){
+      form.i = body.i;
+    }
+    if(body.formObj){
+      body = body.formObj;
+    }
+    
+    if( typeof body === 'string'){
+      if(body === 'i.app'){
+        obj = app;
+      }
+    }else if(typeof body === 'object'){
+        obj = body;
+    }
+    /////////////
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        const value = obj[key];
+          if (typeof value === 'object' && value !== null) {
+            const newObj = formTableObj(value); 
+            if(key !== 'formTableObj'){ 
+            const groupTitle = {t:'ti',s:key}
+           form.e.push(groupTitle);}  
+           form.e.push(newObj);
+          }else  if (typeof value === 'string' && value !== null || typeof value === 'number' && value !== null) {
+          const input ={t:'tr', e:[
+              {
+                t:'td',
+                c :'B_PR F_WHITE  PD_5',
+                e:[
+                  {
+                    t:'b', 
+                    s:`${key}`,
+   
+                  }
+                ]
+              },
+              {
+                t:'td',
+                e:[
+                  {
+                    t:'in', 
+                    i:`inputForm_${key}`, 
+                    s:`${key}`,
+                    c:'input',
+                    val:value
+                  }
+                ]
+              }
+            ]}
+            form.e.push(input)}
+          }
+        
+    }
+    return form;
+  }
+  const formObj = (body)=>{
+   
+    const form = {c:'TT_0 mT_37',e:[]}
+    let obj = {};
+    if(body.i){
+      form.i = body.i;
+    }
+    if(body.formObj){
+      body = body.formObj;
+    }
+    
+    if( typeof body === 'string'){
+      if(body === 'i.app'){
+        obj = app;
+      }
+    }else if(typeof body === 'object'){
+        obj = body;
+    }
+    /////////////
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        const value = obj[key];
+    
+          if (typeof value === 'object' && value !== null) {
+          
+           const newObj = formObj(value); 
+           if(key !== 'formObj'){
+            const groupTitle = {t:'ti',s:key}
+            form.e.push(groupTitle);  
+           }
+            form.e.push(newObj);
+           
+         
+          }else  if (typeof value === 'string' && value !== null || typeof value === 'number' && value !== null) {
+       
+            const input ={c:'WW MD T_C', e:[ {t:'in', s:`inputForm_${key}`, s:`${key}`,c:'input',val:value, label:true , labelClass :'B_PR F_WHITE WW PD_5'}]}
+            form.e.push(input)
+          }
+        }
+    
+       
+      
+    }
+    return form;
   }
   const CR_ =async (body,id,data)=>{
 
@@ -2857,7 +3065,12 @@ const filterSearchItems = (e,data)=>{
       setTimeout(reload,1000)
       return false;
     }
-   
+    if(body.formObj){
+      body = formObj(body);
+    }
+    if(body.formTableObj){
+      body = formTableObj(body);
+    }
   let body_ = body;
 
   const holder ={};
@@ -2920,6 +3133,7 @@ const filterSearchItems = (e,data)=>{
   }else  if(typeof ob_css === 'object'){
     ob_css_list = ob_css;
     ob_css = arToSt(ob_css_list);
+   
   }
   }
   
@@ -2991,6 +3205,7 @@ const filterSearchItems = (e,data)=>{
       if(ob.mod == 'phonecode'){
         ob.data = {order:'countries'}
       }
+   
      isHideElement =true;
         holder.t = 'span';
         holder.i = `${ob.i}_holder`;
@@ -3002,8 +3217,11 @@ const filterSearchItems = (e,data)=>{
   ///  for element query data
   ///  first layout options basic app div
    //img options
+   if(ob.mod === 'languages'){
+    ob.data = {order:'languages'}
+  }
    if(ob.src){
-    e.src = G_SRC(ob.src)
+    e.src = G_SRC(ob.src);
     }
   if(isI_APP){
   
@@ -3047,8 +3265,10 @@ const filterSearchItems = (e,data)=>{
     id = `${ob.i}_inputHolder`;
 
   }
+
   if(ob.data){
     if(!data){
+      console.log(ob)
       dataQuery(ob);
     }
   }
@@ -3056,21 +3276,53 @@ const filterSearchItems = (e,data)=>{
   
   // up = make is the element appended to parent
   let up = false;
-
+  let isCheckbox = false;
   // handel element text
   if(ob.s || ob.txt){
   const st = ob.s ? ob.s : ob.txt
   const txt = eTxt(st,ob.i,data);
     if(ob_type == "in" ){
       e.placeholder = txt !== undefined ? txt : '';
+      let displayLabel = "D_N";
+ 
+      if(ob.mod === 'checkbox'){
+        ob.label = true;
+        isCheckbox = true;
+        displayLabel = 'switch';
+      
+      }
       if(ob.label){
+   
+        let userClass = "";
+       
+        
+        if(ob.val){
+          displayLabel = ""
+        }
+        if(ob.labelClass){
+          userClass = ob.labelClass;
+        }
+        let labelTop = ''; 
+        if(ob.labelLeft){
+          labelTop = 'NW_100'; 
+        }else{
+          if(!isCheckbox){
+            ob_css_list.push('inputLabel');
+            ob_css += ' inputLabel';
+            labelTop = ' TT_0 mT_-37 POS_AB '; 
+          }
+
+        }
+
         const label = {
-          t:'b',
-          c:'D_N F_PR F_S_10  TT_0 mT_-20 POS_AB',
+          t:'lb',
+          c:`${displayLabel} ${labelTop} ${userClass} `,
           i:`${ob.i}_label`,
           s:txt
+          
         }
         CR_(label,id,false);
+        id = `${ob.i}_label`
         e.addEventListener('input',()=>{
        
           if(E_I_V(ob.i) == ''){
@@ -3273,7 +3525,7 @@ const filterSearchItems = (e,data)=>{
     const IROUTE = ob.IRoute ? ob.IRoute : ob.I;
     
     if(! i_app_model[IROUTE] ){
-    G_root(`${app.dir.dir}${IROUTE}.${app.dir.file ? app.dir.file :'app'}`,L_ROUTE,[ob.i,data,IROUTE]);
+    G_root(`${app.dir.src}${IROUTE}.${app.dir.file ? app.dir.file :'app'}`,L_ROUTE,[ob.i,data,IROUTE]);
     }else if(i_app_model[IROUTE]){
     
      const I_R = i_app_model[IROUTE];
@@ -3287,6 +3539,9 @@ const filterSearchItems = (e,data)=>{
    * ralted text ev.{}
    */
    if(ob_type == "in" ){
+    if(isCheckbox){
+      CR_({t:'sp',c:'slider round'},id,false)
+    }
     setInputEvent(ob.i);
     if(ob.mod == 'password'){
       const funcSt = `{
@@ -3351,7 +3606,7 @@ const filterSearchItems = (e,data)=>{
        CR_(i_app_model[i_route],"i-app",false)
     }else{
         
-        G_root(`${app.dir.dir}${i_route}.${app.dir.file ?app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route]);
+        G_root(`${app.dir.src}${i_route}.${app.dir.file ?app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route]);
     }
   }
   const openRoot = (i_route) => {
@@ -3381,7 +3636,7 @@ const filterSearchItems = (e,data)=>{
             windowHistory.push(i_route);
             historyIndex  = windowHistory.length - 1;
           
-            G_root(`${app.dir.dir}${i_route}.${app.dir.file ? app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route]);
+            G_root(`${app.dir.src}${i_route}.${app.dir.file ? app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route]);
         }
   }
 
@@ -4354,29 +4609,39 @@ const createAppTxt =async(lang)=>{
   function handleHistoryChange(event) {
     // Check if the user navigated backward or forward
 
-
-
       let newRoot     = window.location.pathname.replace(/\//g,"");
-      
       if(newRoot == ''){
-    window.location = '/';
+          window.location = '/';
       }
-     
-      if(newRoot !== windowHistory[historyIndex]){
-        
-      openRoot(newRoot);
+      if(newRoot !== windowHistory[historyIndex]){ 
+          openRoot(newRoot);
       }
-    
   }
   
   // Add event listener for popstate event
   window.addEventListener('popstate', handleHistoryChange);
+  window.userState = ()=>{
+    _POST('/api',{order:'setUserOffline'},false);
+  }
+  const setUserState = ()=>{
+   if(app.users && userData.id > 0){
+    window.addEventListener('beforeunload', function (e) {
+      if(!desStroy){
+            window.userState();
+            e.preventDefault();
+            e.returnValue = '';
+        }
+    });
+  }
+  }
+
   const i_app_load = async(i_a) => {
     //setDateTime
     setDateTime();
- 
     // If the current root name is 'start', load the 'start.app' file
     app = i_a;
+    setObV({app:app})
+    setUserState();
     /**
      * load PWA services worker 
      * if app mode ist not developing mode
@@ -4387,11 +4652,11 @@ const createAppTxt =async(lang)=>{
     }
     await createApp();
     if (i_root == "start") {
-      G_root(`${app.dir.dir}${app.dir.start}`, createAppContent);
+      G_root(`${app.dir.src}${app.dir.start}`, createAppContent);
   
     } else {
       // Otherwise, load the file for the current root name and directory
-      G_root(`${app.dir.dir}${i_root_().dir}`, createAppContent);
+      G_root(`${app.dir.src}${i_root_().dir}`, createAppContent);
     }
   };
   const startSw = ()=>{

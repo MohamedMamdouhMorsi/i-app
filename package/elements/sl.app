@@ -3,6 +3,7 @@
     e:[
         {
             t:'sp'
+            c:'pointer'
           
         }
         {
