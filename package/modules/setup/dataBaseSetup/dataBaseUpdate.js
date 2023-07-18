@@ -23,15 +23,15 @@ if(i_app.users){
                 return false;
             }else{
             
-                let dbSt  = data.toString();
-                let cleanDataSt = iAppReader(dbSt)
-                const jsonData    = JD_(cleanDataSt);
+                let dbSt            = data.toString();
+                let cleanDataSt     = iAppReader(dbSt)
+                const jsonData      = JD_(cleanDataSt);
                 if(jsonData.mysql && jsonData.mysql.length > 0){
 
                 const basicDataBase = jsonData.mysql[0];
                 const basicTables =basicDataBase.tables ?basicDataBase.tables: false ; 
                 const basicDB = ['users','usersSessions','usersPasswords','usersPermissions'];
-                let needDB      = [];
+                let needDB   = [];
                 const editDB = [];
               
                 if(basicTables){

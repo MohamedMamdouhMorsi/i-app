@@ -10,41 +10,49 @@ const isUrlFilleApp =(url)=>{
   }
   return false;
 }
+
+const isUrlDevApp =(url)=>{
+  const urlArr = url.split('dev_');
+  if(urlArr.length  > 1){
+    return true;
+  }
+  return false;
+}
 const app_file =(req,res,ext,fileName,manifest,i_app_st,tree,userDir,i_app)=>{
     var backBody = null;
     var filePath = null;
-    let isApp = isUrlFilleApp(req.url);
-   
-    if (req.url === '/manifest.json') {
-    
+    let isApp    = isUrlFilleApp(req.url);
+    let isDevUrl = isUrlDevApp(req.url);
+  if(isDevUrl){
+    const dev_ = req.url.split('/');
+    let fileNamedev = dev_[dev_.length-1];
+    filePath = path.join(__dirname, '..','..','..','elements',fileNamedev);
+  }else if (req.url === '/manifest.json') {
         backBody = JDS_(manifest);
-    
     } else if (backBody == null && req.url === '/i.app') {
-        backBody =i_app_st;
+        backBody = i_app_st;
     }else{
+
       if (req.url === '/sl.app' ) {
         filePath = path.join(__dirname, '..','..','..','elements','sl.app');
-      }else  if (req.url === i_app.dir.src+"dev.app" && i_app.mode === 'dev' ) {
+      }else  if (req.url === i_app.dir.src+"dev.app" && i_app.mode === 'dev' ) { 
         filePath = path.join(__dirname, '..','..','..','elements','dev.app');
-   
       }else {
+
         if(filePath == null && backBody == null && ext === '.app'){
-          if(i_app.mode  && i_app.mode == 'dev'){
+              if(i_app.mode  && i_app.mode == 'dev'){
+                filePath = path.join(userDir,'public', req.url);
+              }else{
+                const app_file_test = fileName +".app";
+                const is_app_file   = searchFiles(tree,app_file_test);
+                backBody = is_app_file.fileData;
+              }
+        }else  if(filePath == null && backBody == null && ext === '.json'){
+            isApp = true;
             filePath = path.join(userDir,'public', req.url);
-          }else{
-            const app_file_test = fileName+".app";
-            const is_app_file = searchFiles(tree,app_file_test);
-            backBody = is_app_file.fileData;
-          }
-      }else  if(filePath == null && backBody == null && ext === '.json'){
-        isApp = true;
-          filePath = path.join(userDir,'public', req.url);
-      }
-      }
+        }
         
-  
-      
-    
+      }
     }
 
    

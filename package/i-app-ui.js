@@ -481,8 +481,14 @@ const i_app = (()=>{
   @returns {object} A deep copy of the object.
   */
   const COPY_OB = (mw) => {  
-    mw == undefined ? CL_(mw):'cc'; 
-    return structuredClone(mw) ;
+    if(typeof mw === 'object'){
+      const objSt ={...mw};
+     // return structuredClone(mw) ;
+     return objSt;
+    }else{
+      CL_('Error COPY_OB is Not Object');
+    }
+    
   }  
   /**
   * Returns the current timestamp in milliseconds
@@ -628,7 +634,7 @@ const hideOtherKeys = (k,obj)=>{
   }
 
   const elmChange = (e)=>{
- 
+
     if(E_I(e) && E_I(e).onchange){
       E_I(e).onchange();
     }else  if(E_I_S(e) && E_I_S(e).onchange){
@@ -737,17 +743,9 @@ const hideOtherKeys = (k,obj)=>{
         return false;
     }
   }
-  const slIsViewInfo = (el) => {
-    var rect = el.getBoundingClientRect(),
-        vWidth = window.innerWidth || document.documentElement.clientWidth;
-    var des = rect.right - vWidth;
-    var rate = vWidth / 2;
-    var isViewR = false;
-    if (des < rate && des >= -1) {
-        isViewR = true;
-    }
-    return `w:${vWidth} - right : ${rect.right} = des: ${des}`;
-  }
+const makeFunction = (fn)=>{
+return DC_(fn);
+}
 
 
   /**
@@ -803,7 +801,7 @@ const FCMTC = (e,numberHolder,activeHolder) => {
 }
 
 const FCMTA = (i,a,b) => {
-  CL_(['it work',i,a,b])
+ 
     var c = E_I_V(i);
     D_CL([b,"D_N"]);
     A_CL(a,"D_N");
@@ -951,6 +949,7 @@ const funcHandel = (str) => {
         str = str.replace(/,\s*}/g, '}'); // remove trailing commas
        
         // Add missing commas
+
         str = str.replace(/" "/g, '" , "'); // missing comma
         str = str.replace(/] "/g, '] , "'); // missing comma
         str = str.replace(/} "/g, '} , "'); // missing comma
@@ -996,25 +995,29 @@ const funcHandel = (str) => {
   }
   // This function fetches data from a URL, cleans the text response, and passes the resulting JSON to a callback
   
-  const wait_root = {}
+  var wait_root = {}
   
   
   const G_root = async(url, callback, data) => {
     // Fetch data from the specified URL
-    const isJsonFile = !url.includes('.app') && url.includes('.json')?true:false ;
-    if(!wait_root[url]){
-      wait_root[url] = [[callback,data]];
-    }else{
+    const isJsonFile = !url.includes('.app') && url.includes('.json') ? true : false ;
+
+    if(wait_root[url]){
+
       wait_root[url].push([callback,data]);
-    }
-    
-    fetch(url)
+
+    }else{
+      
+      wait_root[url] = [];
+      wait_root[url].push([callback,data]);
+
+      fetch(url)
       .then((res) => {
         // If the response is successful, convert the text response to JSON
         if (res) {
-  
           if(isJsonFile){
             res.json().then((json) => {
+
               for(var u = 0 ; u < wait_root[url].length ; u++){
                 const callBack_ = wait_root[url][u][0];
                 const data_ = wait_root[url][u][1];
@@ -1026,6 +1029,7 @@ const funcHandel = (str) => {
   
           }else{
             res.text().then((txt) => {
+
               var jsonOb ;
               if(isJson(txt)){
                   // Clean the text response using the cleanSt function   
@@ -1037,7 +1041,12 @@ const funcHandel = (str) => {
 
               // Log the cleaned JSON to the console for debugging
               // Pass the cleaned JSON and any additional data to the specified callback function
-              callback(jsonOb, data);
+              for(var u = 0 ; u < wait_root[url].length ; u++){
+                const callBack_ = wait_root[url][u][0];
+                const data_ = wait_root[url][u][1];
+                callBack_(jsonOb, data_);
+              }
+             delete  wait_root[url];
             });
           }
    
@@ -1049,7 +1058,11 @@ const funcHandel = (str) => {
           CL_(["G_ error ", url, e]);
         }
       });
+    }
+    
+ 
   };
+  
   
   const G_Json = async (url,callback) => {
     // Fetch data from the specified URL
@@ -1090,7 +1103,7 @@ const funcHandel = (str) => {
         destroySession();
     }else{
     if(typeof callback === 'function'){
-     
+    
       callback(json, data);
     }
   }
@@ -1114,6 +1127,7 @@ const funcHandel = (str) => {
     s_Lang: s_Lang,
     createAppTxt: createAppTxt,
     SLIDER_SW: SLIDER_SW,
+    DEL_E:DEL_E,
     DEL_E_E: DEL_E_E,
     In_S: In_S,
     A_CL: A_CL,
@@ -1152,7 +1166,8 @@ const funcHandel = (str) => {
     IS_USERNAME: IS_USERNAME,
     wait_: wait_,
     E_C: E_C,
-    hideOtherKeys: hideOtherKeys
+    hideOtherKeys: hideOtherKeys,
+    makeFunction:makeFunction
   });
   
   const L_CSS = (f)=>{
@@ -1321,7 +1336,7 @@ const funcHandel = (str) => {
   }
   const setObV = async (ob) => {
   
-  i_app_v ={...i_app_v,...ob}
+  i_app_v = {...i_app_v,...ob}
   for (const [k, v] of Object.entries(ob)) {
    
     Object.defineProperty(i_app_v, k, {
@@ -2593,7 +2608,10 @@ const funcHandel = (str) => {
 
     if(ob.a.fn){
     
-    let fnSt = EC_(ob.a.fn);
+    if(typeof ob.a.fn === 'string'){
+
+    
+    let fnSt = EC_(ob.a.fn.toString());
     const fn = new Function (fnSt);
 
     const newFunc = ()=>{
@@ -2609,14 +2627,52 @@ const funcHandel = (str) => {
     //
     if( ev === 'auto' ){
     setTimeout(newFunc,300);
-    }else if( ev === 'change' ){
-      ob.i_e.onchange = newFunc()
+    }else {
+      if(ev  === 'click'){
+        ob.i_e.onclick =()=>{
+          newFunc();
+        }
+      }else if(ev  === 'change'){
+        ob.i_e.onchange =()=>{
+          newFunc();
+        }
       }else{
-      ob.i_e.addEventListener(ev,newFunc)
+        ob.i_e.addEventListener(ev,newFunc);
+      }
+    
+      
     }
   
  
+    }else  if(typeof ob.a.fn === 'function'){
+      const newFunc = ()=>{
+        this.v = i_app_v ;
+        this._ = URS();
+        try{ 
+          return ob.a.fn(this.v,this._);
+      }catch(err){
+        CL_("your function return error"+err);
+      }
+      }
+      if( ev === 'auto' ){
+        setTimeout(newFunc,300);
+        }else {
+          if(ev  === 'click'){
+            ob.i_e.onclick =()=>{
+              newFunc();
+            }
+          }else if(ev  === 'change'){
+            ob.i_e.onchange =()=>{
+              newFunc();
+            }
+          }else{
+            ob.i_e.addEventListener(ev,newFunc);
+          }
+         
+        }
+      
     }
+  }
   
   }
   }
@@ -2788,7 +2844,7 @@ const filterSearchItems = (e,data)=>{
         const searchFnStDC = DC_(searchFnSt);
         const clearInputFnSt = `{_.IN_V("${ob.i}_selectSearch",'');}`;
         const clearInputFnStDC = DC_(clearInputFnSt);
-        const basicSearchText = ob.s ? ob.s : 'search-text'
+        const basicSearchText = ob.s ? ob.s : 'search-text';
         selectModel.e[1].e[0].e[0].a =  {fn: fnStDC}
         selectModel.e[1].i = `${ob.i}_selectScreen`;
         selectModel.e[1].e[0].e[1].e[0].i = `${ob.i}_selectSearch`;
@@ -2867,13 +2923,15 @@ const filterSearchItems = (e,data)=>{
                 for(var i = 0 ; i < data.length ; i++){
                     for(var m = 0 ; m < ob.model.length ; m++){
                       const model_ = ob.model[m]; 
+                      const _selectButtonData = {t:"sp",s:model_.s ? model_.s : 'no model text' }
                       const fnStItem   = `{
                         _.IN_V("${ob.i}","${data[i][model_.vq]}");
                         _.elmChange('${ob.i}');
                         _.SW_CL("${ob.i}_selectScreen","D_N");
+                        _.E_I_S("${ob.i}_selectButton").innerHTML = '';
+                        _.CR_(${JDS_(_selectButtonData)} ,'${ob.i}_selectButton',${JDS_(data[i])});
                       }`;
                       const fnStItemDC = DC_(fnStItem);
-                    
                       const selectItem = {
                         c:'WW ST_B_GRY8_1 pointer PD_4',
                         i: `${i}_item`,
@@ -2919,9 +2977,12 @@ const filterSearchItems = (e,data)=>{
       const callback = (res,data)=>{
         res = res.res;
         var models = [];
+        if(data.order && data.order === 'languages'){
+          setObV({languages:res});
+        }
         if(ob.model){
           models =ob.model;
-          CL_(['callback',models])
+
         }else  if(!ob.model){
           if(ob.t && ob.t == 'sl'){
             models = [{t:'op',vq:ob.vq,s:'q.{name}'}]
@@ -2935,7 +2996,6 @@ const filterSearchItems = (e,data)=>{
            for(var m =0 ; m < models.length;m++){
              const model = models[m];
              const toElm = model.to ? model.to : elmId;
-          
              CR_(model,toElm,obData);
            }
          }
@@ -3055,8 +3115,22 @@ const filterSearchItems = (e,data)=>{
     }
     return form;
   }
+  const permissionsControl = (perData)=>{
+    
+    if(perData.data){
+      if(perData.data == 'app'){
+        if(app[perData.key] == perData.value){
+          return true;
+        }else{
+          return false;
+        }
+      }
+    }
+    return false;
+  }
   const CR_ =async (body,id,data)=>{
 
+  
 
     if(!i_app_lang[selectLang]){
       const reload = ()=>{
@@ -3082,7 +3156,12 @@ const filterSearchItems = (e,data)=>{
    *  website for new full frame work ui/ux
   * BASIC FONTS
   */
-  
+  if(body.per){
+    const perTrue = permissionsControl(body.per);
+    if(!perTrue){
+      return ;
+    }
+  }
   if(body.fonts){
     app.fonts = body.fonts;
     S_FONT();
@@ -3244,10 +3323,12 @@ const filterSearchItems = (e,data)=>{
       ob.i = `${ob.r.s}_${data.d[ob.r.i]}`;
     }
   }else{
+  
     if(ob.I){
       ob.i =ob.i? ob.i : `${id}_${ob.I}`;
       
     }
+  
     if( ob.i == undefined && ob.id !== undefined){
         ob.i = ob.id;
         e.id = ob.id;
@@ -3256,7 +3337,7 @@ const filterSearchItems = (e,data)=>{
     }
   
   }
-  if(body.t && body.t == 'in' && body.label){
+  if(body.t && body.t == 'in' && body.label || body.t && body.t == 'in' && body.mod === 'checkbox'){
     const inputLabelHolder = {
       t:'label',
       i:`${ob.i}_inputHolder`
@@ -3268,16 +3349,16 @@ const filterSearchItems = (e,data)=>{
 
   if(ob.data){
     if(!data){
-      console.log(ob)
       dataQuery(ob);
     }
   }
 
   
   // up = make is the element appended to parent
-  let up = false;
+   let up = false;
   let isCheckbox = false;
   // handel element text
+  let isCheckboxOverClass = '';
   if(ob.s || ob.txt){
   const st = ob.s ? ob.s : ob.txt
   const txt = eTxt(st,ob.i,data);
@@ -3286,17 +3367,24 @@ const filterSearchItems = (e,data)=>{
       let displayLabel = "D_N";
  
       if(ob.mod === 'checkbox'){
-        ob.label = true;
-        isCheckbox = true;
-        displayLabel = 'switch';
       
+        ob.label = true;
+        if(ob.val){
+          e.checked = true;
+        }
+        isCheckbox = true;
+        isCheckboxOverClass = ob_css ? ob_css : '';
+        displayLabel = 'switch';
+        ob_css_list.push('D_N');
+  
+        ob_css = ' D_N';
       }
       if(ob.label){
    
         let userClass = "";
        
         
-        if(ob.val){
+        if(!isCheckbox && ob.val){
           displayLabel = ""
         }
         if(ob.labelClass){
@@ -3310,6 +3398,8 @@ const filterSearchItems = (e,data)=>{
             ob_css_list.push('inputLabel');
             ob_css += ' inputLabel';
             labelTop = ' TT_0 mT_-37 POS_AB '; 
+          }else{
+            CL_(['checkbox',ob,id])
           }
 
         }
@@ -3322,7 +3412,7 @@ const filterSearchItems = (e,data)=>{
           
         }
         CR_(label,id,false);
-        id = `${ob.i}_label`
+        id = `${ob.i}_inputHolder`
         e.addEventListener('input',()=>{
        
           if(E_I_V(ob.i) == ''){
@@ -3463,7 +3553,6 @@ const filterSearchItems = (e,data)=>{
   E_I_S(id).appendChild(e);
   }
   if(holder.t){
-    CL_(['holde',holder.t]);
     E_I_S(id).appendChild(HolderElement);
   }
   up =true;
@@ -3496,7 +3585,7 @@ const filterSearchItems = (e,data)=>{
     }
      /// handel element event function
   if(ob.a){
-    
+
     ESF(ob);
     }
     if(ob.act){
@@ -3540,7 +3629,8 @@ const filterSearchItems = (e,data)=>{
    */
    if(ob_type == "in" ){
     if(isCheckbox){
-      CR_({t:'sp',c:'slider round'},id,false)
+      
+      CR_({c:'slider round '+isCheckboxOverClass},id,false)
     }
     setInputEvent(ob.i);
     if(ob.mod == 'password'){

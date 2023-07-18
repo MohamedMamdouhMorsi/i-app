@@ -1,6 +1,6 @@
 {
   "name": "@i-app/i-app",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "> BETA  ( javascript , nodejs , mysql)",
   "main": "i-app-server.js",
   "scripts": {

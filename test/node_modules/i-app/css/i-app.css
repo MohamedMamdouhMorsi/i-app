@@ -1257,7 +1257,7 @@ input[type="search"]::-webkit-search-decoration {
 /* The slider */
 
 .slider {
-    position: absolute;
+    display: inline-block;
     cursor: pointer;
     top: 0;
     left: 0;
@@ -1269,7 +1269,7 @@ input[type="search"]::-webkit-search-decoration {
 }
 
 .slider:before {
-    position: absolute;
+    display: inline-block;
     content: "";
     height: 18px;
     width:18px;
