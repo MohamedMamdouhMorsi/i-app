@@ -2931,6 +2931,7 @@ const filterSearchItems = (e,data)=>{
                         _.E_I_S("${ob.i}_selectButton").innerHTML = '';
                         _.CR_(${JDS_(_selectButtonData)} ,'${ob.i}_selectButton',${JDS_(data[i])});
                       }`;
+                  
                       const fnStItemDC = DC_(fnStItem);
                       const selectItem = {
                         c:'WW ST_B_GRY8_1 pointer PD_4',
@@ -2945,7 +2946,12 @@ const filterSearchItems = (e,data)=>{
                         Q:data[i] ,
                         a:{fn:fnStItemDC}
                     }
-
+                    if(ob.data && ob.data.order && ob.data.order == 'icons'){
+                      selectItem.e = [{
+                        t:'icon',
+                        c:'F_S_30 '+data[i].class
+                      },...selectItem.e ]
+                    }
                     selectModel.e[1].e[0].e[2].e.push(selectItem);
                     }
                 }
@@ -2980,7 +2986,9 @@ const filterSearchItems = (e,data)=>{
         if(data.order && data.order === 'languages'){
           setObV({languages:res});
         }
+     
         if(ob.model){
+          
           models =ob.model;
 
         }else  if(!ob.model){
@@ -2996,6 +3004,7 @@ const filterSearchItems = (e,data)=>{
            for(var m =0 ; m < models.length;m++){
              const model = models[m];
              const toElm = model.to ? model.to : elmId;
+            
              CR_(model,toElm,obData);
            }
          }
@@ -3120,7 +3129,7 @@ const filterSearchItems = (e,data)=>{
     if(perData.data){
       if(perData.data == 'app'){
         if(app[perData.key] == perData.value){
-          return true;
+          return app[perData.key];
         }else{
           return false;
         }
@@ -3162,6 +3171,7 @@ const filterSearchItems = (e,data)=>{
       return ;
     }
   }
+ 
   if(body.fonts){
     app.fonts = body.fonts;
     S_FONT();
@@ -3216,7 +3226,40 @@ const filterSearchItems = (e,data)=>{
   }
   }
   
- 
+  if(ob.perClass){
+    const perTrue = permissionsControl(ob.perClass);
+    if(perTrue){
+      if(ob.perClass.addClass){
+        ob_css_list.push(ob.perClass.addClass);
+        ob_css += ob.perClass.addClass;
+      }
+      if( ob.perClass.delClass){
+        ob_css_list = ob_css_list.filter(e=>{
+          if(e !==  ob.perClass.delClass){
+            return e;
+          }
+        });
+        const regex =  new RegExp( ob.perClass.delClass, "g");
+        ob_css = ob_css.replace(regex,'');
+      }
+    }else{
+      if(ob.perClass.addClass){
+      
+        ob_css_list = ob_css_list.filter((e)=>{
+                if(e !==  ob.perClass.addClass){
+                  return e;
+                }
+              });
+        const regex =  new RegExp( ob.perClass.addClass, "g");
+        ob_css = ob_css.replace(regex,'');
+      }
+      if( ob.perClass.delClass){
+        ob_css_list.push(ob.perClass.delClass);
+        ob_css += ob.perClass.delClass;
+
+      }
+    }
+  }
   /// element type options
   
   let isI_APP = false;
@@ -3298,6 +3341,9 @@ const filterSearchItems = (e,data)=>{
    //img options
    if(ob.mod === 'languages'){
     ob.data = {order:'languages'}
+  }
+  if(ob.mod === 'icons'){
+    ob.data = {order:'icons'}
   }
    if(ob.src){
     e.src = G_SRC(ob.src);

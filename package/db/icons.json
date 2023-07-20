@@ -1,0 +1,8382 @@
+[
+    {
+      "class": "ICO-angry-monster",
+      "name": "angry-monster"
+    },
+    {
+      "class": "ICO-bathtub",
+      "name": "bathtub"
+    },
+    {
+      "class": "ICO-bird-wings",
+      "name": "bird-wings"
+    },
+    {
+      "class": "ICO-bow",
+      "name": "bow"
+    },
+    {
+      "class": "ICO-castle",
+      "name": "castle"
+    },
+    {
+      "class": "ICO-circuit",
+      "name": "circuit"
+    },
+    {
+      "class": "ICO-crown-king",
+      "name": "crown-king"
+    },
+    {
+      "class": "ICO-crown-queen",
+      "name": "crown-queen"
+    },
+    {
+      "class": "ICO-dart",
+      "name": "dart"
+    },
+    {
+      "class": "ICO-disability-race",
+      "name": "disability-race"
+    },
+    {
+      "class": "ICO-diving-goggle",
+      "name": "diving-goggle"
+    },
+    {
+      "class": "ICO-eye-open",
+      "name": "eye-open"
+    },
+    {
+      "class": "ICO-flora-flower",
+      "name": "flora-flower"
+    },
+    {
+      "class": "ICO-flora",
+      "name": "flora"
+    },
+    {
+      "class": "ICO-gift-box",
+      "name": "gift-box"
+    },
+    {
+      "class": "ICO-halloween-pumpkin",
+      "name": "halloween-pumpkin"
+    },
+    {
+      "class": "ICO-hand-power",
+      "name": "hand-power"
+    },
+    {
+      "class": "ICO-hand-thunder",
+      "name": "hand-thunder"
+    },
+    {
+      "class": "ICO-king-monster",
+      "name": "king-monster"
+    },
+    {
+      "class": "ICO-love",
+      "name": "love"
+    },
+    {
+      "class": "ICO-magician-hat",
+      "name": "magician-hat"
+    },
+    {
+      "class": "ICO-native-american",
+      "name": "native-american"
+    },
+    {
+      "class": "ICO-owl-look",
+      "name": "owl-look"
+    },
+    {
+      "class": "ICO-phoenix",
+      "name": "phoenix"
+    },
+    {
+      "class": "ICO-robot-face",
+      "name": "robot-face"
+    },
+    {
+      "class": "ICO-sand-clock",
+      "name": "sand-clock"
+    },
+    {
+      "class": "ICO-shield-alt",
+      "name": "shield-alt"
+    },
+    {
+      "class": "ICO-ship-wheel",
+      "name": "ship-wheel"
+    },
+    {
+      "class": "ICO-skull-danger",
+      "name": "skull-danger"
+    },
+    {
+      "class": "ICO-skull-face",
+      "name": "skull-face"
+    },
+    {
+      "class": "ICO-snowmobile",
+      "name": "snowmobile"
+    },
+    {
+      "class": "ICO-space-shuttle",
+      "name": "space-shuttle"
+    },
+    {
+      "class": "ICO-star-shape",
+      "name": "star-shape"
+    },
+    {
+      "class": "ICO-swirl",
+      "name": "swirl"
+    },
+    {
+      "class": "ICO-tattoo-wing",
+      "name": "tattoo-wing"
+    },
+    {
+      "class": "ICO-throne",
+      "name": "throne"
+    },
+    {
+      "class": "ICO-tree-alt",
+      "name": "tree-alt"
+    },
+    {
+      "class": "ICO-triangle",
+      "name": "triangle"
+    },
+    {
+      "class": "ICO-unity-hand",
+      "name": "unity-hand"
+    },
+    {
+      "class": "ICO-weed",
+      "name": "weed"
+    },
+    {
+      "class": "ICO-woman-bird",
+      "name": "woman-bird"
+    },
+    {
+      "class": "ICO-bat",
+      "name": "bat"
+    },
+    {
+      "class": "ICO-bear-face",
+      "name": "bear-face"
+    },
+    {
+      "class": "ICO-bear-tracks",
+      "name": "bear-tracks"
+    },
+    {
+      "class": "ICO-bear",
+      "name": "bear"
+    },
+    {
+      "class": "ICO-bird-alt",
+      "name": "bird-alt"
+    },
+    {
+      "class": "ICO-bird-flying",
+      "name": "bird-flying"
+    },
+    {
+      "class": "ICO-bird",
+      "name": "bird"
+    },
+    {
+      "class": "ICO-birds",
+      "name": "birds"
+    },
+    {
+      "class": "ICO-bone",
+      "name": "bone"
+    },
+    {
+      "class": "ICO-bull",
+      "name": "bull"
+    },
+    {
+      "class": "ICO-butterfly-alt",
+      "name": "butterfly-alt"
+    },
+    {
+      "class": "ICO-butterfly",
+      "name": "butterfly"
+    },
+    {
+      "class": "ICO-camel-alt",
+      "name": "camel-alt"
+    },
+    {
+      "class": "ICO-camel-head",
+      "name": "camel-head"
+    },
+    {
+      "class": "ICO-camel",
+      "name": "camel"
+    },
+    {
+      "class": "ICO-cat-alt-1",
+      "name": "cat-alt-1"
+    },
+    {
+      "class": "ICO-cat-alt-2",
+      "name": "cat-alt-2"
+    },
+    {
+      "class": "ICO-cat-alt-3",
+      "name": "cat-alt-3"
+    },
+    {
+      "class": "ICO-cat-dog",
+      "name": "cat-dog"
+    },
+    {
+      "class": "ICO-cat-face",
+      "name": "cat-face"
+    },
+    {
+      "class": "ICO-cat",
+      "name": "cat"
+    },
+    {
+      "class": "ICO-cow-head",
+      "name": "cow-head"
+    },
+    {
+      "class": "ICO-cow",
+      "name": "cow"
+    },
+    {
+      "class": "ICO-crab",
+      "name": "crab"
+    },
+    {
+      "class": "ICO-crocodile",
+      "name": "crocodile"
+    },
+    {
+      "class": "ICO-deer-head",
+      "name": "deer-head"
+    },
+    {
+      "class": "ICO-dog-alt",
+      "name": "dog-alt"
+    },
+    {
+      "class": "ICO-dog-barking",
+      "name": "dog-barking"
+    },
+    {
+      "class": "ICO-dog",
+      "name": "dog"
+    },
+    {
+      "class": "ICO-dolphin",
+      "name": "dolphin"
+    },
+    {
+      "class": "ICO-duck-tracks",
+      "name": "duck-tracks"
+    },
+    {
+      "class": "ICO-eagle-head",
+      "name": "eagle-head"
+    },
+    {
+      "class": "ICO-eaten-fish",
+      "name": "eaten-fish"
+    },
+    {
+      "class": "ICO-elephant-alt",
+      "name": "elephant-alt"
+    },
+    {
+      "class": "ICO-elephant-head-alt",
+      "name": "elephant-head-alt"
+    },
+    {
+      "class": "ICO-elephant-head",
+      "name": "elephant-head"
+    },
+    {
+      "class": "ICO-elephant",
+      "name": "elephant"
+    },
+    {
+      "class": "ICO-elk",
+      "name": "elk"
+    },
+    {
+      "class": "ICO-fish-1",
+      "name": "fish-1"
+    },
+    {
+      "class": "ICO-fish-2",
+      "name": "fish-2"
+    },
+    {
+      "class": "ICO-fish-3",
+      "name": "fish-3"
+    },
+    {
+      "class": "ICO-fish-4",
+      "name": "fish-4"
+    },
+    {
+      "class": "ICO-fish-5",
+      "name": "fish-5"
+    },
+    {
+      "class": "ICO-fish",
+      "name": "fish"
+    },
+    {
+      "class": "ICO-fox-alt",
+      "name": "fox-alt"
+    },
+    {
+      "class": "ICO-fox",
+      "name": "fox"
+    },
+    {
+      "class": "ICO-frog-tracks",
+      "name": "frog-tracks"
+    },
+    {
+      "class": "ICO-frog",
+      "name": "frog"
+    },
+    {
+      "class": "ICO-froggy",
+      "name": "froggy"
+    },
+    {
+      "class": "ICO-giraffe-head-1",
+      "name": "giraffe-head-1"
+    },
+    {
+      "class": "ICO-giraffe-head-2",
+      "name": "giraffe-head-2"
+    },
+    {
+      "class": "ICO-giraffe-head",
+      "name": "giraffe-head"
+    },
+    {
+      "class": "ICO-giraffe",
+      "name": "giraffe"
+    },
+    {
+      "class": "ICO-goat-head",
+      "name": "goat-head"
+    },
+    {
+      "class": "ICO-gorilla",
+      "name": "gorilla"
+    },
+    {
+      "class": "ICO-hen-tracks",
+      "name": "hen-tracks"
+    },
+    {
+      "class": "ICO-horse-head-1",
+      "name": "horse-head-1"
+    },
+    {
+      "class": "ICO-horse-head-2",
+      "name": "horse-head-2"
+    },
+    {
+      "class": "ICO-horse-head",
+      "name": "horse-head"
+    },
+    {
+      "class": "ICO-horse-tracks",
+      "name": "horse-tracks"
+    },
+    {
+      "class": "ICO-jellyfish",
+      "name": "jellyfish"
+    },
+    {
+      "class": "ICO-kangaroo",
+      "name": "kangaroo"
+    },
+    {
+      "class": "ICO-lemur",
+      "name": "lemur"
+    },
+    {
+      "class": "ICO-lion-head-1",
+      "name": "lion-head-1"
+    },
+    {
+      "class": "ICO-lion-head-2",
+      "name": "lion-head-2"
+    },
+    {
+      "class": "ICO-lion-head",
+      "name": "lion-head"
+    },
+    {
+      "class": "ICO-lion",
+      "name": "lion"
+    },
+    {
+      "class": "ICO-monkey-2",
+      "name": "monkey-2"
+    },
+    {
+      "class": "ICO-monkey-3",
+      "name": "monkey-3"
+    },
+    {
+      "class": "ICO-monkey-face",
+      "name": "monkey-face"
+    },
+    {
+      "class": "ICO-monkey",
+      "name": "monkey"
+    },
+    {
+      "class": "ICO-octopus-alt",
+      "name": "octopus-alt"
+    },
+    {
+      "class": "ICO-octopus",
+      "name": "octopus"
+    },
+    {
+      "class": "ICO-owl",
+      "name": "owl"
+    },
+    {
+      "class": "ICO-panda-face",
+      "name": "panda-face"
+    },
+    {
+      "class": "ICO-panda",
+      "name": "panda"
+    },
+    {
+      "class": "ICO-panther",
+      "name": "panther"
+    },
+    {
+      "class": "ICO-parrot-lip",
+      "name": "parrot-lip"
+    },
+    {
+      "class": "ICO-parrot",
+      "name": "parrot"
+    },
+    {
+      "class": "ICO-paw",
+      "name": "paw"
+    },
+    {
+      "class": "ICO-pelican",
+      "name": "pelican"
+    },
+    {
+      "class": "ICO-penguin",
+      "name": "penguin"
+    },
+    {
+      "class": "ICO-pig-face",
+      "name": "pig-face"
+    },
+    {
+      "class": "ICO-pig",
+      "name": "pig"
+    },
+    {
+      "class": "ICO-pigeon-1",
+      "name": "pigeon-1"
+    },
+    {
+      "class": "ICO-pigeon-2",
+      "name": "pigeon-2"
+    },
+    {
+      "class": "ICO-pigeon",
+      "name": "pigeon"
+    },
+    {
+      "class": "ICO-rabbit",
+      "name": "rabbit"
+    },
+    {
+      "class": "ICO-rat",
+      "name": "rat"
+    },
+    {
+      "class": "ICO-rhino-head",
+      "name": "rhino-head"
+    },
+    {
+      "class": "ICO-rhino",
+      "name": "rhino"
+    },
+    {
+      "class": "ICO-rooster",
+      "name": "rooster"
+    },
+    {
+      "class": "ICO-seahorse",
+      "name": "seahorse"
+    },
+    {
+      "class": "ICO-seal",
+      "name": "seal"
+    },
+    {
+      "class": "ICO-shrimp-alt",
+      "name": "shrimp-alt"
+    },
+    {
+      "class": "ICO-shrimp",
+      "name": "shrimp"
+    },
+    {
+      "class": "ICO-snail-1",
+      "name": "snail-1"
+    },
+    {
+      "class": "ICO-snail-2",
+      "name": "snail-2"
+    },
+    {
+      "class": "ICO-snail-3",
+      "name": "snail-3"
+    },
+    {
+      "class": "ICO-snail",
+      "name": "snail"
+    },
+    {
+      "class": "ICO-snake",
+      "name": "snake"
+    },
+    {
+      "class": "ICO-squid",
+      "name": "squid"
+    },
+    {
+      "class": "ICO-squirrel",
+      "name": "squirrel"
+    },
+    {
+      "class": "ICO-tiger-face",
+      "name": "tiger-face"
+    },
+    {
+      "class": "ICO-tiger",
+      "name": "tiger"
+    },
+    {
+      "class": "ICO-turtle",
+      "name": "turtle"
+    },
+    {
+      "class": "ICO-whale",
+      "name": "whale"
+    },
+    {
+      "class": "ICO-woodpecker",
+      "name": "woodpecker"
+    },
+    {
+      "class": "ICO-zebra",
+      "name": "zebra"
+    },
+    {
+      "class": "ICO-brand-acer",
+      "name": "brand-acer"
+    },
+    {
+      "class": "ICO-brand-adidas",
+      "name": "brand-adidas"
+    },
+    {
+      "class": "ICO-brand-adobe",
+      "name": "brand-adobe"
+    },
+    {
+      "class": "ICO-brand-air-new-zealand",
+      "name": "brand-air-new-zealand"
+    },
+    {
+      "class": "ICO-brand-airbnb",
+      "name": "brand-airbnb"
+    },
+    {
+      "class": "ICO-brand-aircell",
+      "name": "brand-aircell"
+    },
+    {
+      "class": "ICO-brand-airtel",
+      "name": "brand-airtel"
+    },
+    {
+      "class": "ICO-brand-alcatel",
+      "name": "brand-alcatel"
+    },
+    {
+      "class": "ICO-brand-alibaba",
+      "name": "brand-alibaba"
+    },
+    {
+      "class": "ICO-brand-aliexpress",
+      "name": "brand-aliexpress"
+    },
+    {
+      "class": "ICO-brand-alipay",
+      "name": "brand-alipay"
+    },
+    {
+      "class": "ICO-brand-amazon",
+      "name": "brand-amazon"
+    },
+    {
+      "class": "ICO-brand-amd",
+      "name": "brand-amd"
+    },
+    {
+      "class": "ICO-brand-american-airlines",
+      "name": "brand-american-airlines"
+    },
+    {
+      "class": "ICO-brand-android-robot",
+      "name": "brand-android-robot"
+    },
+    {
+      "class": "ICO-brand-android",
+      "name": "brand-android"
+    },
+    {
+      "class": "ICO-brand-aol",
+      "name": "brand-aol"
+    },
+    {
+      "class": "ICO-brand-apple",
+      "name": "brand-apple"
+    },
+    {
+      "class": "ICO-brand-appstore",
+      "name": "brand-appstore"
+    },
+    {
+      "class": "ICO-brand-asus",
+      "name": "brand-asus"
+    },
+    {
+      "class": "ICO-brand-ati",
+      "name": "brand-ati"
+    },
+    {
+      "class": "ICO-brand-att",
+      "name": "brand-att"
+    },
+    {
+      "class": "ICO-brand-audi",
+      "name": "brand-audi"
+    },
+    {
+      "class": "ICO-brand-axiata",
+      "name": "brand-axiata"
+    },
+    {
+      "class": "ICO-brand-bada",
+      "name": "brand-bada"
+    },
+    {
+      "class": "ICO-brand-bbc",
+      "name": "brand-bbc"
+    },
+    {
+      "class": "ICO-brand-bing",
+      "name": "brand-bing"
+    },
+    {
+      "class": "ICO-brand-blackberry",
+      "name": "brand-blackberry"
+    },
+    {
+      "class": "ICO-brand-bmw",
+      "name": "brand-bmw"
+    },
+    {
+      "class": "ICO-brand-box",
+      "name": "brand-box"
+    },
+    {
+      "class": "ICO-brand-burger-king",
+      "name": "brand-burger-king"
+    },
+    {
+      "class": "ICO-brand-business-insider",
+      "name": "brand-business-insider"
+    },
+    {
+      "class": "ICO-brand-buzzfeed",
+      "name": "brand-buzzfeed"
+    },
+    {
+      "class": "ICO-brand-cannon",
+      "name": "brand-cannon"
+    },
+    {
+      "class": "ICO-brand-casio",
+      "name": "brand-casio"
+    },
+    {
+      "class": "ICO-brand-china-mobile",
+      "name": "brand-china-mobile"
+    },
+    {
+      "class": "ICO-brand-china-telecom",
+      "name": "brand-china-telecom"
+    },
+    {
+      "class": "ICO-brand-china-unicom",
+      "name": "brand-china-unicom"
+    },
+    {
+      "class": "ICO-brand-cisco",
+      "name": "brand-cisco"
+    },
+    {
+      "class": "ICO-brand-citibank",
+      "name": "brand-citibank"
+    },
+    {
+      "class": "ICO-brand-cnet",
+      "name": "brand-cnet"
+    },
+    {
+      "class": "ICO-brand-cnn",
+      "name": "brand-cnn"
+    },
+    {
+      "class": "ICO-brand-cocal-cola",
+      "name": "brand-cocal-cola"
+    },
+    {
+      "class": "ICO-brand-compaq",
+      "name": "brand-compaq"
+    },
+    {
+      "class": "ICO-brand-debian",
+      "name": "brand-debian"
+    },
+    {
+      "class": "ICO-brand-delicious",
+      "name": "brand-delicious"
+    },
+    {
+      "class": "ICO-brand-dell",
+      "name": "brand-dell"
+    },
+    {
+      "class": "ICO-brand-designbump",
+      "name": "brand-designbump"
+    },
+    {
+      "class": "ICO-brand-designfloat",
+      "name": "brand-designfloat"
+    },
+    {
+      "class": "ICO-brand-disney",
+      "name": "brand-disney"
+    },
+    {
+      "class": "ICO-brand-dodge",
+      "name": "brand-dodge"
+    },
+    {
+      "class": "ICO-brand-dove",
+      "name": "brand-dove"
+    },
+    {
+      "class": "ICO-brand-drupal",
+      "name": "brand-drupal"
+    },
+    {
+      "class": "ICO-brand-ebay",
+      "name": "brand-ebay"
+    },
+    {
+      "class": "ICO-brand-eleven",
+      "name": "brand-eleven"
+    },
+    {
+      "class": "ICO-brand-emirates",
+      "name": "brand-emirates"
+    },
+    {
+      "class": "ICO-brand-espn",
+      "name": "brand-espn"
+    },
+    {
+      "class": "ICO-brand-etihad-airways",
+      "name": "brand-etihad-airways"
+    },
+    {
+      "class": "ICO-brand-etisalat",
+      "name": "brand-etisalat"
+    },
+    {
+      "class": "ICO-brand-etsy",
+      "name": "brand-etsy"
+    },
+    {
+      "class": "ICO-brand-fastrack",
+      "name": "brand-fastrack"
+    },
+    {
+      "class": "ICO-brand-fedex",
+      "name": "brand-fedex"
+    },
+    {
+      "class": "ICO-brand-ferrari",
+      "name": "brand-ferrari"
+    },
+    {
+      "class": "ICO-brand-fitbit",
+      "name": "brand-fitbit"
+    },
+    {
+      "class": "ICO-brand-flikr",
+      "name": "brand-flikr"
+    },
+    {
+      "class": "ICO-brand-forbes",
+      "name": "brand-forbes"
+    },
+    {
+      "class": "ICO-brand-foursquare",
+      "name": "brand-foursquare"
+    },
+    {
+      "class": "ICO-brand-foxconn",
+      "name": "brand-foxconn"
+    },
+    {
+      "class": "ICO-brand-fujitsu",
+      "name": "brand-fujitsu"
+    },
+    {
+      "class": "ICO-brand-general-electric",
+      "name": "brand-general-electric"
+    },
+    {
+      "class": "ICO-brand-gillette",
+      "name": "brand-gillette"
+    },
+    {
+      "class": "ICO-brand-gizmodo",
+      "name": "brand-gizmodo"
+    },
+    {
+      "class": "ICO-brand-gnome",
+      "name": "brand-gnome"
+    },
+    {
+      "class": "ICO-brand-google",
+      "name": "brand-google"
+    },
+    {
+      "class": "ICO-brand-gopro",
+      "name": "brand-gopro"
+    },
+    {
+      "class": "ICO-brand-gucci",
+      "name": "brand-gucci"
+    },
+    {
+      "class": "ICO-brand-hallmark",
+      "name": "brand-hallmark"
+    },
+    {
+      "class": "ICO-brand-hi5",
+      "name": "brand-hi5"
+    },
+    {
+      "class": "ICO-brand-honda",
+      "name": "brand-honda"
+    },
+    {
+      "class": "ICO-brand-hp",
+      "name": "brand-hp"
+    },
+    {
+      "class": "ICO-brand-hsbc",
+      "name": "brand-hsbc"
+    },
+    {
+      "class": "ICO-brand-htc",
+      "name": "brand-htc"
+    },
+    {
+      "class": "ICO-brand-huawei",
+      "name": "brand-huawei"
+    },
+    {
+      "class": "ICO-brand-hulu",
+      "name": "brand-hulu"
+    },
+    {
+      "class": "ICO-brand-hyundai",
+      "name": "brand-hyundai"
+    },
+    {
+      "class": "ICO-brand-ibm",
+      "name": "brand-ibm"
+    },
+    {
+      "class": "ICO-brand-icofont",
+      "name": "brand-icofont"
+    },
+    {
+      "class": "ICO-brand-icq",
+      "name": "brand-icq"
+    },
+    {
+      "class": "ICO-brand-ikea",
+      "name": "brand-ikea"
+    },
+    {
+      "class": "ICO-brand-imdb",
+      "name": "brand-imdb"
+    },
+    {
+      "class": "ICO-brand-indiegogo",
+      "name": "brand-indiegogo"
+    },
+    {
+      "class": "ICO-brand-intel",
+      "name": "brand-intel"
+    },
+    {
+      "class": "ICO-brand-ipair",
+      "name": "brand-ipair"
+    },
+    {
+      "class": "ICO-brand-jaguar",
+      "name": "brand-jaguar"
+    },
+    {
+      "class": "ICO-brand-java",
+      "name": "brand-java"
+    },
+    {
+      "class": "ICO-brand-joomla",
+      "name": "brand-joomla"
+    },
+    {
+      "class": "ICO-brand-kickstarter",
+      "name": "brand-kickstarter"
+    },
+    {
+      "class": "ICO-brand-kik",
+      "name": "brand-kik"
+    },
+    {
+      "class": "ICO-brand-lastfm",
+      "name": "brand-lastfm"
+    },
+    {
+      "class": "ICO-brand-lego",
+      "name": "brand-lego"
+    },
+    {
+      "class": "ICO-brand-lenovo",
+      "name": "brand-lenovo"
+    },
+    {
+      "class": "ICO-brand-levis",
+      "name": "brand-levis"
+    },
+    {
+      "class": "ICO-brand-lexus",
+      "name": "brand-lexus"
+    },
+    {
+      "class": "ICO-brand-lg",
+      "name": "brand-lg"
+    },
+    {
+      "class": "ICO-brand-life-hacker",
+      "name": "brand-life-hacker"
+    },
+    {
+      "class": "ICO-brand-linux-mint",
+      "name": "brand-linux-mint"
+    },
+    {
+      "class": "ICO-brand-linux",
+      "name": "brand-linux"
+    },
+    {
+      "class": "ICO-brand-lionix",
+      "name": "brand-lionix"
+    },
+    {
+      "class": "ICO-brand-loreal",
+      "name": "brand-loreal"
+    },
+    {
+      "class": "ICO-brand-louis-vuitton",
+      "name": "brand-louis-vuitton"
+    },
+    {
+      "class": "ICO-brand-mac-os",
+      "name": "brand-mac-os"
+    },
+    {
+      "class": "ICO-brand-marvel-app",
+      "name": "brand-marvel-app"
+    },
+    {
+      "class": "ICO-brand-mashable",
+      "name": "brand-mashable"
+    },
+    {
+      "class": "ICO-brand-mazda",
+      "name": "brand-mazda"
+    },
+    {
+      "class": "ICO-brand-mcdonals",
+      "name": "brand-mcdonals"
+    },
+    {
+      "class": "ICO-brand-mercedes",
+      "name": "brand-mercedes"
+    },
+    {
+      "class": "ICO-brand-micromax",
+      "name": "brand-micromax"
+    },
+    {
+      "class": "ICO-brand-microsoft",
+      "name": "brand-microsoft"
+    },
+    {
+      "class": "ICO-brand-mobileme",
+      "name": "brand-mobileme"
+    },
+    {
+      "class": "ICO-brand-mobily",
+      "name": "brand-mobily"
+    },
+    {
+      "class": "ICO-brand-motorola",
+      "name": "brand-motorola"
+    },
+    {
+      "class": "ICO-brand-msi",
+      "name": "brand-msi"
+    },
+    {
+      "class": "ICO-brand-mts",
+      "name": "brand-mts"
+    },
+    {
+      "class": "ICO-brand-myspace",
+      "name": "brand-myspace"
+    },
+    {
+      "class": "ICO-brand-mytv",
+      "name": "brand-mytv"
+    },
+    {
+      "class": "ICO-brand-nasa",
+      "name": "brand-nasa"
+    },
+    {
+      "class": "ICO-brand-natgeo",
+      "name": "brand-natgeo"
+    },
+    {
+      "class": "ICO-brand-nbc",
+      "name": "brand-nbc"
+    },
+    {
+      "class": "ICO-brand-nescafe",
+      "name": "brand-nescafe"
+    },
+    {
+      "class": "ICO-brand-nestle",
+      "name": "brand-nestle"
+    },
+    {
+      "class": "ICO-brand-netflix",
+      "name": "brand-netflix"
+    },
+    {
+      "class": "ICO-brand-nexus",
+      "name": "brand-nexus"
+    },
+    {
+      "class": "ICO-brand-nike",
+      "name": "brand-nike"
+    },
+    {
+      "class": "ICO-brand-nokia",
+      "name": "brand-nokia"
+    },
+    {
+      "class": "ICO-brand-nvidia",
+      "name": "brand-nvidia"
+    },
+    {
+      "class": "ICO-brand-omega",
+      "name": "brand-omega"
+    },
+    {
+      "class": "ICO-brand-opensuse",
+      "name": "brand-opensuse"
+    },
+    {
+      "class": "ICO-brand-oracle",
+      "name": "brand-oracle"
+    },
+    {
+      "class": "ICO-brand-panasonic",
+      "name": "brand-panasonic"
+    },
+    {
+      "class": "ICO-brand-paypal",
+      "name": "brand-paypal"
+    },
+    {
+      "class": "ICO-brand-pepsi",
+      "name": "brand-pepsi"
+    },
+    {
+      "class": "ICO-brand-philips",
+      "name": "brand-philips"
+    },
+    {
+      "class": "ICO-brand-pizza-hut",
+      "name": "brand-pizza-hut"
+    },
+    {
+      "class": "ICO-brand-playstation",
+      "name": "brand-playstation"
+    },
+    {
+      "class": "ICO-brand-puma",
+      "name": "brand-puma"
+    },
+    {
+      "class": "ICO-brand-qatar-air",
+      "name": "brand-qatar-air"
+    },
+    {
+      "class": "ICO-brand-qvc",
+      "name": "brand-qvc"
+    },
+    {
+      "class": "ICO-brand-readernaut",
+      "name": "brand-readernaut"
+    },
+    {
+      "class": "ICO-brand-redbull",
+      "name": "brand-redbull"
+    },
+    {
+      "class": "ICO-brand-reebok",
+      "name": "brand-reebok"
+    },
+    {
+      "class": "ICO-brand-reuters",
+      "name": "brand-reuters"
+    },
+    {
+      "class": "ICO-brand-samsung",
+      "name": "brand-samsung"
+    },
+    {
+      "class": "ICO-brand-sap",
+      "name": "brand-sap"
+    },
+    {
+      "class": "ICO-brand-saudia-airlines",
+      "name": "brand-saudia-airlines"
+    },
+    {
+      "class": "ICO-brand-scribd",
+      "name": "brand-scribd"
+    },
+    {
+      "class": "ICO-brand-shell",
+      "name": "brand-shell"
+    },
+    {
+      "class": "ICO-brand-siemens",
+      "name": "brand-siemens"
+    },
+    {
+      "class": "ICO-brand-sk-telecom",
+      "name": "brand-sk-telecom"
+    },
+    {
+      "class": "ICO-brand-slideshare",
+      "name": "brand-slideshare"
+    },
+    {
+      "class": "ICO-brand-smashing-magazine",
+      "name": "brand-smashing-magazine"
+    },
+    {
+      "class": "ICO-brand-snapchat",
+      "name": "brand-snapchat"
+    },
+    {
+      "class": "ICO-brand-sony-ericsson",
+      "name": "brand-sony-ericsson"
+    },
+    {
+      "class": "ICO-brand-sony",
+      "name": "brand-sony"
+    },
+    {
+      "class": "ICO-brand-soundcloud",
+      "name": "brand-soundcloud"
+    },
+    {
+      "class": "ICO-brand-sprint",
+      "name": "brand-sprint"
+    },
+    {
+      "class": "ICO-brand-squidoo",
+      "name": "brand-squidoo"
+    },
+    {
+      "class": "ICO-brand-starbucks",
+      "name": "brand-starbucks"
+    },
+    {
+      "class": "ICO-brand-stc",
+      "name": "brand-stc"
+    },
+    {
+      "class": "ICO-brand-steam",
+      "name": "brand-steam"
+    },
+    {
+      "class": "ICO-brand-suzuki",
+      "name": "brand-suzuki"
+    },
+    {
+      "class": "ICO-brand-symbian",
+      "name": "brand-symbian"
+    },
+    {
+      "class": "ICO-brand-t-mobile",
+      "name": "brand-t-mobile"
+    },
+    {
+      "class": "ICO-brand-tango",
+      "name": "brand-tango"
+    },
+    {
+      "class": "ICO-brand-target",
+      "name": "brand-target"
+    },
+    {
+      "class": "ICO-brand-tata-indicom",
+      "name": "brand-tata-indicom"
+    },
+    {
+      "class": "ICO-brand-techcrunch",
+      "name": "brand-techcrunch"
+    },
+    {
+      "class": "ICO-brand-telenor",
+      "name": "brand-telenor"
+    },
+    {
+      "class": "ICO-brand-teliasonera",
+      "name": "brand-teliasonera"
+    },
+    {
+      "class": "ICO-brand-tesla",
+      "name": "brand-tesla"
+    },
+    {
+      "class": "ICO-brand-the-verge",
+      "name": "brand-the-verge"
+    },
+    {
+      "class": "ICO-brand-thenextweb",
+      "name": "brand-thenextweb"
+    },
+    {
+      "class": "ICO-brand-toshiba",
+      "name": "brand-toshiba"
+    },
+    {
+      "class": "ICO-brand-toyota",
+      "name": "brand-toyota"
+    },
+    {
+      "class": "ICO-brand-tribenet",
+      "name": "brand-tribenet"
+    },
+    {
+      "class": "ICO-brand-ubuntu",
+      "name": "brand-ubuntu"
+    },
+    {
+      "class": "ICO-brand-unilever",
+      "name": "brand-unilever"
+    },
+    {
+      "class": "ICO-brand-vaio",
+      "name": "brand-vaio"
+    },
+    {
+      "class": "ICO-brand-verizon",
+      "name": "brand-verizon"
+    },
+    {
+      "class": "ICO-brand-viber",
+      "name": "brand-viber"
+    },
+    {
+      "class": "ICO-brand-vodafone",
+      "name": "brand-vodafone"
+    },
+    {
+      "class": "ICO-brand-volkswagen",
+      "name": "brand-volkswagen"
+    },
+    {
+      "class": "ICO-brand-walmart",
+      "name": "brand-walmart"
+    },
+    {
+      "class": "ICO-brand-warnerbros",
+      "name": "brand-warnerbros"
+    },
+    {
+      "class": "ICO-brand-whatsapp",
+      "name": "brand-whatsapp"
+    },
+    {
+      "class": "ICO-brand-wikipedia",
+      "name": "brand-wikipedia"
+    },
+    {
+      "class": "ICO-brand-windows",
+      "name": "brand-windows"
+    },
+    {
+      "class": "ICO-brand-wire",
+      "name": "brand-wire"
+    },
+    {
+      "class": "ICO-brand-wordpress",
+      "name": "brand-wordpress"
+    },
+    {
+      "class": "ICO-brand-xiaomi",
+      "name": "brand-xiaomi"
+    },
+    {
+      "class": "ICO-brand-yahoobuzz",
+      "name": "brand-yahoobuzz"
+    },
+    {
+      "class": "ICO-brand-yamaha",
+      "name": "brand-yamaha"
+    },
+    {
+      "class": "ICO-brand-youtube",
+      "name": "brand-youtube"
+    },
+    {
+      "class": "ICO-brand-zain",
+      "name": "brand-zain"
+    },
+    {
+      "class": "ICO-bank-alt",
+      "name": "bank-alt"
+    },
+    {
+      "class": "ICO-bank",
+      "name": "bank"
+    },
+    {
+      "class": "ICO-barcode",
+      "name": "barcode"
+    },
+    {
+      "class": "ICO-bill-alt",
+      "name": "bill-alt"
+    },
+    {
+      "class": "ICO-billboard",
+      "name": "billboard"
+    },
+    {
+      "class": "ICO-briefcase-1",
+      "name": "briefcase-1"
+    },
+    {
+      "class": "ICO-briefcase-2",
+      "name": "briefcase-2"
+    },
+    {
+      "class": "ICO-businessman",
+      "name": "businessman"
+    },
+    {
+      "class": "ICO-businesswoman",
+      "name": "businesswoman"
+    },
+    {
+      "class": "ICO-chair",
+      "name": "chair"
+    },
+    {
+      "class": "ICO-coins",
+      "name": "coins"
+    },
+    {
+      "class": "ICO-company",
+      "name": "company"
+    },
+    {
+      "class": "ICO-contact-add",
+      "name": "contact-add"
+    },
+    {
+      "class": "ICO-files-stack",
+      "name": "files-stack"
+    },
+    {
+      "class": "ICO-handshake-deal",
+      "name": "handshake-deal"
+    },
+    {
+      "class": "ICO-id-card",
+      "name": "id-card"
+    },
+    {
+      "class": "ICO-meeting-add",
+      "name": "meeting-add"
+    },
+    {
+      "class": "ICO-money-bag",
+      "name": "money-bag"
+    },
+    {
+      "class": "ICO-pie-chart",
+      "name": "pie-chart"
+    },
+    {
+      "class": "ICO-presentation-alt",
+      "name": "presentation-alt"
+    },
+    {
+      "class": "ICO-presentation",
+      "name": "presentation"
+    },
+    {
+      "class": "ICO-stamp",
+      "name": "stamp"
+    },
+    {
+      "class": "ICO-stock-mobile",
+      "name": "stock-mobile"
+    },
+    {
+      "class": "ICO-chart-arrows-axis",
+      "name": "chart-arrows-axis"
+    },
+    {
+      "class": "ICO-chart-bar-graph",
+      "name": "chart-bar-graph"
+    },
+    {
+      "class": "ICO-chart-flow-1",
+      "name": "chart-flow-1"
+    },
+    {
+      "class": "ICO-chart-flow-2",
+      "name": "chart-flow-2"
+    },
+    {
+      "class": "ICO-chart-flow",
+      "name": "chart-flow"
+    },
+    {
+      "class": "ICO-chart-growth",
+      "name": "chart-growth"
+    },
+    {
+      "class": "ICO-chart-histogram-alt",
+      "name": "chart-histogram-alt"
+    },
+    {
+      "class": "ICO-chart-histogram",
+      "name": "chart-histogram"
+    },
+    {
+      "class": "ICO-chart-line-alt",
+      "name": "chart-line-alt"
+    },
+    {
+      "class": "ICO-chart-line",
+      "name": "chart-line"
+    },
+    {
+      "class": "ICO-chart-pie-alt",
+      "name": "chart-pie-alt"
+    },
+    {
+      "class": "ICO-chart-pie",
+      "name": "chart-pie"
+    },
+    {
+      "class": "ICO-chart-radar-graph",
+      "name": "chart-radar-graph"
+    },
+    {
+      "class": "ICO-architecture-alt",
+      "name": "architecture-alt"
+    },
+    {
+      "class": "ICO-architecture",
+      "name": "architecture"
+    },
+    {
+      "class": "ICO-barricade",
+      "name": "barricade"
+    },
+    {
+      "class": "ICO-bolt",
+      "name": "bolt"
+    },
+    {
+      "class": "ICO-bricks",
+      "name": "bricks"
+    },
+    {
+      "class": "ICO-building-alt",
+      "name": "building-alt"
+    },
+    {
+      "class": "ICO-bull-dozer",
+      "name": "bull-dozer"
+    },
+    {
+      "class": "ICO-calculations",
+      "name": "calculations"
+    },
+    {
+      "class": "ICO-cement-mix",
+      "name": "cement-mix"
+    },
+    {
+      "class": "ICO-cement-mixer",
+      "name": "cement-mixer"
+    },
+    {
+      "class": "ICO-concrete-mixer",
+      "name": "concrete-mixer"
+    },
+    {
+      "class": "ICO-danger-zone",
+      "name": "danger-zone"
+    },
+    {
+      "class": "ICO-drill",
+      "name": "drill"
+    },
+    {
+      "class": "ICO-eco-energy",
+      "name": "eco-energy"
+    },
+    {
+      "class": "ICO-eco-environmen",
+      "name": "eco-environmen"
+    },
+    {
+      "class": "ICO-energy-air",
+      "name": "energy-air"
+    },
+    {
+      "class": "ICO-energy-oil",
+      "name": "energy-oil"
+    },
+    {
+      "class": "ICO-energy-savings",
+      "name": "energy-savings"
+    },
+    {
+      "class": "ICO-energy-solar",
+      "name": "energy-solar"
+    },
+    {
+      "class": "ICO-energy-water",
+      "name": "energy-water"
+    },
+    {
+      "class": "ICO-engineer",
+      "name": "engineer"
+    },
+    {
+      "class": "ICO-fire-extinguisher-alt",
+      "name": "fire-extinguisher-alt"
+    },
+    {
+      "class": "ICO-fire-extinguisher",
+      "name": "fire-extinguisher"
+    },
+    {
+      "class": "ICO-fix-tools",
+      "name": "fix-tools"
+    },
+    {
+      "class": "ICO-fork-lift",
+      "name": "fork-lift"
+    },
+    {
+      "class": "ICO-glue-oil",
+      "name": "glue-oil"
+    },
+    {
+      "class": "ICO-hammer-alt",
+      "name": "hammer-alt"
+    },
+    {
+      "class": "ICO-hammer",
+      "name": "hammer"
+    },
+    {
+      "class": "ICO-help-robot",
+      "name": "help-robot"
+    },
+    {
+      "class": "ICO-industries-1",
+      "name": "industries-1"
+    },
+    {
+      "class": "ICO-industries-2",
+      "name": "industries-2"
+    },
+    {
+      "class": "ICO-industries-3",
+      "name": "industries-3"
+    },
+    {
+      "class": "ICO-industries-4",
+      "name": "industries-4"
+    },
+    {
+      "class": "ICO-industries-5",
+      "name": "industries-5"
+    },
+    {
+      "class": "ICO-industries",
+      "name": "industries"
+    },
+    {
+      "class": "ICO-labour",
+      "name": "labour"
+    },
+    {
+      "class": "ICO-mining",
+      "name": "mining"
+    },
+    {
+      "class": "ICO-paint-brush",
+      "name": "paint-brush"
+    },
+    {
+      "class": "ICO-pollution",
+      "name": "pollution"
+    },
+    {
+      "class": "ICO-power-zone",
+      "name": "power-zone"
+    },
+    {
+      "class": "ICO-radio-active",
+      "name": "radio-active"
+    },
+    {
+      "class": "ICO-recycle-alt",
+      "name": "recycle-alt"
+    },
+    {
+      "class": "ICO-recycling-man",
+      "name": "recycling-man"
+    },
+    {
+      "class": "ICO-safety-hat-light",
+      "name": "safety-hat-light"
+    },
+    {
+      "class": "ICO-safety-hat",
+      "name": "safety-hat"
+    },
+    {
+      "class": "ICO-saw",
+      "name": "saw"
+    },
+    {
+      "class": "ICO-screw-driver",
+      "name": "screw-driver"
+    },
+    {
+      "class": "ICO-tools-1",
+      "name": "tools-1"
+    },
+    {
+      "class": "ICO-tools-bag",
+      "name": "tools-bag"
+    },
+    {
+      "class": "ICO-tow-truck",
+      "name": "tow-truck"
+    },
+    {
+      "class": "ICO-trolley",
+      "name": "trolley"
+    },
+    {
+      "class": "ICO-trowel",
+      "name": "trowel"
+    },
+    {
+      "class": "ICO-under-construction-alt",
+      "name": "under-construction-alt"
+    },
+    {
+      "class": "ICO-under-construction",
+      "name": "under-construction"
+    },
+    {
+      "class": "ICO-vehicle-cement",
+      "name": "vehicle-cement"
+    },
+    {
+      "class": "ICO-vehicle-crane",
+      "name": "vehicle-crane"
+    },
+    {
+      "class": "ICO-vehicle-delivery-van",
+      "name": "vehicle-delivery-van"
+    },
+    {
+      "class": "ICO-vehicle-dozer",
+      "name": "vehicle-dozer"
+    },
+    {
+      "class": "ICO-vehicle-excavator",
+      "name": "vehicle-excavator"
+    },
+    {
+      "class": "ICO-vehicle-trucktor",
+      "name": "vehicle-trucktor"
+    },
+    {
+      "class": "ICO-vehicle-wrecking",
+      "name": "vehicle-wrecking"
+    },
+    {
+      "class": "ICO-worker",
+      "name": "worker"
+    },
+    {
+      "class": "ICO-workers-group",
+      "name": "workers-group"
+    },
+    {
+      "class": "ICO-wrench",
+      "name": "wrench"
+    },
+    {
+      "class": "ICO-afghani-false",
+      "name": "afghani-false"
+    },
+    {
+      "class": "ICO-afghani-minus",
+      "name": "afghani-minus"
+    },
+    {
+      "class": "ICO-afghani-plus",
+      "name": "afghani-plus"
+    },
+    {
+      "class": "ICO-afghani-true",
+      "name": "afghani-true"
+    },
+    {
+      "class": "ICO-afghani",
+      "name": "afghani"
+    },
+    {
+      "class": "ICO-baht-false",
+      "name": "baht-false"
+    },
+    {
+      "class": "ICO-baht-minus",
+      "name": "baht-minus"
+    },
+    {
+      "class": "ICO-baht-plus",
+      "name": "baht-plus"
+    },
+    {
+      "class": "ICO-baht-true",
+      "name": "baht-true"
+    },
+    {
+      "class": "ICO-baht",
+      "name": "baht"
+    },
+    {
+      "class": "ICO-bitcoin-false",
+      "name": "bitcoin-false"
+    },
+    {
+      "class": "ICO-bitcoin-minus",
+      "name": "bitcoin-minus"
+    },
+    {
+      "class": "ICO-bitcoin-plus",
+      "name": "bitcoin-plus"
+    },
+    {
+      "class": "ICO-bitcoin-true",
+      "name": "bitcoin-true"
+    },
+    {
+      "class": "ICO-bitcoin",
+      "name": "bitcoin"
+    },
+    {
+      "class": "ICO-dollar-flase",
+      "name": "dollar-flase"
+    },
+    {
+      "class": "ICO-dollar-minus",
+      "name": "dollar-minus"
+    },
+    {
+      "class": "ICO-dollar-plus",
+      "name": "dollar-plus"
+    },
+    {
+      "class": "ICO-dollar-true",
+      "name": "dollar-true"
+    },
+    {
+      "class": "ICO-dollar",
+      "name": "dollar"
+    },
+    {
+      "class": "ICO-dong-false",
+      "name": "dong-false"
+    },
+    {
+      "class": "ICO-dong-minus",
+      "name": "dong-minus"
+    },
+    {
+      "class": "ICO-dong-plus",
+      "name": "dong-plus"
+    },
+    {
+      "class": "ICO-dong-true",
+      "name": "dong-true"
+    },
+    {
+      "class": "ICO-dong",
+      "name": "dong"
+    },
+    {
+      "class": "ICO-euro-false",
+      "name": "euro-false"
+    },
+    {
+      "class": "ICO-euro-minus",
+      "name": "euro-minus"
+    },
+    {
+      "class": "ICO-euro-plus",
+      "name": "euro-plus"
+    },
+    {
+      "class": "ICO-euro-true",
+      "name": "euro-true"
+    },
+    {
+      "class": "ICO-euro",
+      "name": "euro"
+    },
+    {
+      "class": "ICO-frank-false",
+      "name": "frank-false"
+    },
+    {
+      "class": "ICO-frank-minus",
+      "name": "frank-minus"
+    },
+    {
+      "class": "ICO-frank-plus",
+      "name": "frank-plus"
+    },
+    {
+      "class": "ICO-frank-true",
+      "name": "frank-true"
+    },
+    {
+      "class": "ICO-frank",
+      "name": "frank"
+    },
+    {
+      "class": "ICO-hryvnia-false",
+      "name": "hryvnia-false"
+    },
+    {
+      "class": "ICO-hryvnia-minus",
+      "name": "hryvnia-minus"
+    },
+    {
+      "class": "ICO-hryvnia-plus",
+      "name": "hryvnia-plus"
+    },
+    {
+      "class": "ICO-hryvnia-true",
+      "name": "hryvnia-true"
+    },
+    {
+      "class": "ICO-hryvnia",
+      "name": "hryvnia"
+    },
+    {
+      "class": "ICO-lira-false",
+      "name": "lira-false"
+    },
+    {
+      "class": "ICO-lira-minus",
+      "name": "lira-minus"
+    },
+    {
+      "class": "ICO-lira-plus",
+      "name": "lira-plus"
+    },
+    {
+      "class": "ICO-lira-true",
+      "name": "lira-true"
+    },
+    {
+      "class": "ICO-lira",
+      "name": "lira"
+    },
+    {
+      "class": "ICO-peseta-false",
+      "name": "peseta-false"
+    },
+    {
+      "class": "ICO-peseta-minus",
+      "name": "peseta-minus"
+    },
+    {
+      "class": "ICO-peseta-plus",
+      "name": "peseta-plus"
+    },
+    {
+      "class": "ICO-peseta-true",
+      "name": "peseta-true"
+    },
+    {
+      "class": "ICO-peseta",
+      "name": "peseta"
+    },
+    {
+      "class": "ICO-peso-false",
+      "name": "peso-false"
+    },
+    {
+      "class": "ICO-peso-minus",
+      "name": "peso-minus"
+    },
+    {
+      "class": "ICO-peso-plus",
+      "name": "peso-plus"
+    },
+    {
+      "class": "ICO-peso-true",
+      "name": "peso-true"
+    },
+    {
+      "class": "ICO-peso",
+      "name": "peso"
+    },
+    {
+      "class": "ICO-pound-false",
+      "name": "pound-false"
+    },
+    {
+      "class": "ICO-pound-minus",
+      "name": "pound-minus"
+    },
+    {
+      "class": "ICO-pound-plus",
+      "name": "pound-plus"
+    },
+    {
+      "class": "ICO-pound-true",
+      "name": "pound-true"
+    },
+    {
+      "class": "ICO-pound",
+      "name": "pound"
+    },
+    {
+      "class": "ICO-renminbi-false",
+      "name": "renminbi-false"
+    },
+    {
+      "class": "ICO-renminbi-minus",
+      "name": "renminbi-minus"
+    },
+    {
+      "class": "ICO-renminbi-plus",
+      "name": "renminbi-plus"
+    },
+    {
+      "class": "ICO-renminbi-true",
+      "name": "renminbi-true"
+    },
+    {
+      "class": "ICO-renminbi",
+      "name": "renminbi"
+    },
+    {
+      "class": "ICO-riyal-false",
+      "name": "riyal-false"
+    },
+    {
+      "class": "ICO-riyal-minus",
+      "name": "riyal-minus"
+    },
+    {
+      "class": "ICO-riyal-plus",
+      "name": "riyal-plus"
+    },
+    {
+      "class": "ICO-riyal-true",
+      "name": "riyal-true"
+    },
+    {
+      "class": "ICO-riyal",
+      "name": "riyal"
+    },
+    {
+      "class": "ICO-rouble-false",
+      "name": "rouble-false"
+    },
+    {
+      "class": "ICO-rouble-minus",
+      "name": "rouble-minus"
+    },
+    {
+      "class": "ICO-rouble-plus",
+      "name": "rouble-plus"
+    },
+    {
+      "class": "ICO-rouble-true",
+      "name": "rouble-true"
+    },
+    {
+      "class": "ICO-rouble",
+      "name": "rouble"
+    },
+    {
+      "class": "ICO-rupee-false",
+      "name": "rupee-false"
+    },
+    {
+      "class": "ICO-rupee-minus",
+      "name": "rupee-minus"
+    },
+    {
+      "class": "ICO-rupee-plus",
+      "name": "rupee-plus"
+    },
+    {
+      "class": "ICO-rupee-true",
+      "name": "rupee-true"
+    },
+    {
+      "class": "ICO-rupee",
+      "name": "rupee"
+    },
+    {
+      "class": "ICO-taka-false",
+      "name": "taka-false"
+    },
+    {
+      "class": "ICO-taka-minus",
+      "name": "taka-minus"
+    },
+    {
+      "class": "ICO-taka-plus",
+      "name": "taka-plus"
+    },
+    {
+      "class": "ICO-taka-true",
+      "name": "taka-true"
+    },
+    {
+      "class": "ICO-taka",
+      "name": "taka"
+    },
+    {
+      "class": "ICO-turkish-lira-false",
+      "name": "turkish-lira-false"
+    },
+    {
+      "class": "ICO-turkish-lira-minus",
+      "name": "turkish-lira-minus"
+    },
+    {
+      "class": "ICO-turkish-lira-plus",
+      "name": "turkish-lira-plus"
+    },
+    {
+      "class": "ICO-turkish-lira-true",
+      "name": "turkish-lira-true"
+    },
+    {
+      "class": "ICO-turkish-lira",
+      "name": "turkish-lira"
+    },
+    {
+      "class": "ICO-won-false",
+      "name": "won-false"
+    },
+    {
+      "class": "ICO-won-minus",
+      "name": "won-minus"
+    },
+    {
+      "class": "ICO-won-plus",
+      "name": "won-plus"
+    },
+    {
+      "class": "ICO-won-true",
+      "name": "won-true"
+    },
+    {
+      "class": "ICO-won",
+      "name": "won"
+    },
+    {
+      "class": "ICO-yen-false",
+      "name": "yen-false"
+    },
+    {
+      "class": "ICO-yen-minus",
+      "name": "yen-minus"
+    },
+    {
+      "class": "ICO-yen-plus",
+      "name": "yen-plus"
+    },
+    {
+      "class": "ICO-yen-true",
+      "name": "yen-true"
+    },
+    {
+      "class": "ICO-yen",
+      "name": "yen"
+    },
+    {
+      "class": "ICO-android-nexus",
+      "name": "android-nexus"
+    },
+    {
+      "class": "ICO-android-tablet",
+      "name": "android-tablet"
+    },
+    {
+      "class": "ICO-apple-watch",
+      "name": "apple-watch"
+    },
+    {
+      "class": "ICO-drawing-tablet",
+      "name": "drawing-tablet"
+    },
+    {
+      "class": "ICO-earphone",
+      "name": "earphone"
+    },
+    {
+      "class": "ICO-flash-drive",
+      "name": "flash-drive"
+    },
+    {
+      "class": "ICO-game-console",
+      "name": "game-console"
+    },
+    {
+      "class": "ICO-game-controller",
+      "name": "game-controller"
+    },
+    {
+      "class": "ICO-game-pad",
+      "name": "game-pad"
+    },
+    {
+      "class": "ICO-game",
+      "name": "game"
+    },
+    {
+      "class": "ICO-headphone-alt-1",
+      "name": "headphone-alt-1"
+    },
+    {
+      "class": "ICO-headphone-alt-2",
+      "name": "headphone-alt-2"
+    },
+    {
+      "class": "ICO-headphone-alt-3",
+      "name": "headphone-alt-3"
+    },
+    {
+      "class": "ICO-headphone-alt",
+      "name": "headphone-alt"
+    },
+    {
+      "class": "ICO-headphone",
+      "name": "headphone"
+    },
+    {
+      "class": "ICO-htc-one",
+      "name": "htc-one"
+    },
+    {
+      "class": "ICO-imac",
+      "name": "imac"
+    },
+    {
+      "class": "ICO-ipad",
+      "name": "ipad"
+    },
+    {
+      "class": "ICO-iphone",
+      "name": "iphone"
+    },
+    {
+      "class": "ICO-ipod-nano",
+      "name": "ipod-nano"
+    },
+    {
+      "class": "ICO-ipod-touch",
+      "name": "ipod-touch"
+    },
+    {
+      "class": "ICO-keyboard-alt",
+      "name": "keyboard-alt"
+    },
+    {
+      "class": "ICO-keyboard-wireless",
+      "name": "keyboard-wireless"
+    },
+    {
+      "class": "ICO-keyboard",
+      "name": "keyboard"
+    },
+    {
+      "class": "ICO-laptop-alt",
+      "name": "laptop-alt"
+    },
+    {
+      "class": "ICO-laptop",
+      "name": "laptop"
+    },
+    {
+      "class": "ICO-macbook",
+      "name": "macbook"
+    },
+    {
+      "class": "ICO-magic-mouse",
+      "name": "magic-mouse"
+    },
+    {
+      "class": "ICO-micro-chip",
+      "name": "micro-chip"
+    },
+    {
+      "class": "ICO-microphone-alt",
+      "name": "microphone-alt"
+    },
+    {
+      "class": "ICO-microphone",
+      "name": "microphone"
+    },
+    {
+      "class": "ICO-monitor",
+      "name": "monitor"
+    },
+    {
+      "class": "ICO-mouse",
+      "name": "mouse"
+    },
+    {
+      "class": "ICO-mp3-player",
+      "name": "mp3-player"
+    },
+    {
+      "class": "ICO-nintendo",
+      "name": "nintendo"
+    },
+    {
+      "class": "ICO-playstation-alt",
+      "name": "playstation-alt"
+    },
+    {
+      "class": "ICO-psvita",
+      "name": "psvita"
+    },
+    {
+      "class": "ICO-radio-mic",
+      "name": "radio-mic"
+    },
+    {
+      "class": "ICO-radio",
+      "name": "radio"
+    },
+    {
+      "class": "ICO-refrigerator",
+      "name": "refrigerator"
+    },
+    {
+      "class": "ICO-samsung-galaxy",
+      "name": "samsung-galaxy"
+    },
+    {
+      "class": "ICO-surface-tablet",
+      "name": "surface-tablet"
+    },
+    {
+      "class": "ICO-ui-head-phone",
+      "name": "ui-head-phone"
+    },
+    {
+      "class": "ICO-ui-keyboard",
+      "name": "ui-keyboard"
+    },
+    {
+      "class": "ICO-washing-machine",
+      "name": "washing-machine"
+    },
+    {
+      "class": "ICO-wifi-router",
+      "name": "wifi-router"
+    },
+    {
+      "class": "ICO-wii-u",
+      "name": "wii-u"
+    },
+    {
+      "class": "ICO-windows-lumia",
+      "name": "windows-lumia"
+    },
+    {
+      "class": "ICO-wireless-mouse",
+      "name": "wireless-mouse"
+    },
+    {
+      "class": "ICO-xbox-360",
+      "name": "xbox-360"
+    },
+    {
+      "class": "ICO-arrow-down",
+      "name": "arrow-down"
+    },
+    {
+      "class": "ICO-arrow-left",
+      "name": "arrow-left"
+    },
+    {
+      "class": "ICO-arrow-right",
+      "name": "arrow-right"
+    },
+    {
+      "class": "ICO-arrow-up",
+      "name": "arrow-up"
+    },
+    {
+      "class": "ICO-block-down",
+      "name": "block-down"
+    },
+    {
+      "class": "ICO-block-left",
+      "name": "block-left"
+    },
+    {
+      "class": "ICO-block-right",
+      "name": "block-right"
+    },
+    {
+      "class": "ICO-block-up",
+      "name": "block-up"
+    },
+    {
+      "class": "ICO-bubble-down",
+      "name": "bubble-down"
+    },
+    {
+      "class": "ICO-bubble-left",
+      "name": "bubble-left"
+    },
+    {
+      "class": "ICO-bubble-right",
+      "name": "bubble-right"
+    },
+    {
+      "class": "ICO-bubble-up",
+      "name": "bubble-up"
+    },
+    {
+      "class": "ICO-caret-down",
+      "name": "caret-down"
+    },
+    {
+      "class": "ICO-caret-left",
+      "name": "caret-left"
+    },
+    {
+      "class": "ICO-caret-right",
+      "name": "caret-right"
+    },
+    {
+      "class": "ICO-caret-up",
+      "name": "caret-up"
+    },
+    {
+      "class": "ICO-circled-down",
+      "name": "circled-down"
+    },
+    {
+      "class": "ICO-circled-left",
+      "name": "circled-left"
+    },
+    {
+      "class": "ICO-circled-right",
+      "name": "circled-right"
+    },
+    {
+      "class": "ICO-circled-up",
+      "name": "circled-up"
+    },
+    {
+      "class": "ICO-collapse",
+      "name": "collapse"
+    },
+    {
+      "class": "ICO-cursor-drag",
+      "name": "cursor-drag"
+    },
+    {
+      "class": "ICO-curved-double-left",
+      "name": "curved-double-left"
+    },
+    {
+      "class": "ICO-curved-double-right",
+      "name": "curved-double-right"
+    },
+    {
+      "class": "ICO-curved-down",
+      "name": "curved-down"
+    },
+    {
+      "class": "ICO-curved-left",
+      "name": "curved-left"
+    },
+    {
+      "class": "ICO-curved-right",
+      "name": "curved-right"
+    },
+    {
+      "class": "ICO-curved-up",
+      "name": "curved-up"
+    },
+    {
+      "class": "ICO-dotted-down",
+      "name": "dotted-down"
+    },
+    {
+      "class": "ICO-dotted-left",
+      "name": "dotted-left"
+    },
+    {
+      "class": "ICO-dotted-right",
+      "name": "dotted-right"
+    },
+    {
+      "class": "ICO-dotted-up",
+      "name": "dotted-up"
+    },
+    {
+      "class": "ICO-double-left",
+      "name": "double-left"
+    },
+    {
+      "class": "ICO-double-right",
+      "name": "double-right"
+    },
+    {
+      "class": "ICO-expand-alt",
+      "name": "expand-alt"
+    },
+    {
+      "class": "ICO-hand-down",
+      "name": "hand-down"
+    },
+    {
+      "class": "ICO-hand-drag",
+      "name": "hand-drag"
+    },
+    {
+      "class": "ICO-hand-drag1",
+      "name": "hand-drag1"
+    },
+    {
+      "class": "ICO-hand-drag2",
+      "name": "hand-drag2"
+    },
+    {
+      "class": "ICO-hand-drawn-alt-down",
+      "name": "hand-drawn-alt-down"
+    },
+    {
+      "class": "ICO-hand-drawn-alt-left",
+      "name": "hand-drawn-alt-left"
+    },
+    {
+      "class": "ICO-hand-drawn-alt-right",
+      "name": "hand-drawn-alt-right"
+    },
+    {
+      "class": "ICO-hand-drawn-alt-up",
+      "name": "hand-drawn-alt-up"
+    },
+    {
+      "class": "ICO-hand-drawn-down",
+      "name": "hand-drawn-down"
+    },
+    {
+      "class": "ICO-hand-drawn-left",
+      "name": "hand-drawn-left"
+    },
+    {
+      "class": "ICO-hand-drawn-right",
+      "name": "hand-drawn-right"
+    },
+    {
+      "class": "ICO-hand-drawn-up",
+      "name": "hand-drawn-up"
+    },
+    {
+      "class": "ICO-hand-grippers",
+      "name": "hand-grippers"
+    },
+    {
+      "class": "ICO-hand-left",
+      "name": "hand-left"
+    },
+    {
+      "class": "ICO-hand-right",
+      "name": "hand-right"
+    },
+    {
+      "class": "ICO-hand-up",
+      "name": "hand-up"
+    },
+    {
+      "class": "ICO-line-block-down",
+      "name": "line-block-down"
+    },
+    {
+      "class": "ICO-line-block-left",
+      "name": "line-block-left"
+    },
+    {
+      "class": "ICO-line-block-right",
+      "name": "line-block-right"
+    },
+    {
+      "class": "ICO-line-block-up",
+      "name": "line-block-up"
+    },
+    {
+      "class": "ICO-long-arrow-down",
+      "name": "long-arrow-down"
+    },
+    {
+      "class": "ICO-long-arrow-left",
+      "name": "long-arrow-left"
+    },
+    {
+      "class": "ICO-long-arrow-right",
+      "name": "long-arrow-right"
+    },
+    {
+      "class": "ICO-long-arrow-up",
+      "name": "long-arrow-up"
+    },
+    {
+      "class": "ICO-rounded-collapse",
+      "name": "rounded-collapse"
+    },
+    {
+      "class": "ICO-rounded-double-left",
+      "name": "rounded-double-left"
+    },
+    {
+      "class": "ICO-rounded-double-right",
+      "name": "rounded-double-right"
+    },
+    {
+      "class": "ICO-rounded-down",
+      "name": "rounded-down"
+    },
+    {
+      "class": "ICO-rounded-expand",
+      "name": "rounded-expand"
+    },
+    {
+      "class": "ICO-rounded-left-down",
+      "name": "rounded-left-down"
+    },
+    {
+      "class": "ICO-rounded-left-up",
+      "name": "rounded-left-up"
+    },
+    {
+      "class": "ICO-rounded-left",
+      "name": "rounded-left"
+    },
+    {
+      "class": "ICO-rounded-right-down",
+      "name": "rounded-right-down"
+    },
+    {
+      "class": "ICO-rounded-right-up",
+      "name": "rounded-right-up"
+    },
+    {
+      "class": "ICO-rounded-right",
+      "name": "rounded-right"
+    },
+    {
+      "class": "ICO-rounded-up",
+      "name": "rounded-up"
+    },
+    {
+      "class": "ICO-scroll-bubble-down",
+      "name": "scroll-bubble-down"
+    },
+    {
+      "class": "ICO-scroll-bubble-left",
+      "name": "scroll-bubble-left"
+    },
+    {
+      "class": "ICO-scroll-bubble-right",
+      "name": "scroll-bubble-right"
+    },
+    {
+      "class": "ICO-scroll-bubble-up",
+      "name": "scroll-bubble-up"
+    },
+    {
+      "class": "ICO-scroll-double-down",
+      "name": "scroll-double-down"
+    },
+    {
+      "class": "ICO-scroll-double-left",
+      "name": "scroll-double-left"
+    },
+    {
+      "class": "ICO-scroll-double-right",
+      "name": "scroll-double-right"
+    },
+    {
+      "class": "ICO-scroll-double-up",
+      "name": "scroll-double-up"
+    },
+    {
+      "class": "ICO-scroll-down",
+      "name": "scroll-down"
+    },
+    {
+      "class": "ICO-scroll-left",
+      "name": "scroll-left"
+    },
+    {
+      "class": "ICO-scroll-long-down",
+      "name": "scroll-long-down"
+    },
+    {
+      "class": "ICO-scroll-long-left",
+      "name": "scroll-long-left"
+    },
+    {
+      "class": "ICO-scroll-long-right",
+      "name": "scroll-long-right"
+    },
+    {
+      "class": "ICO-scroll-long-up",
+      "name": "scroll-long-up"
+    },
+    {
+      "class": "ICO-scroll-right",
+      "name": "scroll-right"
+    },
+    {
+      "class": "ICO-scroll-up",
+      "name": "scroll-up"
+    },
+    {
+      "class": "ICO-simple-down",
+      "name": "simple-down"
+    },
+    {
+      "class": "ICO-simple-left-down",
+      "name": "simple-left-down"
+    },
+    {
+      "class": "ICO-simple-left-up",
+      "name": "simple-left-up"
+    },
+    {
+      "class": "ICO-simple-left",
+      "name": "simple-left"
+    },
+    {
+      "class": "ICO-simple-right-down",
+      "name": "simple-right-down"
+    },
+    {
+      "class": "ICO-simple-right-up",
+      "name": "simple-right-up"
+    },
+    {
+      "class": "ICO-simple-right",
+      "name": "simple-right"
+    },
+    {
+      "class": "ICO-simple-up",
+      "name": "simple-up"
+    },
+    {
+      "class": "ICO-square-down",
+      "name": "square-down"
+    },
+    {
+      "class": "ICO-square-left",
+      "name": "square-left"
+    },
+    {
+      "class": "ICO-square-right",
+      "name": "square-right"
+    },
+    {
+      "class": "ICO-square-up",
+      "name": "square-up"
+    },
+    {
+      "class": "ICO-stylish-down",
+      "name": "stylish-down"
+    },
+    {
+      "class": "ICO-stylish-left",
+      "name": "stylish-left"
+    },
+    {
+      "class": "ICO-stylish-right",
+      "name": "stylish-right"
+    },
+    {
+      "class": "ICO-stylish-up",
+      "name": "stylish-up"
+    },
+    {
+      "class": "ICO-swoosh-down",
+      "name": "swoosh-down"
+    },
+    {
+      "class": "ICO-swoosh-left",
+      "name": "swoosh-left"
+    },
+    {
+      "class": "ICO-swoosh-right",
+      "name": "swoosh-right"
+    },
+    {
+      "class": "ICO-swoosh-up",
+      "name": "swoosh-up"
+    },
+    {
+      "class": "ICO-thin-double-left",
+      "name": "thin-double-left"
+    },
+    {
+      "class": "ICO-thin-double-right",
+      "name": "thin-double-right"
+    },
+    {
+      "class": "ICO-thin-down",
+      "name": "thin-down"
+    },
+    {
+      "class": "ICO-thin-left",
+      "name": "thin-left"
+    },
+    {
+      "class": "ICO-thin-right",
+      "name": "thin-right"
+    },
+    {
+      "class": "ICO-thin-up",
+      "name": "thin-up"
+    },
+    {
+      "class": "ICO-abc",
+      "name": "abc"
+    },
+    {
+      "class": "ICO-atom",
+      "name": "atom"
+    },
+    {
+      "class": "ICO-award",
+      "name": "award"
+    },
+    {
+      "class": "ICO-bell-alt",
+      "name": "bell-alt"
+    },
+    {
+      "class": "ICO-black-board",
+      "name": "black-board"
+    },
+    {
+      "class": "ICO-book-alt",
+      "name": "book-alt"
+    },
+    {
+      "class": "ICO-book",
+      "name": "book"
+    },
+    {
+      "class": "ICO-brainstorming",
+      "name": "brainstorming"
+    },
+    {
+      "class": "ICO-certificate-alt-1",
+      "name": "certificate-alt-1"
+    },
+    {
+      "class": "ICO-certificate-alt-2",
+      "name": "certificate-alt-2"
+    },
+    {
+      "class": "ICO-certificate",
+      "name": "certificate"
+    },
+    {
+      "class": "ICO-education",
+      "name": "education"
+    },
+    {
+      "class": "ICO-electron",
+      "name": "electron"
+    },
+    {
+      "class": "ICO-fountain-pen",
+      "name": "fountain-pen"
+    },
+    {
+      "class": "ICO-globe-alt",
+      "name": "globe-alt"
+    },
+    {
+      "class": "ICO-graduate-alt",
+      "name": "graduate-alt"
+    },
+    {
+      "class": "ICO-graduate",
+      "name": "graduate"
+    },
+    {
+      "class": "ICO-group-students",
+      "name": "group-students"
+    },
+    {
+      "class": "ICO-hat-alt",
+      "name": "hat-alt"
+    },
+    {
+      "class": "ICO-hat",
+      "name": "hat"
+    },
+    {
+      "class": "ICO-instrument",
+      "name": "instrument"
+    },
+    {
+      "class": "ICO-lamp-light",
+      "name": "lamp-light"
+    },
+    {
+      "class": "ICO-medal",
+      "name": "medal"
+    },
+    {
+      "class": "ICO-microscope-alt",
+      "name": "microscope-alt"
+    },
+    {
+      "class": "ICO-microscope",
+      "name": "microscope"
+    },
+    {
+      "class": "ICO-paper",
+      "name": "paper"
+    },
+    {
+      "class": "ICO-pen-alt-4",
+      "name": "pen-alt-4"
+    },
+    {
+      "class": "ICO-pen-nib",
+      "name": "pen-nib"
+    },
+    {
+      "class": "ICO-pencil-alt-5",
+      "name": "pencil-alt-5"
+    },
+    {
+      "class": "ICO-quill-pen",
+      "name": "quill-pen"
+    },
+    {
+      "class": "ICO-read-book-alt",
+      "name": "read-book-alt"
+    },
+    {
+      "class": "ICO-read-book",
+      "name": "read-book"
+    },
+    {
+      "class": "ICO-school-bag",
+      "name": "school-bag"
+    },
+    {
+      "class": "ICO-school-bus",
+      "name": "school-bus"
+    },
+    {
+      "class": "ICO-student-alt",
+      "name": "student-alt"
+    },
+    {
+      "class": "ICO-student",
+      "name": "student"
+    },
+    {
+      "class": "ICO-teacher",
+      "name": "teacher"
+    },
+    {
+      "class": "ICO-test-bulb",
+      "name": "test-bulb"
+    },
+    {
+      "class": "ICO-test-tube-alt",
+      "name": "test-tube-alt"
+    },
+    {
+      "class": "ICO-university",
+      "name": "university"
+    },
+    {
+      "class": "ICO-angry",
+      "name": "angry"
+    },
+    {
+      "class": "ICO-astonished",
+      "name": "astonished"
+    },
+    {
+      "class": "ICO-confounded",
+      "name": "confounded"
+    },
+    {
+      "class": "ICO-confused",
+      "name": "confused"
+    },
+    {
+      "class": "ICO-crying",
+      "name": "crying"
+    },
+    {
+      "class": "ICO-dizzy",
+      "name": "dizzy"
+    },
+    {
+      "class": "ICO-expressionless",
+      "name": "expressionless"
+    },
+    {
+      "class": "ICO-heart-eyes",
+      "name": "heart-eyes"
+    },
+    {
+      "class": "ICO-laughing",
+      "name": "laughing"
+    },
+    {
+      "class": "ICO-nerd-smile",
+      "name": "nerd-smile"
+    },
+    {
+      "class": "ICO-open-mouth",
+      "name": "open-mouth"
+    },
+    {
+      "class": "ICO-rage",
+      "name": "rage"
+    },
+    {
+      "class": "ICO-rolling-eyes",
+      "name": "rolling-eyes"
+    },
+    {
+      "class": "ICO-sad",
+      "name": "sad"
+    },
+    {
+      "class": "ICO-simple-smile",
+      "name": "simple-smile"
+    },
+    {
+      "class": "ICO-slightly-smile",
+      "name": "slightly-smile"
+    },
+    {
+      "class": "ICO-smirk",
+      "name": "smirk"
+    },
+    {
+      "class": "ICO-stuck-out-tongue",
+      "name": "stuck-out-tongue"
+    },
+    {
+      "class": "ICO-wink-smile",
+      "name": "wink-smile"
+    },
+    {
+      "class": "ICO-worried",
+      "name": "worried"
+    },
+    {
+      "class": "ICO-file-alt",
+      "name": "file-alt"
+    },
+    {
+      "class": "ICO-file-audio",
+      "name": "file-audio"
+    },
+    {
+      "class": "ICO-file-avi-mp4",
+      "name": "file-avi-mp4"
+    },
+    {
+      "class": "ICO-file-bmp",
+      "name": "file-bmp"
+    },
+    {
+      "class": "ICO-file-code",
+      "name": "file-code"
+    },
+    {
+      "class": "ICO-file-css",
+      "name": "file-css"
+    },
+    {
+      "class": "ICO-file-document",
+      "name": "file-document"
+    },
+    {
+      "class": "ICO-file-eps",
+      "name": "file-eps"
+    },
+    {
+      "class": "ICO-file-excel",
+      "name": "file-excel"
+    },
+    {
+      "class": "ICO-file-exe",
+      "name": "file-exe"
+    },
+    {
+      "class": "ICO-file-file",
+      "name": "file-file"
+    },
+    {
+      "class": "ICO-file-flv",
+      "name": "file-flv"
+    },
+    {
+      "class": "ICO-file-gif",
+      "name": "file-gif"
+    },
+    {
+      "class": "ICO-file-html5",
+      "name": "file-html5"
+    },
+    {
+      "class": "ICO-file-image",
+      "name": "file-image"
+    },
+    {
+      "class": "ICO-file-iso",
+      "name": "file-iso"
+    },
+    {
+      "class": "ICO-file-java",
+      "name": "file-java"
+    },
+    {
+      "class": "ICO-file-javascript",
+      "name": "file-javascript"
+    },
+    {
+      "class": "ICO-file-jpg",
+      "name": "file-jpg"
+    },
+    {
+      "class": "ICO-file-midi",
+      "name": "file-midi"
+    },
+    {
+      "class": "ICO-file-mov",
+      "name": "file-mov"
+    },
+    {
+      "class": "ICO-file-mp3",
+      "name": "file-mp3"
+    },
+    {
+      "class": "ICO-file-pdf",
+      "name": "file-pdf"
+    },
+    {
+      "class": "ICO-file-php",
+      "name": "file-php"
+    },
+    {
+      "class": "ICO-file-png",
+      "name": "file-png"
+    },
+    {
+      "class": "ICO-file-powerpoint",
+      "name": "file-powerpoint"
+    },
+    {
+      "class": "ICO-file-presentation",
+      "name": "file-presentation"
+    },
+    {
+      "class": "ICO-file-psb",
+      "name": "file-psb"
+    },
+    {
+      "class": "ICO-file-psd",
+      "name": "file-psd"
+    },
+    {
+      "class": "ICO-file-python",
+      "name": "file-python"
+    },
+    {
+      "class": "ICO-file-ruby",
+      "name": "file-ruby"
+    },
+    {
+      "class": "ICO-file-spreadsheet",
+      "name": "file-spreadsheet"
+    },
+    {
+      "class": "ICO-file-sql",
+      "name": "file-sql"
+    },
+    {
+      "class": "ICO-file-svg",
+      "name": "file-svg"
+    },
+    {
+      "class": "ICO-file-text",
+      "name": "file-text"
+    },
+    {
+      "class": "ICO-file-tiff",
+      "name": "file-tiff"
+    },
+    {
+      "class": "ICO-file-video",
+      "name": "file-video"
+    },
+    {
+      "class": "ICO-file-wave",
+      "name": "file-wave"
+    },
+    {
+      "class": "ICO-file-wmv",
+      "name": "file-wmv"
+    },
+    {
+      "class": "ICO-file-word",
+      "name": "file-word"
+    },
+    {
+      "class": "ICO-file-zip",
+      "name": "file-zip"
+    },
+    {
+      "class": "ICO-cycling-alt",
+      "name": "cycling-alt"
+    },
+    {
+      "class": "ICO-cycling",
+      "name": "cycling"
+    },
+    {
+      "class": "ICO-dumbbell",
+      "name": "dumbbell"
+    },
+    {
+      "class": "ICO-dumbbells",
+      "name": "dumbbells"
+    },
+    {
+      "class": "ICO-gym-alt-1",
+      "name": "gym-alt-1"
+    },
+    {
+      "class": "ICO-gym-alt-2",
+      "name": "gym-alt-2"
+    },
+    {
+      "class": "ICO-gym-alt-3",
+      "name": "gym-alt-3"
+    },
+    {
+      "class": "ICO-gym",
+      "name": "gym"
+    },
+    {
+      "class": "ICO-muscle-weight",
+      "name": "muscle-weight"
+    },
+    {
+      "class": "ICO-muscle",
+      "name": "muscle"
+    },
+    {
+      "class": "ICO-apple",
+      "name": "apple"
+    },
+    {
+      "class": "ICO-arabian-coffee",
+      "name": "arabian-coffee"
+    },
+    {
+      "class": "ICO-artichoke",
+      "name": "artichoke"
+    },
+    {
+      "class": "ICO-asparagus",
+      "name": "asparagus"
+    },
+    {
+      "class": "ICO-avocado",
+      "name": "avocado"
+    },
+    {
+      "class": "ICO-baby-food",
+      "name": "baby-food"
+    },
+    {
+      "class": "ICO-banana",
+      "name": "banana"
+    },
+    {
+      "class": "ICO-bbq",
+      "name": "bbq"
+    },
+    {
+      "class": "ICO-beans",
+      "name": "beans"
+    },
+    {
+      "class": "ICO-beer",
+      "name": "beer"
+    },
+    {
+      "class": "ICO-bell-pepper-capsicum",
+      "name": "bell-pepper-capsicum"
+    },
+    {
+      "class": "ICO-birthday-cake",
+      "name": "birthday-cake"
+    },
+    {
+      "class": "ICO-bread",
+      "name": "bread"
+    },
+    {
+      "class": "ICO-broccoli",
+      "name": "broccoli"
+    },
+    {
+      "class": "ICO-burger",
+      "name": "burger"
+    },
+    {
+      "class": "ICO-cabbage",
+      "name": "cabbage"
+    },
+    {
+      "class": "ICO-carrot",
+      "name": "carrot"
+    },
+    {
+      "class": "ICO-cauli-flower",
+      "name": "cauli-flower"
+    },
+    {
+      "class": "ICO-cheese",
+      "name": "cheese"
+    },
+    {
+      "class": "ICO-chef",
+      "name": "chef"
+    },
+    {
+      "class": "ICO-cherry",
+      "name": "cherry"
+    },
+    {
+      "class": "ICO-chicken-fry",
+      "name": "chicken-fry"
+    },
+    {
+      "class": "ICO-chicken",
+      "name": "chicken"
+    },
+    {
+      "class": "ICO-cocktail",
+      "name": "cocktail"
+    },
+    {
+      "class": "ICO-coconut-water",
+      "name": "coconut-water"
+    },
+    {
+      "class": "ICO-coconut",
+      "name": "coconut"
+    },
+    {
+      "class": "ICO-coffee-alt",
+      "name": "coffee-alt"
+    },
+    {
+      "class": "ICO-coffee-cup",
+      "name": "coffee-cup"
+    },
+    {
+      "class": "ICO-coffee-mug",
+      "name": "coffee-mug"
+    },
+    {
+      "class": "ICO-coffee-pot",
+      "name": "coffee-pot"
+    },
+    {
+      "class": "ICO-cola",
+      "name": "cola"
+    },
+    {
+      "class": "ICO-corn",
+      "name": "corn"
+    },
+    {
+      "class": "ICO-croissant",
+      "name": "croissant"
+    },
+    {
+      "class": "ICO-crop-plant",
+      "name": "crop-plant"
+    },
+    {
+      "class": "ICO-cucumber",
+      "name": "cucumber"
+    },
+    {
+      "class": "ICO-culinary",
+      "name": "culinary"
+    },
+    {
+      "class": "ICO-cup-cake",
+      "name": "cup-cake"
+    },
+    {
+      "class": "ICO-dining-table",
+      "name": "dining-table"
+    },
+    {
+      "class": "ICO-donut",
+      "name": "donut"
+    },
+    {
+      "class": "ICO-egg-plant",
+      "name": "egg-plant"
+    },
+    {
+      "class": "ICO-egg-poached",
+      "name": "egg-poached"
+    },
+    {
+      "class": "ICO-farmer-alt",
+      "name": "farmer-alt"
+    },
+    {
+      "class": "ICO-farmer",
+      "name": "farmer"
+    },
+    {
+      "class": "ICO-fast-food",
+      "name": "fast-food"
+    },
+    {
+      "class": "ICO-food-basket",
+      "name": "food-basket"
+    },
+    {
+      "class": "ICO-food-cart",
+      "name": "food-cart"
+    },
+    {
+      "class": "ICO-fork-and-knife",
+      "name": "fork-and-knife"
+    },
+    {
+      "class": "ICO-french-fries",
+      "name": "french-fries"
+    },
+    {
+      "class": "ICO-fruits",
+      "name": "fruits"
+    },
+    {
+      "class": "ICO-grapes",
+      "name": "grapes"
+    },
+    {
+      "class": "ICO-honey",
+      "name": "honey"
+    },
+    {
+      "class": "ICO-hot-dog",
+      "name": "hot-dog"
+    },
+    {
+      "class": "ICO-ice-cream-alt",
+      "name": "ice-cream-alt"
+    },
+    {
+      "class": "ICO-ice-cream",
+      "name": "ice-cream"
+    },
+    {
+      "class": "ICO-juice",
+      "name": "juice"
+    },
+    {
+      "class": "ICO-ketchup",
+      "name": "ketchup"
+    },
+    {
+      "class": "ICO-kiwi",
+      "name": "kiwi"
+    },
+    {
+      "class": "ICO-layered-cake",
+      "name": "layered-cake"
+    },
+    {
+      "class": "ICO-lemon-alt",
+      "name": "lemon-alt"
+    },
+    {
+      "class": "ICO-lemon",
+      "name": "lemon"
+    },
+    {
+      "class": "ICO-lobster",
+      "name": "lobster"
+    },
+    {
+      "class": "ICO-mango",
+      "name": "mango"
+    },
+    {
+      "class": "ICO-milk",
+      "name": "milk"
+    },
+    {
+      "class": "ICO-mushroom",
+      "name": "mushroom"
+    },
+    {
+      "class": "ICO-noodles",
+      "name": "noodles"
+    },
+    {
+      "class": "ICO-onion",
+      "name": "onion"
+    },
+    {
+      "class": "ICO-orange",
+      "name": "orange"
+    },
+    {
+      "class": "ICO-pear",
+      "name": "pear"
+    },
+    {
+      "class": "ICO-peas",
+      "name": "peas"
+    },
+    {
+      "class": "ICO-pepper",
+      "name": "pepper"
+    },
+    {
+      "class": "ICO-pie-alt",
+      "name": "pie-alt"
+    },
+    {
+      "class": "ICO-pie",
+      "name": "pie"
+    },
+    {
+      "class": "ICO-pineapple",
+      "name": "pineapple"
+    },
+    {
+      "class": "ICO-pizza-slice",
+      "name": "pizza-slice"
+    },
+    {
+      "class": "ICO-pizza",
+      "name": "pizza"
+    },
+    {
+      "class": "ICO-plant",
+      "name": "plant"
+    },
+    {
+      "class": "ICO-popcorn",
+      "name": "popcorn"
+    },
+    {
+      "class": "ICO-potato",
+      "name": "potato"
+    },
+    {
+      "class": "ICO-pumpkin",
+      "name": "pumpkin"
+    },
+    {
+      "class": "ICO-raddish",
+      "name": "raddish"
+    },
+    {
+      "class": "ICO-restaurant-menu",
+      "name": "restaurant-menu"
+    },
+    {
+      "class": "ICO-restaurant",
+      "name": "restaurant"
+    },
+    {
+      "class": "ICO-salt-and-pepper",
+      "name": "salt-and-pepper"
+    },
+    {
+      "class": "ICO-sandwich",
+      "name": "sandwich"
+    },
+    {
+      "class": "ICO-sausage",
+      "name": "sausage"
+    },
+    {
+      "class": "ICO-soft-drinks",
+      "name": "soft-drinks"
+    },
+    {
+      "class": "ICO-soup-bowl",
+      "name": "soup-bowl"
+    },
+    {
+      "class": "ICO-spoon-and-fork",
+      "name": "spoon-and-fork"
+    },
+    {
+      "class": "ICO-steak",
+      "name": "steak"
+    },
+    {
+      "class": "ICO-strawberry",
+      "name": "strawberry"
+    },
+    {
+      "class": "ICO-sub-sandwich",
+      "name": "sub-sandwich"
+    },
+    {
+      "class": "ICO-sushi",
+      "name": "sushi"
+    },
+    {
+      "class": "ICO-taco",
+      "name": "taco"
+    },
+    {
+      "class": "ICO-tea-pot",
+      "name": "tea-pot"
+    },
+    {
+      "class": "ICO-tea",
+      "name": "tea"
+    },
+    {
+      "class": "ICO-tomato",
+      "name": "tomato"
+    },
+    {
+      "class": "ICO-watermelon",
+      "name": "watermelon"
+    },
+    {
+      "class": "ICO-wheat",
+      "name": "wheat"
+    },
+    {
+      "class": "ICO-baby-backpack",
+      "name": "baby-backpack"
+    },
+    {
+      "class": "ICO-baby-cloth",
+      "name": "baby-cloth"
+    },
+    {
+      "class": "ICO-baby-milk-bottle",
+      "name": "baby-milk-bottle"
+    },
+    {
+      "class": "ICO-baby-trolley",
+      "name": "baby-trolley"
+    },
+    {
+      "class": "ICO-baby",
+      "name": "baby"
+    },
+    {
+      "class": "ICO-candy",
+      "name": "candy"
+    },
+    {
+      "class": "ICO-holding-hands",
+      "name": "holding-hands"
+    },
+    {
+      "class": "ICO-infant-nipple",
+      "name": "infant-nipple"
+    },
+    {
+      "class": "ICO-kids-scooter",
+      "name": "kids-scooter"
+    },
+    {
+      "class": "ICO-safety-pin",
+      "name": "safety-pin"
+    },
+    {
+      "class": "ICO-teddy-bear",
+      "name": "teddy-bear"
+    },
+    {
+      "class": "ICO-toy-ball",
+      "name": "toy-ball"
+    },
+    {
+      "class": "ICO-toy-cat",
+      "name": "toy-cat"
+    },
+    {
+      "class": "ICO-toy-duck",
+      "name": "toy-duck"
+    },
+    {
+      "class": "ICO-toy-elephant",
+      "name": "toy-elephant"
+    },
+    {
+      "class": "ICO-toy-hand",
+      "name": "toy-hand"
+    },
+    {
+      "class": "ICO-toy-horse",
+      "name": "toy-horse"
+    },
+    {
+      "class": "ICO-toy-lattu",
+      "name": "toy-lattu"
+    },
+    {
+      "class": "ICO-toy-train",
+      "name": "toy-train"
+    },
+    {
+      "class": "ICO-burglar",
+      "name": "burglar"
+    },
+    {
+      "class": "ICO-cannon-firing",
+      "name": "cannon-firing"
+    },
+    {
+      "class": "ICO-cc-camera",
+      "name": "cc-camera"
+    },
+    {
+      "class": "ICO-cop-badge",
+      "name": "cop-badge"
+    },
+    {
+      "class": "ICO-cop",
+      "name": "cop"
+    },
+    {
+      "class": "ICO-court-hammer",
+      "name": "court-hammer"
+    },
+    {
+      "class": "ICO-court",
+      "name": "court"
+    },
+    {
+      "class": "ICO-finger-print",
+      "name": "finger-print"
+    },
+    {
+      "class": "ICO-gavel",
+      "name": "gavel"
+    },
+    {
+      "class": "ICO-handcuff-alt",
+      "name": "handcuff-alt"
+    },
+    {
+      "class": "ICO-handcuff",
+      "name": "handcuff"
+    },
+    {
+      "class": "ICO-investigation",
+      "name": "investigation"
+    },
+    {
+      "class": "ICO-investigator",
+      "name": "investigator"
+    },
+    {
+      "class": "ICO-jail",
+      "name": "jail"
+    },
+    {
+      "class": "ICO-judge",
+      "name": "judge"
+    },
+    {
+      "class": "ICO-law-alt-1",
+      "name": "law-alt-1"
+    },
+    {
+      "class": "ICO-law-alt-2",
+      "name": "law-alt-2"
+    },
+    {
+      "class": "ICO-law-alt-3",
+      "name": "law-alt-3"
+    },
+    {
+      "class": "ICO-law-book",
+      "name": "law-book"
+    },
+    {
+      "class": "ICO-law-document",
+      "name": "law-document"
+    },
+    {
+      "class": "ICO-law-order",
+      "name": "law-order"
+    },
+    {
+      "class": "ICO-law-protect",
+      "name": "law-protect"
+    },
+    {
+      "class": "ICO-law-scales",
+      "name": "law-scales"
+    },
+    {
+      "class": "ICO-law",
+      "name": "law"
+    },
+    {
+      "class": "ICO-lawyer-alt-1",
+      "name": "lawyer-alt-1"
+    },
+    {
+      "class": "ICO-lawyer-alt-2",
+      "name": "lawyer-alt-2"
+    },
+    {
+      "class": "ICO-lawyer",
+      "name": "lawyer"
+    },
+    {
+      "class": "ICO-legal",
+      "name": "legal"
+    },
+    {
+      "class": "ICO-pistol",
+      "name": "pistol"
+    },
+    {
+      "class": "ICO-police-badge",
+      "name": "police-badge"
+    },
+    {
+      "class": "ICO-police-cap",
+      "name": "police-cap"
+    },
+    {
+      "class": "ICO-police-car-alt-1",
+      "name": "police-car-alt-1"
+    },
+    {
+      "class": "ICO-police-car-alt-2",
+      "name": "police-car-alt-2"
+    },
+    {
+      "class": "ICO-police-car",
+      "name": "police-car"
+    },
+    {
+      "class": "ICO-police-hat",
+      "name": "police-hat"
+    },
+    {
+      "class": "ICO-police-van",
+      "name": "police-van"
+    },
+    {
+      "class": "ICO-police",
+      "name": "police"
+    },
+    {
+      "class": "ICO-thief-alt",
+      "name": "thief-alt"
+    },
+    {
+      "class": "ICO-thief",
+      "name": "thief"
+    },
+    {
+      "class": "ICO-abacus-alt",
+      "name": "abacus-alt"
+    },
+    {
+      "class": "ICO-abacus",
+      "name": "abacus"
+    },
+    {
+      "class": "ICO-angle-180",
+      "name": "angle-180"
+    },
+    {
+      "class": "ICO-angle-45",
+      "name": "angle-45"
+    },
+    {
+      "class": "ICO-angle-90",
+      "name": "angle-90"
+    },
+    {
+      "class": "ICO-angle",
+      "name": "angle"
+    },
+    {
+      "class": "ICO-calculator-alt-1",
+      "name": "calculator-alt-1"
+    },
+    {
+      "class": "ICO-calculator-alt-2",
+      "name": "calculator-alt-2"
+    },
+    {
+      "class": "ICO-calculator",
+      "name": "calculator"
+    },
+    {
+      "class": "ICO-circle-ruler-alt",
+      "name": "circle-ruler-alt"
+    },
+    {
+      "class": "ICO-circle-ruler",
+      "name": "circle-ruler"
+    },
+    {
+      "class": "ICO-compass-alt-1",
+      "name": "compass-alt-1"
+    },
+    {
+      "class": "ICO-compass-alt-2",
+      "name": "compass-alt-2"
+    },
+    {
+      "class": "ICO-compass-alt-3",
+      "name": "compass-alt-3"
+    },
+    {
+      "class": "ICO-compass-alt-4",
+      "name": "compass-alt-4"
+    },
+    {
+      "class": "ICO-golden-ratio",
+      "name": "golden-ratio"
+    },
+    {
+      "class": "ICO-marker-alt-1",
+      "name": "marker-alt-1"
+    },
+    {
+      "class": "ICO-marker-alt-2",
+      "name": "marker-alt-2"
+    },
+    {
+      "class": "ICO-marker-alt-3",
+      "name": "marker-alt-3"
+    },
+    {
+      "class": "ICO-marker",
+      "name": "marker"
+    },
+    {
+      "class": "ICO-math",
+      "name": "math"
+    },
+    {
+      "class": "ICO-mathematical-alt-1",
+      "name": "mathematical-alt-1"
+    },
+    {
+      "class": "ICO-mathematical-alt-2",
+      "name": "mathematical-alt-2"
+    },
+    {
+      "class": "ICO-mathematical",
+      "name": "mathematical"
+    },
+    {
+      "class": "ICO-pen-alt-1",
+      "name": "pen-alt-1"
+    },
+    {
+      "class": "ICO-pen-alt-2",
+      "name": "pen-alt-2"
+    },
+    {
+      "class": "ICO-pen-alt-3",
+      "name": "pen-alt-3"
+    },
+    {
+      "class": "ICO-pen-holder-alt-1",
+      "name": "pen-holder-alt-1"
+    },
+    {
+      "class": "ICO-pen-holder",
+      "name": "pen-holder"
+    },
+    {
+      "class": "ICO-pen",
+      "name": "pen"
+    },
+    {
+      "class": "ICO-pencil-alt-1",
+      "name": "pencil-alt-1"
+    },
+    {
+      "class": "ICO-pencil-alt-2",
+      "name": "pencil-alt-2"
+    },
+    {
+      "class": "ICO-pencil-alt-3",
+      "name": "pencil-alt-3"
+    },
+    {
+      "class": "ICO-pencil-alt-4",
+      "name": "pencil-alt-4"
+    },
+    {
+      "class": "ICO-pencil",
+      "name": "pencil"
+    },
+    {
+      "class": "ICO-ruler-alt-1",
+      "name": "ruler-alt-1"
+    },
+    {
+      "class": "ICO-ruler-alt-2",
+      "name": "ruler-alt-2"
+    },
+    {
+      "class": "ICO-ruler-compass-alt",
+      "name": "ruler-compass-alt"
+    },
+    {
+      "class": "ICO-ruler-compass",
+      "name": "ruler-compass"
+    },
+    {
+      "class": "ICO-ruler-pencil-alt-1",
+      "name": "ruler-pencil-alt-1"
+    },
+    {
+      "class": "ICO-ruler-pencil-alt-2",
+      "name": "ruler-pencil-alt-2"
+    },
+    {
+      "class": "ICO-ruler-pencil",
+      "name": "ruler-pencil"
+    },
+    {
+      "class": "ICO-ruler",
+      "name": "ruler"
+    },
+    {
+      "class": "ICO-rulers-alt",
+      "name": "rulers-alt"
+    },
+    {
+      "class": "ICO-rulers",
+      "name": "rulers"
+    },
+    {
+      "class": "ICO-square-root",
+      "name": "square-root"
+    },
+    {
+      "class": "ICO-ui-calculator",
+      "name": "ui-calculator"
+    },
+    {
+      "class": "ICO-aids",
+      "name": "aids"
+    },
+    {
+      "class": "ICO-ambulance-crescent",
+      "name": "ambulance-crescent"
+    },
+    {
+      "class": "ICO-ambulance-cross",
+      "name": "ambulance-cross"
+    },
+    {
+      "class": "ICO-ambulance",
+      "name": "ambulance"
+    },
+    {
+      "class": "ICO-autism",
+      "name": "autism"
+    },
+    {
+      "class": "ICO-bandage",
+      "name": "bandage"
+    },
+    {
+      "class": "ICO-blind",
+      "name": "blind"
+    },
+    {
+      "class": "ICO-blood-drop",
+      "name": "blood-drop"
+    },
+    {
+      "class": "ICO-blood-test",
+      "name": "blood-test"
+    },
+    {
+      "class": "ICO-blood",
+      "name": "blood"
+    },
+    {
+      "class": "ICO-brain-alt",
+      "name": "brain-alt"
+    },
+    {
+      "class": "ICO-brain",
+      "name": "brain"
+    },
+    {
+      "class": "ICO-capsule",
+      "name": "capsule"
+    },
+    {
+      "class": "ICO-crutch",
+      "name": "crutch"
+    },
+    {
+      "class": "ICO-disabled",
+      "name": "disabled"
+    },
+    {
+      "class": "ICO-dna-alt-1",
+      "name": "dna-alt-1"
+    },
+    {
+      "class": "ICO-dna-alt-2",
+      "name": "dna-alt-2"
+    },
+    {
+      "class": "ICO-dna",
+      "name": "dna"
+    },
+    {
+      "class": "ICO-doctor-alt",
+      "name": "doctor-alt"
+    },
+    {
+      "class": "ICO-doctor",
+      "name": "doctor"
+    },
+    {
+      "class": "ICO-drug-pack",
+      "name": "drug-pack"
+    },
+    {
+      "class": "ICO-drug",
+      "name": "drug"
+    },
+    {
+      "class": "ICO-first-aid-alt",
+      "name": "first-aid-alt"
+    },
+    {
+      "class": "ICO-first-aid",
+      "name": "first-aid"
+    },
+    {
+      "class": "ICO-heart-beat-alt",
+      "name": "heart-beat-alt"
+    },
+    {
+      "class": "ICO-heart-beat",
+      "name": "heart-beat"
+    },
+    {
+      "class": "ICO-heartbeat",
+      "name": "heartbeat"
+    },
+    {
+      "class": "ICO-herbal",
+      "name": "herbal"
+    },
+    {
+      "class": "ICO-hospital",
+      "name": "hospital"
+    },
+    {
+      "class": "ICO-icu",
+      "name": "icu"
+    },
+    {
+      "class": "ICO-injection-syringe",
+      "name": "injection-syringe"
+    },
+    {
+      "class": "ICO-laboratory",
+      "name": "laboratory"
+    },
+    {
+      "class": "ICO-medical-sign-alt",
+      "name": "medical-sign-alt"
+    },
+    {
+      "class": "ICO-medical-sign",
+      "name": "medical-sign"
+    },
+    {
+      "class": "ICO-nurse-alt",
+      "name": "nurse-alt"
+    },
+    {
+      "class": "ICO-nurse",
+      "name": "nurse"
+    },
+    {
+      "class": "ICO-nursing-home",
+      "name": "nursing-home"
+    },
+    {
+      "class": "ICO-operation-theater",
+      "name": "operation-theater"
+    },
+    {
+      "class": "ICO-paralysis-disability",
+      "name": "paralysis-disability"
+    },
+    {
+      "class": "ICO-patient-bed",
+      "name": "patient-bed"
+    },
+    {
+      "class": "ICO-patient-file",
+      "name": "patient-file"
+    },
+    {
+      "class": "ICO-pills",
+      "name": "pills"
+    },
+    {
+      "class": "ICO-prescription",
+      "name": "prescription"
+    },
+    {
+      "class": "ICO-pulse",
+      "name": "pulse"
+    },
+    {
+      "class": "ICO-stethoscope-alt",
+      "name": "stethoscope-alt"
+    },
+    {
+      "class": "ICO-stethoscope",
+      "name": "stethoscope"
+    },
+    {
+      "class": "ICO-stretcher",
+      "name": "stretcher"
+    },
+    {
+      "class": "ICO-surgeon-alt",
+      "name": "surgeon-alt"
+    },
+    {
+      "class": "ICO-surgeon",
+      "name": "surgeon"
+    },
+    {
+      "class": "ICO-tablets",
+      "name": "tablets"
+    },
+    {
+      "class": "ICO-test-bottle",
+      "name": "test-bottle"
+    },
+    {
+      "class": "ICO-test-tube",
+      "name": "test-tube"
+    },
+    {
+      "class": "ICO-thermometer-alt",
+      "name": "thermometer-alt"
+    },
+    {
+      "class": "ICO-thermometer",
+      "name": "thermometer"
+    },
+    {
+      "class": "ICO-tooth",
+      "name": "tooth"
+    },
+    {
+      "class": "ICO-xray",
+      "name": "xray"
+    },
+    {
+      "class": "ICO-ui-add",
+      "name": "ui-add"
+    },
+    {
+      "class": "ICO-ui-alarm",
+      "name": "ui-alarm"
+    },
+    {
+      "class": "ICO-ui-battery",
+      "name": "ui-battery"
+    },
+    {
+      "class": "ICO-ui-block",
+      "name": "ui-block"
+    },
+    {
+      "class": "ICO-ui-bluetooth",
+      "name": "ui-bluetooth"
+    },
+    {
+      "class": "ICO-ui-brightness",
+      "name": "ui-brightness"
+    },
+    {
+      "class": "ICO-ui-browser",
+      "name": "ui-browser"
+    },
+    {
+      "class": "ICO-ui-calendar",
+      "name": "ui-calendar"
+    },
+    {
+      "class": "ICO-ui-call",
+      "name": "ui-call"
+    },
+    {
+      "class": "ICO-ui-camera",
+      "name": "ui-camera"
+    },
+    {
+      "class": "ICO-ui-cart",
+      "name": "ui-cart"
+    },
+    {
+      "class": "ICO-ui-cell-phone",
+      "name": "ui-cell-phone"
+    },
+    {
+      "class": "ICO-ui-chat",
+      "name": "ui-chat"
+    },
+    {
+      "class": "ICO-ui-check",
+      "name": "ui-check"
+    },
+    {
+      "class": "ICO-ui-clip-board",
+      "name": "ui-clip-board"
+    },
+    {
+      "class": "ICO-ui-clip",
+      "name": "ui-clip"
+    },
+    {
+      "class": "ICO-ui-clock",
+      "name": "ui-clock"
+    },
+    {
+      "class": "ICO-ui-close",
+      "name": "ui-close"
+    },
+    {
+      "class": "ICO-ui-contact-list",
+      "name": "ui-contact-list"
+    },
+    {
+      "class": "ICO-ui-copy",
+      "name": "ui-copy"
+    },
+    {
+      "class": "ICO-ui-cut",
+      "name": "ui-cut"
+    },
+    {
+      "class": "ICO-ui-delete",
+      "name": "ui-delete"
+    },
+    {
+      "class": "ICO-ui-dial-phone",
+      "name": "ui-dial-phone"
+    },
+    {
+      "class": "ICO-ui-edit",
+      "name": "ui-edit"
+    },
+    {
+      "class": "ICO-ui-email",
+      "name": "ui-email"
+    },
+    {
+      "class": "ICO-ui-file",
+      "name": "ui-file"
+    },
+    {
+      "class": "ICO-ui-fire-wall",
+      "name": "ui-fire-wall"
+    },
+    {
+      "class": "ICO-ui-flash-light",
+      "name": "ui-flash-light"
+    },
+    {
+      "class": "ICO-ui-flight",
+      "name": "ui-flight"
+    },
+    {
+      "class": "ICO-ui-folder",
+      "name": "ui-folder"
+    },
+    {
+      "class": "ICO-ui-game",
+      "name": "ui-game"
+    },
+    {
+      "class": "ICO-ui-handicapped",
+      "name": "ui-handicapped"
+    },
+    {
+      "class": "ICO-ui-home",
+      "name": "ui-home"
+    },
+    {
+      "class": "ICO-ui-image",
+      "name": "ui-image"
+    },
+    {
+      "class": "ICO-ui-laoding",
+      "name": "ui-laoding"
+    },
+    {
+      "class": "ICO-ui-lock",
+      "name": "ui-lock"
+    },
+    {
+      "class": "ICO-ui-love-add",
+      "name": "ui-love-add"
+    },
+    {
+      "class": "ICO-ui-love-broken",
+      "name": "ui-love-broken"
+    },
+    {
+      "class": "ICO-ui-love-remove",
+      "name": "ui-love-remove"
+    },
+    {
+      "class": "ICO-ui-love",
+      "name": "ui-love"
+    },
+    {
+      "class": "ICO-ui-map",
+      "name": "ui-map"
+    },
+    {
+      "class": "ICO-ui-message",
+      "name": "ui-message"
+    },
+    {
+      "class": "ICO-ui-messaging",
+      "name": "ui-messaging"
+    },
+    {
+      "class": "ICO-ui-movie",
+      "name": "ui-movie"
+    },
+    {
+      "class": "ICO-ui-music-player",
+      "name": "ui-music-player"
+    },
+    {
+      "class": "ICO-ui-music",
+      "name": "ui-music"
+    },
+    {
+      "class": "ICO-ui-mute",
+      "name": "ui-mute"
+    },
+    {
+      "class": "ICO-ui-network",
+      "name": "ui-network"
+    },
+    {
+      "class": "ICO-ui-next",
+      "name": "ui-next"
+    },
+    {
+      "class": "ICO-ui-note",
+      "name": "ui-note"
+    },
+    {
+      "class": "ICO-ui-office",
+      "name": "ui-office"
+    },
+    {
+      "class": "ICO-ui-password",
+      "name": "ui-password"
+    },
+    {
+      "class": "ICO-ui-pause",
+      "name": "ui-pause"
+    },
+    {
+      "class": "ICO-ui-play-stop",
+      "name": "ui-play-stop"
+    },
+    {
+      "class": "ICO-ui-play",
+      "name": "ui-play"
+    },
+    {
+      "class": "ICO-ui-pointer",
+      "name": "ui-pointer"
+    },
+    {
+      "class": "ICO-ui-power",
+      "name": "ui-power"
+    },
+    {
+      "class": "ICO-ui-press",
+      "name": "ui-press"
+    },
+    {
+      "class": "ICO-ui-previous",
+      "name": "ui-previous"
+    },
+    {
+      "class": "ICO-ui-rate-add",
+      "name": "ui-rate-add"
+    },
+    {
+      "class": "ICO-ui-rate-blank",
+      "name": "ui-rate-blank"
+    },
+    {
+      "class": "ICO-ui-rate-remove",
+      "name": "ui-rate-remove"
+    },
+    {
+      "class": "ICO-ui-rating",
+      "name": "ui-rating"
+    },
+    {
+      "class": "ICO-ui-record",
+      "name": "ui-record"
+    },
+    {
+      "class": "ICO-ui-remove",
+      "name": "ui-remove"
+    },
+    {
+      "class": "ICO-ui-reply",
+      "name": "ui-reply"
+    },
+    {
+      "class": "ICO-ui-rotation",
+      "name": "ui-rotation"
+    },
+    {
+      "class": "ICO-ui-rss",
+      "name": "ui-rss"
+    },
+    {
+      "class": "ICO-ui-search",
+      "name": "ui-search"
+    },
+    {
+      "class": "ICO-ui-settings",
+      "name": "ui-settings"
+    },
+    {
+      "class": "ICO-ui-social-link",
+      "name": "ui-social-link"
+    },
+    {
+      "class": "ICO-ui-tag",
+      "name": "ui-tag"
+    },
+    {
+      "class": "ICO-ui-text-chat",
+      "name": "ui-text-chat"
+    },
+    {
+      "class": "ICO-ui-text-loading",
+      "name": "ui-text-loading"
+    },
+    {
+      "class": "ICO-ui-theme",
+      "name": "ui-theme"
+    },
+    {
+      "class": "ICO-ui-timer",
+      "name": "ui-timer"
+    },
+    {
+      "class": "ICO-ui-touch-phone",
+      "name": "ui-touch-phone"
+    },
+    {
+      "class": "ICO-ui-travel",
+      "name": "ui-travel"
+    },
+    {
+      "class": "ICO-ui-unlock",
+      "name": "ui-unlock"
+    },
+    {
+      "class": "ICO-ui-user-group",
+      "name": "ui-user-group"
+    },
+    {
+      "class": "ICO-ui-user",
+      "name": "ui-user"
+    },
+    {
+      "class": "ICO-ui-v-card",
+      "name": "ui-v-card"
+    },
+    {
+      "class": "ICO-ui-video-chat",
+      "name": "ui-video-chat"
+    },
+    {
+      "class": "ICO-ui-video-message",
+      "name": "ui-video-message"
+    },
+    {
+      "class": "ICO-ui-video-play",
+      "name": "ui-video-play"
+    },
+    {
+      "class": "ICO-ui-video",
+      "name": "ui-video"
+    },
+    {
+      "class": "ICO-ui-volume",
+      "name": "ui-volume"
+    },
+    {
+      "class": "ICO-ui-weather",
+      "name": "ui-weather"
+    },
+    {
+      "class": "ICO-ui-wifi",
+      "name": "ui-wifi"
+    },
+    {
+      "class": "ICO-ui-zoom-in",
+      "name": "ui-zoom-in"
+    },
+    {
+      "class": "ICO-ui-zoom-out",
+      "name": "ui-zoom-out"
+    },
+    {
+      "class": "ICO-cassette-player",
+      "name": "cassette-player"
+    },
+    {
+      "class": "ICO-cassette",
+      "name": "cassette"
+    },
+    {
+      "class": "ICO-forward",
+      "name": "forward"
+    },
+    {
+      "class": "ICO-guiter",
+      "name": "guiter"
+    },
+    {
+      "class": "ICO-movie",
+      "name": "movie"
+    },
+    {
+      "class": "ICO-multimedia",
+      "name": "multimedia"
+    },
+    {
+      "class": "ICO-music-alt",
+      "name": "music-alt"
+    },
+    {
+      "class": "ICO-music-disk",
+      "name": "music-disk"
+    },
+    {
+      "class": "ICO-music-note",
+      "name": "music-note"
+    },
+    {
+      "class": "ICO-music-notes",
+      "name": "music-notes"
+    },
+    {
+      "class": "ICO-music",
+      "name": "music"
+    },
+    {
+      "class": "ICO-mute-volume",
+      "name": "mute-volume"
+    },
+    {
+      "class": "ICO-pause",
+      "name": "pause"
+    },
+    {
+      "class": "ICO-play-alt-1",
+      "name": "play-alt-1"
+    },
+    {
+      "class": "ICO-play-alt-2",
+      "name": "play-alt-2"
+    },
+    {
+      "class": "ICO-play-alt-3",
+      "name": "play-alt-3"
+    },
+    {
+      "class": "ICO-play-pause",
+      "name": "play-pause"
+    },
+    {
+      "class": "ICO-play",
+      "name": "play"
+    },
+    {
+      "class": "ICO-record",
+      "name": "record"
+    },
+    {
+      "class": "ICO-retro-music-disk",
+      "name": "retro-music-disk"
+    },
+    {
+      "class": "ICO-rewind",
+      "name": "rewind"
+    },
+    {
+      "class": "ICO-song-notes",
+      "name": "song-notes"
+    },
+    {
+      "class": "ICO-sound-wave-alt",
+      "name": "sound-wave-alt"
+    },
+    {
+      "class": "ICO-sound-wave",
+      "name": "sound-wave"
+    },
+    {
+      "class": "ICO-stop",
+      "name": "stop"
+    },
+    {
+      "class": "ICO-video-alt",
+      "name": "video-alt"
+    },
+    {
+      "class": "ICO-video-cam",
+      "name": "video-cam"
+    },
+    {
+      "class": "ICO-video-clapper",
+      "name": "video-clapper"
+    },
+    {
+      "class": "ICO-video",
+      "name": "video"
+    },
+    {
+      "class": "ICO-volume-bar",
+      "name": "volume-bar"
+    },
+    {
+      "class": "ICO-volume-down",
+      "name": "volume-down"
+    },
+    {
+      "class": "ICO-volume-mute",
+      "name": "volume-mute"
+    },
+    {
+      "class": "ICO-volume-off",
+      "name": "volume-off"
+    },
+    {
+      "class": "ICO-volume-up",
+      "name": "volume-up"
+    },
+    {
+      "class": "ICO-youtube-play",
+      "name": "youtube-play"
+    },
+    {
+      "class": "ICO-2checkout-alt",
+      "name": "2checkout-alt"
+    },
+    {
+      "class": "ICO-2checkout",
+      "name": "2checkout"
+    },
+    {
+      "class": "ICO-amazon-alt",
+      "name": "amazon-alt"
+    },
+    {
+      "class": "ICO-amazon",
+      "name": "amazon"
+    },
+    {
+      "class": "ICO-american-express-alt",
+      "name": "american-express-alt"
+    },
+    {
+      "class": "ICO-american-express",
+      "name": "american-express"
+    },
+    {
+      "class": "ICO-apple-pay-alt",
+      "name": "apple-pay-alt"
+    },
+    {
+      "class": "ICO-apple-pay",
+      "name": "apple-pay"
+    },
+    {
+      "class": "ICO-bank-transfer-alt",
+      "name": "bank-transfer-alt"
+    },
+    {
+      "class": "ICO-bank-transfer",
+      "name": "bank-transfer"
+    },
+    {
+      "class": "ICO-braintree-alt",
+      "name": "braintree-alt"
+    },
+    {
+      "class": "ICO-braintree",
+      "name": "braintree"
+    },
+    {
+      "class": "ICO-cash-on-delivery-alt",
+      "name": "cash-on-delivery-alt"
+    },
+    {
+      "class": "ICO-cash-on-delivery",
+      "name": "cash-on-delivery"
+    },
+    {
+      "class": "ICO-diners-club-alt-1",
+      "name": "diners-club-alt-1"
+    },
+    {
+      "class": "ICO-diners-club-alt-2",
+      "name": "diners-club-alt-2"
+    },
+    {
+      "class": "ICO-diners-club-alt-3",
+      "name": "diners-club-alt-3"
+    },
+    {
+      "class": "ICO-diners-club",
+      "name": "diners-club"
+    },
+    {
+      "class": "ICO-discover-alt",
+      "name": "discover-alt"
+    },
+    {
+      "class": "ICO-discover",
+      "name": "discover"
+    },
+    {
+      "class": "ICO-eway-alt",
+      "name": "eway-alt"
+    },
+    {
+      "class": "ICO-eway",
+      "name": "eway"
+    },
+    {
+      "class": "ICO-google-wallet-alt-1",
+      "name": "google-wallet-alt-1"
+    },
+    {
+      "class": "ICO-google-wallet-alt-2",
+      "name": "google-wallet-alt-2"
+    },
+    {
+      "class": "ICO-google-wallet-alt-3",
+      "name": "google-wallet-alt-3"
+    },
+    {
+      "class": "ICO-google-wallet",
+      "name": "google-wallet"
+    },
+    {
+      "class": "ICO-jcb-alt",
+      "name": "jcb-alt"
+    },
+    {
+      "class": "ICO-jcb",
+      "name": "jcb"
+    },
+    {
+      "class": "ICO-maestro-alt",
+      "name": "maestro-alt"
+    },
+    {
+      "class": "ICO-maestro",
+      "name": "maestro"
+    },
+    {
+      "class": "ICO-mastercard-alt",
+      "name": "mastercard-alt"
+    },
+    {
+      "class": "ICO-mastercard",
+      "name": "mastercard"
+    },
+    {
+      "class": "ICO-payoneer-alt",
+      "name": "payoneer-alt"
+    },
+    {
+      "class": "ICO-payoneer",
+      "name": "payoneer"
+    },
+    {
+      "class": "ICO-paypal-alt",
+      "name": "paypal-alt"
+    },
+    {
+      "class": "ICO-paypal",
+      "name": "paypal"
+    },
+    {
+      "class": "ICO-sage-alt",
+      "name": "sage-alt"
+    },
+    {
+      "class": "ICO-sage",
+      "name": "sage"
+    },
+    {
+      "class": "ICO-skrill-alt",
+      "name": "skrill-alt"
+    },
+    {
+      "class": "ICO-skrill",
+      "name": "skrill"
+    },
+    {
+      "class": "ICO-stripe-alt",
+      "name": "stripe-alt"
+    },
+    {
+      "class": "ICO-stripe",
+      "name": "stripe"
+    },
+    {
+      "class": "ICO-visa-alt",
+      "name": "visa-alt"
+    },
+    {
+      "class": "ICO-visa-electron",
+      "name": "visa-electron"
+    },
+    {
+      "class": "ICO-visa",
+      "name": "visa"
+    },
+    {
+      "class": "ICO-western-union-alt",
+      "name": "western-union-alt"
+    },
+    {
+      "class": "ICO-western-union",
+      "name": "western-union"
+    },
+    {
+      "class": "ICO-boy",
+      "name": "boy"
+    },
+    {
+      "class": "ICO-business-man-alt-1",
+      "name": "business-man-alt-1"
+    },
+    {
+      "class": "ICO-business-man-alt-2",
+      "name": "business-man-alt-2"
+    },
+    {
+      "class": "ICO-business-man-alt-3",
+      "name": "business-man-alt-3"
+    },
+    {
+      "class": "ICO-business-man",
+      "name": "business-man"
+    },
+    {
+      "class": "ICO-female",
+      "name": "female"
+    },
+    {
+      "class": "ICO-funky-man",
+      "name": "funky-man"
+    },
+    {
+      "class": "ICO-girl-alt",
+      "name": "girl-alt"
+    },
+    {
+      "class": "ICO-girl",
+      "name": "girl"
+    },
+    {
+      "class": "ICO-group",
+      "name": "group"
+    },
+    {
+      "class": "ICO-hotel-boy-alt",
+      "name": "hotel-boy-alt"
+    },
+    {
+      "class": "ICO-hotel-boy",
+      "name": "hotel-boy"
+    },
+    {
+      "class": "ICO-kid",
+      "name": "kid"
+    },
+    {
+      "class": "ICO-man-in-glasses",
+      "name": "man-in-glasses"
+    },
+    {
+      "class": "ICO-people",
+      "name": "people"
+    },
+    {
+      "class": "ICO-support",
+      "name": "support"
+    },
+    {
+      "class": "ICO-user-alt-1",
+      "name": "user-alt-1"
+    },
+    {
+      "class": "ICO-user-alt-2",
+      "name": "user-alt-2"
+    },
+    {
+      "class": "ICO-user-alt-3",
+      "name": "user-alt-3"
+    },
+    {
+      "class": "ICO-user-alt-4",
+      "name": "user-alt-4"
+    },
+    {
+      "class": "ICO-user-alt-5",
+      "name": "user-alt-5"
+    },
+    {
+      "class": "ICO-user-alt-6",
+      "name": "user-alt-6"
+    },
+    {
+      "class": "ICO-user-alt-7",
+      "name": "user-alt-7"
+    },
+    {
+      "class": "ICO-user-female",
+      "name": "user-female"
+    },
+    {
+      "class": "ICO-user-male",
+      "name": "user-male"
+    },
+    {
+      "class": "ICO-user-suited",
+      "name": "user-suited"
+    },
+    {
+      "class": "ICO-user",
+      "name": "user"
+    },
+    {
+      "class": "ICO-users-alt-1",
+      "name": "users-alt-1"
+    },
+    {
+      "class": "ICO-users-alt-2",
+      "name": "users-alt-2"
+    },
+    {
+      "class": "ICO-users-alt-3",
+      "name": "users-alt-3"
+    },
+    {
+      "class": "ICO-users-alt-4",
+      "name": "users-alt-4"
+    },
+    {
+      "class": "ICO-users-alt-5",
+      "name": "users-alt-5"
+    },
+    {
+      "class": "ICO-users-alt-6",
+      "name": "users-alt-6"
+    },
+    {
+      "class": "ICO-users-social",
+      "name": "users-social"
+    },
+    {
+      "class": "ICO-users",
+      "name": "users"
+    },
+    {
+      "class": "ICO-waiter-alt",
+      "name": "waiter-alt"
+    },
+    {
+      "class": "ICO-waiter",
+      "name": "waiter"
+    },
+    {
+      "class": "ICO-woman-in-glasses",
+      "name": "woman-in-glasses"
+    },
+    {
+      "class": "ICO-search-1",
+      "name": "search-1"
+    },
+    {
+      "class": "ICO-search-2",
+      "name": "search-2"
+    },
+    {
+      "class": "ICO-search-document",
+      "name": "search-document"
+    },
+    {
+      "class": "ICO-search-folder",
+      "name": "search-folder"
+    },
+    {
+      "class": "ICO-search-job",
+      "name": "search-job"
+    },
+    {
+      "class": "ICO-search-map",
+      "name": "search-map"
+    },
+    {
+      "class": "ICO-search-property",
+      "name": "search-property"
+    },
+    {
+      "class": "ICO-search-restaurant",
+      "name": "search-restaurant"
+    },
+    {
+      "class": "ICO-search-stock",
+      "name": "search-stock"
+    },
+    {
+      "class": "ICO-search-user",
+      "name": "search-user"
+    },
+    {
+      "class": "ICO-search",
+      "name": "search"
+    },
+    {
+      "class": "ICO-500px",
+      "name": "500px"
+    },
+    {
+      "class": "ICO-aim",
+      "name": "aim"
+    },
+    {
+      "class": "ICO-badoo",
+      "name": "badoo"
+    },
+    {
+      "class": "ICO-baidu-tieba",
+      "name": "baidu-tieba"
+    },
+    {
+      "class": "ICO-bbm-messenger",
+      "name": "bbm-messenger"
+    },
+    {
+      "class": "ICO-bebo",
+      "name": "bebo"
+    },
+    {
+      "class": "ICO-behance",
+      "name": "behance"
+    },
+    {
+      "class": "ICO-blogger",
+      "name": "blogger"
+    },
+    {
+      "class": "ICO-bootstrap",
+      "name": "bootstrap"
+    },
+    {
+      "class": "ICO-brightkite",
+      "name": "brightkite"
+    },
+    {
+      "class": "ICO-cloudapp",
+      "name": "cloudapp"
+    },
+    {
+      "class": "ICO-concrete5",
+      "name": "concrete5"
+    },
+    {
+      "class": "ICO-delicious",
+      "name": "delicious"
+    },
+    {
+      "class": "ICO-designbump",
+      "name": "designbump"
+    },
+    {
+      "class": "ICO-designfloat",
+      "name": "designfloat"
+    },
+    {
+      "class": "ICO-deviantart",
+      "name": "deviantart"
+    },
+    {
+      "class": "ICO-digg",
+      "name": "digg"
+    },
+    {
+      "class": "ICO-dotcms",
+      "name": "dotcms"
+    },
+    {
+      "class": "ICO-dribbble",
+      "name": "dribbble"
+    },
+    {
+      "class": "ICO-dribble",
+      "name": "dribble"
+    },
+    {
+      "class": "ICO-dropbox",
+      "name": "dropbox"
+    },
+    {
+      "class": "ICO-ebuddy",
+      "name": "ebuddy"
+    },
+    {
+      "class": "ICO-ello",
+      "name": "ello"
+    },
+    {
+      "class": "ICO-ember",
+      "name": "ember"
+    },
+    {
+      "class": "ICO-envato",
+      "name": "envato"
+    },
+    {
+      "class": "ICO-evernote",
+      "name": "evernote"
+    },
+    {
+      "class": "ICO-facebook-messenger",
+      "name": "facebook-messenger"
+    },
+    {
+      "class": "ICO-facebook",
+      "name": "facebook"
+    },
+    {
+      "class": "ICO-feedburner",
+      "name": "feedburner"
+    },
+    {
+      "class": "ICO-flikr",
+      "name": "flikr"
+    },
+    {
+      "class": "ICO-folkd",
+      "name": "folkd"
+    },
+    {
+      "class": "ICO-foursquare",
+      "name": "foursquare"
+    },
+    {
+      "class": "ICO-friendfeed",
+      "name": "friendfeed"
+    },
+    {
+      "class": "ICO-ghost",
+      "name": "ghost"
+    },
+    {
+      "class": "ICO-github",
+      "name": "github"
+    },
+    {
+      "class": "ICO-gnome",
+      "name": "gnome"
+    },
+    {
+      "class": "ICO-google-buzz",
+      "name": "google-buzz"
+    },
+    {
+      "class": "ICO-google-hangouts",
+      "name": "google-hangouts"
+    },
+    {
+      "class": "ICO-google-map",
+      "name": "google-map"
+    },
+    {
+      "class": "ICO-google-plus",
+      "name": "google-plus"
+    },
+    {
+      "class": "ICO-google-talk",
+      "name": "google-talk"
+    },
+    {
+      "class": "ICO-hype-machine",
+      "name": "hype-machine"
+    },
+    {
+      "class": "ICO-instagram",
+      "name": "instagram"
+    },
+    {
+      "class": "ICO-kakaotalk",
+      "name": "kakaotalk"
+    },
+    {
+      "class": "ICO-kickstarter",
+      "name": "kickstarter"
+    },
+    {
+      "class": "ICO-kik",
+      "name": "kik"
+    },
+    {
+      "class": "ICO-kiwibox",
+      "name": "kiwibox"
+    },
+    {
+      "class": "ICO-line-messenger",
+      "name": "line-messenger"
+    },
+    {
+      "class": "ICO-line",
+      "name": "line"
+    },
+    {
+      "class": "ICO-linkedin",
+      "name": "linkedin"
+    },
+    {
+      "class": "ICO-linux-mint",
+      "name": "linux-mint"
+    },
+    {
+      "class": "ICO-live-messenger",
+      "name": "live-messenger"
+    },
+    {
+      "class": "ICO-livejournal",
+      "name": "livejournal"
+    },
+    {
+      "class": "ICO-magento",
+      "name": "magento"
+    },
+    {
+      "class": "ICO-meetme",
+      "name": "meetme"
+    },
+    {
+      "class": "ICO-meetup",
+      "name": "meetup"
+    },
+    {
+      "class": "ICO-mixx",
+      "name": "mixx"
+    },
+    {
+      "class": "ICO-newsvine",
+      "name": "newsvine"
+    },
+    {
+      "class": "ICO-nimbuss",
+      "name": "nimbuss"
+    },
+    {
+      "class": "ICO-odnoklassniki",
+      "name": "odnoklassniki"
+    },
+    {
+      "class": "ICO-opencart",
+      "name": "opencart"
+    },
+    {
+      "class": "ICO-oscommerce",
+      "name": "oscommerce"
+    },
+    {
+      "class": "ICO-pandora",
+      "name": "pandora"
+    },
+    {
+      "class": "ICO-photobucket",
+      "name": "photobucket"
+    },
+    {
+      "class": "ICO-picasa",
+      "name": "picasa"
+    },
+    {
+      "class": "ICO-pinterest",
+      "name": "pinterest"
+    },
+    {
+      "class": "ICO-prestashop",
+      "name": "prestashop"
+    },
+    {
+      "class": "ICO-qik",
+      "name": "qik"
+    },
+    {
+      "class": "ICO-qq",
+      "name": "qq"
+    },
+    {
+      "class": "ICO-readernaut",
+      "name": "readernaut"
+    },
+    {
+      "class": "ICO-reddit",
+      "name": "reddit"
+    },
+    {
+      "class": "ICO-renren",
+      "name": "renren"
+    },
+    {
+      "class": "ICO-rss",
+      "name": "rss"
+    },
+    {
+      "class": "ICO-shopify",
+      "name": "shopify"
+    },
+    {
+      "class": "ICO-silverstripe",
+      "name": "silverstripe"
+    },
+    {
+      "class": "ICO-skype",
+      "name": "skype"
+    },
+    {
+      "class": "ICO-slack",
+      "name": "slack"
+    },
+    {
+      "class": "ICO-slashdot",
+      "name": "slashdot"
+    },
+    {
+      "class": "ICO-slidshare",
+      "name": "slidshare"
+    },
+    {
+      "class": "ICO-smugmug",
+      "name": "smugmug"
+    },
+    {
+      "class": "ICO-snapchat",
+      "name": "snapchat"
+    },
+    {
+      "class": "ICO-soundcloud",
+      "name": "soundcloud"
+    },
+    {
+      "class": "ICO-spotify",
+      "name": "spotify"
+    },
+    {
+      "class": "ICO-stack-exchange",
+      "name": "stack-exchange"
+    },
+    {
+      "class": "ICO-stack-overflow",
+      "name": "stack-overflow"
+    },
+    {
+      "class": "ICO-steam",
+      "name": "steam"
+    },
+    {
+      "class": "ICO-stumbleupon",
+      "name": "stumbleupon"
+    },
+    {
+      "class": "ICO-tagged",
+      "name": "tagged"
+    },
+    {
+      "class": "ICO-technorati",
+      "name": "technorati"
+    },
+    {
+      "class": "ICO-telegram",
+      "name": "telegram"
+    },
+    {
+      "class": "ICO-tinder",
+      "name": "tinder"
+    },
+    {
+      "class": "ICO-trello",
+      "name": "trello"
+    },
+    {
+      "class": "ICO-tumblr",
+      "name": "tumblr"
+    },
+    {
+      "class": "ICO-twitch",
+      "name": "twitch"
+    },
+    {
+      "class": "ICO-twitter",
+      "name": "twitter"
+    },
+    {
+      "class": "ICO-typo3",
+      "name": "typo3"
+    },
+    {
+      "class": "ICO-ubercart",
+      "name": "ubercart"
+    },
+    {
+      "class": "ICO-viber",
+      "name": "viber"
+    },
+    {
+      "class": "ICO-viddler",
+      "name": "viddler"
+    },
+    {
+      "class": "ICO-vimeo",
+      "name": "vimeo"
+    },
+    {
+      "class": "ICO-vine",
+      "name": "vine"
+    },
+    {
+      "class": "ICO-virb",
+      "name": "virb"
+    },
+    {
+      "class": "ICO-virtuemart",
+      "name": "virtuemart"
+    },
+    {
+      "class": "ICO-vk",
+      "name": "vk"
+    },
+    {
+      "class": "ICO-wechat",
+      "name": "wechat"
+    },
+    {
+      "class": "ICO-weibo",
+      "name": "weibo"
+    },
+    {
+      "class": "ICO-whatsapp",
+      "name": "whatsapp"
+    },
+    {
+      "class": "ICO-xing",
+      "name": "xing"
+    },
+    {
+      "class": "ICO-yahoo",
+      "name": "yahoo"
+    },
+    {
+      "class": "ICO-yelp",
+      "name": "yelp"
+    },
+    {
+      "class": "ICO-youku",
+      "name": "youku"
+    },
+    {
+      "class": "ICO-youtube",
+      "name": "youtube"
+    },
+    {
+      "class": "ICO-zencart",
+      "name": "zencart"
+    },
+    {
+      "class": "ICO-badminton-birdie",
+      "name": "badminton-birdie"
+    },
+    {
+      "class": "ICO-baseball",
+      "name": "baseball"
+    },
+    {
+      "class": "ICO-baseballer",
+      "name": "baseballer"
+    },
+    {
+      "class": "ICO-basketball-hoop",
+      "name": "basketball-hoop"
+    },
+    {
+      "class": "ICO-basketball",
+      "name": "basketball"
+    },
+    {
+      "class": "ICO-billiard-ball",
+      "name": "billiard-ball"
+    },
+    {
+      "class": "ICO-boot-alt-1",
+      "name": "boot-alt-1"
+    },
+    {
+      "class": "ICO-boot-alt-2",
+      "name": "boot-alt-2"
+    },
+    {
+      "class": "ICO-boot",
+      "name": "boot"
+    },
+    {
+      "class": "ICO-bowling-alt",
+      "name": "bowling-alt"
+    },
+    {
+      "class": "ICO-bowling",
+      "name": "bowling"
+    },
+    {
+      "class": "ICO-canoe",
+      "name": "canoe"
+    },
+    {
+      "class": "ICO-cheer-leader",
+      "name": "cheer-leader"
+    },
+    {
+      "class": "ICO-climbing",
+      "name": "climbing"
+    },
+    {
+      "class": "ICO-corner",
+      "name": "corner"
+    },
+    {
+      "class": "ICO-field-alt",
+      "name": "field-alt"
+    },
+    {
+      "class": "ICO-field",
+      "name": "field"
+    },
+    {
+      "class": "ICO-football-alt",
+      "name": "football-alt"
+    },
+    {
+      "class": "ICO-football-american",
+      "name": "football-american"
+    },
+    {
+      "class": "ICO-football",
+      "name": "football"
+    },
+    {
+      "class": "ICO-foul",
+      "name": "foul"
+    },
+    {
+      "class": "ICO-goal-keeper",
+      "name": "goal-keeper"
+    },
+    {
+      "class": "ICO-goal",
+      "name": "goal"
+    },
+    {
+      "class": "ICO-golf-alt",
+      "name": "golf-alt"
+    },
+    {
+      "class": "ICO-golf-bag",
+      "name": "golf-bag"
+    },
+    {
+      "class": "ICO-golf-cart",
+      "name": "golf-cart"
+    },
+    {
+      "class": "ICO-golf-field",
+      "name": "golf-field"
+    },
+    {
+      "class": "ICO-golf",
+      "name": "golf"
+    },
+    {
+      "class": "ICO-golfer",
+      "name": "golfer"
+    },
+    {
+      "class": "ICO-helmet",
+      "name": "helmet"
+    },
+    {
+      "class": "ICO-hockey-alt",
+      "name": "hockey-alt"
+    },
+    {
+      "class": "ICO-hockey",
+      "name": "hockey"
+    },
+    {
+      "class": "ICO-ice-skate",
+      "name": "ice-skate"
+    },
+    {
+      "class": "ICO-jersey-alt",
+      "name": "jersey-alt"
+    },
+    {
+      "class": "ICO-jersey",
+      "name": "jersey"
+    },
+    {
+      "class": "ICO-jumping",
+      "name": "jumping"
+    },
+    {
+      "class": "ICO-kick",
+      "name": "kick"
+    },
+    {
+      "class": "ICO-leg",
+      "name": "leg"
+    },
+    {
+      "class": "ICO-match-review",
+      "name": "match-review"
+    },
+    {
+      "class": "ICO-medal-sport",
+      "name": "medal-sport"
+    },
+    {
+      "class": "ICO-offside",
+      "name": "offside"
+    },
+    {
+      "class": "ICO-olympic-logo",
+      "name": "olympic-logo"
+    },
+    {
+      "class": "ICO-olympic",
+      "name": "olympic"
+    },
+    {
+      "class": "ICO-padding",
+      "name": "padding"
+    },
+    {
+      "class": "ICO-penalty-card",
+      "name": "penalty-card"
+    },
+    {
+      "class": "ICO-racer",
+      "name": "racer"
+    },
+    {
+      "class": "ICO-racing-car",
+      "name": "racing-car"
+    },
+    {
+      "class": "ICO-racing-flag-alt",
+      "name": "racing-flag-alt"
+    },
+    {
+      "class": "ICO-racing-flag",
+      "name": "racing-flag"
+    },
+    {
+      "class": "ICO-racings-wheel",
+      "name": "racings-wheel"
+    },
+    {
+      "class": "ICO-referee",
+      "name": "referee"
+    },
+    {
+      "class": "ICO-refree-jersey",
+      "name": "refree-jersey"
+    },
+    {
+      "class": "ICO-result-sport",
+      "name": "result-sport"
+    },
+    {
+      "class": "ICO-rugby-ball",
+      "name": "rugby-ball"
+    },
+    {
+      "class": "ICO-rugby-player",
+      "name": "rugby-player"
+    },
+    {
+      "class": "ICO-rugby",
+      "name": "rugby"
+    },
+    {
+      "class": "ICO-runner-alt-1",
+      "name": "runner-alt-1"
+    },
+    {
+      "class": "ICO-runner-alt-2",
+      "name": "runner-alt-2"
+    },
+    {
+      "class": "ICO-runner",
+      "name": "runner"
+    },
+    {
+      "class": "ICO-score-board",
+      "name": "score-board"
+    },
+    {
+      "class": "ICO-skiing-man",
+      "name": "skiing-man"
+    },
+    {
+      "class": "ICO-skydiving-goggles",
+      "name": "skydiving-goggles"
+    },
+    {
+      "class": "ICO-snow-mobile",
+      "name": "snow-mobile"
+    },
+    {
+      "class": "ICO-steering",
+      "name": "steering"
+    },
+    {
+      "class": "ICO-stopwatch",
+      "name": "stopwatch"
+    },
+    {
+      "class": "ICO-substitute",
+      "name": "substitute"
+    },
+    {
+      "class": "ICO-swimmer",
+      "name": "swimmer"
+    },
+    {
+      "class": "ICO-table-tennis",
+      "name": "table-tennis"
+    },
+    {
+      "class": "ICO-team-alt",
+      "name": "team-alt"
+    },
+    {
+      "class": "ICO-team",
+      "name": "team"
+    },
+    {
+      "class": "ICO-tennis-player",
+      "name": "tennis-player"
+    },
+    {
+      "class": "ICO-tennis",
+      "name": "tennis"
+    },
+    {
+      "class": "ICO-tracking",
+      "name": "tracking"
+    },
+    {
+      "class": "ICO-trophy-alt",
+      "name": "trophy-alt"
+    },
+    {
+      "class": "ICO-trophy",
+      "name": "trophy"
+    },
+    {
+      "class": "ICO-volleyball-alt",
+      "name": "volleyball-alt"
+    },
+    {
+      "class": "ICO-volleyball-fire",
+      "name": "volleyball-fire"
+    },
+    {
+      "class": "ICO-volleyball",
+      "name": "volleyball"
+    },
+    {
+      "class": "ICO-water-bottle",
+      "name": "water-bottle"
+    },
+    {
+      "class": "ICO-whistle-alt",
+      "name": "whistle-alt"
+    },
+    {
+      "class": "ICO-whistle",
+      "name": "whistle"
+    },
+    {
+      "class": "ICO-win-trophy",
+      "name": "win-trophy"
+    },
+    {
+      "class": "ICO-align-center",
+      "name": "align-center"
+    },
+    {
+      "class": "ICO-align-left",
+      "name": "align-left"
+    },
+    {
+      "class": "ICO-align-right",
+      "name": "align-right"
+    },
+    {
+      "class": "ICO-all-caps",
+      "name": "all-caps"
+    },
+    {
+      "class": "ICO-bold",
+      "name": "bold"
+    },
+    {
+      "class": "ICO-brush",
+      "name": "brush"
+    },
+    {
+      "class": "ICO-clip-board",
+      "name": "clip-board"
+    },
+    {
+      "class": "ICO-code-alt",
+      "name": "code-alt"
+    },
+    {
+      "class": "ICO-color-bucket",
+      "name": "color-bucket"
+    },
+    {
+      "class": "ICO-color-picker",
+      "name": "color-picker"
+    },
+    {
+      "class": "ICO-copy-invert",
+      "name": "copy-invert"
+    },
+    {
+      "class": "ICO-copy",
+      "name": "copy"
+    },
+    {
+      "class": "ICO-cut",
+      "name": "cut"
+    },
+    {
+      "class": "ICO-delete-alt",
+      "name": "delete-alt"
+    },
+    {
+      "class": "ICO-edit-alt",
+      "name": "edit-alt"
+    },
+    {
+      "class": "ICO-eraser-alt",
+      "name": "eraser-alt"
+    },
+    {
+      "class": "ICO-font",
+      "name": "font"
+    },
+    {
+      "class": "ICO-heading",
+      "name": "heading"
+    },
+    {
+      "class": "ICO-indent",
+      "name": "indent"
+    },
+    {
+      "class": "ICO-italic-alt",
+      "name": "italic-alt"
+    },
+    {
+      "class": "ICO-italic",
+      "name": "italic"
+    },
+    {
+      "class": "ICO-justify-all",
+      "name": "justify-all"
+    },
+    {
+      "class": "ICO-justify-center",
+      "name": "justify-center"
+    },
+    {
+      "class": "ICO-justify-left",
+      "name": "justify-left"
+    },
+    {
+      "class": "ICO-justify-right",
+      "name": "justify-right"
+    },
+    {
+      "class": "ICO-link-broken",
+      "name": "link-broken"
+    },
+    {
+      "class": "ICO-outdent",
+      "name": "outdent"
+    },
+    {
+      "class": "ICO-paper-clip",
+      "name": "paper-clip"
+    },
+    {
+      "class": "ICO-paragraph",
+      "name": "paragraph"
+    },
+    {
+      "class": "ICO-pin",
+      "name": "pin"
+    },
+    {
+      "class": "ICO-printer",
+      "name": "printer"
+    },
+    {
+      "class": "ICO-redo",
+      "name": "redo"
+    },
+    {
+      "class": "ICO-rotation",
+      "name": "rotation"
+    },
+    {
+      "class": "ICO-save",
+      "name": "save"
+    },
+    {
+      "class": "ICO-small-cap",
+      "name": "small-cap"
+    },
+    {
+      "class": "ICO-strike-through",
+      "name": "strike-through"
+    },
+    {
+      "class": "ICO-sub-listing",
+      "name": "sub-listing"
+    },
+    {
+      "class": "ICO-subscript",
+      "name": "subscript"
+    },
+    {
+      "class": "ICO-superscript",
+      "name": "superscript"
+    },
+    {
+      "class": "ICO-table",
+      "name": "table"
+    },
+    {
+      "class": "ICO-text-height",
+      "name": "text-height"
+    },
+    {
+      "class": "ICO-text-width",
+      "name": "text-width"
+    },
+    {
+      "class": "ICO-trash",
+      "name": "trash"
+    },
+    {
+      "class": "ICO-underline",
+      "name": "underline"
+    },
+    {
+      "class": "ICO-undo",
+      "name": "undo"
+    },
+    {
+      "class": "ICO-air-balloon",
+      "name": "air-balloon"
+    },
+    {
+      "class": "ICO-airplane-alt",
+      "name": "airplane-alt"
+    },
+    {
+      "class": "ICO-airplane",
+      "name": "airplane"
+    },
+    {
+      "class": "ICO-articulated-truck",
+      "name": "articulated-truck"
+    },
+    {
+      "class": "ICO-auto-mobile",
+      "name": "auto-mobile"
+    },
+    {
+      "class": "ICO-auto-rickshaw",
+      "name": "auto-rickshaw"
+    },
+    {
+      "class": "ICO-bicycle-alt-1",
+      "name": "bicycle-alt-1"
+    },
+    {
+      "class": "ICO-bicycle-alt-2",
+      "name": "bicycle-alt-2"
+    },
+    {
+      "class": "ICO-bicycle",
+      "name": "bicycle"
+    },
+    {
+      "class": "ICO-bus-alt-1",
+      "name": "bus-alt-1"
+    },
+    {
+      "class": "ICO-bus-alt-2",
+      "name": "bus-alt-2"
+    },
+    {
+      "class": "ICO-bus-alt-3",
+      "name": "bus-alt-3"
+    },
+    {
+      "class": "ICO-bus",
+      "name": "bus"
+    },
+    {
+      "class": "ICO-cab",
+      "name": "cab"
+    },
+    {
+      "class": "ICO-cable-car",
+      "name": "cable-car"
+    },
+    {
+      "class": "ICO-car-alt-1",
+      "name": "car-alt-1"
+    },
+    {
+      "class": "ICO-car-alt-2",
+      "name": "car-alt-2"
+    },
+    {
+      "class": "ICO-car-alt-3",
+      "name": "car-alt-3"
+    },
+    {
+      "class": "ICO-car-alt-4",
+      "name": "car-alt-4"
+    },
+    {
+      "class": "ICO-car",
+      "name": "car"
+    },
+    {
+      "class": "ICO-delivery-time",
+      "name": "delivery-time"
+    },
+    {
+      "class": "ICO-fast-delivery",
+      "name": "fast-delivery"
+    },
+    {
+      "class": "ICO-fire-truck-alt",
+      "name": "fire-truck-alt"
+    },
+    {
+      "class": "ICO-fire-truck",
+      "name": "fire-truck"
+    },
+    {
+      "class": "ICO-free-delivery",
+      "name": "free-delivery"
+    },
+    {
+      "class": "ICO-helicopter",
+      "name": "helicopter"
+    },
+    {
+      "class": "ICO-motor-bike-alt",
+      "name": "motor-bike-alt"
+    },
+    {
+      "class": "ICO-motor-bike",
+      "name": "motor-bike"
+    },
+    {
+      "class": "ICO-motor-biker",
+      "name": "motor-biker"
+    },
+    {
+      "class": "ICO-oil-truck",
+      "name": "oil-truck"
+    },
+    {
+      "class": "ICO-rickshaw",
+      "name": "rickshaw"
+    },
+    {
+      "class": "ICO-rocket-alt-1",
+      "name": "rocket-alt-1"
+    },
+    {
+      "class": "ICO-rocket-alt-2",
+      "name": "rocket-alt-2"
+    },
+    {
+      "class": "ICO-rocket",
+      "name": "rocket"
+    },
+    {
+      "class": "ICO-sail-boat-alt-1",
+      "name": "sail-boat-alt-1"
+    },
+    {
+      "class": "ICO-sail-boat-alt-2",
+      "name": "sail-boat-alt-2"
+    },
+    {
+      "class": "ICO-sail-boat",
+      "name": "sail-boat"
+    },
+    {
+      "class": "ICO-scooter",
+      "name": "scooter"
+    },
+    {
+      "class": "ICO-sea-plane",
+      "name": "sea-plane"
+    },
+    {
+      "class": "ICO-ship-alt",
+      "name": "ship-alt"
+    },
+    {
+      "class": "ICO-ship",
+      "name": "ship"
+    },
+    {
+      "class": "ICO-speed-boat",
+      "name": "speed-boat"
+    },
+    {
+      "class": "ICO-taxi",
+      "name": "taxi"
+    },
+    {
+      "class": "ICO-tractor",
+      "name": "tractor"
+    },
+    {
+      "class": "ICO-train-line",
+      "name": "train-line"
+    },
+    {
+      "class": "ICO-train-steam",
+      "name": "train-steam"
+    },
+    {
+      "class": "ICO-tram",
+      "name": "tram"
+    },
+    {
+      "class": "ICO-truck-alt",
+      "name": "truck-alt"
+    },
+    {
+      "class": "ICO-truck-loaded",
+      "name": "truck-loaded"
+    },
+    {
+      "class": "ICO-truck",
+      "name": "truck"
+    },
+    {
+      "class": "ICO-van-alt",
+      "name": "van-alt"
+    },
+    {
+      "class": "ICO-van",
+      "name": "van"
+    },
+    {
+      "class": "ICO-yacht",
+      "name": "yacht"
+    },
+    {
+      "class": "ICO-5-star-hotel",
+      "name": "5-star-hotel"
+    },
+    {
+      "class": "ICO-air-ticket",
+      "name": "air-ticket"
+    },
+    {
+      "class": "ICO-beach-bed",
+      "name": "beach-bed"
+    },
+    {
+      "class": "ICO-beach",
+      "name": "beach"
+    },
+    {
+      "class": "ICO-camping-vest",
+      "name": "camping-vest"
+    },
+    {
+      "class": "ICO-direction-sign",
+      "name": "direction-sign"
+    },
+    {
+      "class": "ICO-hill-side",
+      "name": "hill-side"
+    },
+    {
+      "class": "ICO-hill",
+      "name": "hill"
+    },
+    {
+      "class": "ICO-hotel",
+      "name": "hotel"
+    },
+    {
+      "class": "ICO-island-alt",
+      "name": "island-alt"
+    },
+    {
+      "class": "ICO-island",
+      "name": "island"
+    },
+    {
+      "class": "ICO-sandals-female",
+      "name": "sandals-female"
+    },
+    {
+      "class": "ICO-sandals-male",
+      "name": "sandals-male"
+    },
+    {
+      "class": "ICO-travelling",
+      "name": "travelling"
+    },
+    {
+      "class": "ICO-breakdown",
+      "name": "breakdown"
+    },
+    {
+      "class": "ICO-celsius",
+      "name": "celsius"
+    },
+    {
+      "class": "ICO-clouds",
+      "name": "clouds"
+    },
+    {
+      "class": "ICO-cloudy",
+      "name": "cloudy"
+    },
+    {
+      "class": "ICO-dust",
+      "name": "dust"
+    },
+    {
+      "class": "ICO-eclipse",
+      "name": "eclipse"
+    },
+    {
+      "class": "ICO-fahrenheit",
+      "name": "fahrenheit"
+    },
+    {
+      "class": "ICO-forest-fire",
+      "name": "forest-fire"
+    },
+    {
+      "class": "ICO-full-night",
+      "name": "full-night"
+    },
+    {
+      "class": "ICO-full-sunny",
+      "name": "full-sunny"
+    },
+    {
+      "class": "ICO-hail-night",
+      "name": "hail-night"
+    },
+    {
+      "class": "ICO-hail-rainy-night",
+      "name": "hail-rainy-night"
+    },
+    {
+      "class": "ICO-hail-rainy-sunny",
+      "name": "hail-rainy-sunny"
+    },
+    {
+      "class": "ICO-hail-rainy",
+      "name": "hail-rainy"
+    },
+    {
+      "class": "ICO-hail-sunny",
+      "name": "hail-sunny"
+    },
+    {
+      "class": "ICO-hail-thunder-night",
+      "name": "hail-thunder-night"
+    },
+    {
+      "class": "ICO-hail-thunder-sunny",
+      "name": "hail-thunder-sunny"
+    },
+    {
+      "class": "ICO-hail-thunder",
+      "name": "hail-thunder"
+    },
+    {
+      "class": "ICO-hail",
+      "name": "hail"
+    },
+    {
+      "class": "ICO-hill-night",
+      "name": "hill-night"
+    },
+    {
+      "class": "ICO-hill-sunny",
+      "name": "hill-sunny"
+    },
+    {
+      "class": "ICO-hurricane",
+      "name": "hurricane"
+    },
+    {
+      "class": "ICO-meteor",
+      "name": "meteor"
+    },
+    {
+      "class": "ICO-night",
+      "name": "night"
+    },
+    {
+      "class": "ICO-rainy-night",
+      "name": "rainy-night"
+    },
+    {
+      "class": "ICO-rainy-sunny",
+      "name": "rainy-sunny"
+    },
+    {
+      "class": "ICO-rainy-thunder",
+      "name": "rainy-thunder"
+    },
+    {
+      "class": "ICO-rainy",
+      "name": "rainy"
+    },
+    {
+      "class": "ICO-snow-alt",
+      "name": "snow-alt"
+    },
+    {
+      "class": "ICO-snow-flake",
+      "name": "snow-flake"
+    },
+    {
+      "class": "ICO-snow-temp",
+      "name": "snow-temp"
+    },
+    {
+      "class": "ICO-snow",
+      "name": "snow"
+    },
+    {
+      "class": "ICO-snowy-hail",
+      "name": "snowy-hail"
+    },
+    {
+      "class": "ICO-snowy-night-hail",
+      "name": "snowy-night-hail"
+    },
+    {
+      "class": "ICO-snowy-night-rainy",
+      "name": "snowy-night-rainy"
+    },
+    {
+      "class": "ICO-snowy-night",
+      "name": "snowy-night"
+    },
+    {
+      "class": "ICO-snowy-rainy",
+      "name": "snowy-rainy"
+    },
+    {
+      "class": "ICO-snowy-sunny-hail",
+      "name": "snowy-sunny-hail"
+    },
+    {
+      "class": "ICO-snowy-sunny-rainy",
+      "name": "snowy-sunny-rainy"
+    },
+    {
+      "class": "ICO-snowy-sunny",
+      "name": "snowy-sunny"
+    },
+    {
+      "class": "ICO-snowy-thunder-night",
+      "name": "snowy-thunder-night"
+    },
+    {
+      "class": "ICO-snowy-thunder-sunny",
+      "name": "snowy-thunder-sunny"
+    },
+    {
+      "class": "ICO-snowy-thunder",
+      "name": "snowy-thunder"
+    },
+    {
+      "class": "ICO-snowy-windy-night",
+      "name": "snowy-windy-night"
+    },
+    {
+      "class": "ICO-snowy-windy-sunny",
+      "name": "snowy-windy-sunny"
+    },
+    {
+      "class": "ICO-snowy-windy",
+      "name": "snowy-windy"
+    },
+    {
+      "class": "ICO-snowy",
+      "name": "snowy"
+    },
+    {
+      "class": "ICO-sun-alt",
+      "name": "sun-alt"
+    },
+    {
+      "class": "ICO-sun-rise",
+      "name": "sun-rise"
+    },
+    {
+      "class": "ICO-sun-set",
+      "name": "sun-set"
+    },
+    {
+      "class": "ICO-sun",
+      "name": "sun"
+    },
+    {
+      "class": "ICO-sunny-day-temp",
+      "name": "sunny-day-temp"
+    },
+    {
+      "class": "ICO-sunny",
+      "name": "sunny"
+    },
+    {
+      "class": "ICO-thunder-light",
+      "name": "thunder-light"
+    },
+    {
+      "class": "ICO-tornado",
+      "name": "tornado"
+    },
+    {
+      "class": "ICO-umbrella-alt",
+      "name": "umbrella-alt"
+    },
+    {
+      "class": "ICO-umbrella",
+      "name": "umbrella"
+    },
+    {
+      "class": "ICO-volcano",
+      "name": "volcano"
+    },
+    {
+      "class": "ICO-wave",
+      "name": "wave"
+    },
+    {
+      "class": "ICO-wind-scale-0",
+      "name": "wind-scale-0"
+    },
+    {
+      "class": "ICO-wind-scale-1",
+      "name": "wind-scale-1"
+    },
+    {
+      "class": "ICO-wind-scale-10",
+      "name": "wind-scale-10"
+    },
+    {
+      "class": "ICO-wind-scale-11",
+      "name": "wind-scale-11"
+    },
+    {
+      "class": "ICO-wind-scale-12",
+      "name": "wind-scale-12"
+    },
+    {
+      "class": "ICO-wind-scale-2",
+      "name": "wind-scale-2"
+    },
+    {
+      "class": "ICO-wind-scale-3",
+      "name": "wind-scale-3"
+    },
+    {
+      "class": "ICO-wind-scale-4",
+      "name": "wind-scale-4"
+    },
+    {
+      "class": "ICO-wind-scale-5",
+      "name": "wind-scale-5"
+    },
+    {
+      "class": "ICO-wind-scale-6",
+      "name": "wind-scale-6"
+    },
+    {
+      "class": "ICO-wind-scale-7",
+      "name": "wind-scale-7"
+    },
+    {
+      "class": "ICO-wind-scale-8",
+      "name": "wind-scale-8"
+    },
+    {
+      "class": "ICO-wind-scale-9",
+      "name": "wind-scale-9"
+    },
+    {
+      "class": "ICO-wind-waves",
+      "name": "wind-waves"
+    },
+    {
+      "class": "ICO-wind",
+      "name": "wind"
+    },
+    {
+      "class": "ICO-windy-hail",
+      "name": "windy-hail"
+    },
+    {
+      "class": "ICO-windy-night",
+      "name": "windy-night"
+    },
+    {
+      "class": "ICO-windy-raining",
+      "name": "windy-raining"
+    },
+    {
+      "class": "ICO-windy-sunny",
+      "name": "windy-sunny"
+    },
+    {
+      "class": "ICO-windy-thunder-raining",
+      "name": "windy-thunder-raining"
+    },
+    {
+      "class": "ICO-windy-thunder",
+      "name": "windy-thunder"
+    },
+    {
+      "class": "ICO-windy",
+      "name": "windy"
+    },
+    {
+      "class": "ICO-addons",
+      "name": "addons"
+    },
+    {
+      "class": "ICO-address-book",
+      "name": "address-book"
+    },
+    {
+      "class": "ICO-adjust",
+      "name": "adjust"
+    },
+    {
+      "class": "ICO-alarm",
+      "name": "alarm"
+    },
+    {
+      "class": "ICO-anchor",
+      "name": "anchor"
+    },
+    {
+      "class": "ICO-archive",
+      "name": "archive"
+    },
+    {
+      "class": "ICO-at",
+      "name": "at"
+    },
+    {
+      "class": "ICO-attachment",
+      "name": "attachment"
+    },
+    {
+      "class": "ICO-audio",
+      "name": "audio"
+    },
+    {
+      "class": "ICO-automation",
+      "name": "automation"
+    },
+    {
+      "class": "ICO-badge",
+      "name": "badge"
+    },
+    {
+      "class": "ICO-bag-alt",
+      "name": "bag-alt"
+    },
+    {
+      "class": "ICO-bag",
+      "name": "bag"
+    },
+    {
+      "class": "ICO-ban",
+      "name": "ban"
+    },
+    {
+      "class": "ICO-bar-code",
+      "name": "bar-code"
+    },
+    {
+      "class": "ICO-bars",
+      "name": "bars"
+    },
+    {
+      "class": "ICO-basket",
+      "name": "basket"
+    },
+    {
+      "class": "ICO-battery-empty",
+      "name": "battery-empty"
+    },
+    {
+      "class": "ICO-battery-full",
+      "name": "battery-full"
+    },
+    {
+      "class": "ICO-battery-half",
+      "name": "battery-half"
+    },
+    {
+      "class": "ICO-battery-low",
+      "name": "battery-low"
+    },
+    {
+      "class": "ICO-beaker",
+      "name": "beaker"
+    },
+    {
+      "class": "ICO-beard",
+      "name": "beard"
+    },
+    {
+      "class": "ICO-bed",
+      "name": "bed"
+    },
+    {
+      "class": "ICO-bell",
+      "name": "bell"
+    },
+    {
+      "class": "ICO-beverage",
+      "name": "beverage"
+    },
+    {
+      "class": "ICO-bill",
+      "name": "bill"
+    },
+    {
+      "class": "ICO-bin",
+      "name": "bin"
+    },
+    {
+      "class": "ICO-binary",
+      "name": "binary"
+    },
+    {
+      "class": "ICO-binoculars",
+      "name": "binoculars"
+    },
+    {
+      "class": "ICO-bluetooth",
+      "name": "bluetooth"
+    },
+    {
+      "class": "ICO-bomb",
+      "name": "bomb"
+    },
+    {
+      "class": "ICO-book-mark",
+      "name": "book-mark"
+    },
+    {
+      "class": "ICO-box",
+      "name": "box"
+    },
+    {
+      "class": "ICO-briefcase",
+      "name": "briefcase"
+    },
+    {
+      "class": "ICO-broken",
+      "name": "broken"
+    },
+    {
+      "class": "ICO-bucket",
+      "name": "bucket"
+    },
+    {
+      "class": "ICO-bucket1",
+      "name": "bucket1"
+    },
+    {
+      "class": "ICO-bucket2",
+      "name": "bucket2"
+    },
+    {
+      "class": "ICO-bug",
+      "name": "bug"
+    },
+    {
+      "class": "ICO-building",
+      "name": "building"
+    },
+    {
+      "class": "ICO-bulb-alt",
+      "name": "bulb-alt"
+    },
+    {
+      "class": "ICO-bullet",
+      "name": "bullet"
+    },
+    {
+      "class": "ICO-bullhorn",
+      "name": "bullhorn"
+    },
+    {
+      "class": "ICO-bullseye",
+      "name": "bullseye"
+    },
+    {
+      "class": "ICO-calendar",
+      "name": "calendar"
+    },
+    {
+      "class": "ICO-camera-alt",
+      "name": "camera-alt"
+    },
+    {
+      "class": "ICO-camera",
+      "name": "camera"
+    },
+    {
+      "class": "ICO-card",
+      "name": "card"
+    },
+    {
+      "class": "ICO-cart-alt",
+      "name": "cart-alt"
+    },
+    {
+      "class": "ICO-cart",
+      "name": "cart"
+    },
+    {
+      "class": "ICO-cc",
+      "name": "cc"
+    },
+    {
+      "class": "ICO-charging",
+      "name": "charging"
+    },
+    {
+      "class": "ICO-chat",
+      "name": "chat"
+    },
+    {
+      "class": "ICO-check-alt",
+      "name": "check-alt"
+    },
+    {
+      "class": "ICO-check-circled",
+      "name": "check-circled"
+    },
+    {
+      "class": "ICO-check",
+      "name": "check"
+    },
+    {
+      "class": "ICO-checked",
+      "name": "checked"
+    },
+    {
+      "class": "ICO-children-care",
+      "name": "children-care"
+    },
+    {
+      "class": "ICO-clip",
+      "name": "clip"
+    },
+    {
+      "class": "ICO-clock-time",
+      "name": "clock-time"
+    },
+    {
+      "class": "ICO-close-circled",
+      "name": "close-circled"
+    },
+    {
+      "class": "ICO-close-line-circled",
+      "name": "close-line-circled"
+    },
+    {
+      "class": "ICO-close-line-squared-alt",
+      "name": "close-line-squared-alt"
+    },
+    {
+      "class": "ICO-close-line-squared",
+      "name": "close-line-squared"
+    },
+    {
+      "class": "ICO-close-line",
+      "name": "close-line"
+    },
+    {
+      "class": "ICO-close-squared-alt",
+      "name": "close-squared-alt"
+    },
+    {
+      "class": "ICO-close-squared",
+      "name": "close-squared"
+    },
+    {
+      "class": "ICO-close",
+      "name": "close"
+    },
+    {
+      "class": "ICO-cloud-download",
+      "name": "cloud-download"
+    },
+    {
+      "class": "ICO-cloud-refresh",
+      "name": "cloud-refresh"
+    },
+    {
+      "class": "ICO-cloud-upload",
+      "name": "cloud-upload"
+    },
+    {
+      "class": "ICO-cloud",
+      "name": "cloud"
+    },
+    {
+      "class": "ICO-code-not-allowed",
+      "name": "code-not-allowed"
+    },
+    {
+      "class": "ICO-code",
+      "name": "code"
+    },
+    {
+      "class": "ICO-comment",
+      "name": "comment"
+    },
+    {
+      "class": "ICO-compass-alt",
+      "name": "compass-alt"
+    },
+    {
+      "class": "ICO-compass",
+      "name": "compass"
+    },
+    {
+      "class": "ICO-computer",
+      "name": "computer"
+    },
+    {
+      "class": "ICO-connection",
+      "name": "connection"
+    },
+    {
+      "class": "ICO-console",
+      "name": "console"
+    },
+    {
+      "class": "ICO-contacts",
+      "name": "contacts"
+    },
+    {
+      "class": "ICO-contrast",
+      "name": "contrast"
+    },
+    {
+      "class": "ICO-copyright",
+      "name": "copyright"
+    },
+    {
+      "class": "ICO-credit-card",
+      "name": "credit-card"
+    },
+    {
+      "class": "ICO-crop",
+      "name": "crop"
+    },
+    {
+      "class": "ICO-crown",
+      "name": "crown"
+    },
+    {
+      "class": "ICO-cube",
+      "name": "cube"
+    },
+    {
+      "class": "ICO-cubes",
+      "name": "cubes"
+    },
+    {
+      "class": "ICO-dashboard-web",
+      "name": "dashboard-web"
+    },
+    {
+      "class": "ICO-dashboard",
+      "name": "dashboard"
+    },
+    {
+      "class": "ICO-data",
+      "name": "data"
+    },
+    {
+      "class": "ICO-database-add",
+      "name": "database-add"
+    },
+    {
+      "class": "ICO-database-locked",
+      "name": "database-locked"
+    },
+    {
+      "class": "ICO-database-remove",
+      "name": "database-remove"
+    },
+    {
+      "class": "ICO-database",
+      "name": "database"
+    },
+    {
+      "class": "ICO-delete",
+      "name": "delete"
+    },
+    {
+      "class": "ICO-diamond",
+      "name": "diamond"
+    },
+    {
+      "class": "ICO-dice-multiple",
+      "name": "dice-multiple"
+    },
+    {
+      "class": "ICO-dice",
+      "name": "dice"
+    },
+    {
+      "class": "ICO-disc",
+      "name": "disc"
+    },
+    {
+      "class": "ICO-diskette",
+      "name": "diskette"
+    },
+    {
+      "class": "ICO-document-folder",
+      "name": "document-folder"
+    },
+    {
+      "class": "ICO-download-alt",
+      "name": "download-alt"
+    },
+    {
+      "class": "ICO-download",
+      "name": "download"
+    },
+    {
+      "class": "ICO-downloaded",
+      "name": "downloaded"
+    },
+    {
+      "class": "ICO-drag",
+      "name": "drag"
+    },
+    {
+      "class": "ICO-drag1",
+      "name": "drag1"
+    },
+    {
+      "class": "ICO-drag2",
+      "name": "drag2"
+    },
+    {
+      "class": "ICO-drag3",
+      "name": "drag3"
+    },
+    {
+      "class": "ICO-earth",
+      "name": "earth"
+    },
+    {
+      "class": "ICO-ebook",
+      "name": "ebook"
+    },
+    {
+      "class": "ICO-edit",
+      "name": "edit"
+    },
+    {
+      "class": "ICO-eject",
+      "name": "eject"
+    },
+    {
+      "class": "ICO-email",
+      "name": "email"
+    },
+    {
+      "class": "ICO-envelope-open",
+      "name": "envelope-open"
+    },
+    {
+      "class": "ICO-envelope",
+      "name": "envelope"
+    },
+    {
+      "class": "ICO-eraser",
+      "name": "eraser"
+    },
+    {
+      "class": "ICO-error",
+      "name": "error"
+    },
+    {
+      "class": "ICO-excavator",
+      "name": "excavator"
+    },
+    {
+      "class": "ICO-exchange",
+      "name": "exchange"
+    },
+    {
+      "class": "ICO-exclamation-circle",
+      "name": "exclamation-circle"
+    },
+    {
+      "class": "ICO-exclamation-square",
+      "name": "exclamation-square"
+    },
+    {
+      "class": "ICO-exclamation-tringle",
+      "name": "exclamation-tringle"
+    },
+    {
+      "class": "ICO-exclamation",
+      "name": "exclamation"
+    },
+    {
+      "class": "ICO-exit",
+      "name": "exit"
+    },
+    {
+      "class": "ICO-expand",
+      "name": "expand"
+    },
+    {
+      "class": "ICO-external-link",
+      "name": "external-link"
+    },
+    {
+      "class": "ICO-external",
+      "name": "external"
+    },
+    {
+      "class": "ICO-eye-alt",
+      "name": "eye-alt"
+    },
+    {
+      "class": "ICO-eye-blocked",
+      "name": "eye-blocked"
+    },
+    {
+      "class": "ICO-eye-dropper",
+      "name": "eye-dropper"
+    },
+    {
+      "class": "ICO-eye",
+      "name": "eye"
+    },
+    {
+      "class": "ICO-favourite",
+      "name": "favourite"
+    },
+    {
+      "class": "ICO-fax",
+      "name": "fax"
+    },
+    {
+      "class": "ICO-file-fill",
+      "name": "file-fill"
+    },
+    {
+      "class": "ICO-film",
+      "name": "film"
+    },
+    {
+      "class": "ICO-filter",
+      "name": "filter"
+    },
+    {
+      "class": "ICO-fire-alt",
+      "name": "fire-alt"
+    },
+    {
+      "class": "ICO-fire-burn",
+      "name": "fire-burn"
+    },
+    {
+      "class": "ICO-fire",
+      "name": "fire"
+    },
+    {
+      "class": "ICO-flag-alt-1",
+      "name": "flag-alt-1"
+    },
+    {
+      "class": "ICO-flag-alt-2",
+      "name": "flag-alt-2"
+    },
+    {
+      "class": "ICO-flag",
+      "name": "flag"
+    },
+    {
+      "class": "ICO-flame-torch",
+      "name": "flame-torch"
+    },
+    {
+      "class": "ICO-flash-light",
+      "name": "flash-light"
+    },
+    {
+      "class": "ICO-flash",
+      "name": "flash"
+    },
+    {
+      "class": "ICO-flask",
+      "name": "flask"
+    },
+    {
+      "class": "ICO-focus",
+      "name": "focus"
+    },
+    {
+      "class": "ICO-folder-open",
+      "name": "folder-open"
+    },
+    {
+      "class": "ICO-folder",
+      "name": "folder"
+    },
+    {
+      "class": "ICO-foot-print",
+      "name": "foot-print"
+    },
+    {
+      "class": "ICO-garbage",
+      "name": "garbage"
+    },
+    {
+      "class": "ICO-gear-alt",
+      "name": "gear-alt"
+    },
+    {
+      "class": "ICO-gear",
+      "name": "gear"
+    },
+    {
+      "class": "ICO-gears",
+      "name": "gears"
+    },
+    {
+      "class": "ICO-gift",
+      "name": "gift"
+    },
+    {
+      "class": "ICO-glass",
+      "name": "glass"
+    },
+    {
+      "class": "ICO-globe",
+      "name": "globe"
+    },
+    {
+      "class": "ICO-graffiti",
+      "name": "graffiti"
+    },
+    {
+      "class": "ICO-grocery",
+      "name": "grocery"
+    },
+    {
+      "class": "ICO-hand",
+      "name": "hand"
+    },
+    {
+      "class": "ICO-hanger",
+      "name": "hanger"
+    },
+    {
+      "class": "ICO-hard-disk",
+      "name": "hard-disk"
+    },
+    {
+      "class": "ICO-heart-alt",
+      "name": "heart-alt"
+    },
+    {
+      "class": "ICO-heart",
+      "name": "heart"
+    },
+    {
+      "class": "ICO-history",
+      "name": "history"
+    },
+    {
+      "class": "ICO-home",
+      "name": "home"
+    },
+    {
+      "class": "ICO-horn",
+      "name": "horn"
+    },
+    {
+      "class": "ICO-hour-glass",
+      "name": "hour-glass"
+    },
+    {
+      "class": "ICO-id",
+      "name": "id"
+    },
+    {
+      "class": "ICO-image",
+      "name": "image"
+    },
+    {
+      "class": "ICO-inbox",
+      "name": "inbox"
+    },
+    {
+      "class": "ICO-infinite",
+      "name": "infinite"
+    },
+    {
+      "class": "ICO-info-circle",
+      "name": "info-circle"
+    },
+    {
+      "class": "ICO-info-square",
+      "name": "info-square"
+    },
+    {
+      "class": "ICO-info",
+      "name": "info"
+    },
+    {
+      "class": "ICO-institution",
+      "name": "institution"
+    },
+    {
+      "class": "ICO-interface",
+      "name": "interface"
+    },
+    {
+      "class": "ICO-invisible",
+      "name": "invisible"
+    },
+    {
+      "class": "ICO-jacket",
+      "name": "jacket"
+    },
+    {
+      "class": "ICO-jar",
+      "name": "jar"
+    },
+    {
+      "class": "ICO-jewlery",
+      "name": "jewlery"
+    },
+    {
+      "class": "ICO-karate",
+      "name": "karate"
+    },
+    {
+      "class": "ICO-key-hole",
+      "name": "key-hole"
+    },
+    {
+      "class": "ICO-key",
+      "name": "key"
+    },
+    {
+      "class": "ICO-label",
+      "name": "label"
+    },
+    {
+      "class": "ICO-lamp",
+      "name": "lamp"
+    },
+    {
+      "class": "ICO-layers",
+      "name": "layers"
+    },
+    {
+      "class": "ICO-layout",
+      "name": "layout"
+    },
+    {
+      "class": "ICO-leaf",
+      "name": "leaf"
+    },
+    {
+      "class": "ICO-leaflet",
+      "name": "leaflet"
+    },
+    {
+      "class": "ICO-learn",
+      "name": "learn"
+    },
+    {
+      "class": "ICO-lego",
+      "name": "lego"
+    },
+    {
+      "class": "ICO-lens",
+      "name": "lens"
+    },
+    {
+      "class": "ICO-letter",
+      "name": "letter"
+    },
+    {
+      "class": "ICO-letterbox",
+      "name": "letterbox"
+    },
+    {
+      "class": "ICO-library",
+      "name": "library"
+    },
+    {
+      "class": "ICO-license",
+      "name": "license"
+    },
+    {
+      "class": "ICO-life-bouy",
+      "name": "life-bouy"
+    },
+    {
+      "class": "ICO-life-buoy",
+      "name": "life-buoy"
+    },
+    {
+      "class": "ICO-life-jacket",
+      "name": "life-jacket"
+    },
+    {
+      "class": "ICO-life-ring",
+      "name": "life-ring"
+    },
+    {
+      "class": "ICO-light-bulb",
+      "name": "light-bulb"
+    },
+    {
+      "class": "ICO-lighter",
+      "name": "lighter"
+    },
+    {
+      "class": "ICO-lightning-ray",
+      "name": "lightning-ray"
+    },
+    {
+      "class": "ICO-like",
+      "name": "like"
+    },
+    {
+      "class": "ICO-line-height",
+      "name": "line-height"
+    },
+    {
+      "class": "ICO-link-alt",
+      "name": "link-alt"
+    },
+    {
+      "class": "ICO-link",
+      "name": "link"
+    },
+    {
+      "class": "ICO-list",
+      "name": "list"
+    },
+    {
+      "class": "ICO-listening",
+      "name": "listening"
+    },
+    {
+      "class": "ICO-listine-dots",
+      "name": "listine-dots"
+    },
+    {
+      "class": "ICO-listing-box",
+      "name": "listing-box"
+    },
+    {
+      "class": "ICO-listing-number",
+      "name": "listing-number"
+    },
+    {
+      "class": "ICO-live-support",
+      "name": "live-support"
+    },
+    {
+      "class": "ICO-location-arrow",
+      "name": "location-arrow"
+    },
+    {
+      "class": "ICO-location-pin",
+      "name": "location-pin"
+    },
+    {
+      "class": "ICO-lock",
+      "name": "lock"
+    },
+    {
+      "class": "ICO-login",
+      "name": "login"
+    },
+    {
+      "class": "ICO-logout",
+      "name": "logout"
+    },
+    {
+      "class": "ICO-lollipop",
+      "name": "lollipop"
+    },
+    {
+      "class": "ICO-long-drive",
+      "name": "long-drive"
+    },
+    {
+      "class": "ICO-look",
+      "name": "look"
+    },
+    {
+      "class": "ICO-loop",
+      "name": "loop"
+    },
+    {
+      "class": "ICO-luggage",
+      "name": "luggage"
+    },
+    {
+      "class": "ICO-lunch",
+      "name": "lunch"
+    },
+    {
+      "class": "ICO-lungs",
+      "name": "lungs"
+    },
+    {
+      "class": "ICO-magic-alt",
+      "name": "magic-alt"
+    },
+    {
+      "class": "ICO-magic",
+      "name": "magic"
+    },
+    {
+      "class": "ICO-magnet",
+      "name": "magnet"
+    },
+    {
+      "class": "ICO-mail-box",
+      "name": "mail-box"
+    },
+    {
+      "class": "ICO-mail",
+      "name": "mail"
+    },
+    {
+      "class": "ICO-male",
+      "name": "male"
+    },
+    {
+      "class": "ICO-map-pins",
+      "name": "map-pins"
+    },
+    {
+      "class": "ICO-map",
+      "name": "map"
+    },
+    {
+      "class": "ICO-maximize",
+      "name": "maximize"
+    },
+    {
+      "class": "ICO-measure",
+      "name": "measure"
+    },
+    {
+      "class": "ICO-medicine",
+      "name": "medicine"
+    },
+    {
+      "class": "ICO-mega-phone",
+      "name": "mega-phone"
+    },
+    {
+      "class": "ICO-megaphone-alt",
+      "name": "megaphone-alt"
+    },
+    {
+      "class": "ICO-megaphone",
+      "name": "megaphone"
+    },
+    {
+      "class": "ICO-memorial",
+      "name": "memorial"
+    },
+    {
+      "class": "ICO-memory-card",
+      "name": "memory-card"
+    },
+    {
+      "class": "ICO-mic-mute",
+      "name": "mic-mute"
+    },
+    {
+      "class": "ICO-mic",
+      "name": "mic"
+    },
+    {
+      "class": "ICO-military",
+      "name": "military"
+    },
+    {
+      "class": "ICO-mill",
+      "name": "mill"
+    },
+    {
+      "class": "ICO-minus-circle",
+      "name": "minus-circle"
+    },
+    {
+      "class": "ICO-minus-square",
+      "name": "minus-square"
+    },
+    {
+      "class": "ICO-minus",
+      "name": "minus"
+    },
+    {
+      "class": "ICO-mobile-phone",
+      "name": "mobile-phone"
+    },
+    {
+      "class": "ICO-molecule",
+      "name": "molecule"
+    },
+    {
+      "class": "ICO-money",
+      "name": "money"
+    },
+    {
+      "class": "ICO-moon",
+      "name": "moon"
+    },
+    {
+      "class": "ICO-mop",
+      "name": "mop"
+    },
+    {
+      "class": "ICO-muffin",
+      "name": "muffin"
+    },
+    {
+      "class": "ICO-mustache",
+      "name": "mustache"
+    },
+    {
+      "class": "ICO-navigation-menu",
+      "name": "navigation-menu"
+    },
+    {
+      "class": "ICO-navigation",
+      "name": "navigation"
+    },
+    {
+      "class": "ICO-network-tower",
+      "name": "network-tower"
+    },
+    {
+      "class": "ICO-network",
+      "name": "network"
+    },
+    {
+      "class": "ICO-news",
+      "name": "news"
+    },
+    {
+      "class": "ICO-newspaper",
+      "name": "newspaper"
+    },
+    {
+      "class": "ICO-no-smoking",
+      "name": "no-smoking"
+    },
+    {
+      "class": "ICO-not-allowed",
+      "name": "not-allowed"
+    },
+    {
+      "class": "ICO-notebook",
+      "name": "notebook"
+    },
+    {
+      "class": "ICO-notepad",
+      "name": "notepad"
+    },
+    {
+      "class": "ICO-notification",
+      "name": "notification"
+    },
+    {
+      "class": "ICO-numbered",
+      "name": "numbered"
+    },
+    {
+      "class": "ICO-opposite",
+      "name": "opposite"
+    },
+    {
+      "class": "ICO-optic",
+      "name": "optic"
+    },
+    {
+      "class": "ICO-options",
+      "name": "options"
+    },
+    {
+      "class": "ICO-package",
+      "name": "package"
+    },
+    {
+      "class": "ICO-page",
+      "name": "page"
+    },
+    {
+      "class": "ICO-paint",
+      "name": "paint"
+    },
+    {
+      "class": "ICO-paper-plane",
+      "name": "paper-plane"
+    },
+    {
+      "class": "ICO-paperclip",
+      "name": "paperclip"
+    },
+    {
+      "class": "ICO-papers",
+      "name": "papers"
+    },
+    {
+      "class": "ICO-pay",
+      "name": "pay"
+    },
+    {
+      "class": "ICO-penguin-linux",
+      "name": "penguin-linux"
+    },
+    {
+      "class": "ICO-pestle",
+      "name": "pestle"
+    },
+    {
+      "class": "ICO-phone-circle",
+      "name": "phone-circle"
+    },
+    {
+      "class": "ICO-phone",
+      "name": "phone"
+    },
+    {
+      "class": "ICO-picture",
+      "name": "picture"
+    },
+    {
+      "class": "ICO-pine",
+      "name": "pine"
+    },
+    {
+      "class": "ICO-pixels",
+      "name": "pixels"
+    },
+    {
+      "class": "ICO-plugin",
+      "name": "plugin"
+    },
+    {
+      "class": "ICO-plus-circle",
+      "name": "plus-circle"
+    },
+    {
+      "class": "ICO-plus-square",
+      "name": "plus-square"
+    },
+    {
+      "class": "ICO-plus",
+      "name": "plus"
+    },
+    {
+      "class": "ICO-polygonal",
+      "name": "polygonal"
+    },
+    {
+      "class": "ICO-power",
+      "name": "power"
+    },
+    {
+      "class": "ICO-price",
+      "name": "price"
+    },
+    {
+      "class": "ICO-print",
+      "name": "print"
+    },
+    {
+      "class": "ICO-puzzle",
+      "name": "puzzle"
+    },
+    {
+      "class": "ICO-qr-code",
+      "name": "qr-code"
+    },
+    {
+      "class": "ICO-queen",
+      "name": "queen"
+    },
+    {
+      "class": "ICO-question-circle",
+      "name": "question-circle"
+    },
+    {
+      "class": "ICO-question-square",
+      "name": "question-square"
+    },
+    {
+      "class": "ICO-question",
+      "name": "question"
+    },
+    {
+      "class": "ICO-quote-left",
+      "name": "quote-left"
+    },
+    {
+      "class": "ICO-quote-right",
+      "name": "quote-right"
+    },
+    {
+      "class": "ICO-random",
+      "name": "random"
+    },
+    {
+      "class": "ICO-recycle",
+      "name": "recycle"
+    },
+    {
+      "class": "ICO-refresh",
+      "name": "refresh"
+    },
+    {
+      "class": "ICO-repair",
+      "name": "repair"
+    },
+    {
+      "class": "ICO-reply-all",
+      "name": "reply-all"
+    },
+    {
+      "class": "ICO-reply",
+      "name": "reply"
+    },
+    {
+      "class": "ICO-resize",
+      "name": "resize"
+    },
+    {
+      "class": "ICO-responsive",
+      "name": "responsive"
+    },
+    {
+      "class": "ICO-retweet",
+      "name": "retweet"
+    },
+    {
+      "class": "ICO-road",
+      "name": "road"
+    },
+    {
+      "class": "ICO-robot",
+      "name": "robot"
+    },
+    {
+      "class": "ICO-royal",
+      "name": "royal"
+    },
+    {
+      "class": "ICO-rss-feed",
+      "name": "rss-feed"
+    },
+    {
+      "class": "ICO-safety",
+      "name": "safety"
+    },
+    {
+      "class": "ICO-sale-discount",
+      "name": "sale-discount"
+    },
+    {
+      "class": "ICO-satellite",
+      "name": "satellite"
+    },
+    {
+      "class": "ICO-send-mail",
+      "name": "send-mail"
+    },
+    {
+      "class": "ICO-server",
+      "name": "server"
+    },
+    {
+      "class": "ICO-settings-alt",
+      "name": "settings-alt"
+    },
+    {
+      "class": "ICO-settings",
+      "name": "settings"
+    },
+    {
+      "class": "ICO-share-alt",
+      "name": "share-alt"
+    },
+    {
+      "class": "ICO-share-boxed",
+      "name": "share-boxed"
+    },
+    {
+      "class": "ICO-share",
+      "name": "share"
+    },
+    {
+      "class": "ICO-shield",
+      "name": "shield"
+    },
+    {
+      "class": "ICO-shopping-cart",
+      "name": "shopping-cart"
+    },
+    {
+      "class": "ICO-sign-in",
+      "name": "sign-in"
+    },
+    {
+      "class": "ICO-sign-out",
+      "name": "sign-out"
+    },
+    {
+      "class": "ICO-signal",
+      "name": "signal"
+    },
+    {
+      "class": "ICO-site-map",
+      "name": "site-map"
+    },
+    {
+      "class": "ICO-smart-phone",
+      "name": "smart-phone"
+    },
+    {
+      "class": "ICO-soccer",
+      "name": "soccer"
+    },
+    {
+      "class": "ICO-sort-alt",
+      "name": "sort-alt"
+    },
+    {
+      "class": "ICO-sort",
+      "name": "sort"
+    },
+    {
+      "class": "ICO-space",
+      "name": "space"
+    },
+    {
+      "class": "ICO-spanner",
+      "name": "spanner"
+    },
+    {
+      "class": "ICO-speech-comments",
+      "name": "speech-comments"
+    },
+    {
+      "class": "ICO-speed-meter",
+      "name": "speed-meter"
+    },
+    {
+      "class": "ICO-spinner-alt-1",
+      "name": "spinner-alt-1"
+    },
+    {
+      "class": "ICO-spinner-alt-2",
+      "name": "spinner-alt-2"
+    },
+    {
+      "class": "ICO-spinner-alt-3",
+      "name": "spinner-alt-3"
+    },
+    {
+      "class": "ICO-spinner-alt-4",
+      "name": "spinner-alt-4"
+    },
+    {
+      "class": "ICO-spinner-alt-5",
+      "name": "spinner-alt-5"
+    },
+    {
+      "class": "ICO-spinner-alt-6",
+      "name": "spinner-alt-6"
+    },
+    {
+      "class": "ICO-spinner",
+      "name": "spinner"
+    },
+    {
+      "class": "ICO-spreadsheet",
+      "name": "spreadsheet"
+    },
+    {
+      "class": "ICO-square",
+      "name": "square"
+    },
+    {
+      "class": "ICO-ssl-security",
+      "name": "ssl-security"
+    },
+    {
+      "class": "ICO-star-alt-1",
+      "name": "star-alt-1"
+    },
+    {
+      "class": "ICO-star-alt-2",
+      "name": "star-alt-2"
+    },
+    {
+      "class": "ICO-star",
+      "name": "star"
+    },
+    {
+      "class": "ICO-street-view",
+      "name": "street-view"
+    },
+    {
+      "class": "ICO-support-faq",
+      "name": "support-faq"
+    },
+    {
+      "class": "ICO-tack-pin",
+      "name": "tack-pin"
+    },
+    {
+      "class": "ICO-tag",
+      "name": "tag"
+    },
+    {
+      "class": "ICO-tags",
+      "name": "tags"
+    },
+    {
+      "class": "ICO-tasks-alt",
+      "name": "tasks-alt"
+    },
+    {
+      "class": "ICO-tasks",
+      "name": "tasks"
+    },
+    {
+      "class": "ICO-telephone",
+      "name": "telephone"
+    },
+    {
+      "class": "ICO-telescope",
+      "name": "telescope"
+    },
+    {
+      "class": "ICO-terminal",
+      "name": "terminal"
+    },
+    {
+      "class": "ICO-thumbs-down",
+      "name": "thumbs-down"
+    },
+    {
+      "class": "ICO-thumbs-up",
+      "name": "thumbs-up"
+    },
+    {
+      "class": "ICO-tick-boxed",
+      "name": "tick-boxed"
+    },
+    {
+      "class": "ICO-tick-mark",
+      "name": "tick-mark"
+    },
+    {
+      "class": "ICO-ticket",
+      "name": "ticket"
+    },
+    {
+      "class": "ICO-tie",
+      "name": "tie"
+    },
+    {
+      "class": "ICO-toggle-off",
+      "name": "toggle-off"
+    },
+    {
+      "class": "ICO-toggle-on",
+      "name": "toggle-on"
+    },
+    {
+      "class": "ICO-tools-alt-2",
+      "name": "tools-alt-2"
+    },
+    {
+      "class": "ICO-tools",
+      "name": "tools"
+    },
+    {
+      "class": "ICO-touch",
+      "name": "touch"
+    },
+    {
+      "class": "ICO-traffic-light",
+      "name": "traffic-light"
+    },
+    {
+      "class": "ICO-transparent",
+      "name": "transparent"
+    },
+    {
+      "class": "ICO-tree",
+      "name": "tree"
+    },
+    {
+      "class": "ICO-unique-idea",
+      "name": "unique-idea"
+    },
+    {
+      "class": "ICO-unlock",
+      "name": "unlock"
+    },
+    {
+      "class": "ICO-unlocked",
+      "name": "unlocked"
+    },
+    {
+      "class": "ICO-upload-alt",
+      "name": "upload-alt"
+    },
+    {
+      "class": "ICO-upload",
+      "name": "upload"
+    },
+    {
+      "class": "ICO-usb-drive",
+      "name": "usb-drive"
+    },
+    {
+      "class": "ICO-usb",
+      "name": "usb"
+    },
+    {
+      "class": "ICO-vector-path",
+      "name": "vector-path"
+    },
+    {
+      "class": "ICO-verification-check",
+      "name": "verification-check"
+    },
+    {
+      "class": "ICO-wall-clock",
+      "name": "wall-clock"
+    },
+    {
+      "class": "ICO-wall",
+      "name": "wall"
+    },
+    {
+      "class": "ICO-wallet",
+      "name": "wallet"
+    },
+    {
+      "class": "ICO-warning-alt",
+      "name": "warning-alt"
+    },
+    {
+      "class": "ICO-warning",
+      "name": "warning"
+    },
+    {
+      "class": "ICO-water-drop",
+      "name": "water-drop"
+    },
+    {
+      "class": "ICO-web",
+      "name": "web"
+    },
+    {
+      "class": "ICO-wheelchair",
+      "name": "wheelchair"
+    },
+    {
+      "class": "ICO-wifi-alt",
+      "name": "wifi-alt"
+    },
+    {
+      "class": "ICO-wifi",
+      "name": "wifi"
+    },
+    {
+      "class": "ICO-world",
+      "name": "world"
+    },
+    {
+      "class": "ICO-zigzag",
+      "name": "zigzag"
+    },
+    {
+      "class": "ICO-zipped",
+      "name": "zipped"
+    }
+  ]
