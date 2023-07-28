@@ -30,7 +30,21 @@ if(i_app.users){
 
                 const basicDataBase = jsonData.mysql[0];
                 const basicTables =basicDataBase.tables ?basicDataBase.tables: false ; 
-                const basicDB = ['users','usersSessions','usersPasswords','usersPermissions'];
+                const basicDB = ['users','usersSessions','usersPasswords','usersApps','usersType','typesApps','permissions','appsPermissions','usersPermissions'];
+                const insertDB = {
+                    usersApps:['users', 'Basic Users App'],
+                    usersType:['admin', 'Basic Admin User'],
+                    typesApps:[1,1],
+                    permissions:[
+                        ['create','Ability to create new orders'],
+                        ['update','Ability to update existing orders'],
+                        ['delete','Ability to delete orders'],
+                        ['view','Ability to view order details'],
+                        ['approve','Ability to approve orders']
+                    ],
+                    appsPermissions:[[1,1],[1,2],[1,3],[1,4],[1,5]],
+                    usersPermissions:[[1,1,1],[1,1,2],[1,1,3],[1,1,4],[1,1,5]]
+                }
                 let needDB   = [];
                 const editDB = [];
               
@@ -48,11 +62,19 @@ if(i_app.users){
                }else{
                 needDB = basicDB;
                }
-              
+            const insertBasic = ()=>{
+                for(var i = 0; i < editDB.length;i++){
+                    const dbN = editDB[i];
+                    if(insertDB[dbN]){
+                        console.log(['insertDB',dbN]);
+                        db({query:[{a:'in',n:dbN,d:insertDB[dbN]}]},dbN,callBack);
+                    }
+                }
+            }
             const updateDBFILE = ()=>{
               
                 if(editDB.length > 0){
-               
+                 
                     const basicDBPath = path.join(__dirname, 'basicDB','basicDB.json');
                         fs.readFile(basicDBPath, (err, basicDBdata) => {
                             if (err) {
@@ -77,6 +99,7 @@ if(i_app.users){
                                       console.log(err);
                                     else {
                                       console.log("db.app update");
+                                      insertBasic();
                                  
                                     }
                                   });
@@ -110,6 +133,7 @@ if(i_app.users){
                                  db({query:[{a:'create',d:sqlDataST}]}, false, callBack).then(creatResult=>{
                                     editDB.push(dbName)
                                     console.log(' DB :'+dbName+' created');
+                                   
                                     if(needDB.length == editDB.length){
                                         console.log('all needed DB table Created');
                                         updateDBFILE();

@@ -4,3 +4,4 @@ CREATE TABLE usersApps (
   `description` varchar(255) COLLATE utf8_unicode_ci ,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+

@@ -14,7 +14,7 @@ const insertQuery = (ob,tables)=>{
     const selectedColumn = selectColumn(notId);
     const insertValuesData   = insertValues(ob.d);
     
-        let getText = `INSERT INTO ${tableName} (${selectedColumn}) VALUES (${insertValuesData}) `;
+        let getText = `INSERT INTO ${tableName} (${selectedColumn}) VALUES ${insertValuesData} `;
         
         return getText;
     }else{

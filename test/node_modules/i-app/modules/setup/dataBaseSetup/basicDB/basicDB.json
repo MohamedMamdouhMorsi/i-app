@@ -1,6 +1,11 @@
 {
-    "users":["id","username","firstname","lastname","email","phonenumber","activate"],
+    "users":["id","username","firstname","lastname","email","phonenumber","accountType","activate"],
     "usersSessions":["userId","deviceToken","scureToken"],
     "usersPasswords":["userId","password"],
-    "usersPermissions":["userId","permission","state","permissionGroup"]
+    "usersApps":["id","appName","description"],
+    "usersType":["id","typeName","description"],
+    "typesApps":["typeId","appId"],
+    "permissions":["id","permissionName","description"],
+    "appsPermissions":["appId","permissionId"],
+    "usersPermissions":["userId","appId","permissionId"]
 }

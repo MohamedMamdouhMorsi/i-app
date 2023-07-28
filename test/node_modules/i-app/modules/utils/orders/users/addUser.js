@@ -11,6 +11,6 @@ const addUser = (userData,res)=>{
     res.writeHead(200, { 'Content-Type': 'application/json'});
     res.end(JSON.stringify({ res: true}));
  }
- db({query:[{a:'in',n:'users',d:[userData.username,userData.firstname,userData.lastname,userData.email,userData.phonenumber,'1']}]},res,callBack)
+ db({query:[{a:'in',n:'users',d:[userData.username,userData.firstname,userData.lastname,userData.email,userData.phonenumber,userData.accountType,'1']}]},res,callBack)
 }
 module.exports = addUser;

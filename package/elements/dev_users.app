@@ -13,6 +13,7 @@
                                             t:'b'
                                             s:'dataBaseCheck'
                                         }
+                                       
                                         {
                                             i:'dataBaseHandler'
                                             c:'D_INB'
@@ -22,6 +23,12 @@
                                                     const callBack = (res,data)=>{
                                                         if(res.res){
                                                             _.CR_({t:'icon',c:'ICO-check F_S_30 F_GRE7'},'dataBaseHandler',false);
+                                                             _.CR_({
+                                                                I:'dev_database',
+                                                                v:{database_name:'Users'}
+                                                                },
+
+                                                                'databaseHolder',false);
                                                         }else{
                                                             _.CR_({t:'icon',c:'ICO-close F_S_30 F_GRE7'},'dataBaseHandler',false);
                                                         }
@@ -30,6 +37,9 @@
                                                     _._POST('/api',{order:'dataBaseReport'},callBack);
                                                 }
                                             }
+                                        }
+                                        {
+                                            i:'databaseHolder'
                                         }
                                     ]
                                 }

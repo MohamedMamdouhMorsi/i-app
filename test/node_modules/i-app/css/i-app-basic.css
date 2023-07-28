@@ -103,7 +103,16 @@ input::-moz-focus-inner {
     padding: 0;
     border: 0;
 }
-
+dialog{
+    padding: 0.5rem;
+    z-index: 10;
+    max-width:700px ;
+    background-color: var(--W);
+}
+dialog::backdrop{
+    background-color:hsl(200,100%,200%,1);
+ 
+}
 textarea,
 input {
     line-height: normal;
@@ -167,7 +176,39 @@ hr {
     margin-bottom: 5px;
 }
 
+.table tr:nth-of-type(2n){
+ 
+    filter: brightness(90%);
+}
+.table tr:nth-of-type(2n):hover{
+ 
+    filter: brightness(70%);
+}
+.table thead{
+   
+    filter: brightness(80%);
+}
+.table{
+    text-transform: capitalize;
+    border-collapse: collapse !important;
+}
+@media (max-width:650px) {
+    .table {
+        width: 100%;
+    }
+    .table  th{
+    display: none;
+    }
+    .table td {
+        width: 100%;
+        display: block;
 
+    }
+    .table td::before {
+       content: attr(model_data) " : ";
+       font-weight: 700;
+    }
+}
 /**********************************************************
 ** hover
 **/
@@ -219,7 +260,7 @@ smart ui
 */
 tr:hover,
 tr:focus {
-    filter: brightness(80%);
+    filter: brightness(70%);
 }
 
 ::placeholder {

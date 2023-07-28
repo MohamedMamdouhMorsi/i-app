@@ -16,7 +16,7 @@ const orAndOption =(op,table)=>{
         for(var andOp = 0; andOp < OrOB.length; andOp++){
             const AndOB = OrOB[andOp];
            
-            let columnIndex = AndOB[0] ;
+            let columnIndex = AndOB[0];
             let columnName ;
             if(typeof columnIndex === 'string' ){
                 let coulmnExist = false;
@@ -56,7 +56,7 @@ const orAndOption =(op,table)=>{
             opText += ' OR ';
         }
     }
-
+console.log(['or and',table]);
 return opText;
 }
 module.exports = orAndOption

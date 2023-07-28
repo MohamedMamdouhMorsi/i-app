@@ -1465,9 +1465,9 @@ const funcHandel = (str) => {
   
         output = text.replace(txtQ, (_, query) =>
         {
-        
-          if(data[query.trim()]){
-            return `${data[query.trim()]}`;
+        const testData = data[query.trim()]=== 0 ? '0':data[query.trim()]
+          if(testData){
+            return `${testData}`;
           }else{
             return query.trim();
           }
@@ -2545,6 +2545,7 @@ const funcHandel = (str) => {
               if(cur_txt_ob.c == "q"){
                 const dataKey = cur_txt_ob.d;
                 const dataValue = data[dataKey];
+                
                 txtv += dataValue;
               }else if(cur_txt_ob.c == "qtx"){
               
@@ -2617,8 +2618,9 @@ const funcHandel = (str) => {
     const newFunc = ()=>{
               this.v = i_app_v ;
               this._ = URS();
+              this.Q = ob.Q ? ob.Q : false;
               try{ 
-                return fn(this.v,this._);
+                return fn(this.v,this._,this.Q );
             }catch(err){
               CL_("your function return error"+err);
             }
@@ -2683,13 +2685,23 @@ const funcHandel = (str) => {
         L_SCRIPT('cele',[e,URS()]);
     }
   }
-  const L_ROUTE = (body,[id,data,i_route])=>{
+  const L_ROUTE = (body,[id,data,i_route,ob])=>{
   
     if(!i_app_model[i_route] ){
       i_app_model[i_route] = COPY_OB(body);
     }
-   
-      CR_(body,id,data);
+    const newOb =  COPY_OB(body);
+    if(ob && typeof ob === 'object'){
+      for (const key in ob) {
+        if(key !== 'I' && key !== 'offset' && key !== 'i' && key !== 'i_e'){
+         
+          newOb[key] = ob[key];
+        }
+      }
+    }
+    
+    CR_(newOb,id,data);
+      
   }
   const G_SRC = (src)=>{
     if(src == 'app.png'){
@@ -3003,9 +3015,14 @@ const filterSearchItems = (e,data)=>{
            const obData = res[i];
            for(var m =0 ; m < models.length;m++){
              const model = models[m];
+             let render = true;
+             if(model.once && i > 0){
+               render = false;
+             }
              const toElm = model.to ? model.to : elmId;
-            
-             CR_(model,toElm,obData);
+              if(render){
+                CR_(model,toElm,obData);
+              }
            }
          }
 
@@ -3137,6 +3154,34 @@ const filterSearchItems = (e,data)=>{
     }
     return false;
   }
+  const forKeys = (ob,data)=>{
+    const obst = JDS_(ob.forkey);
+    const elm = [];
+    
+    for (const key in data) {
+      if (Object.prototype.hasOwnProperty.call(data, key)) {
+        
+          const newObSt = obst.replace(/key/g,key);
+          const newOb   = JD_(newObSt);
+          let render = true; 
+          if(ob.notKey){
+            for(var k = 0 ; k < ob.notKey.length; k++){
+              if(ob.notKey[k] == key){
+                render = false;
+              }
+            }
+          }
+          if(render){
+            elm.push(newOb);
+          }
+           
+
+    }
+  }
+  return elm;
+ 
+   
+  }
   const CR_ =async (body,id,data)=>{
 
   
@@ -3183,7 +3228,10 @@ const filterSearchItems = (e,data)=>{
   body_ = body.body;
   }
   const ob = COPY_OB(body_);
-
+if(ob.forkey){
+  const fork =  forKeys(ob,data);
+  ob.e = ob.e  ? [...fork,...ob.e]:[...fork];
+}
   if(data){
    ob.Q = data;   
   }else  if(ob.Q){
@@ -3348,13 +3396,15 @@ const filterSearchItems = (e,data)=>{
    if(ob.src){
     e.src = G_SRC(ob.src);
     }
-  if(isI_APP){
-  
-  /// set global varabils
+    ///set global variables
   
   if(ob.v){
+  
     await setObV(ob.v);
-  }
+}
+  if(isI_APP){
+  
+  
   
   // set basic id
   
@@ -3365,8 +3415,12 @@ const filterSearchItems = (e,data)=>{
   
   //  childern elements id 
   if(ob.q && ob.q.i && ob.q.s){
-    if(data.length > 0){
-      ob.i = `${ob.r.s}_${data.d[ob.r.i]}`;
+    if(data.d ){
+      CL_(['data.d',data.d])
+      ob.i = `${ob.q.s}_${data.d[ob.q.i]}`;
+    }else  if(ob.Q){
+      CL_(['ob.Q',ob.Q])
+      ob.i = `${ob.q.s}_${ob.Q[ob.q.i]}`;
     }
   }else{
   
@@ -3533,6 +3587,11 @@ const filterSearchItems = (e,data)=>{
   if (ob.name) {
     e.setAttribute("name", ob.name);
   }
+  if(ob.attr){
+    for (const [k, v] of Object.entries(ob.attr)) {
+      e.setAttribute(k, v);
+      }
+  }
   if ( ob.TiTx) {
   cr_ob_title(ob,id,e);
   }
@@ -3660,11 +3719,16 @@ const filterSearchItems = (e,data)=>{
     const IROUTE = ob.IRoute ? ob.IRoute : ob.I;
     
     if(! i_app_model[IROUTE] ){
-    G_root(`${app.dir.src}${IROUTE}.${app.dir.file ? app.dir.file :'app'}`,L_ROUTE,[ob.i,data,IROUTE]);
+    G_root(`${app.dir.src}${IROUTE}.${app.dir.file ? app.dir.file :'app'}`,L_ROUTE,[ob.i,data,IROUTE,ob]);
     }else if(i_app_model[IROUTE]){
     
-     const I_R = i_app_model[IROUTE];
-    
+     const I_R =COPY_OB(i_app_model[IROUTE]);
+     for (const key in ob) {
+      CL_(['obKey2',key])
+      if(key !== 'I' && key !== 'offset' && key !== 'i' && key !== 'i_e'){
+        I_R[key] = ob[key];
+      }
+    }
       CR_(I_R,ob.i,data);
   
     }
@@ -3742,7 +3806,7 @@ const filterSearchItems = (e,data)=>{
        CR_(i_app_model[i_route],"i-app",false)
     }else{
         
-        G_root(`${app.dir.src}${i_route}.${app.dir.file ?app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route]);
+        G_root(`${app.dir.src}${i_route}.${app.dir.file ?app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route,false]);
     }
   }
   const openRoot = (i_route) => {
@@ -3772,7 +3836,7 @@ const filterSearchItems = (e,data)=>{
             windowHistory.push(i_route);
             historyIndex  = windowHistory.length - 1;
           
-            G_root(`${app.dir.src}${i_route}.${app.dir.file ? app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route]);
+            G_root(`${app.dir.src}${i_route}.${app.dir.file ? app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route,false]);
         }
   }
 
