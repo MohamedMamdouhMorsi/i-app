@@ -22,23 +22,28 @@ const asset_file =(req,res,userDir,swScript,userData)=>{
         filePath = path.join(__dirname,'..','..','..','css', 'icofont.css');
     }else  if (req.url === '/app.png') {
       filePath = path.join(__dirname,'..','..','..','img', 'app.png');
-  }else if (req.url === '/i-app-basic.css' ) {
+    }else if (req.url === '/i-app-basic.css' ) {
         filePath = path.join(__dirname,'..','..','..','css', 'i-app-basic.css');
     }else {
+
       let is_get = false;
       let lastUrl = req.url;
       let getBody = '';
       const urlArr = req.url.split('?');
+
       if(urlArr.length > 1){
-        lastUrl = urlArr[0];
-        is_get  = true;
-        getBody = urlArr[1];
+
+        lastUrl  = urlArr[0];
+        is_get   = true;
+        getBody  = urlArr[1];
         filePath = path.join(userDir,'public', lastUrl);
+      
       }else{
-        if(filePath == null && backBody == null){
-          filePath = path.join(userDir,'public', lastUrl);
-        }
-       
+
+          if(filePath == null && backBody == null){
+              filePath = path.join(userDir,'public', lastUrl);
+          }
+
       }
       
       

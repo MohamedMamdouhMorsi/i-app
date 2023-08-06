@@ -153,7 +153,6 @@
                                             _.D_CL(['theme','D_N']);
                                         v.tabs.cureTab = 'themeTab';
                                         v.tabs.cureBody = 'theme';
-                                            
                                     }
                                 }
                             }
@@ -170,7 +169,6 @@
                                             _.D_CL(['lang','D_N']);
                                         v.tabs.cureTab = 'langTab';
                                         v.tabs.cureBody = 'lang';
-                                            
                                     }
                                 }
                             }
@@ -187,16 +185,15 @@
                                         _.D_CL(['appDir','D_N']);
                                         v.tabs.cureTab = 'dirTab';
                                         v.tabs.cureBody = 'appDir';
-                                            
                                     }
                                 }
                             }
-                              {
+                            {
                                 t:'b'
                                 i:'usersTab'
                                 c:'PD_10   mR_10 mL_10  F_B pointer D_N'
                                 s:'users'
-                                perClass:{ data:'app' key:'users' value:'true' delClass:'D_N'}
+                                perClass:{ data:'app' key:'users' value:'true'  delClass:'D_N'}
                                 a:{
                                     fn:{
                                         _.D_CL([v.tabs.cureTab,'activeTab']);

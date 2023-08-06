@@ -1,5 +1,6 @@
 {
     t:'sp'
+    c:'F_B'
     e:[
         {
             t:'sp'
@@ -14,8 +15,13 @@
                     c:'container MD HH'
                     e:[
                         {
+                            c:'WW mT_10 MD MW_400'
+                            e:[
+                                {
                                     t:'icon'
                                     c:'ICO-arrow-left F_S_30 POS_FX LL_10 TT_10 pointer'
+                        }
+                            ]
                         }
                         {
                             c:'WW mT_80 MD MW_400'

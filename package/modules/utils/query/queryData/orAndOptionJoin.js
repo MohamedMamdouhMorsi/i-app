@@ -12,7 +12,7 @@ const valueFN = (ob,master)=>{
     let val = '';
     if(ob.t === 'q'){
         const name = ob.n? ob.n+'.' : master+'.';
-        val = name+''+ob.d;
+        val = `${name}${ob.d}` ;
     }
     return val;
 }

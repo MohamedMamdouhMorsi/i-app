@@ -70,8 +70,10 @@
                                                                         if(_.E_I_S('isUsers').checked){
                                                                             v.app.users = 'true';
                                                                             _.D_CL(['usersTab','D_N']);
+                                                                              _.D_CL(['users','D_N']);
                                                                             }else{
                                                                                 _.A_CL('usersTab','D_N');
+                                                                                  _.A_CL('users','D_N');
                                                                                 _.AL_('You will  deactivate users option that will deactivate  users system and will not effect or delete your database you can take the necessary action for this')
                                                                               v.app.users = 'false';
                                                                             }

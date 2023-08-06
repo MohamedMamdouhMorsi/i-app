@@ -49,7 +49,7 @@
                                         {
                                             t:'op'
                                             vq:'code'
-                                            s:'q.{name}'
+                                            s:'q.{name} -q.{nativeName} '
                                         }
                                     ]
                         }

@@ -110,7 +110,7 @@ dialog{
     background-color: var(--W);
 }
 dialog::backdrop{
-    background-color:hsl(200,100%,200%,1);
+    background-color:hsl(0,0%,0%,0.6);
  
 }
 textarea,
@@ -192,7 +192,7 @@ hr {
     text-transform: capitalize;
     border-collapse: collapse !important;
 }
-@media (max-width:650px) {
+@media (max-width:960px) {
     .table {
         width: 100%;
     }

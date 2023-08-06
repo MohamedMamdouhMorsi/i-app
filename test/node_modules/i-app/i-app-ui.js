@@ -477,14 +477,22 @@ const i_app = (()=>{
   /**
   
   Creates a deep copy of an object.
-  @param {object} mw - The object to be copied.
+  @param {object} ob - The object to be copied.
   @returns {object} A deep copy of the object.
   */
-  const COPY_OB = (mw) => {  
-    if(typeof mw === 'object'){
-      const objSt ={...mw};
-     // return structuredClone(mw) ;
-     return objSt;
+  const COPY_OB = (ob) => {  
+    if(typeof ob === 'object'){
+      if(ob.a && ob.fn){
+       const fn = ob.a;
+       delete ob.a;
+       const NewOb = JD_(JDS_(ob));
+       NewOb.a = fn;
+       return  NewOb;
+      }else{
+        const NewOb = JD_(JDS_(ob));
+ 
+        return  NewOb;
+      }
     }else{
       CL_('Error COPY_OB is Not Object');
     }
@@ -525,6 +533,8 @@ const i_app = (()=>{
   }
   }
   };
+
+
   const deleteConstKeys =(obj)=> {
     for (const key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, key)) {
@@ -627,7 +637,12 @@ const hideOtherKeys = (k,obj)=>{
         E_I(id).value = value;
       }else if(E_I_S(id)){
         E_I_S(id).value = value;
+      
       }
+      if(I_OB[id]){
+        I_OB[id].i_e.value = value;
+      }
+    
     }else{
       element.value = value;
     }
@@ -745,6 +760,16 @@ const hideOtherKeys = (k,obj)=>{
   }
 const makeFunction = (fn)=>{
 return DC_(fn);
+}
+/**
+ * SHA256 Encrypt
+ */
+ const SHA256 = async(message) => {
+  const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8); // hash the message
+  const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+  return hashHex;
 }
 
 
@@ -1015,41 +1040,40 @@ const funcHandel = (str) => {
       .then((res) => {
         // If the response is successful, convert the text response to JSON
         if (res) {
-          if(isJsonFile){
-            res.json().then((json) => {
+                if(isJsonFile){
+                  res.json().then((json) => {
 
-              for(var u = 0 ; u < wait_root[url].length ; u++){
-                const callBack_ = wait_root[url][u][0];
-                const data_ = wait_root[url][u][1];
-                callBack_(json, data_);
-              }
-             delete  wait_root[url];
-              
-            });
-  
-          }else{
-            res.text().then((txt) => {
+                    for(var u = 0 ; u < wait_root[url].length ; u++){
+                      const callBack_ = wait_root[url][u][0];
+                      const data_ = wait_root[url][u][1];
+                      callBack_(json, data_);
+                    }
+                  delete  wait_root[url];
+                    
+                  });
+        
+                }else{
+                  res.text().then((txt) => {
 
-              var jsonOb ;
-              if(isJson(txt)){
-                  // Clean the text response using the cleanSt function   
-                  jsonOb = OBJ_(txt);
-              } else{
-                  var jsonTx = cleanSt(txt);
-                      jsonOb = OBJ_(jsonTx);
-              }
+                    var jsonOb ;
+                    if(isJson(txt)){
+                        // Clean the text response using the cleanSt function   
+                        jsonOb = OBJ_(txt);
+                    } else{
+                        var jsonTx = cleanSt(txt);
+                            jsonOb = OBJ_(jsonTx);
+                    }
 
-              // Log the cleaned JSON to the console for debugging
-              // Pass the cleaned JSON and any additional data to the specified callback function
-              for(var u = 0 ; u < wait_root[url].length ; u++){
-                const callBack_ = wait_root[url][u][0];
-                const data_ = wait_root[url][u][1];
-                callBack_(jsonOb, data_);
-              }
-             delete  wait_root[url];
-            });
-          }
-   
+                    // Log the cleaned JSON to the console for debugging
+                    // Pass the cleaned JSON and any additional data to the specified callback function
+                    for(var u = 0 ; u < wait_root[url].length ; u++){
+                      const callBack_ = wait_root[url][u][0];
+                      const data_ = wait_root[url][u][1];
+                      callBack_(jsonOb, data_);
+                    }
+                  delete  wait_root[url];
+                  });
+                }
         }
       })
       .catch((e) => {
@@ -1087,31 +1111,69 @@ const funcHandel = (str) => {
         }
       });
   };
-
-  const _POST = (url,data,callback)=>{
-    fetch(url, {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: {
-                  "Content-type": "application/json; charset=UTF-8"
-                }
+  const Queries ={} 
+  const _POST =  async(url, data, callback) => {
+    let send = true;
+    let isQuery = false;
+    if (data.query || data[0] && data[0].a) {
+      const queryName =await SHA256(JDS_(data));
+     CL_(queryName)
+      isQuery = true;
+      if (Queries[queryName]) {
+        if (Queries[queryName].res) {
+          send = false;
+         
+          const res = Queries[queryName].res;
+          callback(res, data);
+        } else {
+          if (Queries[queryName].callBack) {
+                Queries[queryName].callBack.push(callback);
+                send = false;
           }
-) .then((res) => {
-
-  res.json().then((json) => {
-    if(json.res && json.res == 'destroySession'){
-        destroySession();
-    }else{
-    if(typeof callback === 'function'){
-    
-      callback(json, data);
+        }
+      } else {
+        Queries[queryName] = { callBack: [callback], process: true };
+      }
     }
-  }
-    
-  });
- 
-});
-  }
+   
+
+      if (send) {
+        
+       fetch(url, {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-type": "applica tion/json; charset=UTF-8",
+          },
+        })
+          .then((res) => res.json())
+          .then(async(json) => {
+           
+            if (json.res && json.res === "destroySession") {
+              destroySession();
+            } else {
+              if (typeof callback === "function") {
+                if (isQuery) {
+                  const queryName = await SHA256(JDS_(data));
+                if (Queries[queryName]) {
+                  if (Queries[queryName].callBack && Queries[queryName].callBack.length > 0) {
+                    Queries[queryName].res = json;
+                    for (const cureCallBack of Queries[queryName].callBack) {
+                      cureCallBack(json, data);
+                    }
+                    Queries[queryName].callBack = [];
+                  }
+                }
+              } else {
+                  callback(json, data);
+                }
+              }
+            }
+          });
+      
+    }
+  
+  };
   const SWV =(data)=>{
     if(typeof SWITCH_VOICE === 'function'){
       return SWITCH_VOICE(data)
@@ -1451,7 +1513,7 @@ const funcHandel = (str) => {
   *  
   */
  
-  function replacePattern(text,id,data) {
+  const replacePattern = (text,id,data)=>{
    
     const txtQ = /q\.\{\s*(?<query>[^\}]+)\s*\}/g;
     const txtQTranslate = /qt\.\{\s*(?<queryTranslate>[^\}]+)\s*\}/g;
@@ -1465,7 +1527,17 @@ const funcHandel = (str) => {
   
         output = text.replace(txtQ, (_, query) =>
         {
-        const testData = data[query.trim()]=== 0 ? '0':data[query.trim()]
+        let  testData = query.trim();
+        if( data[query.trim()]){
+          if( data[query.trim()] === 0){
+            testData = '0'
+          }else{
+            testData = data[query.trim()]
+          }
+        }else{
+          testData =  false;
+        }
+
           if(testData){
             return `${testData}`;
           }else{
@@ -2622,7 +2694,7 @@ const funcHandel = (str) => {
               try{ 
                 return fn(this.v,this._,this.Q );
             }catch(err){
-              CL_("your function return error"+err);
+              CL_(["your function return error"+err,fnSt]);
             }
             }
     
@@ -2693,8 +2765,8 @@ const funcHandel = (str) => {
     const newOb =  COPY_OB(body);
     if(ob && typeof ob === 'object'){
       for (const key in ob) {
-        if(key !== 'I' && key !== 'offset' && key !== 'i' && key !== 'i_e'){
-         
+        if(key !== 'I' && key !== 'offset' && key !== 'i'  && key !== 'q' && key !== 'i_e' && key !== 'e' && key !== 't' && key !== 'typ'){
+       
           newOb[key] = ob[key];
         }
       }
@@ -2830,8 +2902,11 @@ const filterSearchItems = (e,data)=>{
 /**
  * select element
  */
+
  const selectElement =(ob,data)=>{
+ 
   const holderId = `${ob.i}_holder`;
+
     if(!i_app_model['sl'] ){
           const callback = (body,[ob,data])=>{
             i_app_model['sl'] = body;
@@ -2839,11 +2914,13 @@ const filterSearchItems = (e,data)=>{
           }
         G_root('sl.app',callback,[ob,data]);
       
-    }else{
-        const selectModel = COPY_OB(i_app_model['sl']);
+    }else if(i_app_model['sl'] ){
+      
+      const NewSelectElment = ()=>{
         const fnSt = `{_.SW_CL("${ob.i}_selectScreen","D_N")}`;
         const fnStDC = DC_(fnSt);
        
+        const selectModel = COPY_OB(i_app_model['sl']);
         selectModel.e[0].i = `${ob.i}_selectButton`;
         selectModel.e[0].a = {fn: fnStDC}
         if(ob.c){
@@ -2857,6 +2934,7 @@ const filterSearchItems = (e,data)=>{
         const clearInputFnSt = `{_.IN_V("${ob.i}_selectSearch",'');}`;
         const clearInputFnStDC = DC_(clearInputFnSt);
         const basicSearchText = ob.s ? ob.s : 'search-text';
+
         selectModel.e[1].e[0].e[0].a =  {fn: fnStDC}
         selectModel.e[1].i = `${ob.i}_selectScreen`;
         selectModel.e[1].e[0].e[1].e[0].i = `${ob.i}_selectSearch`;
@@ -2865,114 +2943,137 @@ const filterSearchItems = (e,data)=>{
         selectModel.e[1].e[0].e[1].e[0].a = {e:'input',fn:searchFnStDC};
         selectModel.e[1].e[0].e[2].i = `${ob.i}_selectItems`;
         selectModel.e[1].e[0].e[2].e =[];
+        return selectModel;
+      }
+        const selectModel = NewSelectElment();
+     
+        
+        
         if(ob.e && ob.e.length > 0){
-
-          selectModel.e[1].e[0].e[2].e =[...ob.e];
+         
+          selectModel.e[1].e[0].e[2].e =ob.e;
           for(var i = 0; i < selectModel.e[1].e[0].e[2].e.length;i++){
             if(selectModel.e[1].e[0].e[2].e[i].v || selectModel.e[1].e[0].e[2].e[i].val){
+              CL_(selectModel.e[1].e[0].e[2].e[i])
               const val =selectModel.e[1].e[0].e[2].e[i].v?selectModel.e[1].e[0].e[2].e[i].v: selectModel.e[1].e[0].e[2].e[i].val;
-              const fnStItem = `{_.IN_V("${ob.i}","${val}");_.SW_CL("${ob.i}_selectScreen","D_N");_.elmChange('${ob.i}');}`;
+              const fnStItem = `{_.IN_V("${ob.i}","${selectModel.e[1].e[0].e[2].e[i].val}");_.CL_(_.E_I_V('${ob.i}'));_.SW_CL("${ob.i}_selectScreen","D_N");_.elmChange('${ob.i}');}`;
               const fnStItemDC = DC_(fnStItem);
                     selectModel.e[1].e[0].e[2].e[i].a = {fn:fnStItemDC};
                     selectModel.e[1].e[0].e[2].e[i].i = `${i}_item`;
             }
           
           }
-          selectModel.e[0].s = selectModel.e[1].e[0].e[2].e[0] && selectModel.e[1].e[0].e[2].e[0].s ?selectModel.e[1].e[0].e[2].e[0].s : 'No Items';
-          CR_(selectModel,holderId,data);
-        }else if(data){
-          if(ob.mod == 'phonecode'){
-            for(var i = 0 ; i < data.length ; i++){
-              const lowerCode  = data[i].code.toLowerCase();
-              const imgSrc     = `flags/${lowerCode}.png`;
-              const fnStItem   = `{
-                _.IN_V("${ob.i}","${data[i].dialCode}");
-                _.SW_CL("${ob.i}_selectScreen","D_N");
-                _.elmChange('${ob.i}_dialCode');
-                _.E_I_S('${ob.i}_flag').src = _.G_SRC('${imgSrc}');
-                _.E_I_S('${ob.i}_code').innerText = '${data[i].dialCode}';
-              }`;
-
-              const fnStItemDC = DC_(fnStItem);
-              const selectItem = {
-                c:'WW ST_B_GRY8_1 pointer PD_4',
-                i: `${i}_item`,
-                e:[
-                  {
-                    t:'img',
-                    c:'W_20',
-                    src:imgSrc
-                  },
-                  {
-                    t:'sp',
-                    s:'q.{dialCode} ',
-                    c:'F_GRY7 W_50 mL_10 '
-                  },{
-                    t:'sp',
-                    s:'q.{name} ',
-                    c:'F_S_12 '
-                  },{
-                    t:'sp',
-                    s:' ( q.{originalName} )',
-                    c:'F_S_12 '
-                  }
-                ],
-                Q:data[i] ,
-                a:{fn:fnStItemDC}
-            }
-            selectModel.e[1].e[0].e[2].e.push(selectItem);
-            }
-
-            const firstLowerCode  = data[0].code.toLowerCase();
-            const firstImgSrc     = `flags/${firstLowerCode}.png`;
-            selectModel.e[0].e    = [{t:'img',i:`${ob.i}_flag`,src: firstImgSrc ,c:'W_20'},{t:'sp',i:`${ob.i}_code`,s: data[0].dialCode ,c:'mL_5'},{t:'icon',c:'ICO-caret-down mL_5'}];
-            CR_(selectModel,holderId,false);
-
-          }else{
-
-              if(ob.model){
-              
-                for(var i = 0 ; i < data.length ; i++){
-                    for(var m = 0 ; m < ob.model.length ; m++){
-                      const model_ = ob.model[m]; 
-                      const _selectButtonData = {t:"sp",s:model_.s ? model_.s : 'no model text' }
-                      const fnStItem   = `{
-                        _.IN_V("${ob.i}","${data[i][model_.vq]}");
-                        _.elmChange('${ob.i}');
-                        _.SW_CL("${ob.i}_selectScreen","D_N");
-                        _.E_I_S("${ob.i}_selectButton").innerHTML = '';
-                        _.CR_(${JDS_(_selectButtonData)} ,'${ob.i}_selectButton',${JDS_(data[i])});
-                      }`;
-                  
-                      const fnStItemDC = DC_(fnStItem);
-                      const selectItem = {
-                        c:'WW ST_B_GRY8_1 pointer PD_4',
-                        i: `${i}_item`,
-                        e:[
-                          {
-                            t:'sp',
-                            s:model_.s,
-                            c:'F_S_12 '
-                          }
-                        ],
-                        Q:data[i] ,
-                        a:{fn:fnStItemDC}
-                    }
-                    if(ob.data && ob.data.order && ob.data.order == 'icons'){
-                      selectItem.e = [{
-                        t:'icon',
-                        c:'F_S_30 '+data[i].class
-                      },...selectItem.e ]
-                    }
-                    selectModel.e[1].e[0].e[2].e.push(selectItem);
-                    }
-                }
-                selectModel.e[0].e    = [{t:'sp',Q:data[0],i:`${ob.i}_code`,s:ob.s ,c:'mL_5'}];
-                CR_(selectModel,holderId,false);
-              }
-             
-          }
          
+          selectModel.e[0].s = selectModel.e[1].e[0].e[2].e[0] && selectModel.e[1].e[0].e[2].e[0].s ?selectModel.e[1].e[0].e[2].e[0].s : 'No Items';
+        
+          CR_(selectModel,holderId,data);
+          
+        }else {
+          if(data){
+           
+            if( ob.mod == 'phonecode'){
+              for(var i = 0 ; i < data.length ; i++){
+                const lowerCode  = data[i].code.toLowerCase();
+                const imgSrc     = `flags/${lowerCode}.png`;
+                const fnStItem   = `{
+                  _.IN_V("${ob.i}","${data[i].dialCode}");
+                  _.SW_CL("${ob.i}_selectScreen","D_N");
+                  _.elmChange('${ob.i}_dialCode');
+                  _.E_I_S('${ob.i}_flag').src = _.G_SRC('${imgSrc}');
+                  _.E_I_S('${ob.i}_code').innerText = '${data[i].dialCode}';
+                }`;
+  
+                const fnStItemDC = DC_(fnStItem);
+                const selectItem = {
+                  c:'WW ST_B_GRY8_1 pointer PD_4',
+                  i: `${i}_item`,
+                  e:[
+                    {
+                      t:'img',
+                      c:'W_20',
+                      src:imgSrc
+                    },
+                    {
+                      t:'sp',
+                      s:'q.{dialCode} ',
+                      c:'F_GRY7 W_50 mL_10 '
+                    },{
+                      t:'sp',
+                      s:'q.{name} ',
+                      c:'F_S_12 '
+                    },{
+                      t:'sp',
+                      s:' ( q.{originalName} )',
+                      c:'F_S_12 '
+                    }
+                  ],
+                  Q:data[i] ,
+                  a:{fn:fnStItemDC}
+              }
+              selectModel.e[1].e[0].e[2].e.push(selectItem);
+              }
+  
+              const firstLowerCode  = data[0].code.toLowerCase();
+              const firstImgSrc     = `flags/${firstLowerCode}.png`;
+              selectModel.e[0].e    = [{t:'img',i:`${ob.i}_flag`,src: firstImgSrc ,c:'W_20'},{t:'sp',i:`${ob.i}_code`,s: data[0].dialCode ,c:'mL_5'},{t:'icon',c:'ICO-caret-down mL_5'}];
+              
+              CR_(selectModel,holderId,data)
+            }else  if( ob.mod !== 'phonecode' && ob.model ){
+            
+              for(var i = 0 ; i < data.length ; i++){
+                  for(var m = 0 ; m < ob.model.length ; m++){
+                    const model_ = ob.model[m]; 
+                    const _selectButtonData = {t:"sp",s:model_.s ? model_.s : 'no model text' }
+                    let vq = '';
+                    if(model_.vq &&  data[i][model_.vq] ){
+                      vq = `_.IN_V("${ob.i}","${data[i][model_.vq]}");`;
+                    }else  if(model_.val ){
+                      vq = `_.IN_V("${ob.i}","${model_.val }");`;
+                    }
+                    const fnStItem   = `{
+                      ${vq}
+                      _.elmChange('${ob.i}');
+                      _.SW_CL("${ob.i}_selectScreen","D_N");
+                      _.E_I_S("${ob.i}_selectButton").innerHTML = '';
+                      _.CR_(${JDS_(_selectButtonData)} ,'${ob.i}_selectButton',${JDS_(data[i])});
+                    }`;
+                
+                    const fnStItemDC = DC_(fnStItem);
+                    const selectItem = {
+                      c:'WW ST_B_GRY8_1 pointer PD_4 F_B',
+                      i: `${i}_item`,
+                      e:[
+                        {
+                          t:'sp',
+                          s:model_.s,
+                          c:'F_S_12 '
+                        }
+                      ],
+                      Q:data[i] ,
+                      a:{fn:fnStItemDC}
+                  }
+                  if(ob.data && ob.data.order && ob.data.order == 'icons'){
+                    selectItem.e = [{
+                      t:'icon',
+                      c:'F_S_30 '+data[i].class
+                    },...selectItem.e ]
+                  }
+                  selectModel.e[1].e[0].e[2].e.push(selectItem);
+                  }
+              }
+              let findS = 'No Data';
+               if(ob.model[0].s){
+                findS = ob.model[0].s;
+               }else if(ob.model[0].e[0] && ob.model[0].e[0].s){
+                findS = ob.model[0].e[0].s;
+               }
+               
+              selectModel.e[0].e    = [{t:'sp', Q:data[0], i:`${ob.i}_Button`, s:findS , c:'mL_5 F_B'}];
+        
+              CR_(selectModel,holderId,false);
+            }
+          }
+          
         }
        
         
@@ -2991,14 +3092,15 @@ const filterSearchItems = (e,data)=>{
 
   const dataQuery = (ob)=>{
      ////
-   
+    
       const callback = (res,data)=>{
+       
         res = res.res;
         var models = [];
         if(data.order && data.order === 'languages'){
           setObV({languages:res});
         }
-     
+        
         if(ob.model){
           
           models =ob.model;
@@ -3021,18 +3123,23 @@ const filterSearchItems = (e,data)=>{
              }
              const toElm = model.to ? model.to : elmId;
               if(render){
+                
                 CR_(model,toElm,obData);
               }
            }
          }
 
          if(ob.t && ob.t == 'sl'){
+         const waitFor = ()=>{
           selectElement(ob,res);
+         }
+         setTimeout(waitFor,3000);
          }
        }
        if(ob.data.order){
         _POST('/api',{order:ob.data.order},callback);
       }else{
+        CL_(['dataQuery',ob.data])
       _POST('/api',{query:ob.data},callback);
     }
   
@@ -3182,9 +3289,11 @@ const filterSearchItems = (e,data)=>{
  
    
   }
-  const CR_ =async (body,id,data)=>{
+  const CR_ =async (body,id,data,test=false)=>{
+if(test){
+  CL_(['holderId',id,body, data]);
+}
 
-  
 
     if(!i_app_lang[selectLang]){
       const reload = ()=>{
@@ -3369,17 +3478,7 @@ if(ob.forkey){
   }
   }
   
-  if(ob_type == "sl"){
-    // select type
-   
-      if(ob.mod == 'phonecode'){
-        ob.data = {order:'countries'}
-      }
-   
-     isHideElement =true;
-        holder.t = 'span';
-        holder.i = `${ob.i}_holder`;
-  }
+
   /// create HTML Element
   const e = CE_(HT_(ob));
   ///  object id can be public by using id: key 
@@ -3416,10 +3515,8 @@ if(ob.forkey){
   //  childern elements id 
   if(ob.q && ob.q.i && ob.q.s){
     if(data.d ){
-      CL_(['data.d',data.d])
       ob.i = `${ob.q.s}_${data.d[ob.q.i]}`;
     }else  if(ob.Q){
-      CL_(['ob.Q',ob.Q])
       ob.i = `${ob.q.s}_${ob.Q[ob.q.i]}`;
     }
   }else{
@@ -3447,12 +3544,18 @@ if(ob.forkey){
 
   }
 
-  if(ob.data){
-    if(!data){
-      dataQuery(ob);
-    }
+  if(ob_type == "sl"   ){
+    // select type
+   
+      if(ob.mod == 'phonecode'){
+        ob.data = {order:'countries'}
+      }
+   
+     isHideElement =true;
+        holder.t = 'span';
+        
+        holder.i = `${ob.i}_holder`;
   }
-
   
   // up = make is the element appended to parent
    let up = false;
@@ -3498,8 +3601,6 @@ if(ob.forkey){
             ob_css_list.push('inputLabel');
             ob_css += ' inputLabel';
             labelTop = ' TT_0 mT_-37 POS_AB '; 
-          }else{
-            CL_(['checkbox',ob,id])
           }
 
         }
@@ -3549,11 +3650,17 @@ if(ob.forkey){
   }
   if(ob.val){
     e.value = ob.val;
+    e.setAttribute('value',e.value);
 }else   if(ob.vq){
-  e.value = data[ob.vq]?data[ob.vq]:e.vq;
+  const value = data[ob.vq]?data[ob.vq]:e.vq;
+  e.value = value;
+  e.setAttribute('value',value);
+
 }else   if(ob.value){
   e.value = ob_value(ob);
+  e.setAttribute('value',e.value);
 }
+
   if(ob.hr){
     if(ob.hr.http ){
     
@@ -3679,7 +3786,10 @@ if(ob.forkey){
         if(ob.mod && ob.mod == 'phonecode'){
 
         }else{
-          selectElement(ob,data);
+          if(!ob.data ){
+            selectElement(ob,data);
+          }
+         
         }
        
         if(holder.i){
@@ -3714,6 +3824,12 @@ if(ob.forkey){
           }
   }
   }
+  
+  if(ob.data && !ob.I){
+
+    dataQuery(ob);
+  
+}
   if(ob.IRoute || ob.I){
   
     const IROUTE = ob.IRoute ? ob.IRoute : ob.I;
@@ -3724,7 +3840,7 @@ if(ob.forkey){
     
      const I_R =COPY_OB(i_app_model[IROUTE]);
      for (const key in ob) {
-      CL_(['obKey2',key])
+     
       if(key !== 'I' && key !== 'offset' && key !== 'i' && key !== 'i_e'){
         I_R[key] = ob[key];
       }
@@ -3802,8 +3918,8 @@ if(ob.forkey){
     scrollToTop();
     E_I("i-app").remove();
     if(i_app_model[i_route]){
-        i_sc.ob = i_app_model[i_route]
-       CR_(i_app_model[i_route],"i-app",false)
+        i_sc.ob = COPY_OB(i_app_model[i_route]);
+       CR_(i_app_model[i_route],"i-app",false);
     }else{
         
         G_root(`${app.dir.src}${i_route}.${app.dir.file ?app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route,false]);
@@ -3820,7 +3936,6 @@ if(ob.forkey){
    
     createAppObjV(i_route);
         if(i_app_model[i_route]){
-          CL_('open found:'+i_route)
          i_sc.ob = COPY_OB(i_app_model[i_route]);
                 CR_(i_sc.ob,"i-app",false);
                 for(var i = 0 ; i < windowHistory.length; i++){

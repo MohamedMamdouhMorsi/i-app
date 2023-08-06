@@ -25,9 +25,9 @@ const getJQuery = (ob,tables)=>{
             }
         }
     }
-    let isIdTable = tables[tableName][0] === 'id' ? 'id' :'';
+    let isIdTable = "";
    
-    let orderBy = isIdTable !== '' ? `ORDER BY ${isIdTable}` :'';
+    let orderBy = isIdTable !== '' ? `ORDER BY ${isIdTable}` :"";
     if(ob.order){
         orderBy =  `ORDER BY ${ob.order}` ;
     }
