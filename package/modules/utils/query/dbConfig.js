@@ -8,7 +8,7 @@ const dbConfig = {
     if(this.db.database){
         return this.db;
     }else{
-        console.log("No DBConfig data")
+     return false;
     }
          
     },

@@ -3,13 +3,14 @@ const fs = require('fs');
 const {JDS_,CL_,JD_} = require('../tools');
 const {searchFiles,manifestMaker,iAppReader} = require('../main');
 const appDirFn= require('./appDir');
-const dataBaseUpddate = require('./dataBaseSetup/dataBaseUpdate');
 
+const dbData = require('./dbData');
 const readAppData =async (makeAppServer)=>{
   // basic dir appDir
   let messages =  {
     iappError: "Please add i.app file to your project main directory",
-    themeError: "Please fix style.json and make sure it's in the same directory as .css in i.app"
+    themeError: "Please fix style.json and make sure it's in the same directory as .css in i.app",
+    dbAlert:"Warning: Your project does not have the profile and connection to the database. Please add the file if you are using the user system. If your project does not need a database, please do not pay attention to this warning."
   };
 
   let i_app    = {};
@@ -20,7 +21,7 @@ const readAppData =async (makeAppServer)=>{
   // 
   let swScript = "";
 
-  const {tree,userDir,userPublicDir,i_app_path,assetArray} =await appDirFn();
+  const {tree,userDir,userPublicDir,i_app_path,assetArray,i_app_db_path} =await appDirFn();
 
     
 
@@ -80,13 +81,25 @@ if(!fs.existsSync(i_app_path)){
                   
                   manifest = manifestMaker(i_app,{PR_D : PR_D , PR : PR})
                   makeAppServer(port,[i_app, PR_D.v,manifest,tree,userDir,i_app_st,swScript]);
-                  dataBaseUpddate(i_app);
+                    if(!fs.existsSync(i_app_db_path)){
+                      CL_(messages.dbAlert);
+                    }else{
+                        dbData(i_app,i_app_db_path);
+                    
+                    }
+                 
                 }
             });
           }else{
             manifest = manifestMaker(i_app,false)
             makeAppServer(port,[i_app, '#000',manifest,tree,userDir,i_app_st,swScript]);
-            dataBaseUpddate(i_app);
+              if(!fs.existsSync(i_app_db_path)){
+                CL_(messages.dbAlert);
+              }else{
+                dbData(i_app,i_app_db_path);
+              
+              }
+           
           }
           
   
