@@ -1,6 +1,9 @@
  {
             t:'t'
+            i:'table_q.{DBId}'
             c:'table'
+            limitAuto:2
+            joinQuery:true
             model:[
                     {
                         t:'thead'
@@ -14,6 +17,7 @@
                                             c:'PD_5'
                                             s:'key'
                                         }
+                            notKey:['accountType' 'DBId' ]
                             }
                         ]
                     }
@@ -28,62 +32,64 @@
                                     model_data:'key'
                                 }
                             
-                                
+                                  
                                 }
+                            notKey:['accountType' 'DBId' 'Qsize']
                         e:[
-                            {
-                                c:'POS_AB RR_0 TT_0 BBGLASS'
+                           {
+                            t:'td'
+                            c:'NW_10 settings'
+                            e:[ {
+                                c:'POS_AB RR_0 TT_5  BBGLASS hovTW '
                                 e:[
-                                {
-                                    t:'icon'
-                                    c:'ICO-settings pointer'
+                                 {
+                                    t:'sp'
+                                    s:'Delete'
+                                    c:'pointer mL_30 mR_30 F_S_10 D_IN F_WHITE'
+                                    e:[
+                                       {
+                                        t:'icon'
+                                        c:'ICO-ui-delete   F_S_20 F_RE10'
+                                    } 
+                                    ]
                                     a:{
+                                        e:'auto'
                                         fn:{
-                                            _.SW_CL(`editIcons_${Q.id}`,"D_N");
+                                            
                                         }
-                                    }
-                                }
-                                {
-                                        c:'POS_AB RR_20 TT_0 D_N BBGLASS '
-                                        q:{
-                                        s:'editIcons'
-                                        i:'id'
-                                    }
-                                    
+                                        }
+                                 }
+                                  
+                                           {
+                                    t:'sp'
+                                    c:'pointer  mL_30 mR_30 F_S_10 D_IN F_WHITE '
+                                    s:'Update'
                                     e:[
                                         {
-                                            t:'icon'
-                                            c:'ICO-fountain-pen mL_10 mR_10  pointer'
-                                            a:{
-                                                fn:{
-                                                        _.E_I_S(`editBody_${Q.id}`).showModal();
-                                                }
-                                            }
-                                    }
-                                    {
                                         t:'icon'
-                                        c:'ICO-ui-delete mL_10 mR_10  pointer'
-                                        a:{
-                                            e:'auto'
-                                            fn:{
-                                             
-                                            }
+                                        c:'ICO-fountain-pen  F_S_20 F_GRE9'
+                                  
+                                        }
+                                    ]
+                                    a:{
+                                        fn:{
+                                                _.E_I_S(`editBody_${Q.DBId}_${Q.id}`).showModal();
+                                                 _.openOverHide(true); 
                                         }
                                     }
-                                    
-                                    ]
-                                }
+                                 }
+                           
+                                 
                                     
                                 ]
-                            }
+                            }]
+                           }
                         ]
                     }
                     {
                         t:'dialog'
-                        q:{
-                            s:'editBody'
-                            i:'id'
-                        }
+                         i:'editBody_q.{DBId}_q.{id}'
+                        
                         c:' B_W'
                         e:[
                             
@@ -92,34 +98,35 @@
                                 c:'ICO-close-circled F_B F_S_20 pointer'
                                 a:{
                                     fn:{
-                                            _.E_I_S(`editBody_${Q.id}`).close();  
+                                            _.E_I_S(`editBody_${Q.DBId}_${Q.id}`).close(); 
+                                             _.closeOverHide(true); 
                                     }
                                 }
                             }
                             {               
                                 forkey: {
                                             t:'in'
-                                            c:'PD_5 D_B _MR_10 input'
+                                            c:' D_B mT_30  input'
                                             vq:'key'
                                             s:'key'
-                                            q:{
-                                                s:'input_key'
-                                                i:'id'
-                                            }
+                                            label:true
+                                            labelClass:'F_PR'
+                                            i:'input_q.{DBId}_key_q.{id}'
                                         }
-                                notKey:['id' 'accountType' 'typeName' 'activate']
+                                notKey:['id' 'accountType' 'typeName' 'activate' 'DBId' 'Qsize' ]
                             }
                              {
-                                 q:{
-                                            s:'activateHolder'
-                                            i:'id'
-                                        }
+                              
+                                        c:'_MR_10 T_C'
                                 e:[
                                     {
+                                         perQ:{
+                                            key:'activate'
+                                        }
                                         t:'sl'
                                          c:'WW D_B ST_PR_2'
                                         vq:'activate'
-                                        s:'q.{activate}'
+                                        s:'Search in status'
                                         q:{
                                             s:'activate'
                                             i:'id'
@@ -142,15 +149,20 @@
                                 ]
                             }
                             {
-                                 q:{
+                                perQ:{
+                                    key:'accountType'
+                                }
+                                q:{
                                             s:'usersTypeHolder'
                                             i:'id'
                                         }
+                                            c:'_MR_10 T_C'
                                 e:[
                                     {
                                         t:'sl'
                                         vq:'accountType'
                                         c:'WW D_B ST_PR_2'
+                                         s:'Search in Accounts Types'
                                         q:{
                                             s:'usersType'
                                             i:'id'
@@ -177,8 +189,12 @@
                                 ]
                             }
                        
-                            {
+                         {
+                            c:'WW MD T_C'
+                            e:[
+                                   {
                                 t:'bt'
+                                c:'B_PR F_W B_R_10 B_N PD_10  '
                                 s:'Update'
                                 a:{
                                     fn:{
@@ -188,9 +204,11 @@
                                     }
                                 }
                             }
+                            ]
+                         }
                         ]
                     
                     }
                                
                     ]
-        }
+}

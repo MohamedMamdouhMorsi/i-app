@@ -33,9 +33,11 @@ const app_file =(req,res,ext,fileName,manifest,i_app_st,tree,userDir,i_app)=>{
         backBody = i_app_st;
     }else{
 
-      if (req.url === '/sl.app' ) {
+      if (req.url === '/limitAuto.app' ) {
+        filePath = path.join(__dirname, '..','..','..','elements','limitAuto.app');
+      }else  if (req.url === '/sl.app' ) {
         filePath = path.join(__dirname, '..','..','..','elements','sl.app');
-      }else  if (req.url === i_app.dir.src+"dev.app" && i_app.mode === 'dev' ) { 
+      }else if (req.url === i_app.dir.src+"dev.app" && i_app.mode === 'dev' ) { 
         filePath = path.join(__dirname, '..','..','..','elements','dev.app');
       }else {
 

@@ -10,19 +10,24 @@
                         }
                       
                        
+                        
                         {
-                            t:'br'
-                        }
-                        {
+                            c:'WW PD_5'
+                            e:[{
                             t:'b'
                             s:'Select More Languages : '
+                        }]
                         }
+                        {
+                            c:'WW PD_5'
+                            e:[
+                                       
                        {
                                 t:'sl'
-                                s:'q.{name}'
+                                s:'Search in Languages'
                                 mod:'languages'
                                 vq:'code'
-                                c:'ST_PR_2 PD_5'
+                                c:'ST_PR_2 mT_20'
                                 i:'langSelect'
                                 a:{
                                     e:'change' 
@@ -53,6 +58,10 @@
                                         }
                                     ]
                         }
+                 
+                            ]
+                        }
+                 
                     ]
                    
                 }

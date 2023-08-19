@@ -15,12 +15,12 @@
                     c:'container MD HH'
                     e:[
                         {
-                            c:'WW mT_10 MD MW_400'
+                            c:'WW  MD MW_400 T_L'
                             e:[
                                 {
                                     t:'icon'
-                                    c:'ICO-arrow-left F_S_30 POS_FX LL_10 TT_10 pointer'
-                        }
+                                    c:'ICO-arrow-left F_S_30   TT_10 pointer'
+                                }
                             ]
                         }
                         {

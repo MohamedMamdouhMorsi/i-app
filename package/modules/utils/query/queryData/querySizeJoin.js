@@ -1,13 +1,15 @@
 const orAndOptionJoin = require('./orAndOptionJoin');
 const selectColumnJoin = require('./selectColumnJoin');
-const getJQuery = (ob,tables)=>{
 
+const querySizeJoin = (obs,tables)=>{
+    const ob = obs.ob.query[0];
     const tableName = ob.n;
     const newColumnSelectName = ob.sn ? ob.sn : [];
+    
     if(tables[tableName]){
     
     const orAndOptionText = orAndOptionJoin(ob.q,tables,tableName,tableName);
-    const limit =ob.l && ob.l.toString() == '0' ? '' :  `LIMIT ${ob.l.toString()}`; 
+
     let selectedColumn = ob.s && ob.s[0] !== 'A' ? selectColumnJoin(ob.s,tableName,newColumnSelectName) :tableName+'.* ';
     let joinSting  ='';
     if(ob.j){
@@ -31,11 +33,11 @@ const getJQuery = (ob,tables)=>{
     if(ob.order){
         orderBy =  `ORDER BY ${ob.order}` ;
     }
-    let getText = `SELECT ${selectedColumn} FROM ${tableName} ${joinSting} WHERE ${orAndOptionText} ${orderBy} ${limit}`;
-console.log(getText);
+    let getText = `SELECT  ${selectedColumn} FROM ${tableName} ${joinSting} WHERE ${orAndOptionText} `;
+
         return getText;
     }else{
         console.log(`table ${tableName} is not exist`);
     }
 }
-module.exports = getJQuery
+module.exports = querySizeJoin

@@ -13,7 +13,21 @@
                         t:'b'
                         s:'dataBaseCheck'
                     }
-                    
+                    {
+                        t:'icon'
+                        c:'ICO-refresh F_B F_S_20 pointer _MR_10 '
+                        a:{
+                            fn:{
+                                _.DEL_E('databaseHolder');
+                                    _.CR_({
+                                            I:'dev_database'
+                                            },
+
+                                            'databaseHolder',false);
+                            
+                            }
+                        }
+                    }
                     {
                         i:'dataBaseHandler'
                         c:'D_INB'
@@ -24,8 +38,7 @@
                                     if(res.res){
                                         _.CR_({t:'icon',c:'ICO-check F_S_30 F_GRE7'},'dataBaseHandler',false);
                                             _.CR_({
-                                            I:'dev_database',
-                                            v:{database_name:'Users'}
+                                            I:'dev_database'
                                             },
 
                                             'databaseHolder',false);

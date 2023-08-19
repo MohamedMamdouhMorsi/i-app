@@ -1,4 +1,5 @@
 const db = require('../../utils/query/mysqlConnect');
+const dbConfigFn = require('../../utils/query/dbConfig');
 const appDir = require('../appDir');
 const iAppReader = require('../../utils/toolsFN/iAppReader');
 const {JDS_,CL_,JD_} = require('../../tools');
@@ -26,6 +27,12 @@ if(i_app.users){
                 let dbSt            = data.toString();
                 let cleanDataSt     = iAppReader(dbSt)
                 const jsonData      = JD_(cleanDataSt);
+                if(jsonData && jsonData.mysql){
+                    dbConfigFn.set(jsonData.mysql[0]);
+                }else{
+                    CL_(["error db file"])
+                }
+               
                 if(jsonData.mysql && jsonData.mysql.length > 0){
 
                 const basicDataBase = jsonData.mysql[0];

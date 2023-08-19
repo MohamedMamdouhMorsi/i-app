@@ -1,13 +1,18 @@
 {
     e:[
 
-        {
+       {
+        c:'WW'
+        e:[ {
             t:'ti'
-            s:'v.{database_name}'
+            s:'Users'
         }
         {
             I:'dev_mangeDatabse'
-            data: [ {
+            Q:{
+                DBId:'users'
+            }
+            data:[ {
                         a: 'getJ'
                         n: 'users'
                         s: ['A']
@@ -29,6 +34,34 @@
                         }]
                     }
                 ]
+        }]
+       }
+        {
+            c:'WW'
+            e:[
+                {
+                    t:'ti'
+                    s:'Apps'
+                }
+                {
+                    I:'dev_mangeDatabse'
+                    Q:{
+                        DBId:'usersApps'
+                    }
+                    data: [ {
+                                a: 'get'
+                                n: 'usersApps'
+                                s: ['A']
+                                l: '0'
+                                q: [
+                                    [
+                                        ['id' '0' 'uneq']
+                                    ]
+                                ]
+                            }
+                        ]
+                }
+            ]
         }
     ]
     a:{

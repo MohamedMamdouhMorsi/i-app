@@ -32,7 +32,7 @@
                                                 a:{
                                                     cureLang:cureLang,
                                                     fn(v,_){
-
+                                                        _.CL_(['a7a'])
                                                         const newAppLang  = [];
 
                                                         for(var k = 0 ; k < v.app.lang.length;k++){
@@ -43,7 +43,7 @@
 
                                                         v.app.lang = newAppLang;
                                                         _.DEL_E('alllangHolder');
-                                        _.CR_({I:'dev_selectLang'},'alllangHolder',false);
+                                                        _.CR_({I:'dev_selectLang'},'alllangHolder',false);
                                                     }
                                                 }
                                             }
@@ -53,7 +53,7 @@
                                 }
                                 
                                _.CR_(langHolder,'langh',false);
-                             
+                        
                            
                             
                             }

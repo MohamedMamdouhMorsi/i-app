@@ -198,6 +198,13 @@ const i_app = (()=>{
     window.pJSDom = [];
   
     var LIN = {};
+    /**
+     * change value events
+     */
+     let onValueChange = {};
+     let onTxtChange = {};
+     let onInputChange = {};
+     let elementValue ={};
     /*
     screen
     general screen object document.body
@@ -480,24 +487,21 @@ const i_app = (()=>{
   @param {object} ob - The object to be copied.
   @returns {object} A deep copy of the object.
   */
-  const COPY_OB = (ob) => {  
-    if(typeof ob === 'object'){
-      if(ob.a && ob.fn){
-       const fn = ob.a;
-       delete ob.a;
-       const NewOb = JD_(JDS_(ob));
-       NewOb.a = fn;
-       return  NewOb;
-      }else{
-        const NewOb = JD_(JDS_(ob));
- 
-        return  NewOb;
-      }
-    }else{
-      CL_('Error COPY_OB is Not Object');
+  const COPY_OB = (ob) => {
+    if (typeof ob !== 'object') {
+      console.error('Error: COPY_OB argument is not an object');
+      return;
     }
-    
-  }  
+  
+    const { a, ...rest } = ob;
+    const NewOb = { ...rest };
+  
+    if (a ) {
+      NewOb.a = a;
+    }
+  
+    return NewOb;
+  };  
   /**
   * Returns the current timestamp in milliseconds
   * @returns {number} The current timestamp in milliseconds
@@ -574,14 +578,37 @@ const hideOtherKeys = (k,obj)=>{
     }
   
   }
-  const DEL_E = (mw) => {
-    const myNode = isString(mw) ? E_I_S(mw) : mw;
+  const deleteChildren = (id)=>{
+    if(I_OB[id] && I_OB[id].children){
+     
+    const children = I_OB[id].children;
+    
+    for(var c = 0 ; c < children.length; c++){
+      const childId  = children[c];
+      const childBody = I_OB[childId];
+      if(childBody && childBody.children){
+        deleteChildren(childId);
+      }
+      delete  I_OB[childId];
+      onValueChange[childId] ? delete onValueChange[childId] : '';
+      onTxtChange[childId] ? delete onTxtChange[childId] : '';
+      onInputChange[childId] ? delete onInputChange[childId] : '';
+      if(elementValue.hasOwnProperty(i_root) && elementValue[i_root].hasOwnProperty(childId)){
+        delete elementValue[i_root][childId];
+      
+      }
+ 
+    }
+  }
+  }
+  const DEL_E = (id) => {
+    const myNode = isString(id) ? E_I_S(id) : id;
     if (myNode && myNode.childNodes && myNode.childNodes.length > 0) {
         while (myNode.firstChild) {
             myNode.removeChild(myNode.firstChild);
         }
     }
-
+    deleteChildren(id);
 }
   const GTX = (txt)=>{
     return i_app_select_lang[txt] ? i_app_select_lang[txt] : txt;
@@ -1115,16 +1142,20 @@ const funcHandel = (str) => {
   const _POST =  async(url, data, callback) => {
     let send = true;
     let isQuery = false;
+    const strQ = data.query ? data.query : data;
     if (data.query || data[0] && data[0].a) {
-      const queryName =await SHA256(JDS_(data));
-     CL_(queryName)
+      
+    
+      const queryName =await SHA256(JDS_(strQ));
+    
       isQuery = true;
       if (Queries[queryName]) {
         if (Queries[queryName].res) {
-          send = false;
-         
           const res = Queries[queryName].res;
-          callback(res, data);
+          data.upTime = res.upTime;
+          if (Queries[queryName].callBack) {
+              Queries[queryName].callBack.push(callback);
+            }
         } else {
           if (Queries[queryName].callBack) {
                 Queries[queryName].callBack.push(callback);
@@ -1154,10 +1185,17 @@ const funcHandel = (str) => {
             } else {
               if (typeof callback === "function") {
                 if (isQuery) {
-                  const queryName = await SHA256(JDS_(data));
+                  const queryName = await SHA256(JDS_(strQ));
                 if (Queries[queryName]) {
                   if (Queries[queryName].callBack && Queries[queryName].callBack.length > 0) {
-                    Queries[queryName].res = json;
+                    if(Queries[queryName].res && json.res && json.res == "UPTODATE"){
+                     json.res = Queries[queryName].res.res ;
+                     CL_(['UPTODATE',json.res, Queries[queryName].res]);
+                    }else{
+                      Queries[queryName].res = json;
+                      CL_(['NEW',json.res, Queries[queryName].callBack])
+                    }
+                   
                     for (const cureCallBack of Queries[queryName].callBack) {
                       cureCallBack(json, data);
                     }
@@ -1165,6 +1203,7 @@ const funcHandel = (str) => {
                   }
                 }
               } else {
+                CL_(['res3',json.res])
                   callback(json, data);
                 }
               }
@@ -1228,6 +1267,9 @@ const funcHandel = (str) => {
     IS_USERNAME: IS_USERNAME,
     wait_: wait_,
     E_C: E_C,
+    upQuery:dataQuery,
+    openOverHide:openOverHide,
+    closeOverHide: closeOverHide,
     hideOtherKeys: hideOtherKeys,
     makeFunction:makeFunction
   });
@@ -1382,7 +1424,7 @@ const funcHandel = (str) => {
   /**
   * VALUES builder
   */
-  let onValueChange = {}
+
   const onValueChange_ =(k,v)=> {
   if(onValueChange[k]){
     for(var i = 0 ; i < onValueChange[k].length ; i++){
@@ -1414,7 +1456,7 @@ const funcHandel = (str) => {
   }
   
    };
-  let onTxtChange = {};
+
   const onTxtChange_ =(k,v)=> {
   if(onTxtChange[k]){
     for(var i = 0 ; i < onTxtChange[k].length ; i++){
@@ -1451,8 +1493,7 @@ const funcHandel = (str) => {
   
   };
   
-  let onInputChange = {};
-  let elementValue ={};
+
   const onInputChange_ =(k)=> {
     
     if(onInputChange[k]){
@@ -1466,17 +1507,18 @@ const funcHandel = (str) => {
     }
     }
     const setInputV = async (k) => {
-      if(elementValue[i_root][k]){
-        CL_(`Error Please Insert  Unique input name , ${k} is already used , that To make the i-app track changes on elements`);
-      }else{
+    
         Object.defineProperty(elementValue[i_root], k, {
+    
+            configurable: true,
+            enumerable:false,
           get: () => this[k],
           set: (_v) => {
             this[k] = _v;
           
           },
         });
-      }
+      
     
     
       };
@@ -1513,11 +1555,10 @@ const funcHandel = (str) => {
   *  
   */
  
-  const replacePattern = (text,id,data)=>{
+  const replacePatternTxt = (text,id,data)=>{
    
     const txtQ = /q\.\{\s*(?<query>[^\}]+)\s*\}/g;
     const txtQTranslate = /qt\.\{\s*(?<queryTranslate>[^\}]+)\s*\}/g;
-    
     const txtTranslate = /t\.\{\s*(?<translate>[^\}]+)\s*\}/g;
     const txtvalues = /v\.\{\s*(?<values>[^\}]+)\s*\}/g;
     const txtInput = /val\.\{\s*(?<input>[^\}]+)\s*\}/g;
@@ -1639,20 +1680,86 @@ const funcHandel = (str) => {
                   }
               }
               if(!itExsit){
-                onInputChange[input.trim()].push([id,text])
+                onInputChange[input.trim()].push([id,text]);
               }
             }else{
               onInputChange[input.trim()] =[[id,text]]
             }
             if(elementValue[i_root][input.trim()]){
-         return `${elementValue[i_root][input.trim().toString()]}`;
-        }else{ 
-          return  '';
-        }
+              return `${elementValue[i_root][input.trim().toString()]}`;
+            }else{ 
+              return  '';
+            }
         });
     
     return output;
     }
+    const replacePatternId = (text,data)=>{
+   
+      const txtQ = /q\.\{\s*(?<query>[^\}]+)\s*\}/g;
+      const txtvalues = /v\.\{\s*(?<values>[^\}]+)\s*\}/g;
+      const txtInput = /val\.\{\s*(?<input>[^\}]+)\s*\}/g;
+      const txtApp = /app\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
+      const txtUser = /u\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
+      let output = text;
+    
+          output = text.replace(txtQ, (_, query) =>
+          {
+          let  testData = query.trim();
+          if( data[query.trim()]){
+            if( data[query.trim()] === 0){
+              testData = '0'
+            }else{
+              testData = data[query.trim()]
+            }
+          }else{
+            testData =  false;
+          }
+  
+            if(testData){
+              return `${testData}`;
+            }else{
+              return query.trim();
+            }
+  
+          }
+      );
+    
+      output = output.replace(txtApp, (_, appTxt) =>
+      {
+       if(app[appTxt.trim()]){
+         return `t.{${app[appTxt.trim()]}}`;
+       }else{
+         return appTxt.trim();
+       }
+     }
+     );
+     output = output.replace(txtUser, (_, appTxt) =>
+     {
+      if(userData[appTxt.trim()]){
+        return userData[appTxt.trim()];
+      }else{
+        return appTxt.trim();
+      }
+    }
+    );
+      output = output.replace(txtvalues, (_, values) =>{
+      if(i_app_v.hasOwnProperty(values.trim())){
+       return `${i_app_v[values.trim().toString()]}`;
+      }else{ 
+        return  values.trim();
+      }
+      });
+      output = output.replace(txtInput, (_, input) =>{
+          if(elementValue[i_root][input.trim()]){
+           return `${elementValue[i_root][input.trim().toString()]}`;
+          }else{ 
+            return  '';
+          }
+          });
+      
+      return output;
+      }
   /**
   * Build Function Tools
   * Basic Functions to control 
@@ -2604,7 +2711,7 @@ const funcHandel = (str) => {
   let txtv = "";
   if(typeof txt === 'string'){
     txt = txt.replace(/} ,/g, '}'); 
-    txtv =  replacePattern(txt,id,data);
+    txtv =  replacePatternTxt(txt,id,data);
   }else if(isAr(txt)){
     for(var x = 0 ; x < txt.length;x++){
       const cur_txt_ob = txt[x];
@@ -2679,8 +2786,7 @@ const funcHandel = (str) => {
   let ev = ob.a.e ? ob.a.e : 'click' ;  
 
 
-    if(ob.a.fn){
-    
+
     if(typeof ob.a.fn === 'string'){
 
     
@@ -2718,7 +2824,7 @@ const funcHandel = (str) => {
     }
   
  
-    }else  if(typeof ob.a.fn === 'function'){
+    }else  {
       const newFunc = ()=>{
         this.v = i_app_v ;
         this._ = URS();
@@ -2746,7 +2852,7 @@ const funcHandel = (str) => {
         }
       
     }
-  }
+  
   
   }
   }
@@ -2766,8 +2872,12 @@ const funcHandel = (str) => {
     if(ob && typeof ob === 'object'){
       for (const key in ob) {
         if(key !== 'I' && key !== 'offset' && key !== 'i'  && key !== 'q' && key !== 'i_e' && key !== 'e' && key !== 't' && key !== 'typ'){
-       
-          newOb[key] = ob[key];
+          if(key == 'c'){
+            newOb[key] =newOb[key]+" "+ob[key];
+          }else{
+            newOb[key] = ob[key];
+          }
+     
         }
       }
     }
@@ -2902,7 +3012,23 @@ const filterSearchItems = (e,data)=>{
 /**
  * select element
  */
-
+let is_dialog_open = false;
+const openOverHide =(dialog)=>{
+  if(dialog && !is_dialog_open){
+    is_dialog_open = true;
+    A_CL('i-app','OV_HIDE');
+  }else if(!dialog && !is_dialog_open){
+    A_CL('i-app','OV_HIDE');
+  }
+} 
+const closeOverHide =(dialog)=>{
+  if(dialog && is_dialog_open){
+    is_dialog_open = false;
+    D_CL(['i-app','OV_HIDE']);
+  }else if(!dialog && !is_dialog_open){
+    D_CL(['i-app','OV_HIDE']);
+  }
+} 
  const selectElement =(ob,data)=>{
  
   const holderId = `${ob.i}_holder`;
@@ -2917,15 +3043,16 @@ const filterSearchItems = (e,data)=>{
     }else if(i_app_model['sl'] ){
       
       const NewSelectElment = ()=>{
-        const fnSt = `{_.SW_CL("${ob.i}_selectScreen","D_N")}`;
-        const fnStDC = DC_(fnSt);
-       
+        const fnStOpen = `{_.D_CL(["${ob.i}_selectScreen","D_N"]);_.openOverHide(); }`;
+        const fnStOpenDC = DC_(fnStOpen);
+        const fnStClose = `{_.A_CL("${ob.i}_selectScreen","D_N");_.closeOverHide(); }`;
+        const fnStCloseDC = DC_(fnStClose);
         const selectModel = COPY_OB(i_app_model['sl']);
         selectModel.e[0].i = `${ob.i}_selectButton`;
-        selectModel.e[0].a = {fn: fnStDC}
+        selectModel.e[0].a = {fn: fnStOpenDC}
         if(ob.c){
           if(!ob.c.match(/pointer/)){
-            ob.c += ' pointer';
+            ob.c += ' pointer selectIcon pL_15 pR_15 pT_5 pB_5';
           }
           selectModel.e[0].c = ob.c;
         }
@@ -2935,7 +3062,7 @@ const filterSearchItems = (e,data)=>{
         const clearInputFnStDC = DC_(clearInputFnSt);
         const basicSearchText = ob.s ? ob.s : 'search-text';
 
-        selectModel.e[1].e[0].e[0].a =  {fn: fnStDC}
+        selectModel.e[1].e[0].e[0].a =  {fn: fnStCloseDC}
         selectModel.e[1].i = `${ob.i}_selectScreen`;
         selectModel.e[1].e[0].e[1].e[0].i = `${ob.i}_selectSearch`;
         selectModel.e[1].e[0].e[1].e[1].a ={fn: clearInputFnStDC};
@@ -2954,11 +3081,13 @@ const filterSearchItems = (e,data)=>{
           selectModel.e[1].e[0].e[2].e =ob.e;
           for(var i = 0; i < selectModel.e[1].e[0].e[2].e.length;i++){
             if(selectModel.e[1].e[0].e[2].e[i].v || selectModel.e[1].e[0].e[2].e[i].val){
-              CL_(selectModel.e[1].e[0].e[2].e[i])
-              const val =selectModel.e[1].e[0].e[2].e[i].v?selectModel.e[1].e[0].e[2].e[i].v: selectModel.e[1].e[0].e[2].e[i].val;
+            
+           
               const fnStItem = `{_.IN_V("${ob.i}","${selectModel.e[1].e[0].e[2].e[i].val}");_.CL_(_.E_I_V('${ob.i}'));_.SW_CL("${ob.i}_selectScreen","D_N");_.elmChange('${ob.i}');}`;
               const fnStItemDC = DC_(fnStItem);
                     selectModel.e[1].e[0].e[2].e[i].a = {fn:fnStItemDC};
+                    selectModel.e[1].e[0].e[2].e[i].t = 'ly';
+                    selectModel.e[1].e[0].e[2].e[i].c = 'pointer WW PD_5 ST_B_GRY8_1';
                     selectModel.e[1].e[0].e[2].e[i].i = `${i}_item`;
             }
           
@@ -3017,7 +3146,7 @@ const filterSearchItems = (e,data)=>{
               const firstImgSrc     = `flags/${firstLowerCode}.png`;
               selectModel.e[0].e    = [{t:'img',i:`${ob.i}_flag`,src: firstImgSrc ,c:'W_20'},{t:'sp',i:`${ob.i}_code`,s: data[0].dialCode ,c:'mL_5'},{t:'icon',c:'ICO-caret-down mL_5'}];
               
-              CR_(selectModel,holderId,data)
+              CR_(selectModel,holderId,false)
             }else  if( ob.mod !== 'phonecode' && ob.model ){
             
               for(var i = 0 ; i < data.length ; i++){
@@ -3091,43 +3220,102 @@ const filterSearchItems = (e,data)=>{
    */
 
   const dataQuery = (ob)=>{
-     ////
-    
-      const callback = (res,data)=>{
-       
-        res = res.res;
-        var models = [];
-        if(data.order && data.order === 'languages'){
-          setObV({languages:res});
-        }
-        
-        if(ob.model){
-          
-          models =ob.model;
 
-        }else  if(!ob.model){
-          if(ob.t && ob.t == 'sl'){
-            models = [{t:'op',vq:ob.vq,s:'q.{name}'}]
-          }
+     if(ob.limitAuto && ob.data && ob.data.length){
+        for(var o = 0 ; o < ob.data.length;o++){
+            if(ob.data[o].l){
+            
+              const DB_name = `linesNum_${ob.Q.DBId}`;
+              const DB_last = `lastNum_${ob.Q.DBId}`;
           
-        }
-        const elmId = ob.i;
-        
-         for(var i = 0; i < res.length ; i++){
-           const obData = res[i];
-           for(var m =0 ; m < models.length;m++){
-             const model = models[m];
-             let render = true;
-             if(model.once && i > 0){
-               render = false;
-             }
-             const toElm = model.to ? model.to : elmId;
-              if(render){
-                
-                CR_(model,toElm,obData);
+                    if(elementValue[i_root][DB_name]){
+                      ob.data[o].limitAuto = elementValue[i_root][DB_name];
+                    }else{
+                      ob.data[o].limitAuto = ob.limitAuto ;
+                    }
+                    if(ob.data[o].last){
+
+                    }else if( E_I_V(DB_last) && parseInt(E_I_V(DB_last)) > 0){
+                      ob.data[o].last = E_I_V(DB_last);
+                     
+                    }
+                  }
               }
-           }
+      }
+
+      const callback = (res,data)=>{
+        const Qsize = res.Qsize ? res.Qsize  : 0; 
+        
+        res = res.res;
+        if(ob.limitAuto && ob.data && ob.data.length){
+
+              const DB_last = `lastNum_${ob.Q.DBId}`;
+              const DB_name = `linesNum_${ob.Q.DBId}`;
+              const DB_Qsize = `Qsize_${ob.Q.DBId}`;
+              const DB_pageNo = `reasltBt_${ob.Q.DBId}`;
+
+              if( E_I_V(DB_name)){
+                const linesNumSt = `linesNum_${ob.Q.DBId}`;
+                const linesNum   = parseInt(E_I_V(linesNumSt));
+                const newLast    =  parseInt( E_I_V(DB_last) )+ parseInt( E_I_V(DB_name));
+                const pageClac   = Qsize /  linesNum;
+           
+                const pageNumber = pageClac > parseInt(pageClac) ? parseInt(pageClac) +1 : parseInt(pageClac);
+                let pageNumberSt = pageNumber > 1 ? `of ${pageNumber} pages` : '';
+                IN_V(DB_last,newLast);
+                In_S(DB_pageNo,pageNumberSt);
+               if(pageNumber < 2){
+                A_CL(`forwardBt_${ob.Q.DBId}`,"D_N");
+               }
+                IN_V(DB_Qsize,Qsize);
+              }
+           
          }
+         
+        
+            var models = [];
+            if(data.order && data.order === 'languages'){
+              setObV({languages:res});
+            }
+            
+            if(ob.model){
+              
+              models =ob.model;
+
+            }else  if(!ob.model){
+              if(ob.t && ob.t == 'sl'){
+                models = [{t:'op',vq:ob.vq,s:'q.{name}'}]
+              }
+              
+            }
+            const elmId = ob.i;
+        
+              for(var i = 0; i < res.length ; i++){
+                const obData = res[i];
+                if(ob.joinQuery && ob.Q){
+                  for ( const key in ob.Q){
+                    if (Object.prototype.hasOwnProperty.call(ob.Q, key)) {
+                    if(!obData[key]){
+                      ob.Q.Qsize =Qsize;
+                      obData[key] = ob.Q[key];
+                    }
+                  }
+                  }
+                }
+                for(var m =0 ; m < models.length;m++){
+                  const model = models[m];
+                  model.offset = m;
+                  let render = true;
+                  if(model.once && i > 0){
+                    render = false;
+                  }
+                  const toElm = model.to ? model.to : elmId;
+                    if(render){
+                      
+                      CR_(model,toElm,obData);
+                    }
+                }
+              }
 
          if(ob.t && ob.t == 'sl'){
          const waitFor = ()=>{
@@ -3136,12 +3324,17 @@ const filterSearchItems = (e,data)=>{
          setTimeout(waitFor,3000);
          }
        }
+
        if(ob.data.order){
         _POST('/api',{order:ob.data.order},callback);
-      }else{
-        CL_(['dataQuery',ob.data])
-      _POST('/api',{query:ob.data},callback);
-    }
+          }else{
+        if(ob.autoLimit){
+          _POST('/api',{query:ob.data},callback);
+        }else{
+          _POST('/api',{query:ob.data},callback);
+        }
+      
+        }
   
   }
   const formTableObj = (body)=>{
@@ -3203,6 +3396,7 @@ const filterSearchItems = (e,data)=>{
     }
     return form;
   }
+
   const formObj = (body)=>{
    
     const form = {c:'TT_0 mT_37',e:[]}
@@ -3248,6 +3442,21 @@ const filterSearchItems = (e,data)=>{
     }
     return form;
   }
+
+  const permissionsQueryControl = (per,data)=>{
+  if(per.key && data[per.key]){
+    const value = data[per.key].toString();
+    if(value !== 'undefined' && value !== 'null'){
+      return true;
+    } else{
+      return false;
+    }
+    
+  }else{
+    return false;
+  }
+  }
+
   const permissionsControl = (perData)=>{
     
     if(perData.data){
@@ -3261,6 +3470,7 @@ const filterSearchItems = (e,data)=>{
     }
     return false;
   }
+
   const forKeys = (ob,data)=>{
     const obst = JDS_(ob.forkey);
     const elm = [];
@@ -3270,10 +3480,12 @@ const filterSearchItems = (e,data)=>{
         
           const newObSt = obst.replace(/key/g,key);
           const newOb   = JD_(newObSt);
-          let render = true; 
+          var render = true; 
           if(ob.notKey){
+           
             for(var k = 0 ; k < ob.notKey.length; k++){
-              if(ob.notKey[k] == key){
+      
+              if(ob.notKey[k] === key){
                 render = false;
               }
             }
@@ -3289,12 +3501,33 @@ const filterSearchItems = (e,data)=>{
  
    
   }
-  const CR_ =async (body,id,data,test=false)=>{
-if(test){
-  CL_(['holderId',id,body, data]);
-}
 
+  const makeLimitAuto = (ob,data)=>{
 
+      const holderId = `${ob.i}_limitHolder`;
+    
+        if(!i_app_model['limitAuto'] ){
+              const callback = (body,[ob,data])=>{
+                i_app_model['limitAuto'] =COPY_OB(body);
+                makeLimitAuto(ob,data);
+              }
+            G_root('limitAuto.app',callback,[ob,data]);
+          
+        }else if(i_app_model['limitAuto'] ){
+          const limitAuto = COPY_OB(i_app_model['limitAuto']);
+          let Querie = {}
+         if(ob.Q){
+          Querie = {lines:ob.limitAuto,table:ob.i,...ob.Q}
+         }else{
+          Querie = {lines:ob.limitAuto,table:ob.i}
+         }
+      
+         limitAuto.Q = Querie;
+         CR_(limitAuto,holderId,Querie);
+        }
+  }
+
+  const CR_ =async (body,id,data)=>{
     if(!i_app_lang[selectLang]){
       const reload = ()=>{
         CR_(body,id,data);
@@ -3325,6 +3558,7 @@ if(test){
       return ;
     }
   }
+
  
   if(body.fonts){
     app.fonts = body.fonts;
@@ -3344,12 +3578,19 @@ if(ob.forkey){
   if(data){
    ob.Q = data;   
   }else  if(ob.Q){
-    
     data = ob.Q ;  
+  }
+
+  if(body.perQ){
+    const perTrue = permissionsQueryControl(body.perQ,data);
+   
+    if(!perTrue){
+        return;
+    }
   }
   let ob_type = null ,ob_css = null,ob_css_list = [];
   /// set ob_type
-  
+
   if(ob.t){
   ob_type = ob.t;
   }else if(ob.typ){
@@ -3431,20 +3672,20 @@ if(ob.forkey){
   
   // script options 
   if(ob.script){
-  L_SCRIPT(ob.script.n,ob.script.v)
+    L_SCRIPT(ob.script.n,ob.script.v)
   }
   // css style options
   if(ob.css){
     L_CSS(ob.css)
-    }
+  }
   
  
   
   // autoBool
   // it one of slider options for to make circle toggel buttons to control silder 
   if (ob.sliBol && !ob.sliBolDone) {
-  ob.elm = SL_P(ob);
-  ob.sliBolDone = true;
+      ob.elm = SL_P(ob);
+      ob.sliBolDone = true;
   }
   //// isHideElement hide elemnent cases 
   //// when want use element with out render it
@@ -3468,14 +3709,14 @@ if(ob.forkey){
       }`; 
     const updateInputFnSTDC = DC_(updateInputFnST);
     const countryCode = {t:'sl',vq:'dialCode',i:`${ob.i}_dialCode`,c:'input F_PR F_S_12',mod:'phonecode',a:{e:'change',fn:updateInputFnSTDC}}
-   CR_(countryCode,id,false);
-   const viewInput = COPY_OB(ob);
-   viewInput.i = `${ob.i}_view`;
-   viewInput.a ={e:'input',fn:updateInputFnSTDC}
-   viewInput.mod = 'tel'
-   CR_(viewInput,id,false);
-   isHideElement =true;
-  }
+      CR_(countryCode,id,false);
+      const viewInput = COPY_OB(ob);
+      viewInput.i = `${ob.i}_view`;
+      viewInput.a = {e:'input',fn:updateInputFnSTDC}
+      viewInput.mod = 'tel';
+      CR_(viewInput,id,false);
+          isHideElement =true;
+    }
   }
   
 
@@ -3498,15 +3739,11 @@ if(ob.forkey){
     ///set global variables
   
   if(ob.v){
-  
     await setObV(ob.v);
-}
+  }
+
   if(isI_APP){
-  
-  
-  
   // set basic id
-  
     e.id =id;
     ob.i = id;
     ob.id = id;
@@ -3532,7 +3769,16 @@ if(ob.forkey){
     }else  if( ob.i  == undefined && ob.id == undefined){
         ob.i =  `${id}_${ob.offset ?ob.offset:0 }`;
     }
+  ob.i = replacePatternId(ob.i,data);
+ 
+   ob.i = ob.i.replace(/ , /g, ''); // missing comma
+  }
+
   
+  if(ob.limitAuto){
+    CR_({i:`${ob.i}_limitHolder`},id,data);
+    makeLimitAuto(ob,data);
+    
   }
   if(body.t && body.t == 'in' && body.label || body.t && body.t == 'in' && body.mod === 'checkbox'){
     const inputLabelHolder = {
@@ -3551,10 +3797,9 @@ if(ob.forkey){
         ob.data = {order:'countries'}
       }
    
-     isHideElement =true;
-        holder.t = 'span';
-        
-        holder.i = `${ob.i}_holder`;
+      isHideElement = true;
+      holder.t = 'span';
+      holder.i = `${ob.i}_holder`;
   }
   
   // up = make is the element appended to parent
@@ -3563,7 +3808,7 @@ if(ob.forkey){
   // handel element text
   let isCheckboxOverClass = '';
   if(ob.s || ob.txt){
-  const st = ob.s ? ob.s : ob.txt
+  const st = ob.s ? ob.s : ob.txt;
   const txt = eTxt(st,ob.i,data);
     if(ob_type == "in" ){
       e.placeholder = txt !== undefined ? txt : '';
@@ -3587,7 +3832,7 @@ if(ob.forkey){
         let userClass = "";
        
         
-        if(!isCheckbox && ob.val){
+        if(!isCheckbox && ob.val || !isCheckbox && ob.vq){
           displayLabel = ""
         }
         if(ob.labelClass){
@@ -3600,7 +3845,7 @@ if(ob.forkey){
           if(!isCheckbox){
             ob_css_list.push('inputLabel');
             ob_css += ' inputLabel';
-            labelTop = ' TT_0 mT_-37 POS_AB '; 
+            labelTop = ' TT_-8 BB_0 mT_-12 POS_AB '; 
           }
 
         }
@@ -3770,7 +4015,7 @@ if(ob.forkey){
   up =true;
   
   }
-  
+
    /**
   * 
   * ob options 
@@ -3779,6 +4024,7 @@ if(ob.forkey){
   */
   
     e.setAttribute('i',ob.i);//for develope {{{delete me for porduction}}}
+
     ob.i_e = e;// link html elm to the ob 
     I_OB[ob.i] = ob;//set the ob in i-app objects tree define by i 
     if(isHideElement){
@@ -3842,7 +4088,13 @@ if(ob.forkey){
      for (const key in ob) {
      
       if(key !== 'I' && key !== 'offset' && key !== 'i' && key !== 'i_e'){
-        I_R[key] = ob[key];
+        if(key == 'c'){
+          I_R[key] = I_R[key]+" "+ ob[key];
+        }else{
+          I_R[key] = ob[key];
+        }
+     
+
       }
     }
       CR_(I_R,ob.i,data);
@@ -3889,8 +4141,15 @@ if(ob.forkey){
     CR_(model,ob.i,dataOb);
   }
   }
- 
+  if(I_OB[ob.i] && I_OB[id]){
+    if(I_OB[id].children){
+      I_OB[id].children.push(ob.i);
+    }else{
+      I_OB[id].children = [ob.i];
+    }
   }
+  }
+
   const IS_EMAIL = (em) => {
     var ema = em.split("@");
     var dema = em.split(".");
@@ -3900,7 +4159,8 @@ if(ob.forkey){
         res = true;
     }
     return res;
-}
+  }
+
   const IS_USERNAME = (un)=>{
     // Remove non-alphanumeric characters and ensure lowercase
     var filteredUsername = un.replace(/[^a-z0-9]/g, "").toLowerCase();
@@ -3911,6 +4171,7 @@ if(ob.forkey){
     // Return valid username or false
     return isValid ? filteredUsername : false;
   }
+  
   const F_LO = ([i_route]) => {
 
     window.history.pushState({ page: window.location.pathname }, window.location.pathname, i_route);

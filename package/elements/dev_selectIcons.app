@@ -2,7 +2,7 @@
     e:[
                   {
                                 t:'sl'
-                                s:'q.{name}'
+                                s:'Search in Icons'
                                 mod:'icons'
                                 vq:'class'
                                 c:'ST_PR_2 PD_5'

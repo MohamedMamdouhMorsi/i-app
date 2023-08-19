@@ -56,7 +56,7 @@ const orAndOption =(op,table)=>{
             opText += ' OR ';
         }
     }
-console.log(['or and',table]);
+//console.log(['or and',table]);
 return opText;
 }
 module.exports = orAndOption

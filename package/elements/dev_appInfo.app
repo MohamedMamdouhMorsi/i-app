@@ -1,12 +1,29 @@
         {
                             c:'main '
-
+                             i:'appInfo'
                             e:[
-                    
+                    {
+                        c:'WW'
+                        e:[
+                            {
+                                c:'WW PD_10 B_GRY5 F_WHITE B_R_15'
+                                s:'You Can mange your App from here or edit your i.app file '
+                                e:[
+                                    {
+                                        t:'a'
+                                        c:'F_PR'
+                                        hr:{https:'github.com/MohamedMamdouhMorsi/i-app'}
+                                        s:'Read More ...'
+                                    }
+                                ]
+                            }
+                            
+                        ]
+                    }
                                 {
                                     t:'t'
                                     c:'WW'
-                                    i:'appInfo'
+                                  
                                     a:{
                                         e:'auto'
                                         fn:{
@@ -107,17 +124,22 @@
                                                                             }
                                                                         }
                                                                     }
-                                                     },
-                                                     {
+                                                            },
+                                                            {
                                                                 t:'tx',
                                                                 s:'Development mode is the default when starting a project, if you are ready to deploy and use your application on the server, please make sure that development mode is deactivated'
 
-                                                            },
-                                                            {
-                                                                t:'b',
-                                                                c:'F_RE7',
-                                                                s:'Note: To return the application to development mode,  mode:dev  must be added to the i.app file'
+                                                            },{
+                                                                  c:'WW PD_10 B_RE5 F_WHITE B_R_15',
+                                                                  e:[
+                                                                        {
+                                                                            t:'b',
+                                                                            c:'F_WHITE',
+                                                                            s:'Note if You disable the Dev Mode To return the application to development mode,  mode:dev  must be added to the i.app file'
+                                                                        }
+                                                                  ]
                                                             }
+                                                           
                                                         ]
                                                      }
                                                 ]

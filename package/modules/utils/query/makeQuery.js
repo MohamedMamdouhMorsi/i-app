@@ -4,6 +4,10 @@ const insertQuery =   require('./queryData/insertQuery');
 const updateQuery =   require('./queryData/updateQuery');
 const deleteQuery =   require('./queryData/deleteQuery');
 const checkQuery =   require('./queryData/checkQuery');
+const querySize =   require('./queryData/querySize');
+const querySizeJoin =   require('./queryData/querySizeJoin');
+const checkQueryUptime =   require('./queryData/checkQueryUptime');
+
 const makeQuery = async(body,tables)=>{
   
     const queryOB  = body.query;
@@ -36,13 +40,26 @@ const makeQuery = async(body,tables)=>{
           
             queryText += checkQuery(cureOB);
         
-        }else  if(queryAction === "create"){
+        }else   if(queryAction === "querySize"){
+            
+          if(cureOB.ob.query[0].a === 'get'){
+            queryText += querySize(cureOB,tables);
+          }else if(cureOB.ob.query[0].a === 'getJ'){
+            queryText += querySizeJoin(cureOB,tables);
+          }
+            
+        
+        }else  if(queryAction === "checkUpTime"){
+          
+            queryText += checkQueryUptime(cureOB);
+        
+        }else   if(queryAction === "create"){
           
             queryText += cureOB.d;
         
         }
     }
-  console.log(['queryText',queryText]);
+ // console.log(['queryText',queryText]);
     return queryText;
 }
 module.exports = makeQuery

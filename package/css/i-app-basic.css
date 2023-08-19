@@ -208,10 +208,48 @@ hr {
        content: attr(model_data) " : ";
        font-weight: 700;
     }
+    .table .settings {
+        width: 10px;
+        display: block;
+        position: absolute;
+        top: 0;
+        color: var(--W);
+        right: 0;
+
+    }
+    
 }
 /**********************************************************
 ** hover
 **/
+.hovTW:hover,
+.hovTW:focus{
+width: auto;
+filter: brightness(100%);
+}
+.hovTW{
+    width: 10px;
+    height: 30px;
+}
+.hovTW{
+    overflow: hidden;
+}
+.hovTW::before{
+    content: '\22EE';
+    font-size: 14px;
+    line-height: 0;
+    color: var(--B);
+}
+.selectIcon::after{
+    content: '\25be';
+    position: absolute;
+    right: 3px;
+    color: var(--PR);
+}
+.hovTW:hover:before,
+.hovTW:hover:focus{
+   display: none;
+}
 .HOV:hover ,
 .HOV:focus  {
     background-color: var(--PR);
@@ -579,6 +617,9 @@ overflow
 */
 .SCROLL{
     overflow-y: scroll;
+}
+.OV_HIDE{
+    overflow: hidden;
 }
 
 /****************************************************
