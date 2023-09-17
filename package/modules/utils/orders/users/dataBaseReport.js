@@ -9,7 +9,8 @@ const dataBaseReport = (body,res)=>{
             res.end(JSON.stringify({ res: false }));
         }
      }).catch(err=>{
-         console.log('err :'+err)
+        res.writeHead(200, { 'Content-Type': 'application/json'});
+        res.end(JSON.stringify({ res: false }));
      });
 
 

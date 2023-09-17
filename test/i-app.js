@@ -1,2 +1,2 @@
-const Iapp = require('i-app-server');
+const Iapp = require('i-app');
 Iapp.start();

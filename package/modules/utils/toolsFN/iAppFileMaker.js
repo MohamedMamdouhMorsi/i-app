@@ -1,4 +1,4 @@
-
+const {JDS_,JD_} = require('../../tools');
 function convertStrToOb (str) {
   str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
 
@@ -26,14 +26,27 @@ function convertStrToOb (str) {
 
     return str;
   };
+const fixString = (str)=>{
 
+  const strOb = typeof str === 'string' ? JSON.parse(str) : str;
+  for(const key in strOb){
+    if(typeof strOb[key] === 'string'){
+      strOb[key] = strOb[key].replace(/:/g, '_.ACOMA._');
+    }else{
+      strOb[key] =JD_(fixString(strOb[key]));
+    }
+  }
+  return JDS_(strOb);
+}
  // This function takes a string and cleans it by removing comments and converting it to an object
 const iAppFileMaker = (str) => {
 
-
+str = fixString(str);
 // Convert the cleaned string to an object using the convertStrToOb function
 str = convertStrToOb(str);
-
+str = str.replace(/_.ACOMA._/g, ':');
+str = str.replace(/  /g, ' \n');
+str = str.replace(/: {/g, ': { \n');
 // Return the cleaned object
 return str;
 };

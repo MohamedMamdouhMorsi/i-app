@@ -14,34 +14,31 @@
                    _.DEL_E(Q.table);
                    const linesNumSt = `linesNum_${Q.DBId}`;
                    const curePageSt = `curePage_${Q.DBId}`;
-                   const lastNumSt = `lastNum_${Q.DBId}`;
+  
                    const QsizeSt = `Qsize_${Q.DBId}`;
                    const Qsize = parseInt(_.E_I_V(QsizeSt));
                    const linesNum = parseInt(_.E_I_V(linesNumSt));
                    const curePage = parseInt(_.E_I_V(curePageSt));
-                   const lastNum = parseInt(_.E_I_V(lastNumSt));
-                   const backNum = lastNum - linesNum;
+                   const totalCureRows = curePage * linesNum;
+                    const pageClac = Qsize /  linesNum;
+                   const pageNumber = pageClac > parseInt(pageClac) ? parseInt(pageClac) +1 : parseInt(pageClac);
+                   const backNum = totalCureRows - linesNum * 2;
                    const nextPage = curePage - 1; 
-
+            
                    if(nextPage === 1){
                       _.A_CL(`backBt_${Q.DBId}`,'D_N');
                    }
-
-                   if(nextPage > 0 && backNum >= 0 ){
-               
-                    table.last = backNum;
-                   _.upQuery(table);
-                   const pageClac = Qsize /  linesNum;
-                   const pageNumber = pageClac > parseInt(pageClac) ? parseInt(pageClac) +1 : parseInt(pageClac);
-                   
-                  
-                  
-                    if(nextPage > 1 && pageNumber > 1){
-                        _.D_CL([`backBt_${Q.DBId}`,'D_N']);
-                    }
+                 if(nextPage < pageNumber){
+                      _.D_CL([`forwardBt_${Q.DBId}`,'D_N']);
+                   }
                   _.IN_V(`curePage_${Q.DBId}`,nextPage);
                   _.In_S(`pageNo_${Q.DBId}`,`Page No ${nextPage}`);
-                }
+                   table.last = `${backNum}`;
+                    table.backMove = true;
+                      table.forwardMove = false;
+                   _.upQuery(table);
+                
+                   
                 }
             }
         }
@@ -63,8 +60,7 @@
                    const linesNumSt = `linesNum_${Q.DBId}`;
                    const curePageSt = `curePage_${Q.DBId}`;
                    const QsizeSt = `Qsize_${Q.DBId}`;
-                   table.last = _.E_I_V(`lastNum_${Q.DBId}`);
-                   _.upQuery(table);
+           
                
                    const Qsize = parseInt(_.E_I_V(QsizeSt));
                    const linesNum = parseInt(_.E_I_V(linesNumSt));
@@ -76,11 +72,16 @@
                     if(nextPage > 1 && pageNumber > 1){
                         _.D_CL([`backBt_${Q.DBId}`,'D_N']);
                     }
-                   if(nextPage == pageNumber){
+                   if(nextPage === pageNumber){
                         _.A_CL(`forwardBt_${Q.DBId}`,'D_N');
                    }
                   _.IN_V(`curePage_${Q.DBId}`,nextPage);
                   _.In_S(`pageNo_${Q.DBId}`,`Page No ${nextPage}`);
+                    const totalCureRows = curePage * linesNum;
+                    table.last = totalCureRows  ;
+                    table.backMove = false;
+                      table.forwardMove = true;
+                   _.upQuery(table);
                 }
             }
         }
@@ -98,14 +99,7 @@
             s:'lines No'
             vq:'lines'
         }
-        {
-            t:'in'
-            c:'D_N'
-            i:'lastNum_q.{DBId}'
-            mod:'number'
-            s:'lines No'
-            val:'0'
-        }
+      
             {
             t:'in'
             c:'D_N'

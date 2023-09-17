@@ -24,9 +24,13 @@
     innerHTML += `<meta property="og:url" content="${app.domain}" />`;
     innerHTML += `<meta property="og:image" content="${app.dir.icon}favicon-96x96.png" />`;
     innerHTML += META_TAG;
+    if(app.faceapi){
+      
+      innerHTML +=`<script type="application/javascript" src="/face-api.js"  defer ></script>`;
+    }
     innerHTML +=`<script type="application/javascript" src=${devMode? "/i-app-ui.js" : "/i-app-ui.min.js"} async defer ></script>`;
 
-    innerHTML += `</head> <body></body> </html>`;
+    innerHTML += `</head> <body> </body> </html>`;
 
     return innerHTML.toString();
   }

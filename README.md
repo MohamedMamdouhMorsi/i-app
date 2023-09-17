@@ -1,5 +1,5 @@
 # i-app 
-> BETA  ( javascript , nodejs, mysql) v-1.0.5
+> PRO  ( javascript , nodejs, mysql) v-1.1.0
 
 
 ## i-app is a full-stack language designed to simplify the development of web applications. It is built with pure JavaScript and can be easily integrated into your project. i-app supports multiple technologies, including JavaScript, Node.js, PHP, and Python.

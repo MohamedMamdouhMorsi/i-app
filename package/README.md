@@ -31,15 +31,9 @@ npm i @i-app/i-app
 
 To use i-app in your project, simply import it:
 
-## Front-end usage 
-you can easy use i-app cdn
-
-``` html
-<script src="cdn.i-app.org" defer sync>
-```
-## Full-stack usage
 ``` javascript
 const iApp = require('i-app');
+iApp.start();
 
 ```
 # configuration
@@ -57,19 +51,23 @@ its basic configer to your app with i-app
     version:"0.0.1"
     type:"website"
     domain:"localhost"
-    lang: ["en","ar"]
-    mode:"dev"
-    dir:{
-        dir:"/src/"
-        start:"start.app"
-        icon:"/img/icon/"
-        db:"/db/"
-        txt:"/txt/"
-        script:"/js/"
-        css:"/css/"
-        style:"/css/style.json"
-        colors:"/css/colors.json"
-    }
+    port: 5000 
+    lang:[ 'ar' 'en']
+    pwa: true 
+    users: true 
+    mode: 'dev' 
+        dir: { 
+            src: '/src/' 
+            start: 'home.app' 
+            icon: '/img/icon/' 
+            db: '/db/' 
+            txt: '/txt/' 
+            script: '/js/' 
+            css: '/css/' 
+            img: '/img/' 
+            style: '/css/style.json' 
+            colors: '/css/colors.json'
+        }
 }
 
 ```
@@ -83,9 +81,7 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
 ``` javascript
 {
     /* No cote ',' or ';'  */ 
-    /*you can easy render any componet app by 
-    I:"filename" or IRoute:"filename"
-    anther keys will return false in that case
+    /*you can easy integrate and render any component app by I:"filename" anther keys will inject the  a new copy from your component , you can pass any information insted the i: key and some anther private key   
     */
     I:"menu"
     /** i: its element key its like id in html but its not
@@ -171,10 +167,12 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
             elm:[{
                 typ:"th"
                 txt:"No"
-            },{
+            }
+            {
                 typ:"th"
                 txt:"Name"
-            },{
+            }
+            {
                 typ:"th"
                 txt:"Title"
             }]

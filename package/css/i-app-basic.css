@@ -23,6 +23,100 @@ body {
     -moz-osx-font-smoothing: grayscale;
  
 }
+
+/**
+font size
+**/
+.FSHeroT{
+font-size: 50px;
+}
+.FSHeroTx{
+    font-size: 30px;
+
+}
+
+@media (max-width:960px) {
+    .FSHeroT{
+        font-size:45px;
+        }
+        .FSHeroTx{
+            font-size: 25px;
+        }
+}
+@media (max-width:600px) {
+    .FSHeroT{
+        font-size:40px;
+        }
+        .FSHeroTx{
+            font-size: 23px;
+        }
+}
+@media (max-width:300px) {
+    .FSHeroT{
+        font-size:20px;
+        }
+        .FSHeroTx{
+            font-size: 16px;
+        }
+}
+.LHF{
+    line-height: 0.4;
+}
+.FF_BOLD{
+    font-weight: bold;
+}
+.FF_cairo{
+font-family: 'Cairo'
+}
+.FF_courier{
+    font-family:'Courier New', Courier, monospace;
+}
+.FF_franklin{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.FF_lucida{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.FF_segoe{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.FF_times{
+    font-family:'Times New Roman', Times, serif;
+}
+.FF_trebuchet{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.FF_arial{
+    font-family:Arial, Helvetica, sans-serif;
+}
+.FF_cambria{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.FF_georgia{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+.FF_impact{
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.FF_verdana{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.FF_cursive{
+    font-family:cursive;
+}
+.FF_fantasy{
+    font-family:fantasy;
+}
+.FF_monospace{
+    font-family:monospace;
+}
+.FF_sansserif{
+    font-family:sans-serif;
+}
+.FF_serif{
+    font-family:serif;
+}
+
 body::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -218,6 +312,19 @@ hr {
 
     }
     
+}
+.SCALE_5{
+    transform: scale(0.5);
+}
+/**
+dragable
+*/
+.drag{
+    -webkit-app-region: drag;
+    
+}
+.noDrag{
+    -webkit-app-region: no-drag;
 }
 /**********************************************************
 ** hover
@@ -456,21 +563,47 @@ cr {
     display: inline-block;
     max-width: -moz-fit-content;
 }
+cell {
+    display: block;
+   
+    content: "";
+    clip-path: polygon(0% 50%, 25% 100%, 75% 100%, 100% 50%, 75% 0%, 25% 0%);
 
-tring{
+
+  }
+
+tringL{
     display: block;
     
     content: "";
     clip-path: polygon( 100% 100% ,100% 0% ,50% 50%);
 
 }
+tringT{
+    display: block;
+    
+    content: "";
+    clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
 
-/**
-* shadow
-**/
-.SH{
-    box-shadow: 0 3px 7px rgb(0 0 0 / 60%);
 }
+tringR{
+    display: block;
+    
+    content: "";
+    clip-path:  polygon(0% 0%, 100% 50%, 0% 100%);
+
+}
+tringB{
+    display: block;
+    
+    content: "";
+    clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+
+}
+/***
+GLASS
+**/
+
 .BBGLASS{
     background-color:rgba(0, 0, 0, 0.432);
     backdrop-filter: blur(2px);
@@ -478,6 +611,43 @@ tring{
 .WWGLASS{
     background-color:rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(5px);
+}
+.BLUEGLASS{
+    background-color:rgba(15, 0, 42, 0.432);
+   
+}
+.YELOWGLASS{
+    background-color:rgba(255, 233, 106, 0.432);
+   
+}
+/**
+* shadow
+**/
+.SH,.SHD{
+    box-shadow: 0 3px 7px rgb(0 0 0 / 60%);
+}
+.SHs{
+    box-shadow: 0 1px 3px rgb(0 0 0 / 60%);
+}
+
+.B_GOLD {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #fad428 0%, #FDB931 8%, #b88821 30%, #a6812b 40%, transparent 80%),
+    radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #fdfdb5 8%, #f3d174 25%, #866006 62.5%, #5d4a1f 100%);
+}
+.F_GOLD{
+    background: rgb(255,251,127);
+    background: -webkit-linear-gradient(270deg, rgb(250, 244, 80) 0%, rgb(108, 108, 0) 35%, rgb(252, 209, 67) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.FFGOLD2{
+   
+    font-weight: 600;
+    background-image: linear-gradient(167deg,#ffefd8 0,#ffddae 34%,#d1933a 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 /****************************************************
 auto class
@@ -502,6 +672,9 @@ display
 .D_N {
     display: none;
 }
+.D_G {
+    display: grid;
+}
 .D_FLX {
     display: flex;
 }
@@ -514,7 +687,9 @@ display
 .D_FLR {
     display: flow-root;
 }
-
+.D_FLOWROOT {
+    display: flow-root;
+}
 /*
 text-align 
 */
@@ -545,6 +720,13 @@ text-align
 
 .T_RR {
     text-align: var(--DirR);
+}
+.DIREC_L {
+    direction: ltr;
+}
+
+.DIREC_R {
+    direction: rtl;
 }
 
 /*
@@ -612,6 +794,15 @@ height
 .H_F_C{
     height: fit-content;
 }
+
+.W_M_C{
+    width: max-content;
+}
+.H_M_C{
+    height: max-content;
+}
+
+
 /**
 overflow
 */
@@ -620,6 +811,27 @@ overflow
 }
 .OV_HIDE{
     overflow: hidden;
+}
+.overHide {
+    overflow: hidden;
+}
+.overAutoX {
+    overflow-x: auto;
+}
+.overAutoX ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+   
+}
+
+.overAutoX ::-webkit-scrollbar-thumb {
+    background: var(--PR);
+    border-radius: 10px;
+}
+
+.overAutoX ::-webkit-scrollbar-track {
+    background: var(--W);
+    position: absolute;
 }
 
 /****************************************************
@@ -720,29 +932,100 @@ custom element
 }
 
 /* @media */
-.main{
+.main,.FLX_C{
     width: 80%;
     max-width: 1200px;
     margin: 0 auto;
 }
-.mobile{
-    display: none;
-}
+
 .labtob{
     display: block;
 }
-@media (max-width:600px) {
-    .main{
+.HALF {
+    width: 50%;
+}
+.mob{
+    display: none;
+}
+@media (max-width:900px) {
+    .main,.FLX_C{
     width: 100%;
     
 }
-.mobile{
-    display: block;
+.pc{
+    display: none;
+}
+.mob{
+    display: unset;
 }
 .labtob{
     display: none;
 }
+.HALF {
+    width: 100%;
+}
   }
+  @media (max-width:600px) {
+    .main,.FLX_C{
+    width: 100%;
+    
+}
+
+.labtob{
+    display: none;
+}
+.HALF {
+    width: 100%;
+}
+  }
+
+
+/*lazyCards */
+  .lazyCards {
+    width: 100vw;
+    height: 100vh;
+    color: white;
+    margin: 0 auto;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.lazyCards>div {
+    display: flex;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(220deg, var(--PR_D), var(--PR));
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    transform-origin: top center;
+    will-change: transform;
+    overflow: hidden;
+}
+
+.lazyCards>img {
+    display: flex;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    max-height: 100%;
+    min-height: 300px;
+    background: linear-gradient(220deg, var(--PR_D), var(--PR));
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    transform-origin: top center;
+    will-change: transform;
+    overflow: hidden;
+}
 
 /**
 cards
@@ -831,6 +1114,19 @@ cards
 /**
 animation class
 */
+
+/**
+rotate 
+*/
+.rotate_45{
+    transform: rotate(45deg);
+}
+
+.rotate_90{
+    transform: rotate(90deg);
+}
+
+
 :root{
     --slideDown-time:300ms;
     --scaleUp-time:500ms;
@@ -1018,3 +1314,394 @@ scale
 
 
 
+/*
+Drop Btn
+*/
+
+
+/*
+img Cover 
+*/
+/*
+to control view area use  overflow hidden holder
+*/
+.imgHolder {
+    width: 100%;
+    overflow: hidden;
+}
+
+.imgCover {
+    width: 100%;
+    
+    height: auto;
+}
+
+.imgCoverL {
+    width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+.imgCover {
+    width: 200%;
+    margin-left: -50%;
+    margin-right: -50%;
+
+}
+
+.imgCoverL {
+    width: 200%;
+    margin-right: -100%;
+
+}
+}
+@media screen and (max-width: 290px) {
+.imgCover {
+    width: 200%;
+    margin-left: -50%;
+   
+}
+.imgCoverL {
+    width: 200%;
+    margin-right: -100%;
+}
+}
+
+
+
+.chatHolderAll{
+    width: 100%;
+    max-width: 900px;
+    height:fit-content;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    display: flow-root;
+}
+.chatImgHolder{
+
+    width: 20%;
+    max-width: 100px;
+    height: 200px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+margin: 0;
+padding: 0;
+   
+}
+.contactList{
+    padding: 10px;
+    
+}
+.contactList>h1{
+    text-align: center;
+    padding-bottom: 20px;
+}
+.contactList>h1{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.chatImgHolderS{
+
+    width: 20%;
+    max-width: 100px;
+    height: 100px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+margin: 0;
+padding: 0;
+   
+}
+a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.chatTxtHolder{
+    width: -webkit-fill-available;
+    height: 150px;
+    max-width: 60%;
+    display: inline-block;
+    position: absolute;
+    margin: 10px;
+padding: 0;
+  
+}
+.chatTxtHolderS{
+    width: -webkit-fill-available;
+    height: 100px;
+    max-width: 60%;
+    display: inline-block;
+    position: absolute;
+    margin: 10px;
+padding: 0;
+  
+}
+.isoTxt{
+max-width: 250px;
+width: 100%;
+height: 80px;
+margin: 30px auto 0 auto;
+}
+.isoTit{
+    
+    border-radius: 50%;
+    top: 0;
+    border: 2px red solid;
+    background-color: var(--W);
+    margin-top: 30px;
+    width: 120px;
+    height: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 4px 6px rgb(0 0 1 / 70%)
+}
+.imgLogo{
+    top: 0;
+    position: absolute;
+    display: block;
+  
+    width: 100px;
+}
+.major{
+    inset: 3em 1em;
+    position: absolute;
+    text-align: center;
+    font-size: 40px;
+}
+@media only screen and (max-width: 800px) {
+    .chatTxtHolder{
+        max-width: 60%;
+    }
+    .imgLogo{
+        width: 70px;
+    }
+    .chatHolderAll{
+        width: 100%;
+       
+        padding: 10px;
+       margin-bottom: 7%;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .chatTxtHolder{
+        max-width: 70%;
+    }
+    .imgLogo{
+        width: 70px;
+    }
+    .chatHolderAll{
+        width: 100%;
+       
+        padding: 10px;
+       margin-bottom: 16%;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .chatTxtHolder{
+        max-width: 70%;
+    }
+    .imgLogo{
+        width: 70px;
+    }
+    .chatHolderAll{
+        width: 100%;
+       
+        padding: 10px;
+       margin-bottom: 170px;
+    }
+    .isoTxt p{
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 285px) {
+    .chatTxtHolder{
+        max-width: 70%;
+    }
+    .imgLogo{
+        width: 70px;
+    }
+    .chatHolderAll{
+        width: 100%;
+        
+        padding: 10px;
+       margin-bottom: 275px;
+    }
+    .isoTit{
+    
+     
+        margin-top: 50px;
+        width: 90px;
+        height: 90px;
+       
+    }
+    .isoTit h2{
+        font-size: 14px;
+        width: 70px;
+    }
+    .isoTxt p{
+        font-size: 12px;
+    }
+}
+.arrow-right {
+    width: 100vw; 
+    height: 100vw;
+    transform: rotate(45deg); 
+  background-color: var(--PR);
+  }
+.waveBack {
+    background-color: var(--W);
+    background-image:         linear-gradient(45deg, hsla(0,0%,0%,.25) 25%, transparent 25%, transparent 75%, hsla(0,0%,0%,.25) 75%, hsla(0,0%,0%,.25)), 
+                              linear-gradient(45deg, hsla(0,0%,0%,.25) 25%, transparent 25%, transparent 75%, hsla(0,0%,0%,.25) 75%, hsla(0,0%,0%,.25));
+    background-position:0 0, 2px 2px;
+    background-size:4px 4px;
+  
+}
+.HOVRE:hover{
+    color: #c62039;
+}
+.FONT_Cairo {
+    font-family: Cairo;
+}
+
+.chessboard {
+    width: 1500px;
+    height: 1500px;
+    display: grid;
+    left: 0;
+    margin-left: -500px;
+    top: 0;
+    margin-top: -500px;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    transform: rotate(45deg);
+}
+
+.chess-piece {
+    width: 100%;
+    height: 100%;
+}
+@media only screen and (max-width: 560px) {
+    .chessboard {
+        width: 800px;
+        height: 800px;
+        margin-left: -150px;
+        margin-top: -100px;
+    }
+}
+
+
+
+.PBorder{
+    border-bottom: 10px var(--PR_D) double;
+}
+.GRID{
+    display: grid;
+    grid-template-columns: 1fr 1fr;  
+}
+
+
+.treeView{
+    padding: 0;
+    margin: 0 auto;
+    width: max-content;
+   
+}
+.treeView ul {
+    padding-top: 20px; 
+    position: relative;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+.treeView li {
+
+	float: left; text-align: center;
+	list-style-type: none;
+	position: relative;
+	padding: 20px 5px 0 5px;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+.treeView li::before, .treeView li::after{
+	content: '';
+	position: absolute; top: 0; 
+    right: 50%;
+	border-top: 1px solid #ccc;
+	width: 50%;
+  
+     height: 20px;
+}
+.treeView li::after{
+	right: auto; left: 50%;
+	border-left: 1px solid #ccc;
+}
+
+.treeView li:only-child::after, .treeView li:only-child::before {
+	display: none;
+}
+
+.treeView li:only-child{ padding-top: 0;}
+
+.treeView li:first-child::before, .treeView li:last-child::after{
+	border: 0 none;
+}
+.treeView li:last-child::before{
+	border-right: 1px solid #ccc;
+	border-radius: 0 5px 0 0;
+	-webkit-border-radius: 0 5px 0 0;
+	-moz-border-radius: 0 5px 0 0;
+}
+.treeView li:first-child::after{
+	border-radius: 5px 0 0 0;
+	-webkit-border-radius: 5px 0 0 0;
+	-moz-border-radius: 5px 0 0 0;
+}
+
+.treeView ul ul::before{
+	content: '';
+	position: absolute; top: 0; left: 50%;
+	border-left: 1px solid #ccc;
+	width: 0; height: 20px;
+}
+
+.treeView li a{
+	border: 1px solid #ccc;
+    cursor: pointer;
+	padding: 5px 10px;
+	text-decoration: none;
+	color: var(--B); 
+	font-family: arial, verdana, tahoma;
+	font-size: 12px;
+	display: inline-block;
+	
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+}
+
+.treeView li a:hover, .treeView li a:hover+ul li a {
+	background: var(--B);
+    color:var(--W); 
+    border: 1px solid #94a0b4;
+}
+
+.treeView li a:hover+ul li::after, 
+.treeView li a:hover+ul li::before, 
+.treeView li a:hover+ul::before, 
+.treeView li a:hover+ul ul::before{
+	border-color:  #94a0b4;
+}

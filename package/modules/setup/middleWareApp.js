@@ -4,7 +4,8 @@ const sessionsControl = require('./sessions/sessionsControl');
 const sessionData = require('./sessions/sessionData');
 const {api} = require('../main');
 const {getfileName} = require('../tools');
-
+const path = require('path');
+const fs = require('fs');
 const is_api_ = require('./middelWare/is_api');
 const is_app_ = require('./middelWare/is_app');
 const is_asset_ = require('./middelWare/is_asset');
@@ -14,10 +15,10 @@ const asset_file = require('./middelWare/asset_file');
 const route_file = require('./middelWare/route_file');
 const router = require('../utils/router/router');
 const routerPost = require('../utils/router/routerPost');
-const middleWareApp = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript])=>{
+const middleWareApp = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path])=>{
   const url = req.url;
   const is_user = isSession(req);
-  const appWare = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript],userData)=>{
+  const appWare = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path],userData)=>{
     req.user = userData;
 
     if (req.method === 'POST') {
@@ -28,7 +29,7 @@ const middleWareApp = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,s
       }else{
       const is_api   = is_api_(url);
       if(is_api){
-        return api(req,res);
+        return api(req,res,i_app_path,i_app);
       }else{
   
         const userRouterPost =  routerPost.match(req,res);
@@ -40,6 +41,27 @@ const middleWareApp = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,s
     }else if(req.method === 'GET'){
   
     const userRouter =  router.match(req,res);
+    if (req.url.match(/models/)) {
+      
+      const model = req.url.replace(/\/models\//,'');
+  
+      filePath = path.join(__dirname, '..','..','lib','models',model);
+      fs.readFile(filePath, (err, data) => {
+        if (err) {
+      
+         res.writeHead(500, { 'Content-Type': 'text/html' });
+         res.end('<h1>500 Internal Server Error</h1><p>Sorry, there was a problem loading the requested URL.</p>');
+        } else {
+     
+     
+           res.writeHead(200, { 'Content-Type':'text/html' });
+           res.end(data);
+      
+        return true;
+        }
+      });
+      return true;
+  }
     if(!userRouter){
   
   
@@ -71,12 +93,12 @@ const middleWareApp = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,s
 }
   if (i_app.users ) {
     if(is_user){
-      sessionData(req,res,appWare,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript]);
+      sessionData(req,res,appWare,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path]);
     }else{
-      sessionsControl(req,res,appWare,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript]);
+      sessionsControl(req,res,appWare,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path]);
     }
   }else  {
-    appWare(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript], {id:0,notBasic:true});
+    appWare(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path], {id:0,notBasic:true});
     
   }
 }

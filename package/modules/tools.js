@@ -42,7 +42,7 @@ Converts an object to a JSON string.
 @param {object} mw - The object to be converted.
 @returns {string} The resulting JSON string.
 */
-const JDS_ = (mw) => { return JSON.stringify(mw) }
+const JDS_ = (mw) => { return JSON.stringify(mw, null, 4) }
 
 
 // Convert a string to an array of words

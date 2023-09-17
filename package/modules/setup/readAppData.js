@@ -11,6 +11,7 @@ const readAppData =async (makeAppServer)=>{
     iappError: "Please add i.app file to your project main directory",
     themeError: "Please fix style.json and make sure it's in the same directory as .css in i.app",
     dbAlert:"Warning: Your project does not have the profile and connection to the database. Please add the file if you are using the user system. If your project does not need a database, please do not pay attention to this warning."
+
   };
 
   let i_app    = {};
@@ -59,12 +60,12 @@ if(!fs.existsSync(i_app_path)){
       if(themeColorSearch.type){
 
           const themeColorDir = path.join( themeColorSearch.path,'style.json');
-          fs.readFile(themeColorDir, (err, data) => {
+          fs.readFile(themeColorDir, (err, dataStyle) => {
               if (err) {
                 CL_(messages.themeError+" : "+themeColorDir);
                 manifest = manifestMaker(i_app,false);
               }else{
-                  const style = JSON.parse(data);
+                  const style = JSON.parse(dataStyle);
                   const styleColor = style.theme == "dark"?style.dc : style.lc;
                
                   const PR = styleColor.filter(e=>{
@@ -80,9 +81,9 @@ if(!fs.existsSync(i_app_path)){
                   })[0];
                   
                   manifest = manifestMaker(i_app,{PR_D : PR_D , PR : PR})
-                  makeAppServer(port,[i_app, PR_D.v,manifest,tree,userDir,i_app_st,swScript]);
+                  makeAppServer(port,[i_app, PR_D.v,manifest,tree,userDir,i_app_st,swScript,i_app_path]);
                     if(!fs.existsSync(i_app_db_path)){
-                      CL_(messages.dbAlert);
+                      console.warn(messages.dbAlert);
                     }else{
                         dbData(i_app,i_app_db_path);
                     
@@ -92,9 +93,9 @@ if(!fs.existsSync(i_app_path)){
             });
           }else{
             manifest = manifestMaker(i_app,false)
-            makeAppServer(port,[i_app, '#000',manifest,tree,userDir,i_app_st,swScript]);
+            makeAppServer(port,[i_app, '#000',manifest,tree,userDir,i_app_st,swScript,i_app_path]);
               if(!fs.existsSync(i_app_db_path)){
-                CL_(messages.dbAlert);
+                console.warn(messages.dbAlert);
               }else{
                 dbData(i_app,i_app_db_path);
               

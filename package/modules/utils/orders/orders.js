@@ -7,7 +7,9 @@ const languages  = require('./languages');
 const icons  = require('./icons');
 const setUserOffline  = require('./users/setUserOffline');
 const dataBaseReport =  require('./users/dataBaseReport');
-const orders  =(body,req,res)=>{
+const updateAppData =  require('./app/updateAppData');
+const updateTranslate =  require('./app/updateTranslate');
+const orders  =(body,req,res,i_app_path,i_app)=>{
    if(body.order === 'countries'){
       return countries(res);
    }else if(body.order === 'languages'){
@@ -26,6 +28,10 @@ const orders  =(body,req,res)=>{
       return speechSynthesisData(body,res);
    }else if(body.order === 'dataBaseReport'){
       return dataBaseReport(body,res);
+   }else if(body.order === 'updateApp'){
+      return updateAppData(body,res,i_app_path);
+   }else  if(body.order === 'updateTranslate'){
+      return updateTranslate(body,res,i_app_path,i_app);
    }else{
       res.writeHead(200, { 'Content-Type': 'application/json'});
       res.end(JSON.stringify({ res: false}));

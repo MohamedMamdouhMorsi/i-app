@@ -58,7 +58,21 @@
                                         }
                                     ]
                         }
-                 
+                        {
+                            c:'WW'
+                            e:[
+                                {
+                                    t:'bt'
+                                    c:'W_200 mT_50 B_PR F_WHITE'
+                                    s:'Update Lang'
+                                    a:{
+                                        fn:{
+                                            _.dev_translate('app');
+                                        }
+                                    }
+                                }
+                            ]
+                        }
                             ]
                         }
                  

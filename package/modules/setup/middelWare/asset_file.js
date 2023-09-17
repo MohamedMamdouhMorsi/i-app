@@ -18,13 +18,20 @@ const asset_file =(req,res,userDir,swScript,userData)=>{
     }else if (req.url === '/i-app-ui.js' ) {
         filePath = path.join(__dirname, '..','..','..','i-app-ui.js');
         isUiJs = true;
-    }else if (req.url === '/icofont.css') {
+    }else  if (req.url === '/i-app-ui.min.js' ) {
+      filePath = path.join(__dirname, '..','..','..','i-app-ui.min.js');
+      isUiJs = true;
+  }else if (req.url === '/icofont.css') {
         filePath = path.join(__dirname,'..','..','..','css', 'icofont.css');
     }else  if (req.url === '/app.png') {
       filePath = path.join(__dirname,'..','..','..','img', 'app.png');
     }else if (req.url === '/i-app-basic.css' ) {
         filePath = path.join(__dirname,'..','..','..','css', 'i-app-basic.css');
-    }else {
+    }else  if (req.url === '/i-app-basic.min.css' ) {
+      filePath = path.join(__dirname,'..','..','..','css', 'i-app-basic.min.css');
+  }else  if (req.url === '/face-api.js' ) {
+    filePath = path.join(__dirname,'..','..','..','lib', 'face-api.js');
+}else  {
 
       let is_get = false;
       let lastUrl = req.url;

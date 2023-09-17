@@ -58,7 +58,7 @@
                                                                     e:'change',
                                                                     fn(){
                                                                         if(_.E_I_S('pwa').checked){
-                                                                        
+                                                                      
                                                                             }else{
                                                                             _.CL_('Not checked');
                                                                             }
@@ -79,7 +79,7 @@
                                                         t:'in',
                                                         i:'isUsers',
                                                         s:'users',
-                                                        val:v.app.users?true:false,
+                                                        val:v.app.users ?true:false,
                                                         mod:'checkbox',
                                                              a:{
                                                                     e:'change',
@@ -87,6 +87,7 @@
                                                                         if(_.E_I_S('isUsers').checked){
                                                                             v.app.users = 'true';
                                                                             _.D_CL(['usersTab','D_N']);
+                                                                          
                                                                               _.D_CL(['users','D_N']);
                                                                             }else{
                                                                                 _.A_CL('usersTab','D_N');
@@ -110,13 +111,14 @@
                                                             {
                                                         t:'in',
                                                         i:'devMode',
-                                                        val:v.app.mode?true:false,
+                                                        val:v.app.mode  === 'dev'?true:false,
                                                         s:'dev',
                                                         mod:'checkbox',
                                                              a:{
                                                                     e:'change',
                                                                     fn(){
                                                                         if(_.E_I_S('devMode').checked){
+                                                                        
                                                                              v.app.mode = 'dev';
                                                                             }else{
                                                                                 _.AL_('You will switch the dev mode To return the application to development mode,  mode:dev  must be added to the i.app file')

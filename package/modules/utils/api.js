@@ -4,7 +4,7 @@ const destroySession = ()=>{
   console.log("test")
 }
 
-const api = (req, res) => {
+const api = (req, res,i_app_path,i_app) => {
     if (req.method === 'POST') {
       let reqBody = '';
   
@@ -14,7 +14,7 @@ const api = (req, res) => {
      const checkInjection = checkForSqlInjection(reqBody);
      if(!checkInjection){
       req.on('end', () => {
-        apiRes(reqBody,req,res);
+        apiRes(reqBody,req,res,i_app_path,i_app);
       });
      }else{
       destroySession();

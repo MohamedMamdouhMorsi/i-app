@@ -55,9 +55,13 @@ const makeUpTodate =(dbDate)=>{
 const mysqlConnect = async (body, res_, callBack) => {
 
     const dbConfig = dbConfigFn.get();
-    const queryText = await makeQuery(body, dbConfig.tables);
+    
+    if(dbConfig && dbConfig.host  && dbConfig.user  && dbConfig.password ){
+
+    
+    const queryText   = await makeQuery(body, dbConfig.tables);
     const queryTextUp = await makeQuery({query:[{a:'checkUpTime',ob:body}]}, dbConfig.tables);
-    const querySize = await makeQuery({query:[{a:'querySize',ob:body}]}, dbConfig.tables);
+    const querySize   = await makeQuery({query:[{a:'querySize',ob:body}]}, dbConfig.tables);
   
           const connection = mysql.createConnection({
             host: dbConfig.host,
@@ -66,9 +70,7 @@ const mysqlConnect = async (body, res_, callBack) => {
             database: dbConfig.database,
           });
 
-          
           connection.connect();
-
 
           if(isGetQuery(body)){
 
@@ -193,7 +195,13 @@ const mysqlConnect = async (body, res_, callBack) => {
 
                       return backResult;
           }
- 
+        }else{
+          if(typeof callBack === 'function'){
+            callBack([], res_,makeUpTodateData,false);
+          }
+
+        return false;
+        }
 /*} catch (err) {
     console.log(
       "No db.app file exists!! To connect to the MySQL DB, you need to create db.app file to store your db connection data"

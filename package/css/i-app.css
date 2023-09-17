@@ -68,9 +68,11 @@ html {
 }
 .F_G_ICON {
     background: -webkit-linear-gradient(36deg, rgba(0,0,0,1) 0%, rgba(70,115,159,1) 71%, rgba(161,190,208,1) 100%);
+  
+    background: rgb(255,251,127);
+    background: -webkit-linear-gradient(270deg, rgba(255,251,127,1) 0%, rgba(108,0,0,1) 35%, rgba(254,225,130,1) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  
 }
 .WH__ {
     height: var(--WH__);

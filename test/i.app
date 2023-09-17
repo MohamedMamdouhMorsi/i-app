@@ -9,14 +9,14 @@
     version:"0.0.1"
     type:"website"
     domain:"localhost"
-    port:7778
+    port:3000
     lang: ["en","ar"]
     mode:"dev"
     pwa:"true"
-    users:true
+
     dir:{
         src:"/src/"
-        start:"home"
+        start:"start.app"
         icon:"/img/icon/"
         img:"/img/"
         db:"/db/"
