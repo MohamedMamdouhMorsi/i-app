@@ -63,7 +63,8 @@ i-app start by one function i-app() default with loading
   * @returns {Element} - The newly created element.
   */
   const CE_ = (tag) => {
-    return document.createElement(tag);
+    const elem =   document.createElement(`${tag}`) ;
+    return elem;
     };
       /**
   * Returns an array of all elements with the specified tag name.
@@ -119,7 +120,7 @@ const configFire = (con, lan,ty,theme,sendNumber) => {
 }
 
 const GOS = (function(d, s, id) {
-    var hh = d.getElementsByTagName('head')[0];
+  /*  var hh = d.getElementsByTagName('head')[0];
    
     hh.innerHTML += '<meta name="google-signin-scope" content="profile email">';
     hh.innerHTML += '<meta name="google-signin-client_id" content="94508468930-rnl3toalkm9akk5kri0qff4i6f39fcv9.apps.googleusercontent.com">';
@@ -130,7 +131,7 @@ const GOS = (function(d, s, id) {
     js = d.createElement(s);
     js.id = id;
     js.src = 'https://apis.google.com/js/platform.js';
-    fjs.parentNode.insertBefore(js, fjs)
+    fjs.parentNode.insertBefore(js, fjs)*/
 }(document,  'script','google-jssdk'));
 
 
@@ -478,7 +479,7 @@ const i_app = (()=>{
   @param {Element} p - The element to insert before.
   @param {Element} c - The element to be inserted.
 
-  
+
   */
   const IN_B = (p,c)=>{p.parentNode.insertBefore(c,p);}
   /**
@@ -1040,8 +1041,8 @@ const funcHandel = (str) => {
   };
   
   const OBJ_ = (st)=>{
-    
-    const fn = new Function("{return "+st+"}")
+
+    const fn = new Function(`{return ${st}; }`);
    
     return fn();
   }
@@ -1084,8 +1085,9 @@ const funcHandel = (str) => {
 
                     var jsonOb ;
                     if(isJson(txt)){
-                        // Clean the text response using the cleanSt function   
-                        jsonOb = OBJ_(txt);
+                        // Clean the text response using the cleanSt function  
+                       
+                        jsonOb = JD_(txt);
                     } else{
                         var jsonTx = cleanSt(txt);
                             jsonOb = OBJ_(jsonTx);
@@ -1190,10 +1192,10 @@ const funcHandel = (str) => {
                   if (Queries[queryName].callBack && Queries[queryName].callBack.length > 0) {
                     if(Queries[queryName].res && json.res && json.res == "UPTODATE"){
                      json.res = Queries[queryName].res.res ;
-                     CL_(['UPTODATE',json.res, Queries[queryName].res]);
+                   
                     }else{
                       Queries[queryName].res = json;
-                      CL_(['NEW',json.res, Queries[queryName].callBack])
+                    
                     }
                    
                     for (const cureCallBack of Queries[queryName].callBack) {
@@ -1203,7 +1205,7 @@ const funcHandel = (str) => {
                   }
                 }
               } else {
-                CL_(['res3',json.res])
+             
                   callback(json, data);
                 }
               }
@@ -1218,11 +1220,152 @@ const funcHandel = (str) => {
       return SWITCH_VOICE(data)
     }
   }
+  const translateFromTo = async(from,to,text, callback)=> {
+  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURI(text)}`;
+    fetch(url)
+        .then(response => { return response.json()})
+        .then(data => {
+         
+          let translatedAll = "";
+      const translatedText = data[0];
+        for(var x =0 ; x < translatedText.length; x++){
+          translatedAll += translatedText[x][0]
+        }
+        
+            callback(translatedAll);
+           
+            return translatedAll;
+        })
+        
+        .catch(error => {
+          if(error){
+            console.log(error);
+          }
   
+       
+        });
+}
+  const dev_translate =async (txt)=>{
+    if(txt === 'app'){
+
+   
+
+      for(let i = 0 ; i < app.lang.length; i++){
+       const lang = app.lang[i];
+       if(!i_app_lang[lang]){
+        i_app_lang[lang]={}
+       }
+       var time = 300;
+       let count = 0;
+       if(lang !== "en" && lang !== "ar"){
+        for(const key in i_app_lang['en']){
+          const text = i_app_lang['en'][key];
+
+          const callback =(value)=>{
+            i_app_lang[lang][key] = value;
+            count = count + 1 ;
+            if (count === Object.keys(i_app_lang['en']).length) {
+              const callBack = ()=>{
+          
+                const lastLang = i_app_lang[lang];
+                _POST('/api',{order:'updateTranslate',data:lastLang ,lang:lang},false);
+        
+               }
+               setTimeout(callBack,5000);
+            }
+
+          }
+          const tt = ()=>{
+            translateFromTo("ar",lang,text,callback);
+          }
+          
+          setTimeout(tt,time);
+          time = time + 300;
+        }
+       
+       
+       }
+      }
+   
+    
+    }else{
+
+    }
+  }
+  const makeDBtx =async (v)=>{
+   const dbA = v.dbA ;
+   const dbB = v.dbB;
+   const upTxtArabic = {};
+   for(var i = 0 ; i < dbA.length;i++){
+    const topic  = dbA[i];
+    if(topic.id !== 19){
+  
+    const topicTitleEn =topic.key;
+
+   
+    const  topicTitleKey = `${topicTitleEn}-A-${topic.id}`;
+    upTxtArabic[topicTitleKey] = topic.title;
+    dbA[i].title = `t.{${topicTitleKey}}`;
+    var subNo = 1;
+    for(var x = 0 ; x < topic.subjects.length;x++){
+      const subject  = topic.subjects[x];
+      const subTitleKey = `${topicTitleKey}-sub-${subNo}`;
+      upTxtArabic[subTitleKey] = subject.title;
+      dbA[i].subjects[x].title = `t.{${subTitleKey}}`;
+      var stepNo = 1;
+      for(var e = 0 ; e < subject.steps.length;e++){
+          const step  = subject.steps[e];
+          const stepTxtKey = `${topicTitleKey}-sub-${subNo}-tx-${stepNo}`;
+          upTxtArabic[stepTxtKey] = step.txt;
+          dbA[i].subjects[x].steps[e].txt = `t.{${stepTxtKey}}`;
+          stepNo=stepNo+1;
+      }
+      subNo = subNo + 1;
+    }
+    
+  }
+
+   }
+   for(var i = 0 ; i < dbB.length;i++){
+    const topic  = dbB[i];
+    if(topic.id !== 19){
+
+    const topicTitleEn = topic.key;
+
+    const  topicTitleKey = `${topicTitleEn}-B-${topic.id}`;
+    upTxtArabic[topicTitleKey] = topic.title;
+    dbB[i].title = `t.{${topicTitleKey}}`;
+    var subNo = 1;
+    for(var x = 0 ; x < topic.subjects.length;x++){
+      const subject  = topic.subjects[x];
+      const subTitleKey = `${topicTitleKey}-sub-${subNo}`;
+      upTxtArabic[subTitleKey] = subject.title;
+      dbB[i].subjects[x].title = `t.{${subTitleKey}}`;
+      var stepNo = 1;
+      for(var e = 0 ; e < subject.steps.length;e++){
+          const step  = subject.steps[e];
+          const stepTxtKey = `${topicTitleKey}-sub-${subNo}-tx-${stepNo}`;
+          upTxtArabic[stepTxtKey] = step.txt;
+          dbB[i].subjects[x].steps[e].txt = `t.{${stepTxtKey}}`;
+          stepNo=stepNo+1;
+      }
+      subNo = subNo + 1;
+    }
+  }
+   }
+   CL_(JDS_(upTxtArabic))
+   CL_(JDS_(dbA))
+   CL_(JDS_(dbB))
+  }
   const URS = () => Object.freeze({
+    dev_translate:dev_translate,
+    G_Json:G_Json,
+    makeDBtx:makeDBtx,
+    _GET:G_Json,
     E_I_S: E_I_S,
     E_I: E_I,
     E_I_V: E_I_V,
+    print:print,
     G_SRC: G_SRC,
     MW_SW_L: createAppTxt,
     s_Lang: s_Lang,
@@ -1274,20 +1417,24 @@ const funcHandel = (str) => {
     makeFunction:makeFunction
   });
   
-  const L_CSS = (f)=>{
-             
-    if(!E_I(`css_${f}`)){
-    const src = CE_('link');
-    src.id = `css_${f}`;
-    let currentDate = new Date();
-    let tt = currentDate.getTime() ;
-    src.id = f;
-    src.href = `${app.dir.css}${f}.css?${tt}`;
-    src.rel = "stylesheet";
-    const head = E_T("head")[0]
-  head.appendChild(src);
+  const L_CSS = (f) => {
+    const existingCss = E_I(`css_${f}`);
+
+    if (!existingCss) {
+        const src = CE_('link');
+        src.id = `css_${f}`;
+        const tt = Date.now(); // Generate a new timestamp for cache busting
+
+        src.href = `${app.dir.css}${f}.css`;
+        src.rel = "stylesheet";
+
+        const head = E_T("head")[0];
+       
+        head.insertBefore(src, head.children[0]);
+
     }
-  }
+};
+
   const L_SCRIPT = (f,v)=>{
     const srcFn = URS();
     if(!E_I(`js_${f}`)){
@@ -1297,10 +1444,18 @@ const funcHandel = (str) => {
     // Get the number of milliseconds since midnight
     src.src = `${app.dir.script}${f}.js?${time_()}`;
     src.type = "text/javascript";
-    const head = E_T("head")[0]
-  head.appendChild(src)
+    var afterload =false;
+    if(v === 'afterload'){
+      afterload =true;
+      src.setAttribute('defer','true');
+      document.body.appendChild(src);
+    }else{
+      const head = E_T("head")[0];
+      head.appendChild(src);
+    }
+
   
-    if(v){
+    if(v && !afterload){
       window[f] = (a,b)=>{}
       ReturnScriptFunctions[f] = (a,b)=>{}
       const srcOnLoad = ()=> {
@@ -1561,6 +1716,7 @@ const funcHandel = (str) => {
     const txtQTranslate = /qt\.\{\s*(?<queryTranslate>[^\}]+)\s*\}/g;
     const txtTranslate = /t\.\{\s*(?<translate>[^\}]+)\s*\}/g;
     const txtvalues = /v\.\{\s*(?<values>[^\}]+)\s*\}/g;
+    const txtvaluesTr = /vt\.\{\s*(?<valuesTr>[^\}]+)\s*\}/g;
     const txtInput = /val\.\{\s*(?<input>[^\}]+)\s*\}/g;
     const txtApp = /app\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
     const txtUser = /u\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
@@ -1624,7 +1780,26 @@ const funcHandel = (str) => {
      
    }
    );
-  
+   output = output.replace(txtvaluesTr, (_, valuesTr) =>{
+    if(i_app_v.hasOwnProperty(valuesTr.trim())){
+        if(onValueChange[valuesTr.trim()]){
+          let itExsit = false;
+          for(let x = 0 ; x < onValueChange[valuesTr.trim()].length;x++){
+              if(onValueChange[valuesTr.trim()][x][0] == id){ 
+                itExsit = true;
+              }
+          }
+          if(!itExsit){
+            onValueChange[valuesTr.trim()].push([id,text])
+          }
+        }else{
+          onValueChange[valuesTr.trim()] =[[id,text]]
+        }
+     return `t.{${i_app_v[valuesTr.trim().toString()]}}`;
+    }else{ 
+      return  valuesTr.trim();
+    }
+    });
     output = output.replace(txtTranslate, (_, translate) =>
     {
      if(i_app_select_lang[translate.trim()]){
@@ -1766,6 +1941,73 @@ const funcHandel = (str) => {
   * Animtion and Building Tools
   * 
   */
+
+  /**
+   * print doc
+   */
+  const print = (id,cls)=>{
+    
+    const body = E_I_S(id).innerHTML;
+    var nD = '';
+    nD += '<html> ';
+    nD += '<head> <meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1">';
+    nD += '<style>';
+    nD += 'th.inpr{display:none;} td.inpr{display:none;} tr.inpr{display:none;} div.inpr{display:none;} button.inpr{display:none;} p.inpr{display:none;} b.inpr{display:none;} input.inpr{border:none;} table.inpr{display:none;} ';
+    nD += '.ST_B_PR_2_D {border-bottom:2px #000 dotted;border-top:none;border-right:none;border-left:none;}';
+    nD += '.F_S_25{font-size:18px;}';
+    nD += '.chart{background-color: #999999;border-radius: 50%;direction: ltr;}';
+    nD += '.chart::before{    content: "";margin: auto;display: block;width: 20%;height: 20%;background: #ffffff;border-radius: 50%;top: 50%;-ms-transform: translateY(200%);transform: translateY(200%);}';
+    nD += '.F_S_14{font-size:10px;}';
+    nD += '.H_25{height:18px;}';
+    nD += '.titImg{width:180px;}';
+    nD += '.DNP{border:none;}.T_C{text-align: center;}.T_R{text-align: right;}.LHF{line-height: 0.2;}.ST_B_1{border:#000 1px solid;}.ST_B_B_1{border-bottom:#000 1px solid;padding-bottom:20px;}.FF_BOLD{ font-weight: bold;}.TT_0{ top:0;}.RR_0{ right:0;}.mR_0{ margin-right:0;}.mR_278{ margin-right:330px;}.mR_200{ margin-right:200px;}.D_INB{display: inline-block;}.WW{width:100%;}.W_P_30{width:30%;}.W_100{width:100px;}.LL_0{left:0;}.mT_50{margin-top:120px;}.mT30{margin-top:30px;}.mT20{margin-top:20px;}.PD_5{padding:10px;}.B_PR{background:#cccccc;}';
+    nD += 'cr {border-radius: 50%;width: fit-content;width: -moz-fit-content;display: inline-block;}';
+    nD += '.Box_20{width:20px; height:20px} .mR_20{margin-right:20px} .F_GRY2{color:#666;}';
+    nD += '@media print {* {-webkit-print-color-adjust: exact !important; color-adjust: exact !important; }}';
+    nD += cls;
+    nD += 'body{margin:0;padding:0;}';
+    nD += 'table{ font-size:10px; text-align:center; padding:5px;border-collapse: collapse;margin:0 0 20px 0;width:100%;} ';
+    nD += 'th{border:#000 2px solid;padding:2px;font-size:15px;}';
+    nD += 'td{border:#000 1px solid;padding:2px;font-size:15px;}';
+    nD += 'button{margin:20px;background:transparent;border:none;padding:0;position: relative} ';
+    nD += 'h2{margin:0; text-align:center;padding:0;top:0;right:0;left:0;bottom:0;display: inline-block;width: max-content;} ';
+    nD += '</style>';
+    nD += '<title> Print </title>';
+    nD += '</head>';
+    nD += '<body >';
+    nD += '' + body + '';
+  
+    nD += '</body>';
+    nD += '</html>';
+  
+    if(app.electron){
+      _POST('/print',{sc:nD},(res)=>{
+        CL_(res);
+      })
+    }else{
+      var Pagelink = app.name;
+
+      var mywindow = window.open(Pagelink, "_new");
+      var is_chrome = Boolean(mywindow.chrome);
+      mywindow.document.write(nD);
+      mywindow.document.close();
+      if (is_chrome) {
+          mywindow.onload = () => {
+              mywindow.focus();
+              mywindow.print();
+              mywindow.close();
+          };
+      } else {
+          mywindow.document.close();
+          mywindow.focus();
+          mywindow.print();
+          mywindow.close();
+      }
+  
+    }
+
+
+  }
   const PLAY_SLI_T = () => {
   SLIDER_SW(['all', 'a']);
   }
@@ -2087,522 +2329,522 @@ const funcHandel = (str) => {
   };//  website for ISO consulting company ui/ux use black and red   
   
   const _FN = (FN_, FN_DATA, FN_ELMENT) => {
-  var MWR;
-  var V = [];
-  const chickValue = (x) => {
-      var isE = false;
-      var nn = 0;
-      for (var z = 0; z < V.length; z++) {
-          if (V[z].n == x) {
-              isE = true;
-              nn = z;
+      var MWR;
+      var V = [];
+      const chickValue = (x) => {
+          var isE = false;
+          var nn = 0;
+          for (var z = 0; z < V.length; z++) {
+              if (V[z].n == x) {
+                  isE = true;
+                  nn = z;
+              }
+          }
+          if (isE == true) {
+              return nn;
+          } else {
+              return null;
           }
       }
-      if (isE == true) {
-          return nn;
-      } else {
-          return null;
-      }
-  }
-  for (var n = 0; n < FN_.length; n++) {
-      if (FN_[n].T == "C") {
-          MWR = FN_[n].T;
-          var D = FN_[n].D;
-          for (var b = 0; b < D.length; b++) {
-              if (D[b].T == "V") {
-                  var a = D[b].D;
-                  for (var x = 0; x < a.length; x++) {
-                      if (a[x].T == "SD") {
-                          var om = { n: a[x].N, v: a[x].D };
-                          V.push(om);
-                      } else if (a[x].T == "ADB") {
-                          var om = { n: a[x].N, v: MW_NT._ADB[a[x].D] };
-                          V.push(om);
-                      } else if (a[x].T == "Q_A") {
-                          
-                          var t = a[x].D[0];
-                          var k = a[x].D[1];
-                          var io = I_O(t);
-                          var Q_A = [];
-                          if(io && io.Q && io.Q.res &&io.Q.res.length > 0 ){
-                              for(var j = 0 ; j < io.Q.res.length;j++){
-                                  if(io.Q.res[j][k]){
-                                      Q_A.push(io.Q.res[j][k]);
-                                  }
-                              }
-                          }
-  
-                          var om = { n: a[x].N, v:Q_A };
-                          V.push(om);
-                      } else if (a[x].T == "STA") {
-                          var om = { n: a[x].N, v: MW_NT._ST[a[x].D] };
-                          V.push(om);
-                      } else if (a[x].T == "UDA") {
-                          var om = { n: a[x].N, v: MW_NT._UDA[a[x].D] };
-                          V.push(om);
-                      } else if (a[x].T == "UD") {
-                          var om = { n: a[x].N, v: MW_NT._UD[a[x].D] };
-                          V.push(om);
-                      } else if (a[x].T == "S") {
-                          if (a[x].Q) {
-                              var v = {};
-                              if (FN_DATA !== "FALSE") {
-                                  v = { n: a[x].N, v: FN_DATA[0][a[x].Q] };
-                              } else {
-                                  v = { n: a[x].N, v: a[x].D };
-                              }
-                              V.push(v);
-                          } else if (a[x].A) {
-                              var v = {};
-                              if (FN_DATA !== "FALSE") {
-                                  v = { n: a[x].N, v: FN_DATA[0] };
-                              }
-                              V.push(v);
-                          } else if (a[x].D) {
-                              var vv = [];
-                              for (var er = 0; er < a[x].D.length; er++) {
-                                  if (a[x].D[er].s) {
-                                      vv.push(a[x].D[er].s);
-                                  } else if (a[x].D[er].d) {
-                                      var dvd;
-                                      for (var iu = 0; iu < V.length; iu++) {
-                                          if (V[iu].n == a[x].D[er].d) {
-                                              dvd = V[iu].v;
-                                          }
-                                      }
-                                      vv.push(dvd);
-                                  } else if (a[x].D[er].q) {
-                                      if (FN_DATA !== "FALSE") {
-                                          vv.push(FN_DATA[0]);
+      for (var n = 0; n < FN_.length; n++) {
+          if (FN_[n].T == "C") {
+              MWR = FN_[n].T;
+              var D = FN_[n].D;
+              for (var b = 0; b < D.length; b++) {
+                  if (D[b].T == "V") {
+                      var a = D[b].D;
+                      for (var x = 0; x < a.length; x++) {
+                          if (a[x].T == "SD") {
+                              var om = { n: a[x].N, v: a[x].D };
+                              V.push(om);
+                          } else if (a[x].T == "ADB") {
+                              var om = { n: a[x].N, v: MW_NT._ADB[a[x].D] };
+                              V.push(om);
+                          } else if (a[x].T == "Q_A") {
+                              
+                              var t = a[x].D[0];
+                              var k = a[x].D[1];
+                              var io = I_O(t);
+                              var Q_A = [];
+                              if(io && io.Q && io.Q.res &&io.Q.res.length > 0 ){
+                                  for(var j = 0 ; j < io.Q.res.length;j++){
+                                      if(io.Q.res[j][k]){
+                                          Q_A.push(io.Q.res[j][k]);
                                       }
                                   }
                               }
-                              var v = { n: a[x].N, v: vv };
-                              V.push(v);
-                          } else {
-                              var v = { n: a[x].N, v: a[x].D };
-                              V.push(v);
-                          }
-                      } else if (a[x].T == "F") {
-                          var e = a[x].D;
-                          var fn = e.N;
-                          var fv = e.D;
-                          var goog = true;
-  
-                          if (a[x].IF) {
-                              var dos = a[x].IF[0];
-                              var cos = a[x].IF[1] == undefined ? "" : a[x].IF[1];
-                              for (let qw = 0; qw < V.length; qw++) {
-                                  var joj = qw;
-                                  if (V[joj] && V[joj].n && V[joj].n !== undefined && dos == V[joj].n) {
-                                      dos = V[joj].v;
-                                     qw = V.length + 1;
+      
+                              var om = { n: a[x].N, v:Q_A };
+                              V.push(om);
+                          } else if (a[x].T == "STA") {
+                              var om = { n: a[x].N, v: MW_NT._ST[a[x].D] };
+                              V.push(om);
+                          } else if (a[x].T == "UDA") {
+                              var om = { n: a[x].N, v: MW_NT._UDA[a[x].D] };
+                              V.push(om);
+                          } else if (a[x].T == "UD") {
+                              var om = { n: a[x].N, v: MW_NT._UD[a[x].D] };
+                              V.push(om);
+                          } else if (a[x].T == "S") {
+                              if (a[x].Q) {
+                                  var v = {};
+                                  if (FN_DATA !== "FALSE") {
+                                      v = { n: a[x].N, v: FN_DATA[0][a[x].Q] };
+                                  } else {
+                                      v = { n: a[x].N, v: a[x].D };
                                   }
-                              }
-                              for (let qw = 0; qw < V.length; qw++) {
-                                  
-                                  var joj = qw;
-                                  if (V[joj] && V[joj].n && V[joj].n !== undefined && cos == V[joj].n) {
-                                      cos = V[joj].v;
-                                      qw = V.length + 1;
+                                  V.push(v);
+                              } else if (a[x].A) {
+                                  var v = {};
+                                  if (FN_DATA !== "FALSE") {
+                                      v = { n: a[x].N, v: FN_DATA[0] };
                                   }
-                              }
-  
-                              if (dos !== cos) {
-                                  goog = false;
-                              }
-                          }
-                          if (a[x].IFN) {
-                              var dos = a[x].IFN[0];
-                              var cos = a[x].IFN[1] == undefined ? "" : a[x].IFN[1];
-                              for (let qw = 0; qw < V.length; qw++) {
-                                  var joj = qw;
-                                  if (V[joj] && V[joj].n && V[joj].n !== undefined && dos == V[joj].n) {
-                                      dos = V[joj].v;
-                                     qw = V.length + 1;
-                                  }
-                              }
-                              for (let qw = 0; qw < V.length; qw++) {
-                                  
-                                  var joj = qw;
-                                  if (V[joj] && V[joj].n && V[joj].n !== undefined && cos == V[joj].n) {
-                                      cos = V[joj].v;
-                                      qw = V.length + 1;
-                                  }
-                              }
-  
-                              if (dos == cos) {
-                                  goog = false;
-                              }
-                          }
-                          if (goog == true) {
-                              for (var qr = 0; qr < fv.length; qr++) {
-                                  if (fv[qr].t && fv[qr].t == "q") {
-                                      if (FN_DATA) {
-                                          fv[qr] = FN_DATA;
-                                      } else {
-                                          if (fv[qr].d) {
-                                              fv[qr] = fv[qr].d;
-                                          }
-                                      }
-                                  } else if (fv[qr].D || fv[qr].d) {
-                                      if (fv[qr].D) {
-  
-                                          if (fv[qr].D !== "0") {
-                                              var vcv = GET_MEMORY(fv[qr].D)
-  
-                                              if (vcv !== fv[qr].D) {
-                                                  fv[qr].Do = GET_MEMORY(fv[qr].D)
-  
-                                              } else {
-                                                  for (var nov = 0; nov < V.length; nov++) {
-                                                      if (fv[qr].D == V[nov].n) {
-                                                          fv[qr].Do = V[nov].v;
-                                                          nv = V.length;
-                                                      }
-                                                  }
+                                  V.push(v);
+                              } else if (a[x].D) {
+                                  var vv = [];
+                                  for (var er = 0; er < a[x].D.length; er++) {
+                                      if (a[x].D[er].s) {
+                                          vv.push(a[x].D[er].s);
+                                      } else if (a[x].D[er].d) {
+                                          var dvd;
+                                          for (var iu = 0; iu < V.length; iu++) {
+                                              if (V[iu].n == a[x].D[er].d) {
+                                                  dvd = V[iu].v;
                                               }
                                           }
-                                      } else if (fv[qr].d) {
-  
-                                          if (fv[qr].d !== "0") {
-                                              if (GET_MEMORY(fv[qr].d) !== fv[qr].d) {
-                                                  fv[qr] = GET_MEMORY(fv[qr].d);
-                                              } else {
-                                                  for (var nov = 0; nov < V.length; nov++) {
-                                                      if (fv[qr].d == V[nov].n) {
-                                                          fv[qr] = V[nov].v;
-                                                          nv = V.length;
-                                                      }
-                                                  }
-                                              }
-                                          }
-                                      } else {
-                                          var tqt = GET_MEMORY(fv[qr]);
-                                          if (tqt !== fv[qr]) {
-                                              fv[qr] = tqt;
+                                          vv.push(dvd);
+                                      } else if (a[x].D[er].q) {
+                                          if (FN_DATA !== "FALSE") {
+                                              vv.push(FN_DATA[0]);
                                           }
                                       }
                                   }
-                              }
-                              var vdd = _RETURN([fn, fv, FN_ELMENT]);
-                              if (vdd !== false) {
-                                  var vd = { n: a[x].N, v: vdd };
-                                  V.push(vd);
+                                  var v = { n: a[x].N, v: vv };
+                                  V.push(v);
                               } else {
-                                  return false;
+                                  var v = { n: a[x].N, v: a[x].D };
+                                  V.push(v);
                               }
-  
-                          }
-                      } else if (a[x].T == "D") {
-                          var e = a[x].D;
-                          var vn = a[x].N;
-                          var goog = true;
-                          if (a[x].IF) {
-                              var dos = a[x].IF[0];
-                              var cos = a[x].IF[1];
-                              for (let qw = 0; qw < V.length; qw++) {
-                                  var joj = qw;
-                                  if (V[joj] && V[joj].n && V[joj].n !== undefined && dos == V[joj].n) {
-                                      dos = V[joj].v;
-                                     qw = V.length + 1;
+                          } else if (a[x].T == "F") {
+                              var e = a[x].D;
+                              var fn = e.N;
+                              var fv = e.D;
+                              var goog = true;
+      
+                              if (a[x].IF) {
+                                  var dos = a[x].IF[0];
+                                  var cos = a[x].IF[1] == undefined ? "" : a[x].IF[1];
+                                  for (let qw = 0; qw < V.length; qw++) {
+                                      var joj = qw;
+                                      if (V[joj] && V[joj].n && V[joj].n !== undefined && dos == V[joj].n) {
+                                          dos = V[joj].v;
+                                        qw = V.length + 1;
+                                      }
+                                  }
+                                  for (let qw = 0; qw < V.length; qw++) {
+                                      
+                                      var joj = qw;
+                                      if (V[joj] && V[joj].n && V[joj].n !== undefined && cos == V[joj].n) {
+                                          cos = V[joj].v;
+                                          qw = V.length + 1;
+                                      }
+                                  }
+      
+                                  if (dos !== cos) {
+                                      goog = false;
                                   }
                               }
-                              for (let qw = 0; qw < V.length; qw++) {
-                                  
-                                  var joj = qw;
-                                  if (V[joj] && V[joj].n && V[joj].n !== undefined && cos == V[joj].n) {
-                                      cos = V[joj].v;
-                                      qw = V.length + 1;
+                              if (a[x].IFN) {
+                                  var dos = a[x].IFN[0];
+                                  var cos = a[x].IFN[1] == undefined ? "" : a[x].IFN[1];
+                                  for (let qw = 0; qw < V.length; qw++) {
+                                      var joj = qw;
+                                      if (V[joj] && V[joj].n && V[joj].n !== undefined && dos == V[joj].n) {
+                                          dos = V[joj].v;
+                                        qw = V.length + 1;
+                                      }
+                                  }
+                                  for (let qw = 0; qw < V.length; qw++) {
+                                      
+                                      var joj = qw;
+                                      if (V[joj] && V[joj].n && V[joj].n !== undefined && cos == V[joj].n) {
+                                          cos = V[joj].v;
+                                          qw = V.length + 1;
+                                      }
+                                  }
+      
+                                  if (dos == cos) {
+                                      goog = false;
                                   }
                               }
-                              if (dos !== cos) {
-                                  goog = false;
-                              }
-                          }
-                          if (a[x].IFN) {
-                             
-                              var dos = a[x].IFN[0];
-                              var cos = a[x].IFN[1];
-                             
-                              for (let qw = 0; qw < V.length; qw++) {
-                                  var joj = qw;
-                                  if (V[joj] && V[joj].n && V[joj].n !== undefined && dos == V[joj].n) {
-                                      dos = V[joj].v;
-                                     qw = V.length + 1;
-                                  }
-                              }
-                              for (let qw = 0; qw < V.length; qw++) {
-                                  
-                                  var joj = qw;
-                                  if (V[joj] && V[joj].n && V[joj].n !== undefined && cos == V[joj].n) {
-                                      cos = V[joj].v;
-                                      qw = V.length + 1;
-                                  }
-                              }
-                              if (dos == cos) {
-                                  goog = false;
-                              }
-                          }
-                          if (goog == true) {
-                              for (var ee = 0; ee < e.length; ee++) {
-                                  if (e[ee].T == "F") {
-                                      var q = [];
-                                      for (var ss = 0; ss < e[ee].D.length; ss++) {
-                                          if (e[ee].D[ss].D) {
-                                              if (e[ee].D[ss].D == "0") {
-                                                  q.push("0")
-  
-                                              } else {
-                                                  if (GET_MEMORY(e[ee].D[ss].D) !== e[ee].D[ss].D) {
-                                                      
-                                                      q.push(GET_MEMORY(e[ee].D[ss].D));
-                                                  
+                              if (goog == true) {
+                                  for (var qr = 0; qr < fv.length; qr++) {
+                                      if (fv[qr].t && fv[qr].t == "q") {
+                                          if (FN_DATA) {
+                                              fv[qr] = FN_DATA;
+                                          } else {
+                                              if (fv[qr].d) {
+                                                  fv[qr] = fv[qr].d;
+                                              }
+                                          }
+                                      } else if (fv[qr].D || fv[qr].d) {
+                                          if (fv[qr].D) {
+      
+                                              if (fv[qr].D !== "0") {
+                                                  var vcv = GET_MEMORY(fv[qr].D)
+      
+                                                  if (vcv !== fv[qr].D) {
+                                                      fv[qr].Do = GET_MEMORY(fv[qr].D)
+      
                                                   } else {
-  
                                                       for (var nov = 0; nov < V.length; nov++) {
-                                                          if (e[ee].D[ss].D == V[nov].n) {
-                                                              q.push(V[nov].v);
+                                                          if (fv[qr].D == V[nov].n) {
+                                                              fv[qr].Do = V[nov].v;
                                                               nv = V.length;
                                                           }
                                                       }
                                                   }
                                               }
-                                          } else if (e[ee].D[ss].d) {
-  
-                                              if (e[ee].D[ss].d == "0") {
-                                                  q.push("0")
-  
-                                              } else {
-                                                  if (GET_MEMORY(e[ee].D[ss].d) !== e[ee].D[ss].d) {
-                                                      q.push(GET_MEMORY(e[ee].D[ss].d));
+                                          } else if (fv[qr].d) {
+      
+                                              if (fv[qr].d !== "0") {
+                                                  if (GET_MEMORY(fv[qr].d) !== fv[qr].d) {
+                                                      fv[qr] = GET_MEMORY(fv[qr].d);
                                                   } else {
-                                                      for (var nv = 0; nv < V.length; nv++) {
-                                                          if (e[ee].D[ss].d == V[nv].n) {
-                                                              q.push(V[nv].v);
+                                                      for (var nov = 0; nov < V.length; nov++) {
+                                                          if (fv[qr].d == V[nov].n) {
+                                                              fv[qr] = V[nov].v;
                                                               nv = V.length;
                                                           }
                                                       }
                                                   }
                                               }
-                                          } else if (e[ee].D[ss].s) {
-                                              q.push(e[ee].D[ss].s)
-  
                                           } else {
-                                              for (var nv = 0; nv < V.length; nv++) {
-                                                  if (e[ee].D[ss] == V[nv].n) {
-                                                      q.push(V[nv].v);
-                                                      nv = V.length;
+                                              var tqt = GET_MEMORY(fv[qr]);
+                                              if (tqt !== fv[qr]) {
+                                                  fv[qr] = tqt;
+                                              }
+                                          }
+                                      }
+                                  }
+                                  var vdd = _RETURN([fn, fv, FN_ELMENT]);
+                                  if (vdd !== false) {
+                                      var vd = { n: a[x].N, v: vdd };
+                                      V.push(vd);
+                                  } else {
+                                      return false;
+                                  }
+      
+                              }
+                          } else if (a[x].T == "D") {
+                              var e = a[x].D;
+                              var vn = a[x].N;
+                              var goog = true;
+                              if (a[x].IF) {
+                                  var dos = a[x].IF[0];
+                                  var cos = a[x].IF[1];
+                                  for (let qw = 0; qw < V.length; qw++) {
+                                      var joj = qw;
+                                      if (V[joj] && V[joj].n && V[joj].n !== undefined && dos == V[joj].n) {
+                                          dos = V[joj].v;
+                                        qw = V.length + 1;
+                                      }
+                                  }
+                                  for (let qw = 0; qw < V.length; qw++) {
+                                      
+                                      var joj = qw;
+                                      if (V[joj] && V[joj].n && V[joj].n !== undefined && cos == V[joj].n) {
+                                          cos = V[joj].v;
+                                          qw = V.length + 1;
+                                      }
+                                  }
+                                  if (dos !== cos) {
+                                      goog = false;
+                                  }
+                              }
+                              if (a[x].IFN) {
+                                
+                                  var dos = a[x].IFN[0];
+                                  var cos = a[x].IFN[1];
+                                
+                                  for (let qw = 0; qw < V.length; qw++) {
+                                      var joj = qw;
+                                      if (V[joj] && V[joj].n && V[joj].n !== undefined && dos == V[joj].n) {
+                                          dos = V[joj].v;
+                                        qw = V.length + 1;
+                                      }
+                                  }
+                                  for (let qw = 0; qw < V.length; qw++) {
+                                      
+                                      var joj = qw;
+                                      if (V[joj] && V[joj].n && V[joj].n !== undefined && cos == V[joj].n) {
+                                          cos = V[joj].v;
+                                          qw = V.length + 1;
+                                      }
+                                  }
+                                  if (dos == cos) {
+                                      goog = false;
+                                  }
+                              }
+                              if (goog == true) {
+                                  for (var ee = 0; ee < e.length; ee++) {
+                                      if (e[ee].T == "F") {
+                                          var q = [];
+                                          for (var ss = 0; ss < e[ee].D.length; ss++) {
+                                              if (e[ee].D[ss].D) {
+                                                  if (e[ee].D[ss].D == "0") {
+                                                      q.push("0")
+      
                                                   } else {
-                                                      var tst = GET_MEMORY(e[ee].D[ss]);
-                                                      if (tst !== e[ee].D[ss]) {
-                                                          q.push(tst);
+                                                      if (GET_MEMORY(e[ee].D[ss].D) !== e[ee].D[ss].D) {
+                                                          
+                                                          q.push(GET_MEMORY(e[ee].D[ss].D));
+                                                      
                                                       } else {
-                                                          q.push(e[ee].D[ss]);
+      
+                                                          for (var nov = 0; nov < V.length; nov++) {
+                                                              if (e[ee].D[ss].D == V[nov].n) {
+                                                                  q.push(V[nov].v);
+                                                                  nv = V.length;
+                                                              }
+                                                          }
                                                       }
-                                                      nv = V.length;
                                                   }
+                                              } else if (e[ee].D[ss].d) {
+      
+                                                  if (e[ee].D[ss].d == "0") {
+                                                      q.push("0")
+      
+                                                  } else {
+                                                      if (GET_MEMORY(e[ee].D[ss].d) !== e[ee].D[ss].d) {
+                                                          q.push(GET_MEMORY(e[ee].D[ss].d));
+                                                      } else {
+                                                          for (var nv = 0; nv < V.length; nv++) {
+                                                              if (e[ee].D[ss].d == V[nv].n) {
+                                                                  q.push(V[nv].v);
+                                                                  nv = V.length;
+                                                              }
+                                                          }
+                                                      }
+                                                  }
+                                              } else if (e[ee].D[ss].s) {
+                                                  q.push(e[ee].D[ss].s)
+      
+                                              } else {
+                                                  for (var nv = 0; nv < V.length; nv++) {
+                                                      if (e[ee].D[ss] == V[nv].n) {
+                                                          q.push(V[nv].v);
+                                                          nv = V.length;
+                                                      } else {
+                                                          var tst = GET_MEMORY(e[ee].D[ss]);
+                                                          if (tst !== e[ee].D[ss]) {
+                                                              q.push(tst);
+                                                          } else {
+                                                              q.push(e[ee].D[ss]);
+                                                          }
+                                                          nv = V.length;
+                                                      }
+                                                  }
+      
                                               }
-  
                                           }
-                                      }
-                                      var vdd = _RETURN([e[ee].N, q, FN_ELMENT]);
-                                      if (vdd !== false) {
-                                          var vd = { n: a[x].N, v: vdd };
-                                          if (chickValue(a[x].N) == null) {
-                                              V.push(vd)
-  
+                                          var vdd = _RETURN([e[ee].N, q, FN_ELMENT]);
+                                          if (vdd !== false) {
+                                              var vd = { n: a[x].N, v: vdd };
+                                              if (chickValue(a[x].N) == null) {
+                                                  V.push(vd)
+      
+                                              } else {
+                                                  var ey = chickValue(a[x].N);
+                                                  V[ey] = vd;
+                                              }
                                           } else {
-                                              var ey = chickValue(a[x].N);
-                                              V[ey] = vd;
+                                              return false;
                                           }
-                                      } else {
-                                          return false;
-                                      }
-  
-                                  }
-                              }
-                          }
-  
-                      }
-                  }
-              } else if (D[b].T == "F") {
-                  var lv = [];
-                  var fn = D[b].N;
-                  var vk = D[b].D;
-                  var goog = true;
-                 
-                  if (D[b].IFN) {
-                      var dos = D[b].IFN[0];
-                      var cos = D[b].IFN[1];
-                      for (var qw = 0; qw < V.length; qw++) {
-  
-                          if (V[qw] && V[qw].n && V[qw].n !== undefined && dos == V[qw].n) {
-                              dos = V[qw].v;
-                              qw = V.length;
-                          }
-                          if (V[qw] && V[qw].n && V[qw].n !== undefined && cos == V[qw].n) {
-                              cos = V[qw].v;
-                          }
-  
-                      }
-                      if (dos == cos) {
-                          goog = false;
-                      }
-                  }
-                  if (D[b].IF) {
-                      var dos = D[b].IF[0];
-                      var cos = D[b].IF[1];
-                      for (var qw = 0; qw < V.length; qw++) {
-  
-                          if (V[qw] && V[qw].n && V[qw].n !== undefined && dos == V[qw].n) {
-                              dos = V[qw].v;
-                          }
-                          if (V[qw] && V[qw].n && V[qw].n !== undefined && cos == V[qw].n) {
-                              cos = V[qw].v;
-                          }
-  
-                      }
-                      if (dos !== cos) {
-                          goog = false;
-                      }
-                  }
-                  if (goog == true) {
-                      for (var kv = 0; kv < vk.length; kv++) {
-                          var isD = false;
-                          for (var nv = 0; nv < V.length; nv++) {
-                              if (vk[kv].t) {
-                                  if (vk[kv].t == "v") {
-                                      if (vk[kv].d == V[nv].n) {
-                                          isD = true;
-                                          lv.push(V[nv].v);
-                                          nv = V.length;
-                                      }
-                                  } else if (vk[kv].t == "q") {
-                                      var ndn;
-                                      if (FN_DATA) {
-                                          lv.push(FN_DATA);
-                                      } else if (vk[kv].d) {
-                                          lv.push(vk[kv].d[0]);
-                                      }
-                                      isD = true;
-                                      nv = V.length;
-                                  }
-  
-                              } else if (vk[kv].D) {
-  
-                                  if (GET_MEMORY(vk[kv].D) !== vk[kv].D) {
-                                      isD = true;
-                                      lv.push(GET_MEMORY(vk[kv].D));
-                                      nv = V.length;
-                                  } else {
-                                      if (vk[kv].D == V[nv].n) {
-                                          isD = true;
-                                          lv.push(V[nv].v);
-                                          nv = V.length;
-                                      }
-                                  }
-  
-                              } else if (vk[kv].d) {
-  
-                                  if (GET_MEMORY(vk[kv].d) !== vk[kv].d) {
-                                      isD = true;
-                                      lv.push(GET_MEMORY(vk[kv].d));
-                                      nv = V.length + 1;
-                                  } else {
-                                      if (vk[kv].d == V[nv].n) {
-                                          isD = true;
-                                          lv.push(V[nv].v);
-                                          nv = V.length;
-                                      }
-                                  }
-                              } else {
-                                  if (vk[kv] == V[nv].n) {
-  
-                                      isD = true;
-                                      lv.push(V[nv].v);
-                                      nv = V.length;
-                                  } else {
-                                      var trt = GET_MEMORY(vk[kv]);
-                                      if (trt !== vk[kv]) {
-                                          isD = true;
-                                          lv.push(trt);
-                                          nv = V.length;
+      
                                       }
                                   }
                               }
-  
+      
                           }
-                          if (!isD) {
-                              lv.push(vk[kv]);
-                          }
-  
                       }
+                  } else if (D[b].T == "F") {
+                      var lv = [];
+                      var fn = D[b].N;
+                      var vk = D[b].D;
+                      var goog = true;
                     
-                      _RETURN([fn, lv, FN_ELMENT]);
+                      if (D[b].IFN) {
+                          var dos = D[b].IFN[0];
+                          var cos = D[b].IFN[1];
+                          for (var qw = 0; qw < V.length; qw++) {
+      
+                              if (V[qw] && V[qw].n && V[qw].n !== undefined && dos == V[qw].n) {
+                                  dos = V[qw].v;
+                                  qw = V.length;
+                              }
+                              if (V[qw] && V[qw].n && V[qw].n !== undefined && cos == V[qw].n) {
+                                  cos = V[qw].v;
+                              }
+      
+                          }
+                          if (dos == cos) {
+                              goog = false;
+                          }
+                      }
+                      if (D[b].IF) {
+                          var dos = D[b].IF[0];
+                          var cos = D[b].IF[1];
+                          for (var qw = 0; qw < V.length; qw++) {
+      
+                              if (V[qw] && V[qw].n && V[qw].n !== undefined && dos == V[qw].n) {
+                                  dos = V[qw].v;
+                              }
+                              if (V[qw] && V[qw].n && V[qw].n !== undefined && cos == V[qw].n) {
+                                  cos = V[qw].v;
+                              }
+      
+                          }
+                          if (dos !== cos) {
+                              goog = false;
+                          }
+                      }
+                      if (goog == true) {
+                          for (var kv = 0; kv < vk.length; kv++) {
+                              var isD = false;
+                              for (var nv = 0; nv < V.length; nv++) {
+                                  if (vk[kv].t) {
+                                      if (vk[kv].t == "v") {
+                                          if (vk[kv].d == V[nv].n) {
+                                              isD = true;
+                                              lv.push(V[nv].v);
+                                              nv = V.length;
+                                          }
+                                      } else if (vk[kv].t == "q") {
+                                          var ndn;
+                                          if (FN_DATA) {
+                                              lv.push(FN_DATA);
+                                          } else if (vk[kv].d) {
+                                              lv.push(vk[kv].d[0]);
+                                          }
+                                          isD = true;
+                                          nv = V.length;
+                                      }
+      
+                                  } else if (vk[kv].D) {
+      
+                                      if (GET_MEMORY(vk[kv].D) !== vk[kv].D) {
+                                          isD = true;
+                                          lv.push(GET_MEMORY(vk[kv].D));
+                                          nv = V.length;
+                                      } else {
+                                          if (vk[kv].D == V[nv].n) {
+                                              isD = true;
+                                              lv.push(V[nv].v);
+                                              nv = V.length;
+                                          }
+                                      }
+      
+                                  } else if (vk[kv].d) {
+      
+                                      if (GET_MEMORY(vk[kv].d) !== vk[kv].d) {
+                                          isD = true;
+                                          lv.push(GET_MEMORY(vk[kv].d));
+                                          nv = V.length + 1;
+                                      } else {
+                                          if (vk[kv].d == V[nv].n) {
+                                              isD = true;
+                                              lv.push(V[nv].v);
+                                              nv = V.length;
+                                          }
+                                      }
+                                  } else {
+                                      if (vk[kv] == V[nv].n) {
+      
+                                          isD = true;
+                                          lv.push(V[nv].v);
+                                          nv = V.length;
+                                      } else {
+                                          var trt = GET_MEMORY(vk[kv]);
+                                          if (trt !== vk[kv]) {
+                                              isD = true;
+                                              lv.push(trt);
+                                              nv = V.length;
+                                          }
+                                      }
+                                  }
+      
+                              }
+                              if (!isD) {
+                                  lv.push(vk[kv]);
+                              }
+      
+                          }
+                        
+                          _RETURN([fn, lv, FN_ELMENT]);
+                      }
+                  } else if (D[b].T == "W") {
+      
+                      var lv = [];
+                      var fn = D[b].N;
+                      var vk = D[b].D;
+                      var rk = D[b].R;
+                      var rgt = D[b].RGT;
+                      var rgd = D[b].RGD;
+                      var rrt = D[b].RRT;
+      
+                      for (var kv = 0; kv < vk.length; kv++) {
+                          for (var nv = 0; nv < V.length; nv++) {
+                              if (vk[kv] == V[nv].n) {
+                                  lv.push(V[nv].v);
+                              }
+                          }
+                      }
+                      if (this.isCCN == true) {
+                          var R = MW_NSS({ N: fn, D: lv, R: rk, RGT: rgt, RGD: rgd, RRT: rrt });
+                      } else {
+                          var R = H_S_P(fn, "res", lv, rk.N, []);
+                      }
                   }
-              } else if (D[b].T == "W") {
-  
-                  var lv = [];
-                  var fn = D[b].N;
-                  var vk = D[b].D;
-                  var rk = D[b].R;
-                  var rgt = D[b].RGT;
-                  var rgd = D[b].RGD;
-                  var rrt = D[b].RRT;
-  
-                  for (var kv = 0; kv < vk.length; kv++) {
-                      for (var nv = 0; nv < V.length; nv++) {
-                          if (vk[kv] == V[nv].n) {
-                              lv.push(V[nv].v);
+              }
+          } else if (FN_[n].T == "F") {
+              var qd = [];
+              for (var ww = 0; ww < FN_[n].D.length; ww++) {
+                  
+                  if (FN_DATA !== "FALSE") {
+                      
+                      if (FN_[n].D[ww].t) {
+                          if (FN_[n].D[ww].t == "s") {
+                              qd.push(FN_[n].D[ww].d);
+                          } else if (FN_[n].D[ww].t == "q") {
+                              qd.push(FN_DATA);
+                          }
+                      }
+                  } else {
+                      
+                      var tvt = GET_MEMORY(FN_[n].D[ww]);
+                      if (FN_[n].D[ww].t == "q") {
+                          if (tvt !== FN_[n].D[ww]) {
+                              qd.push(tvt);
+                          } else if (tvt == FN_[n].D[ww] && FN_DATA !== false) {
+                              qd.push(FN_DATA[0]);
+                          } else if (FN_[n].D[ww].d) {
+                              qd.push(FN_[n].D[ww].d);
+                          }
+                      } else {
+                          if (tvt !== FN_[n].D[ww]) {
+                              qd.push(tvt);
+                          } else {
+                              qd.push(FN_[n].D[ww]);
                           }
                       }
                   }
-                  if (this.isCCN == true) {
-                      var R = MW_NSS({ N: fn, D: lv, R: rk, RGT: rgt, RGD: rgd, RRT: rrt });
-                  } else {
-                      var R = H_S_P(fn, "res", lv, rk.N, []);
-                  }
               }
-          }
-      } else if (FN_[n].T == "F") {
-          var qd = [];
-          for (var ww = 0; ww < FN_[n].D.length; ww++) {
               
-              if (FN_DATA !== "FALSE") {
-                  
-                  if (FN_[n].D[ww].t) {
-                      if (FN_[n].D[ww].t == "s") {
-                          qd.push(FN_[n].D[ww].d);
-                      } else if (FN_[n].D[ww].t == "q") {
-                          qd.push(FN_DATA);
-                      }
-                  }
-              } else {
-                  
-                  var tvt = GET_MEMORY(FN_[n].D[ww]);
-                  if (FN_[n].D[ww].t == "q") {
-                      if (tvt !== FN_[n].D[ww]) {
-                          qd.push(tvt);
-                      } else if (tvt == FN_[n].D[ww] && FN_DATA !== false) {
-                          qd.push(FN_DATA[0]);
-                      } else if (FN_[n].D[ww].d) {
-                          qd.push(FN_[n].D[ww].d);
-                      }
-                  } else {
-                      if (tvt !== FN_[n].D[ww]) {
-                          qd.push(tvt);
-                      } else {
-                          qd.push(FN_[n].D[ww]);
-                      }
-                  }
-              }
+              _RETURN([FN_[n].N, qd, FN_ELMENT]);
+      
           }
-          
-          _RETURN([FN_[n].N, qd, FN_ELMENT]);
-  
       }
-  }
   
   }
   const SL_P = (w) => {
@@ -2873,8 +3115,12 @@ const funcHandel = (str) => {
       for (const key in ob) {
         if(key !== 'I' && key !== 'offset' && key !== 'i'  && key !== 'q' && key !== 'i_e' && key !== 'e' && key !== 't' && key !== 'typ'){
           if(key == 'c'){
-            newOb[key] =newOb[key]+" "+ob[key];
+            const IObCls = ob.c ? ob.c : "";
+          const INObCls = newOb[key]? newOb[key]: "";
+          
+          newOb[key] = IObCls +" "+ INObCls;
           }else{
+          
             newOb[key] = ob[key];
           }
      
@@ -3222,22 +3468,18 @@ const closeOverHide =(dialog)=>{
   const dataQuery = (ob)=>{
 
      if(ob.limitAuto && ob.data && ob.data.length){
+      const DB_name = `linesNum_${ob.Q.DBId}`;
+
         for(var o = 0 ; o < ob.data.length;o++){
             if(ob.data[o].l){
-            
-              const DB_name = `linesNum_${ob.Q.DBId}`;
-              const DB_last = `lastNum_${ob.Q.DBId}`;
-          
-                    if(elementValue[i_root][DB_name]){
-                      ob.data[o].limitAuto = elementValue[i_root][DB_name];
+
+                    if(E_I_V(DB_name)){
+                      ob.data[o].limitAuto =E_I_V(DB_name);
                     }else{
                       ob.data[o].limitAuto = ob.limitAuto ;
                     }
-                    if(ob.data[o].last){
-
-                    }else if( E_I_V(DB_last) && parseInt(E_I_V(DB_last)) > 0){
-                      ob.data[o].last = E_I_V(DB_last);
-                     
+                    if(ob.last){
+                      ob.data[o].last =ob.last;
                     }
                   }
               }
@@ -3249,7 +3491,7 @@ const closeOverHide =(dialog)=>{
         res = res.res;
         if(ob.limitAuto && ob.data && ob.data.length){
 
-              const DB_last = `lastNum_${ob.Q.DBId}`;
+           
               const DB_name = `linesNum_${ob.Q.DBId}`;
               const DB_Qsize = `Qsize_${ob.Q.DBId}`;
               const DB_pageNo = `reasltBt_${ob.Q.DBId}`;
@@ -3257,16 +3499,17 @@ const closeOverHide =(dialog)=>{
               if( E_I_V(DB_name)){
                 const linesNumSt = `linesNum_${ob.Q.DBId}`;
                 const linesNum   = parseInt(E_I_V(linesNumSt));
-                const newLast    =  parseInt( E_I_V(DB_last) )+ parseInt( E_I_V(DB_name));
+          
                 const pageClac   = Qsize /  linesNum;
            
                 const pageNumber = pageClac > parseInt(pageClac) ? parseInt(pageClac) +1 : parseInt(pageClac);
                 let pageNumberSt = pageNumber > 1 ? `of ${pageNumber} pages` : '';
-                IN_V(DB_last,newLast);
-                In_S(DB_pageNo,pageNumberSt);
+          
+                
                if(pageNumber < 2){
                 A_CL(`forwardBt_${ob.Q.DBId}`,"D_N");
                }
+               In_S(DB_pageNo,pageNumberSt);
                 IN_V(DB_Qsize,Qsize);
               }
            
@@ -3592,6 +3835,7 @@ if(ob.forkey){
   /// set ob_type
 
   if(ob.t){
+
   ob_type = ob.t;
   }else if(ob.typ){
   ob_type = ob.typ;
@@ -3727,6 +3971,17 @@ if(ob.forkey){
   ///  for element query data
   ///  first layout options basic app div
    //img options
+   if(ob.t == 'video'){
+   if(ob.autoplay){
+    e.setAttribute('autoplay','true');
+   }
+   }
+   if(ob.width){
+    e.width = ob.width;
+   }
+   if(ob.height){
+    e.height = ob.height;
+   }
    if(ob.mod === 'languages'){
     ob.data = {order:'languages'}
   }
@@ -3736,6 +3991,9 @@ if(ob.forkey){
    if(ob.src){
     e.src = G_SRC(ob.src);
     }
+    if(ob.srcQ && data[ob.srcQ]){
+      e.src = G_SRC(data[ob.srcQ]);
+      }
     ///set global variables
   
   if(ob.v){
@@ -4089,8 +4347,12 @@ if(ob.forkey){
      
       if(key !== 'I' && key !== 'offset' && key !== 'i' && key !== 'i_e'){
         if(key == 'c'){
-          I_R[key] = I_R[key]+" "+ ob[key];
+          const IObCls = ob.c ? ob.c : "";
+          const INObCls = I_R[key]? I_R[key]: "";
+          
+          I_R[key] = IObCls +" "+ INObCls;
         }else{
+         
           I_R[key] = ob[key];
         }
      
@@ -4188,7 +4450,7 @@ if(ob.forkey){
   }
   const openRoot = (i_route) => {
     const appRoot = app.dir.start.replace(/.app/g,'');
-
+    window.history.pushState({ page: window.location.pathname }, window.location.pathname, i_route);
     i_root_();
     
     E_I("i-app").remove();
@@ -4225,17 +4487,19 @@ const getBrowserLang = ()=>{
   }
 
 const createAppTxt =async(lang)=>{
-  
+
     if(!lang){
       if(GTD('lang')){
         selectLang = GTD('lang');
       }else{
       let browserLang = getBrowserLang();
+      if(app.lang){
           if(app.lang.includes(browserLang)){
             selectLang = browserLang;
           }else{
             selectLang = app.lang[0]
           }
+        }
       }
     }else if(lang && lang !== undefined){
       selectLang =  isAr(lang) ? lang[0] : lang;
@@ -5174,8 +5438,15 @@ const createAppTxt =async(lang)=>{
      * load bassc app colors
      * i.app dir{css:'/css/'}
      */
-    let urlColors =`${app.dir.css}colors.json`;
-    let urlStyle =`${app.dir.css}style.json`;
+    const curePageLink = window.location.pathname.replace(/\//g,"");
+
+    let urlColors =`/dev_colors.json`;
+    let urlStyle =`/dev_style.json`;
+    if(app.dir.css && curePageLink !== 'dev'){
+       urlColors =`${app.dir.css}colors.json`;
+       urlStyle =`${app.dir.css}style.json`;
+    }
+  
     G_Json(urlColors,(c)=>{i_app_colors =c;G_Json(urlStyle,(s)=>{i_app_style =s;createAppTheme();});});
     return true;
     
@@ -5216,6 +5487,7 @@ const createAppTxt =async(lang)=>{
     setDateTime();
     // If the current root name is 'start', load the 'start.app' file
     app = i_a;
+   
     setObV({app:app})
     setUserState();
     /**
