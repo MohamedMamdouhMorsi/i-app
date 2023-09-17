@@ -29,8 +29,8 @@ const asset_file =(req,res,userDir,swScript,userData)=>{
         filePath = path.join(__dirname,'..','..','..','css', 'i-app-basic.css');
     }else  if (req.url === '/i-app-basic.min.css' ) {
       filePath = path.join(__dirname,'..','..','..','css', 'i-app-basic.min.css');
-  }else  if (req.url === '/face-api.js' ) {
-    filePath = path.join(__dirname,'..','..','..','lib', 'face-api.js');
+  }else  if (req.url === '/face-api.min.js' ) {
+    filePath = path.join(__dirname,'..','..','..','lib', 'face-api.min.js');
 }else  {
 
       let is_get = false;

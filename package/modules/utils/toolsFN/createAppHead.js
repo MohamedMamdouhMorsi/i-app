@@ -26,7 +26,7 @@
     innerHTML += META_TAG;
     if(app.faceapi){
       
-      innerHTML +=`<script type="application/javascript" src="/face-api.js"  defer ></script>`;
+      innerHTML +=`<script type="application/javascript" src="/face-api.min.js"  defer ></script>`;
     }
     innerHTML +=`<script type="application/javascript" src=${devMode? "/i-app-ui.js" : "/i-app-ui.min.js"} async defer ></script>`;
 
