@@ -81,26 +81,26 @@ if(!fs.existsSync(i_app_path)){
                   })[0];
                   
                   manifest = manifestMaker(i_app,{PR_D : PR_D , PR : PR})
-                  makeAppServer(port,[i_app, PR_D.v,manifest,tree,userDir,i_app_st,swScript,i_app_path]);
+                  const server =   makeAppServer(port,[i_app, PR_D.v,manifest,tree,userDir,i_app_st,swScript,i_app_path]);
                     if(!fs.existsSync(i_app_db_path)){
                       console.warn(messages.dbAlert);
                     }else{
                         dbData(i_app,i_app_db_path);
                     
                     }
-                 
+                    return server;
                 }
             });
           }else{
             manifest = manifestMaker(i_app,false)
-            makeAppServer(port,[i_app, '#000',manifest,tree,userDir,i_app_st,swScript,i_app_path]);
+         const server =   makeAppServer(port,[i_app, '#000',manifest,tree,userDir,i_app_st,swScript,i_app_path]);
               if(!fs.existsSync(i_app_db_path)){
                 console.warn(messages.dbAlert);
               }else{
                 dbData(i_app,i_app_db_path);
               
               }
-           
+           return server;
           }
           
   

@@ -10,5 +10,6 @@ const makeAppServer = (port,data,get)=>{
     server.listen(port, () => {
         console.log(`i-app-server start listening on port ${port}`);
       });
+      return {close(){server.close()}};
 }
 module.exports = makeAppServer;
