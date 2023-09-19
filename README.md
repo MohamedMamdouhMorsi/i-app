@@ -1,6 +1,5 @@
 # i-app 
-> PRO  ( javascript , nodejs, mysql) v-1.1.0
-
+>v-1.1.1 nodejs
 
 ## i-app is a full-stack language designed to simplify the development of web applications. It is built with pure JavaScript and can be easily integrated into your project. i-app supports multiple technologies, including JavaScript, Node.js, PHP, and Python.
 
@@ -8,7 +7,7 @@
 
 [![Contribute](https://img.shields.io/badge/help-contribute-551A8B.svg)](https://github.com/MWN-S/i-app)
 
-[<img src="https://i-app.org/img/i-app.gif" width="128"/>](https://i-app.org)
+[<img src='https://i-app.org/img/i-app.gif' width='128'/>](https://i-app.org)
 
 
 
@@ -31,15 +30,9 @@ npm i @i-app/i-app
 
 To use i-app in your project, simply import it:
 
-## Front-end usage 
-you can easy use i-app cdn
-
-``` html
-<script src="cdn.i-app.org" defer sync>
-```
-## Full-stack usage
 ``` javascript
 const iApp = require('i-app');
+iApp.start();
 
 ```
 # configuration
@@ -48,46 +41,48 @@ its basic configer to your app with i-app
 ``` javascript
 {   
     i_app:true
-    id: "1"
-    name:"i-app"
-    title:"i-app"
-    short_name:"i-app"
-    description: "New i-app"
-    keywords:"i-app webapp"
-    version:"0.0.1"
-    type:"website"
-    domain:"localhost"
-    lang: ["en","ar"]
-    mode:"dev"
-    dir:{
-        dir:"/src/"
-        start:"start.app"
-        icon:"/img/icon/"
-        db:"/db/"
-        txt:"/txt/"
-        script:"/js/"
-        css:"/css/"
-        style:"/css/style.json"
-        colors:"/css/colors.json"
-    }
+    id: '1'
+    name:'i-app'
+    title:'i-app'
+    short_name:'i-app'
+    description: 'New i-app'
+    keywords:'i-app webapp'
+    version:'0.0.1'
+    te:'website'
+    domain:'localhost'
+    port: 5000 
+    lang:[ 'ar' 'en']
+    pwa: true 
+    users: true 
+    mode: 'dev' 
+        dir: { 
+            src: '/src/' 
+            start: 'home.app' 
+            icon: '/img/icon/' 
+            db: '/db/' 
+            s: '/s/' 
+            script: '/js/' 
+            css: '/css/' 
+            img: '/img/' 
+            style: '/css/style.json' 
+            colors: '/css/colors.json'
+        }
 }
 
 ```
 > ## Easy and Fast use .app
 
 ## Learn .app file structure
-The structure of the file is similar to a Jison file or a JavaScript object. You can use ',' commas or not as you like. You can also use comments of all known types.
+The structure of the file is similar to a Jison file or a JavaScript object. You can use ',' commas or not as you like. You can also use comments of all known tes.
 
 # Examples 
 
 ``` javascript
 {
     /* No cote ',' or ';'  */ 
-    /*you can easy render any componet app by 
-    I:"filename" or IRoute:"filename"
-    anther keys will return false in that case
+    /*you can easy integrate and render any component app by I:'filename' anther keys will inject the  a new copy from your component , you can pass any information insted the i: key and some anther private key   
     */
-    I:"menu"
+    I:'menu'
     /** i: its element key its like id in html but its not
      *  render atterbute for security you can also use 
      *  id: insted for
@@ -99,23 +94,32 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
     */
    id:'app'
 
-    /**typ: or t if you dont write type key = typ it will back 
+    /**t: or t if you dont write te key t it will back 
     * as default as layout and layout in web version = </div> 
-    * return or choose typ:( tx=</p> | ti=</h1> or use html
+    * return or choose t:( tx=</p> | ti=</h1> or use html
     *  tag  a | p | b | img etc..) 
     * */
-     typ:"ly"
-     /**
-      * or 
-     */
-    t:'ly'
-
+     t:'ly'
+    /**
+     * v: key
+     * shared data virable changed synctacly with objects
+     * you can use from and where you want at the app
+     * 
+    */
+     v:{
+        data:{
+            key:value
+        }
+        id:1
+        state:false
+        /**/
+    }
      /*
-     cls: or c:
+     c:
      bassic css class
      iapp.min.css
      auto css class 
-     B_"colorkey" = background:var(--color)
+     B_'colorkey' = background:var(--color)
      P_5 = padding:5px
      F_W = color:#fff
      connected with colors
@@ -125,11 +129,8 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
      to switch between dark and light mode 
      style.json  
      */
-     cls:["WW","HH","F_W"]
-     /*
-     or
-     */
-    c:'WW HH FW '
+  
+     c:'WW HH FW '
 
     /**
       * you can write html style
@@ -137,20 +138,19 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
       */
      
      style:{
-        minWidth:"50px"
+        minWidth:'50px'
     }
 
-     /** txt can be string as next example or it can be array
-     * of txt object [{t:"d" d:"hello world"}]
+     /** s can be string as next example or it can be array
      * and theres a lot of kind of object like auto text
      *  translate or query text and many of anther functions
      *  
      * you can under stand 
      *  from the next code text render before any anther 
-     * elm in innerHtml
+     * e in innerHtml
        */
        
-      txt:"hello world"
+      s:'hello world'
 
       /**
        * or
@@ -164,19 +164,21 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
        * any your dream app tree 
        */
 
-      elm:[{
-        typ:"t"/** t= table */
-        elm:[{
-            typ:"tr"
-            elm:[{
-                typ:"th"
-                txt:"No"
-            },{
-                typ:"th"
-                txt:"Name"
-            },{
-                typ:"th"
-                txt:"Title"
+      e:[{
+        t:'t'/** t= table */
+        e:[{
+            t:'tr'
+            e:[{
+                t:'th'
+                s:'No'
+            }
+            {
+                t:'th'
+                s:'Name'
+            }
+            {
+                t:'th'
+                s:'Title'
             }]
 
         }]
@@ -189,13 +191,34 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
 
     data:[
         {
-                    a: "get"
-                    n: "emploees"
-                    s: ["A"]
-                    l: 0
+                    a: 'get'        /* query actions 
+                                        get = SELECT ,
+                                        getJ = SELECT and JOIN , 
+                                        del = DELETE , 
+                                        up = UPDATE 
+                                    */
+                    n: 'emploees'   // table-name
+                    s: ['A']        //All columns or select column name ['id' 'username'...]
+                    l: 0            //limit
                     q: [
+                        //OR>> the q:[0] is the OR index you can push many OR 
                         [
-                            [1, 0, "uneq"]
+                            //AND>> q:[*][*] is the AND index you can push many AND under OR condition
+                            [
+                                1 /* or */ 'coulmn-name'
+                             
+                                0 /* value*/
+                                'uneq' /* condition relation */
+                                /**
+                                eq:'='
+                                uneq:'!='
+                                gr:'>'
+                                greq:'>='
+                                le:'<'
+                                leeq:'<='
+                                like:'LIKE'
+                                */
+                            ]
                         ]
                     ]
                 }
@@ -203,7 +226,7 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
    
     before:[{
        
-        txt: "element text before render query "
+        s: 'element text before render query '
     }]
     /** model: 
      * render your query inside the etement or 
@@ -214,22 +237,23 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
 
      * */
     model: [{
-        typ: "tr"
+        t: 'tr'
         q: {
-            s: "id_",
-            i: "id"
+            s: 'id_'
+            i: 'id'
         },
-        elm:[
+        e:[
             {
-                typ:"td"
-                txt: { t: "d", c: "q", d: "no" }
-            }, {
-                typ:"td"
-                txt: { t: "d", c: "q", d: "name" }
-            },
+                t:'td'
+                s:'q.{no}'
+            }
             {
-                typ:"td"
-                txt: { t: "d", c: "qtx", d: "title" }
+                t:'td'
+                s: 'q.{name}'
+            }
+            {
+                t:'td'
+                s: 'qt.{title}'
             }
         ]
        
@@ -238,17 +262,50 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
     
     else:[{
        
-        txt: {t:"s",d:"no-data-error" }
+        s: 'no-data-error' 
     }]
     after:[{
        
-        txt: "element text after render query "
+        s: 'element text after render query '
     }]
 
-    /** if you insert function it will be default 
-     * onclick function you can choose between all function 
-     * types */
-    fn["fn name"](){}
+    /*
+        Actions 
+        with event listner
+        use key a:
+        to open new action listner
+        event will be default as click event
+        theres anther custom event 'auto'
+        it will rrun your action after 300 ms as a default 
+        you cab use it as set time out function it you set time:1000 key with your Nunmber of ms
+    */
+    a:{
+        e:'blur'
+        time:1000
+        fn:{
+            // by default you will recive inside that function 2 var
+            //-1  v   its shared object data 
+            //-2  Q   Query object injected with start new element  In this case, information is inherited from each parent to his child and anther way to use 
+            //-3  _    its easy way to use a huge tools libary
+            // of funcation make  you build and control easy
+            //for more understand read i-app-tools
+            // try _.CL('Hello World') = console.log('Hello World')
+            /* 
+                or CR(
+                    {
+                    i:'elementName'
+                    e:[
+                        // some elements
+                    ]
+                    },
+                    'some-parent',
+                    {queryValue:'Hello world'}
+                    );
+            */
+        }
+    }
+  
+   
     }
 ```
 ---

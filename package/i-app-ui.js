@@ -1389,6 +1389,7 @@ const funcHandel = (str) => {
     cele: cele,
     selD: selD,
     CR_: CR_,
+    CR: CR_,
     I_O: I_O,
     _POST: _POST,
     GTX: GTX,
@@ -1403,6 +1404,7 @@ const funcHandel = (str) => {
     switchTheme: switchTheme,
     scrollToTop: scrollToTop,
     CL_: CL_,
+    CL: CL_,
     FCMTC: FCMTC,
     FCMTA: FCMTA,
     AL_: AL_,
@@ -3047,9 +3049,14 @@ const funcHandel = (str) => {
             }
     
     //
-    if( ev === 'auto' ){
-    setTimeout(newFunc,300);
+    if( ev === 'auto' ||  ob.a.time){
+      let theTime = 300;
+      if(ob.a.time){
+        theTime = ob.a.time;
+      }
+    setTimeout(newFunc,theTime);s
     }else {
+      
       if(ev  === 'click'){
         ob.i_e.onclick =()=>{
           newFunc();
