@@ -3054,7 +3054,7 @@ const funcHandel = (str) => {
       if(ob.a.time){
         theTime = ob.a.time;
       }
-    setTimeout(newFunc,theTime);s
+    setTimeout(newFunc,theTime);
     }else {
       
       if(ev  === 'click'){
