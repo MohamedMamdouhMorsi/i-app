@@ -1705,3 +1705,14 @@ margin: 30px auto 0 auto;
 .treeView li a:hover+ul ul::before{
 	border-color:  #94a0b4;
 }
+.loadingElm div.elmToload{
+    animation: loading-ani 1s linear infinite alternate;
+}
+@keyframes loading-ani {
+    0%{
+        background-color: hsl(200, 20%, 70%);
+    }
+    100%{
+        background-color: hsl(200, 20%, 95%);
+    }
+}

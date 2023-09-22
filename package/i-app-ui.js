@@ -611,6 +611,11 @@ const hideOtherKeys = (k,obj)=>{
     }
     deleteChildren(id);
 }
+const DEL_ = (id)=>{
+  const myNode = isString(id) ? E_I_S(id) : id;
+  myNode.remove();
+  deleteChildren(id);
+} 
   const GTX = (txt)=>{
     return i_app_select_lang[txt] ? i_app_select_lang[txt] : txt;
   }
@@ -697,8 +702,14 @@ const hideOtherKeys = (k,obj)=>{
     }
     return [dd];
   }
-  
-  const D_CL = ([m, w]) => {
+  const D_CL = (m, w) => {
+    if(Array.isArray(m) && ! w){
+      D_CL_A(m);
+    }else{
+      D_CL_A([m,w]);
+    }
+  }
+  const D_CL_A = ([m, w]) => {
       
     var e = isString(m) ? E_I_S(m) : m;
    
@@ -1371,6 +1382,7 @@ const funcHandel = (str) => {
     s_Lang: s_Lang,
     createAppTxt: createAppTxt,
     SLIDER_SW: SLIDER_SW,
+    DEL_:DEL_,
     DEL_E:DEL_E,
     DEL_E_E: DEL_E_E,
     In_S: In_S,
