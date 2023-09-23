@@ -1479,7 +1479,7 @@ const funcHandel = (str) => {
         
             if(typeof ReturnScriptFunctions[f] ===  'function'){
              CL_(["script loaded :", ReturnScriptFunctions])
-              return  ReturnScriptFunctions[f](v,[srcFn]); 
+              return  ReturnScriptFunctions[f](v,[srcFn,app]); 
             }else{
                 setTimeout(rFd,300);
             }
@@ -1501,7 +1501,7 @@ const funcHandel = (str) => {
           
               if(typeof ReturnScriptFunctions[f] ===  'function'){
                CL_(["script loaded :", ReturnScriptFunctions])
-                return  ReturnScriptFunctions[f](v,[srcFn]); 
+                return  ReturnScriptFunctions[f](v,[srcFn,app]); 
               }else{
                   setTimeout(rFd,300);
               }
