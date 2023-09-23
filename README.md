@@ -1,5 +1,5 @@
 # i-app 
->v-1.1.1 nodejs
+>v-1.1.3 nodejs
 
 ## i-app is a full-stack language designed to simplify the development of web applications. It is built with pure JavaScript and can be easily integrated into your project. i-app supports multiple technologies, including JavaScript, Node.js, PHP, and Python.
 
@@ -22,22 +22,58 @@ i-app is a revolutionary new full-stack open-source programming language that ai
 To install i-app, simply run:
 ``` bash
 
+npm install -g @i-app/i-app
+
+```
+# Quick Start
+
+## i-app  CLI  
+ The i-app CLI (Command Line Interface) is a powerful tool designed to streamline the application development process for developers. It simplifies the setup and configuration of i-app projects by creating a comprehensive copy of the necessary files and folders required for any project utilizing the i-app framework. This automation significantly reduces the initial setup time and effort, allowing developers to focus more on the actual development of their web applications. By providing a standardized and organized project structure, the i-app CLI empowers developers to quickly start building front-end and back-end applications with ease, ultimately enhancing productivity and efficiency in the development process. 
+## Start easy
+> go to your workspace
+and open your command 
+Now just run >
+
+``` bash
+
+> i-app-create <your-app-name>
+
+```
+i-app will create your Project folder 
+and will install needed dependencies 
+Now you are ready
+Enter your project directory and start coding
+``` bash
+
+> cd <your-app-name>
+
+> npm start
+
+```
+
+# Happy Coding :)
+## or
+# Simply add i-app to your project
+
+if you didn't install -g
+
+> go to your workspace
+and open your command 
+Now just run >
+
+``` bash
+
 npm i @i-app/i-app
 
 ```
 
-# Usage
 
-To use i-app in your project, simply import it:
-
-``` javascript
-const iApp = require('i-app');
-iApp.start();
-
-```
 # configuration
+> ## Easy and Fast use .app
+
 you must be sure is your public folder have i.app file
 its basic configer to your app with i-app 
+
 ``` javascript
 {   
     i_app:true
@@ -70,8 +106,16 @@ its basic configer to your app with i-app
 }
 
 ```
-> ## Easy and Fast use .app
 
+# Usage
+
+To use i-app in your project, simply import it:
+
+``` javascript
+const iApp = require('i-app');
+iApp.start();
+
+```
 ## Learn .app file structure
 The structure of the file is similar to a Jison file or a JavaScript object. You can use ',' commas or not as you like. You can also use comments of all known tes.
 
@@ -99,14 +143,14 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
     * return or choose t:( tx=</p> | ti=</h1> or use html
     *  tag  a | p | b | img etc..) 
     * */
-     t:'ly'
+    t:'ly'
     /**
      * v: key
      * shared data virable changed synctacly with objects
      * you can use from and where you want at the app
      * 
     */
-     v:{
+    v:{
         data:{
             key:value
         }
@@ -130,14 +174,14 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
      style.json  
      */
   
-     c:'WW HH FW '
+    c:'WW HH FW'
 
     /**
       * you can write html style
       * with all it power if you need
       */
      
-     style:{
+    style:{
         minWidth:'50px'
     }
 
@@ -150,13 +194,13 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
      * e in innerHtml
        */
        
-      s:'hello world'
+    s:'hello world'
 
       /**
        * or
       */
 
-     s:'t.{translate-string-key} v.{value of varibale for public v: key } val.{for input element value and it take id of target element}'
+    s:'t.{translate-string-key} v.{value of varibale for public v: key } val.{for input element value and it take id of target element}'
      
      /**
        * 
@@ -164,7 +208,7 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
        * any your dream app tree 
        */
 
-      e:[{
+    e:[{
         t:'t'/** t= table */
         e:[{
             t:'tr'
@@ -190,44 +234,45 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
      * */
 
     data:[
-        {
-                    a: 'get'        /* query actions 
-                                        get = SELECT ,
-                                        getJ = SELECT and JOIN , 
-                                        del = DELETE , 
-                                        up = UPDATE 
-                                    */
-                    n: 'emploees'   // table-name
-                    s: ['A']        //All columns or select column name ['id' 'username'...]
-                    l: 0            //limit
-                    q: [
-                        //OR>> the q:[0] is the OR index you can push many OR 
-                        [
-                            //AND>> q:[*][*] is the AND index you can push many AND under OR condition
-                            [
-                                1 /* or */ 'coulmn-name'
-                             
-                                0 /* value*/
-                                'uneq' /* condition relation */
-                                /**
-                                eq:'='
-                                uneq:'!='
-                                gr:'>'
-                                greq:'>='
-                                le:'<'
-                                leeq:'<='
-                                like:'LIKE'
+            {
+                a: 'get'        /* query actions 
+                                    get = SELECT ,
+                                    getJ = SELECT and JOIN , 
+                                    del = DELETE , 
+                                    up = UPDATE 
                                 */
-                            ]
+                n: 'emploees'   // table-name
+                s: ['A']        //All columns or select column name ['id' 'username'...]
+                l: 0            //limit
+                q: [
+                    //OR>> the q:[0] is the OR index you can push many OR 
+                    [
+                        //AND>> q:[*][*] is the AND index you can push many AND under OR condition
+                        [
+                            1 /* or */ 'coulmn-name'
+                            
+                            0 /* value*/
+                            'uneq' /* condition relation */
+                            /**
+                            eq:'='
+                            uneq:'!='
+                            gr:'>'
+                            greq:'>='
+                            le:'<'
+                            leeq:'<='
+                            like:'LIKE'
+                            */
                         ]
                     ]
-                }
+                ]
+            }
     ]
    
     before:[{
        
         s: 'element text before render query '
     }]
+
     /** model: 
      * render your query inside the etement or 
      * anther and you control every index
@@ -258,12 +303,14 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
         ]
        
     }]
+
     /** if query back FALSE or [] it will render else */
     
     else:[{
        
         s: 'no-data-error' 
     }]
+
     after:[{
        
         s: 'element text after render query '
