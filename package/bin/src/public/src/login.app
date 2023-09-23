@@ -1,0 +1,12 @@
+{
+    c:'WW'
+     page:true
+    e:[
+        {
+            I:'menu'
+        }
+        {
+            I:'loginBody'
+        }
+    ]
+}
