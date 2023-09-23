@@ -1,5 +1,5 @@
 # i-app 
->v-1.1.3 nodejs
+>v-1.1.6 nodejs
 
 ## i-app is a full-stack language designed to simplify the development of web applications. It is built with pure JavaScript and can be easily integrated into your project. i-app supports multiple technologies, including JavaScript, Node.js, PHP, and Python.
 
