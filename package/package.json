@@ -1,5 +1,5 @@
 {
-  "name": "i-app",
+  "name": "i-app-create",
   "version": "1.1.7",
   "description": "i-app nodejs",
   "main": "i-app-server.js",
