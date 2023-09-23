@@ -1,8 +1,12 @@
 {
   "name": "@i-app/i-app",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "> BETA  ( javascript , nodejs , mysql)",
   "main": "i-app-server.js",
+  "bin": {
+
+    "create-i-app":"./bin/cli.js"
+  },
   "scripts": {
     "test": "i-app"
   },
