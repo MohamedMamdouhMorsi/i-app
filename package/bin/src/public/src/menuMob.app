@@ -24,12 +24,12 @@
                     s:'t.{services}'
                     a:{
                         fn:{
-                            _.SW_CL('services-holder','D_N');
+                            _.SW_CL('serv1ces-holder','D_N');
                         }
                     }
                     e:[
                         {
-                            i:'services-holder'
+                            i:'serv1ces-holder'
                             c:'WW D_N ST_L_PR_2'
                             e:[
                               
@@ -44,19 +44,19 @@
                                 }
                                 {
                                     c:'WW PD_10 '
-                                    s:'t.{serv-ti-2}' 
+                                    s:'t.{serv-ti-1}' 
                                     a:{
                                         fn:{
-                                            _.openRoot('serv2');
+                                            _.openRoot('serv1');
                                         }
                                     }
                                 }
                                 {
                                     c:'WW PD_10 '
-                                    s:'t.{serv-ti-3}' 
+                                    s:'t.{serv-ti-1}' 
                                     a:{
                                         fn:{
-                                            _.openRoot('serv3');
+                                            _.openRoot('serv1');
                                         }
                                     }
                                 }

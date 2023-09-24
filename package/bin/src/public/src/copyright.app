@@ -18,8 +18,8 @@
             e:[
                 {
                     t:'a'
-                    s:'Powered By - MWN Software'
-                    hr:{https:'m-w-n.com'}
+                    s:'Powered By i-app'
+                    hr:{https:'i-app.org'}
                 }
             ]
         }

@@ -3,3 +3,128 @@
     display: flex;
     flex-direction: column;
 }
+
+
+.Drop a {
+    line-height: 5px;
+}
+
+.Drop .dropbtn {
+    
+   text-align: center;
+    margin: 0;
+   width: 100%;
+    display: inline-block;
+    font-weight: 900;
+}
+.dropbtn:hover ,
+.dropbtn:focus  {
+    background-color: var(--PR);
+    color: var(--W);
+}
+.DropList {
+    display: none;
+    position: absolute;
+    background-color: var(--W);
+    min-width: 100px;
+   margin:auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.DropListC {
+    display: none;
+    position: absolute;
+    background-color: var(--W);
+    width: max-content;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.DropList a {
+    float: none;
+  
+    color: var(--PR);
+    padding: 15px 2px;
+    font-size: 11px;
+    text-align: center;
+    /*  border-top: 1px var(--PRD) solid; */
+    top: 0;
+    margin-top: 0;
+    text-decoration: none;
+    display: block;
+   width: 100%;
+    
+}
+
+.DropListC a {
+    float: none;
+    color: #ffffff;
+    padding: 15px 2px;
+    /*    border-top: 1px var(--PRD) solid; */
+    top: 0;
+    margin-top: 0;
+    text-decoration: none;
+    display: block;
+    text-align: var(--DirL);
+}
+
+
+
+
+.DropList a:hover {
+    background-color: var(--PR);
+    color: var(--W);
+}
+
+.Drop:hover .DropList {
+    display: block;
+}
+
+.Drop:hover .DropListC {
+    display: block;
+}
+@media screen and (max-width: 1100px) {
+    .dropbtn {
+        width: 100px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .menu a:not(:first-child),
+    .Drop .dropbtn {
+        display: none;
+    }
+    .menu div.icon {
+        float: var(--DirR);
+        display: block;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .menu.responsive {
+        position: relative;
+    }
+    .menu.responsive div.icon {
+        position: absolute;
+        float: var(--DirR);
+        top: 0;
+    }
+    .menu.responsive a {
+        float: none;
+        display: block;
+        text-align: var(--DirL);
+    }
+    .menu.responsive .Drop {
+        float: none;
+    }
+    .menu.responsive .DropList {
+        position: relative;
+    }
+    .menu.responsive .Drop .dropbtn {
+        display: block;
+        width: 100%;
+        text-align: var(--DirL);
+    }
+
+}

@@ -377,6 +377,14 @@ filter: brightness(100%);
 .HOVC:focus  {
     color: var(--PR);
 }
+.HOVB:hover ,
+.HOVB:focus  {
+    color: var(--B);
+}
+.HOVW:hover ,
+.HOVW:focus  {
+    color: var(--W);
+}
 .HOVCPR:hover ,
 .HOVD:focus  {
     color: var(--PR);
@@ -393,7 +401,9 @@ filter: brightness(100%);
 .HOVCBLACK:hover {
     color: #000;
 }
-
+.HOVCYEL:hover {
+    color: rgb(204, 255, 0);
+}
 .HOVD:hover ,
 .HOVD:focus 
 {

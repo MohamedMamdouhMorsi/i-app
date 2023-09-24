@@ -1,5 +1,5 @@
     {
-        c: 'B_GRY5 D_FLOWROOT'
+        c: 'B_GRY1 F_WHITE ST_T_B_2 D_FLOWROOT'
         e:[
             {
             t: 'ly'
@@ -155,48 +155,82 @@
                                 e: [
                                 {
                                 t: 'th'  
-                                c:'W_20'   
+
+                                c:'W_20'    
                                 }
                                 {
                                 t: 'th'
                                 }
                                 ]
                                 }
+                            
                                 {
                                     t: 'tr'
                                     e: [
                                     {
-                                    t: 'td'
-                                    e: [
-                                        {
-                                            t: 'icon'
-                                            c:'ICO-bulb-alt F_S_20 ContactsIco'
-                                        }
-                                        ]
-                                        }
-                                        {
                                         t: 'td'
                                         e: [
                                                 {
-                                                t: 'ly'
-                                                c:'emailUs pointer PD_5 T_BOLD'
-                                                s:'t.{about-us}'
-                                                
+                                                t: 'icon'
+                                                c:'ICO-bulb-alt F_S_20 ContactsIco'
                                                 }
                                         ]
+                                    }
+                                    {
+                                    t: 'td'
+                                    e: [
+                                        {
+                                        t: 'ly'
+                                        c:'emailUs pointer PD_5 T_BOLD'
+                                        s:'t.{services}'
+                                        
                                         }
                                     ]
+                                    }
+                                    ]
                                 }
-                            
-                            
+                                
+                                {
+                                    t: 'tr'
+                                    e: [
+                                    {
+                                        t: 'td'
+                                        e: [
+                                                {
+                                                t:'cr'
+                                                c:'Box_10 B_PR '
+                                                }
+                                        ]
+                                    }
+                                    {
+                                    t: 'td'
+                                    e: [
+                                        {
+                                        t: 'ly'
+                                        c:'emailUs pointer PD_5 F_WHITE'
+                                        s:'t.{serv-ti-1}'
+                                        
+                                        a:{
+                                            fn:{
+                                                    
+                                                _.openRoot('smartEnergySolutions');
+                                            }
+                                        }
+                                        }
+                                    ]
+                                    }
+                                    ]
+                                }
+                                
+                                
                                 
                                 ]
                                 }
                                 ]
-                                }
+                        }
                     ]
                     }
-                    {
+                     {
                         c:'card2'
                         e:[ 
                             {
@@ -283,9 +317,10 @@
                                 ]
                                 }
                                 ]
-                                }
+                        }
                     ]
                     }
+                   
                     ]
                     }
                     ]

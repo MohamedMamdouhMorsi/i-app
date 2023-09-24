@@ -75,5 +75,7 @@
     "invoice": "Invoice",
     "tax": "Tax",
     "discount": "Discount",
-    "total": "Total"
+    "total": "Total",
+    "serv-ti-1":"New Service",
+    "serv-tx-1":"Lorem ipsum dolor sit, amet consectetur adipisicing elit. A est natus quidem alias voluptas fugiat explicabo commodi laudantium laborum quas?"
 }

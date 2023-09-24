@@ -5,17 +5,16 @@
               ] 
               e: [
                 {
-                  t: 'cell' 
-                  i:'servicesBt'
+                  i:'serv1cesBt'
                   c: [
-                    'dropbtn'  'PD_20' 'W_90' 'H_65' 'menuIconBack'
+                    'dropbtn'  'PD_10' 'W_90'  'menuIconBack'
                   ] 
                   s: 't.{services}'
                 } 
                 {
                   t: 'ly' 
                   c: [
-                    'DropList' 'W_M_C'
+                    'DropList' 'WW'
                   ] 
                   e: [
                 
@@ -30,21 +29,21 @@
                     } 
                     {
                       t: 'a' 
-                      s:'t.{serv-ti-2}' 
+                      s:'t.{serv-ti-1}' 
                       a:{
                             fn:{
                             
-                            _.openRoot('serv2');
+                            _.openRoot('serv1');
                             }
                         }
                     } 
                      {
                       t: 'a' 
-                      s:'t.{serv-ti-3}' 
+                      s:'t.{serv-ti-1}' 
                       a:{
                             fn:{
                             
-                            _.openRoot('serv3');
+                            _.openRoot('serv1');
                             }
                         }
                     } 

@@ -12,24 +12,31 @@
         }
         {
    
-    c:'WW H_85 TT_0  B_W F_PR D_FLX  pointer '
+    c:'WW H_65 TT_0  B_W F_PR D_FLX  pointer '
     e:[
 
             {
                     
-                    c:'LL_0 W_120 mL_15 mT_5 mR_15 TT_0 POS_AB a_riseRight pointer'
+                    c:'LL_0  mL_15 mT_5 mR_15 TT_0 POS_AB a_riseRight pointer'
                     e:[
                         {
                             t:'img'
-                            c:'W_120 '
-                            src:'logo.png'
-                             a:{
+                            c:'W_50 '
+                            src:'logo.gif'
+                            
+                        }
+                         {
+                            t:'b'
+                            c:'F_S_20 POS_AB F_B TT_10 LL_60 W_M_C '
+                            writeWait:true
+                            s:'app.{name}'
+                        }
+                    ]
+                     a:{
                                 fn:{
                                     _.openRoot('home');
                                 }
                             }
-                        }
-                    ]
                 
             }
          
@@ -39,7 +46,7 @@
                    {
                     
                     i:'homeBt'
-                    c:' W_90 FF_BOLD HOV_GOLD pc D_INB PD_20 TT_0 mT_0 mL_5 mR_5 T_C H_65 menuIconBack '
+                    c:'  FF_BOLD HOV HOVW pc D_INB PD_10 TT_0 mT_0 mL_5 mR_5 T_C   '
                     s:'t.{home}'
                     a:{
                         fn:{
@@ -56,9 +63,37 @@
           
                 ]
             }
+{
+                   
+                    c:' HOVCYEL POS_AB RR_62 TT_16 a_riseLeft'
+                    e:[
+                        {
+                                    t:'icon'
+                                
+                                    iconTheme:true
+                                    
+                                }
+                    ]
+                    a:{
+                                        fn:{
 
+                                            if(_.theme == "light"){
+                                        
+                                            _.A_CL('heroHolder', 'heroBack');
+                                            _.A_CL('theme_icon', 'ICO-moon');
+                                            _.E_I_S('heroImg').src = _.G_SRC('hero.png');
+                                            }else  if(_.theme == "dark"){
+                                        
+                                            _.D_CL(['heroHolder', 'heroBack']);
+                                            _.A_CL('theme_icon', 'ICO-sun');
+                                                _.E_I_S('heroImg').src = _.G_SRC('heroW.png');
+                                            }
+                                            _.switchTheme();
+                                        }
+                                    }
+                }
             {  
-                    c:'  POS_FX RR_0 mR_70 TT_0 mT_10  a_riseLeft'
+                    c:'  POS_FX RR_0 mR_90 TT_0 mT_10  a_riseLeft'
                     e:[
                         {
                             t:'sp'
@@ -74,12 +109,12 @@
                         }
                 }
                 {  
-                    t:'cell'
-                    c:'mob POS_FX RR_0 mR_10 TT_0 mT_10 B_GOLD W_50 T_C a_riseLeft'
+                    
+                    c:'mob POS_FX RR_0 mR_10 TT_0 mT_10  W_50 T_C a_riseLeft'
                     e:[
                         {
                             t:'icon'
-                            c:'ICO-navigation-menu F_W F_S_20 menuBt LH_2'
+                            c:'ICO-navigation-menu F_S_20 menuBt LH_2'
                         }
                     ]
                     a:{

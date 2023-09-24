@@ -25,7 +25,7 @@
                                         {
                                     t:'img'
                                     c:'W_40 _MR_10'
-                                    src:'app.png'
+                                    src:'logo.gif'
                                         }
                                         {
                                             c:'MW_250 D_INB LL_0 mL_20'
