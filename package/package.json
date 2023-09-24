@@ -7,7 +7,8 @@
     "i-app-create":"./bin/cli.js"
   },
   "scripts": {
-    "test": "i-app"
+    "start": "node i-app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,9 @@
   "license": "MIT",
   "keywords": [
     "i-app-server",
-    "i-app-ui"
+    "i-app-ui",
+    "nodejs",
+    "standalone"
   ],
   "bugs": {
     "url": "https://github.com/MohamedMamdouhMorsi/i-app/issues"
