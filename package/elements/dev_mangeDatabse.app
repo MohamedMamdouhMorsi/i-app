@@ -17,7 +17,7 @@
                                             c:'PD_5'
                                             s:'key'
                                         }
-                            notKey:['accountType' 'DBId' ]
+                            notKey:['userType' 'DBId' ]
                             }
                         ]
                     }
@@ -34,7 +34,7 @@
                             
                                   
                                 }
-                            notKey:['accountType' 'DBId' 'Qsize']
+                            notKey:['userType' 'DBId' 'Qsize']
                         e:[
                            {
                             t:'td'
@@ -113,7 +113,7 @@
                                             labelClass:'F_PR'
                                             i:'input_q.{DBId}_key_q.{id}'
                                         }
-                                notKey:['id' 'accountType' 'typeName' 'activate' 'DBId' 'Qsize' ]
+                                notKey:['id' 'userType' 'typeName' 'activate' 'DBId' 'Qsize' ]
                             }
                              {
                               
@@ -150,7 +150,7 @@
                             }
                             {
                                 perQ:{
-                                    key:'accountType'
+                                    key:'userType'
                                 }
                                 q:{
                                             s:'usersTypeHolder'
@@ -160,7 +160,7 @@
                                 e:[
                                     {
                                         t:'sl'
-                                        vq:'accountType'
+                                        vq:'userType'
                                         c:'WW D_B ST_PR_2'
                                          s:'Search in Accounts Types'
                                         q:{

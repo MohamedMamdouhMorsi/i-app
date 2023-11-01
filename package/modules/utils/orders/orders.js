@@ -9,6 +9,9 @@ const setUserOffline  = require('./users/setUserOffline');
 const dataBaseReport =  require('./users/dataBaseReport');
 const updateAppData =  require('./app/updateAppData');
 const updateTranslate =  require('./app/updateTranslate');
+const updateIcons =  require('./app/updateIcons');
+const updateTxt =  require('./app/updateTxt');
+const serverOffer  = require('./servers/serverOffer');
 const orders  =(body,req,res,i_app_path,i_app)=>{
    if(body.order === 'countries'){
       return countries(res);
@@ -16,6 +19,8 @@ const orders  =(body,req,res,i_app_path,i_app)=>{
       return languages(res);
    }else  if(body.order === 'icons'){
       return icons(res);
+   }else if(body.order === 'serverOffer'){
+      return serverOffer(body,req,res);
    }else if(body.order === 'addUser'){
        return addUser(body,res);
    }else if(body.order === 'checkUser'){
@@ -32,6 +37,10 @@ const orders  =(body,req,res,i_app_path,i_app)=>{
       return updateAppData(body,res,i_app_path);
    }else  if(body.order === 'updateTranslate'){
       return updateTranslate(body,res,i_app_path,i_app);
+   }else   if(body.order === 'updateTxt'){
+      return updateTxt(body,res,i_app_path,i_app);
+   }else   if(body.order === 'uploadIcons'){
+      return updateIcons(body,res,i_app_path,i_app);
    }else{
       res.writeHead(200, { 'Content-Type': 'application/json'});
       res.end(JSON.stringify({ res: false}));

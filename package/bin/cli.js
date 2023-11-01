@@ -68,6 +68,7 @@ const IappConfig = `{
   domain: 'localhost' 
   port: 4800 
   lang:[ 'en' 'fr' 'du' 'ar' ]
+  defLang: 'en' 
   pwa: true 
   mode: 'dev' 
       dir: { 

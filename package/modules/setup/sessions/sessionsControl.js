@@ -36,22 +36,32 @@ const sessionsControl = async (req,res,app,data)=>{
             
               const isUser = (res_,res)=>{
                 delete checkDB[deviceId];
-                console.log(['isUser',res_])
+                
                 if(res_.length > 0){
                
                     if(chickUserData.id && chickUserData.id  > 0 ){
                       if(chickUserData.deviceToken ){
                         if(cureDeviceId === chickUserData.deviceToken){
                           userData =  res_[0];
+                        const isUserCallback = (connectToken)=>{
+                          console.log(['connectToken', connectToken])
+                          if(connectToken.length > 0){
+                            userData.connect = {
+                              DT:connectToken[0].deviceToken,
+                              CT:connectToken[0].connectToken
+                            }
+                          }
                           req.user = userData;
                           routerUsers.set(userData);
-                            app(req,res,data, userData);
+                          app(req,res,data, userData);
+
+                        }
+                        getConnection(userData.userId, isUserCallback);
                           
                         }else{
                           userData.notSecure = true;
                           res.setHeader('Set-Cookie',[ `deviceId=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `userId=''; Expires=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `timestamp=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `destroy='true'; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`]);
                           res.destroySession = true;
-                          console.log(['sessionsControl1',deviceId])
                           app(req,res,data, userData);
                         }
                       }else{
@@ -59,11 +69,21 @@ const sessionsControl = async (req,res,app,data)=>{
                       }
                      
                   }  else{
-                      userData =  res_[0];
+                    userData =  res_[0];
+                    const isUserCallback = (connectToken)=>{
+                      console.log(['connectToken', connectToken])
+                      if(connectToken.length > 0){
+                        userData.connect = {
+                          DT:connectToken[0].deviceToken,
+                          CT:connectToken[0].connectToken
+                        }
+                      }
                       req.user = userData;
                       routerUsers.set(userData);
                       delete checkDB[deviceId];
-                        app(req,res,data, userData);
+                      app(req,res,data, userData);
+                    }
+                    getConnection(userData.userId, isUserCallback);
                   }
                 
                 }else{
@@ -73,6 +93,23 @@ const sessionsControl = async (req,res,app,data)=>{
               
                       app(req,res,data, userData);
                 }
+          }
+          const getConnection = (id,callBack)=>{
+            db({
+                  query:[
+                    {
+                      a:'get',
+                      n:'usersSessions',
+                      q:[[
+                      [1,id,'uneq'],
+                      [4,'FALSE','uneq']]],
+                      s:["A"],
+                      l:1
+                      }
+                    ]
+              },
+            false,
+            callBack);
           }
           if(checkDB[deviceId]){
           
@@ -107,7 +144,6 @@ const sessionsControl = async (req,res,app,data)=>{
       }else{
         userData.notSecure = true;
         res.setHeader('Set-Cookie',[ `deviceId=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `userId=''; Expires=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `timestamp=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `destroy='true'; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`]);
-      console.log(['sessionsControl2',deviceId])
         res.destroySession = true;
         app(req,res,data, userData);
       }

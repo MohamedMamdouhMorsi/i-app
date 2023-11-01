@@ -3,8 +3,14 @@
 
   const createAppHead = (app,PR_D)=>{
     const devMode = app.mode && app.mode == "dev"? true : false;
-   
-   let innerHTML  = '<!DOCTYPE html> <head>';
+    let defaultLang = "en";
+    if(app.defLang){
+      defaultLang = app.defLang;
+    }else if(!app.defLang && app.lang && app.lang.length > 0){
+      defaultLang = app.lang[0];
+    }
+  
+   let innerHTML  = `<!DOCTYPE html><html lang="${defaultLang}"> <head>`;
     innerHTML += `<title>${app.title}</title>`;
     innerHTML += `<meta name="type" content="${app.type}">`;
     innerHTML += `<meta name="description" content="${app.description}">`;
@@ -28,7 +34,11 @@
       
       innerHTML +=`<script type="application/javascript" src="/face-api.min.js"  defer ></script>`;
     }
-    innerHTML +=`<script type="application/javascript" src=${devMode? "/i-app-ui.js" : "/i-app-ui.min.js"} async defer ></script>`;
+
+    if(app.fcm){
+      innerHTML +='<script id="fireSrc" src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>';
+    }
+    innerHTML +=`<script type="application/javascript" id:"i-app-ui" src=${devMode? "/i-app-ui.js" : "/i-app-ui.min.js"} async defer ></script>`;
 
     innerHTML += `</head> <body> </body> </html>`;
 

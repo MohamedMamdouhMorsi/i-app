@@ -28,7 +28,7 @@
                                 l: '0'
                                 q: [
                                     [
-                                        ['id' { 't': 'q' 'd': 'accountType' }'eq']
+                                        ['id' { 't': 'q' 'd': 'userType' }'eq']
                                     ]
                                 ]
                         }]

@@ -23,9 +23,9 @@
                                     c:'WW'
                                     e:[
                                         {
-                                    t:'img'
-                                    c:'W_40 _MR_10'
-                                    src:'logo.gif'
+                                            t:'img'
+                                            c:'W_40 _MR_10'
+                                            src:'app.png'
                                         }
                                         {
                                             c:'MW_250 D_INB LL_0 mL_20'
@@ -64,10 +64,12 @@
                                                             version:_.E_I_V('inputForm_version'),
                                                             type:_.E_I_V('inputForm_type'),
                                                             domain:_.E_I_V('inputForm_domain'),
+                                                            lang:v.app.lang,
                                                             port:parseInt(_.E_I_V('inputForm_port')),
                                                             pwa: _.E_I_S('pwa').checked ?true : false,
                                                             users:_.E_I_S('isUsers').checked ? true : false,
                                                             mode:_.E_I_S('devMode').checked ? 'dev' : 'pro',
+                                                            defLang: _.E_I_V('defLang'),
                                                             dir:{
                                                                     src:_.E_I_V('inputForm_src'),
                                                                     start:_.E_I_V('inputForm_start'),

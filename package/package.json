@@ -4,7 +4,9 @@
   "description": "i-app-create new-app > full power nodejs project",
   "main": "i-app-server.js",
   "bin": {
-    "i-app-create":"./bin/cli.js"
+    "i-app-create":"./bin/cli.js",
+    "i-app-v":"./bin/v.js",
+    "i-app-dev":"./bin/dev.js"
   },
   "scripts": {
     "start": "node i-app.js",

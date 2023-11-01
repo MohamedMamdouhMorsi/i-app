@@ -14,11 +14,11 @@ const dbConfig = {
     },
      set(dbConfigJD) {
        
-            this.db.host= dbConfigJD.host;
-            this.db.user= dbConfigJD.user;
-            this.db.password= dbConfigJD.password;
-            this.db.database =  dbConfigJD.database;
-            this.db.tables =  dbConfigJD.tables;
+            this.db.host     = dbConfigJD.host;
+            this.db.user     = dbConfigJD.user;
+            this.db.password = dbConfigJD.password;
+            this.db.database = dbConfigJD.database;
+            this.db.tables   = dbConfigJD.tables;
         
         return true;
     }

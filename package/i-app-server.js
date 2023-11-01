@@ -9,7 +9,7 @@ const Iapp   ={
     async start(){this.server = await readAppData(makeAppServer);},
             get(url, callback,data){return router.get(url, callback,data)},
             post(url, callback,data){return routerPost.post(url, callback,data)},
-            db(body, res_, callBack){return mysqlConnect(body, res_, callBack)},
+            db(query,callBack){return mysqlConnect(query, false, callBack)},
             stop(){this.server.close(); }
 
 }

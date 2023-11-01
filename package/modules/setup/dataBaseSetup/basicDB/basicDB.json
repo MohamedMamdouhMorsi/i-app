@@ -1,6 +1,6 @@
 {
-    "users":["id","username","firstname","lastname","email","phonenumber","accountType","activate"],
-    "usersSessions":["userId","deviceToken","scureToken"],
+    "users":["id","username","firstname","lastname","email","phonenumber","userType","activate"],
+    "usersSessions":["userId","deviceToken","scureToken","connectToken"],
     "usersPasswords":["userId","password"],
     "usersApps":["id","appName","description"],
     "usersType":["id","typeName","description"],

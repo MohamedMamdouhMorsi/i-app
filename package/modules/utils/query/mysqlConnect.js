@@ -41,7 +41,7 @@ const isAutoLimit = (ob)=>{
       isAutoLimit_ = true;
     }
   }
-  return true;
+  return isAutoLimit_;
 }
 const makeUpTodate =(dbDate)=>{
   const AUTHARRAY = [];
@@ -87,7 +87,7 @@ const mysqlConnect = async (body, res_, callBack) => {
             }); 
             let Qsize = 0;
             if(querySize && querySize !== undefined && querySize !== ''){
-              console.log(['querySize',querySize,JSON.stringify(body)]);
+            
               Qsize = await new Promise((resolve, reject) => {
                 connection.query(querySize, (queryError, Qsize, fields) => {
                
@@ -100,7 +100,7 @@ const mysqlConnect = async (body, res_, callBack) => {
                 });
               });
          
-              console.log(['Qsize',Qsize])
+            
             }
             
            

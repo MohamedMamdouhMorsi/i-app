@@ -16,6 +16,7 @@ const getLimit = (ob)=>{
     }
 return limit;
 }
+
 const getQuery = (ob,tables)=>{
     const tableName = ob.n;
 
@@ -23,9 +24,14 @@ const getQuery = (ob,tables)=>{
     
     const orAndOptionText = orAndOption(ob.q,tables[tableName]);
     const limit =getLimit(ob); 
-    const selectedColumn = ob.s && ob.s[0] !== 'A' ? selectColumn(ob.s) :'*';
+    if(!ob.s){
+        ob.s = ["A"];
+    }
+    const selectedColumn = ob.s && ob.s[0] === "A" ?  '*' : selectColumn(ob.s).toString();
+    
     let getText = `SELECT ${selectedColumn} FROM ${tableName} WHERE ${orAndOptionText} ${limit}`;
-        return getText;
+  
+            return getText;
     }else{
         console.log(`table ${tableName} is not exist`);
     }

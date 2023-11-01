@@ -20,7 +20,11 @@
                             
                         ]
                     }
-                                {
+                              
+                              {
+                                I:'dev_logoIcon'
+                              } 
+                               {
                                     t:'t'
                                     c:'WW'
                                   

@@ -11,8 +11,7 @@ const updateAppData = (appData,res,i_app_path)=>{
       if (err)
         console.log(err);
       else {
-    
-     
+
           res.writeHead(200, { 'Content-Type': 'application/json'});
           res.end(JDS_({ res: true }));
       }

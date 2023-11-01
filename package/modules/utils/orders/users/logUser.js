@@ -31,13 +31,13 @@ const passwordIsTrue = (res_,res)=>{
             
          if(userId && res_.length > 0){ 
             
-         db({query:[{a:'up',n:'usersSessions',d:[[2,cureDeviceId],[3,cureUserId]],q:[[[1,userId,'eq']]],l:1}]},res,false);
+         db({query:[{a:'up',n:'usersSessions',d:[[2,cureDeviceId],[3,cureUserId],[4,'FALSE']],q:[[[1,userId,'eq']]],l:1}]},res,false);
 
          res.setHeader('Set-Cookie',[ `deviceId=${cureDeviceId}; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`, `userId=${cureUserId}; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`, `timestamp=${timestamp}; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`]);
          res.writeHead(200, { 'Content-Type': 'application/json'});
          res.end(JSON.stringify({ res: true}));
       }else{
-        db({query:[{a:'in',n:'usersSessions',d:[userId,cureDeviceId,cureUserId],l:1}]},res,false);
+        db({query:[{a:'in',n:'usersSessions',d:[userId,cureDeviceId,cureUserId,'FALSE'],l:1}]},res,false);
         res.setHeader('Set-Cookie',[ `deviceId=${cureDeviceId}; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`, `userId=${cureUserId}; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`, `timestamp=${timestamp}; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`]);
         res.writeHead(200, { 'Content-Type': 'application/json'});
         res.end(JSON.stringify({ res: true}));

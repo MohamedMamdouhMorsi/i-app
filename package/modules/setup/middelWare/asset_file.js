@@ -15,7 +15,10 @@ const asset_file =(req,res,userDir,swScript,userData)=>{
     }else  if (req.url.match(/\/img\/flags\//)) {
         const img = req.url.replace(/\/img\/flags\//,'');
         filePath = path.join(__dirname, '..','..','..','img','flags',img);
-    }else if (req.url === '/i-app-ui.js' ) {
+    }else if (req.url.match(/\/server.js/) ) {
+      filePath = path.join(__dirname, '..','..','..','js','server.js');
+     
+    }else   if (req.url === '/i-app-ui.js' ) {
         filePath = path.join(__dirname, '..','..','..','i-app-ui.js');
         isUiJs = true;
     }else  if (req.url === '/i-app-ui.min.js' ) {
@@ -71,7 +74,7 @@ const asset_file =(req,res,userDir,swScript,userData)=>{
                 } else {
                  if(isUiJs){
                   const userDataSt = `const userData = ${JSON.stringify(userData)}`;
-                  const regex = /\/\/\*\*userDataArea\*\*\/\/?\n?/g;
+                  const regex = /const userData = {};/g;
                   data = data.toString().replace(regex,userDataSt);
                  }
                   res.writeHead(200, { 'Content-Type': contentType });

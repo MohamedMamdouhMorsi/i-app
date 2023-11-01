@@ -39,8 +39,9 @@ i-app start by one function i-app() default with loading
 // This function immediately invokes itself and starts the i-app
 
 /**
- * global functions
- */
+* global functions
+*/
+
   /**
   * Returns the element with the specified ID attribute.
   * @param {string} id - The ID of the element to retrieve.
@@ -83,14 +84,15 @@ const configFire = (con, lan,ty,theme,sendNumber) => {
 
 
     const loadFire = ()=>{
+      CL_(["loadFire"]);
         if(!this.isFired){
             firebase.initializeApp(con);
             firebase.auth().languageCode = lan;
-            CL_(["configFire Done"])
             this.isFired = true;
         }
 
         if(ty == "reC"){
+          CL_(["rec"]);
             window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
             'theme':theme,
             'callback': (response) => {
@@ -120,7 +122,7 @@ const configFire = (con, lan,ty,theme,sendNumber) => {
 }
 
 const GOS = (function(d, s, id) {
-  /*  var hh = d.getElementsByTagName('head')[0];
+    var hh = d.getElementsByTagName('head')[0];
    
     hh.innerHTML += '<meta name="google-signin-scope" content="profile email">';
     hh.innerHTML += '<meta name="google-signin-client_id" content="94508468930-rnl3toalkm9akk5kri0qff4i6f39fcv9.apps.googleusercontent.com">';
@@ -131,7 +133,7 @@ const GOS = (function(d, s, id) {
     js = d.createElement(s);
     js.id = id;
     js.src = 'https://apis.google.com/js/platform.js';
-    fjs.parentNode.insertBefore(js, fjs)*/
+    fjs.parentNode.insertBefore(js, fjs)
 }(document,  'script','google-jssdk'));
 
 
@@ -157,7 +159,7 @@ const i_app = (()=>{
         }
         return ob;
      }
-     //**userDataArea**//
+     const userData = {};
     let i_app_v = {};
     let i_app_colors =[];
     let i_app_style = {};
@@ -211,7 +213,8 @@ const i_app = (()=>{
     general screen object document.body
     */
   const i_sc = {}
-    // tools
+  let elmCount = 0;  
+  // tools
   
     /**
      * not comment yet
@@ -822,7 +825,7 @@ const FCMTCS = (e) => {
     firebase.auth().signInWithPhoneNumber(n, window.recaptchaVerifier).then(function(confirmationResult) {
         window.confirmationResult = confirmationResult;
         E_I('recaptcha-container').innerHTML = '';
-        var ms = GTX("we-send-sms-act");
+        var ms = GTX("we-sent-sms-activation-code");
         AL_(ms);
     }).catch(function(error) {
         AL_(error.message);
@@ -835,10 +838,10 @@ const FCMTC = (e,numberHolder,activeHolder) => {
     const sendNumber = ()=>{
     
     if(readyNumber[E_I_V(e)]){
-     // FCMTCS(e);
+     //FCMTCS(e);
       D_CL([activeHolder,"D_N"]);
       A_CL(numberHolder,"D_N");
-      var ms = GTX("we-send-sms-act");
+      var ms = GTX("sending-sms");
       AL_(ms);
     }else{
       var ms = GTX("re-send-code");
@@ -850,13 +853,13 @@ const FCMTC = (e,numberHolder,activeHolder) => {
     const callback =(res)=>{
       res = res.res;
       if(res == true){
+        AL_('number is allready exist !!');
+      }else{
         readyNumber[E_I_V(e)] = true;
         E_I_S(`${e}_view`).setAttribute('disabled','true');
         E_I_S("recaptcha-container-tx").innerText = "Solve Recaptcha";
-     //   configFire(app.fcm, selectLang,"reC",i_app_theme,sendNumber);
-     sendNumber();
-      }else{
-        AL_('number is allready exist !!');
+        //  configFire(app.fcm, selectLang,"reC",i_app_theme,sendNumber);
+        sendNumber()
       }
     
     }
@@ -869,16 +872,17 @@ const FCMTA = (i,a,b) => {
     var c = E_I_V(i);
     D_CL([b,"D_N"]);
     A_CL(a,"D_N");
-  /*  
+   
   window.confirmationResult.confirm(c).then(function(r) {
         var ms = GTX("activation-done");
+   
         AL_(ms);
     }).catch(function(error) {
         alert(error.message);
        
     });
     
-    */
+    
 
 }
     // functions
@@ -990,13 +994,14 @@ const funcHandel = (str) => {
     return out;
     }
     function convertStrToOb (str) {
-        str = funcHandel(str)
+   
+        str = funcHandel(str);
+       
         str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
         str = escapeKeysSym(str);
         str = str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
-   
+        
         str = str.toString().trim(); // convert to string and remove leading / trailing whitespace
-   
         str = str.replace(/(\"\w+\"\s*:\s*[^,\{\[\]]+)\s*(\}|,|\])/g, '$1,$2');
 
         str = str.replace(/\s+/g, ' '); // replace multiple spaces with single space
@@ -1033,6 +1038,7 @@ const funcHandel = (str) => {
         str = str.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '$2 :'); // add quotes around property names
         str = str.replace(/fndc/g, 'fn'); // clear fndc
         str = str.replace(/aaa@aaa/g, ':');
+        str = str.replace(/"/g, "'");
         
         // str = cleanStr(str);
       
@@ -1127,29 +1133,30 @@ const funcHandel = (str) => {
  
   };
   
-  
-  const G_Json = async (url,callback) => {
-    // Fetch data from the specified URL
-    fetch(url)
-      .then((res) => {
-        // If the response is successful, convert the text response to JSON
-        if (res) {
-      
-          res.json().then((json) => {
-            //set app language text
-         
-            callback(json);
-            return true;
-          });
-        }
-      })
-      .catch((e) => {
-        // If there is an error, log it to the console
-        if (e) {
-          CL_(["G_ error ", url, e]);
-          
-        }
-      });
+  const G_Json = (url,callback) => {
+    return new Promise((resolve, reject) => {
+      // Fetch data from the specified URL
+      fetch(url)
+        .then((res) => {
+          // If the response is successful, convert the text response to JSON
+          if (res.ok) {
+            res.json().then((json) => {
+              if(callback && typeof callback === 'function'){
+                callback(json);
+              }
+              resolve(json);
+            });
+          } else {
+            // If there is an error, reject the Promise with an error message
+            reject(new Error(`Error fetching data from ${url}`));
+          }
+        })
+        .catch((e) => {
+          // If there is an error, log it to the console and reject the Promise
+          console.error(`G_ error ${url}`, e);
+          reject(e);
+        });
+    });
   };
   const Queries ={} 
   const _POST =  async(url, data, callback) => {
@@ -1256,53 +1263,62 @@ const funcHandel = (str) => {
        
         });
 }
+
+const loadAllTxt =async ()=>{
+  for(let i = 0 ; i < app.lang.length; i++){
+    const lang       = app.lang[i];
+    const langDir    = `${app.dir.txt}${lang}.json`;
+    const langFile   = await G_Json(langDir);
+    i_app_lang[lang] = langFile;
+}
+}
+
   const dev_translate =async (txt)=>{
+  
+    for(let i = 0 ; i < app.lang.length; i++){
+      const lang       = app.lang[i];
+      const langDir    = `${app.dir.txt}${lang}.json`;
+ 
+      const langFile   = await G_Json(langDir);
+    
+      i_app_lang[lang] = langFile;
+  }
     if(txt === 'app'){
-
-   
-
       for(let i = 0 ; i < app.lang.length; i++){
+       
        const lang = app.lang[i];
-       if(!i_app_lang[lang]){
-        i_app_lang[lang]={}
-       }
+       
        var time = 300;
        let count = 0;
-       if(lang !== "en" && lang !== "ar"){
-        for(const key in i_app_lang['en']){
-          const text = i_app_lang['en'][key];
-
-          const callback =(value)=>{
-            i_app_lang[lang][key] = value;
-            count = count + 1 ;
-            if (count === Object.keys(i_app_lang['en']).length) {
-              const callBack = ()=>{
-          
-                const lastLang = i_app_lang[lang];
-                _POST('/api',{order:'updateTranslate',data:lastLang ,lang:lang},false);
-        
-               }
-               setTimeout(callBack,5000);
+       const defLang = app.defLang ?  app.defLang : "en" ;
+       if(lang !== defLang){
+        for(const key in i_app_lang[defLang]){
+          if(!i_app_lang[lang][key]){
+          const text = i_app_lang[defLang][key];
+            const callback =(value)=>{
+              i_app_lang[lang][key] = value;
+              count = count + 1 ;
+                if (count === Object.keys(i_app_lang[defLang]).length) {
+                  const callBack = ()=>{
+                    const lastLang = i_app_lang[lang];
+                      _POST('/api',{order:'updateTranslate',data:lastLang ,lang:lang},false);
+                  }
+                  setTimeout(callBack,5000);
+                }
             }
-
-          }
           const tt = ()=>{
-            translateFromTo("ar",lang,text,callback);
+            translateFromTo(defLang,lang,text,callback);
           }
           
           setTimeout(tt,time);
           time = time + 300;
         }
-       
-       
+        }
        }
       }
-   
-    
-    }else{
-
     }
   }
+  
   const makeDBtx =async (v)=>{
    const dbA = v.dbA ;
    const dbB = v.dbB;
@@ -1311,9 +1327,7 @@ const funcHandel = (str) => {
     const topic  = dbA[i];
     if(topic.id !== 19){
   
-    const topicTitleEn =topic.key;
-
-   
+    const topicTitleEn   =  topic.key;
     const  topicTitleKey = `${topicTitleEn}-A-${topic.id}`;
     upTxtArabic[topicTitleKey] = topic.title;
     dbA[i].title = `t.{${topicTitleKey}}`;
@@ -1364,14 +1378,18 @@ const funcHandel = (str) => {
     }
   }
    }
-   CL_(JDS_(upTxtArabic))
-   CL_(JDS_(dbA))
-   CL_(JDS_(dbB))
+   CL_(JDS_(upTxtArabic));
+   CL_(JDS_(dbA));
+   CL_(JDS_(dbB));
   }
   const URS = () => Object.freeze({
     dev_translate:dev_translate,
+    JDS_:JDS_,
+    JD_:JD_,
+    inCssCls:inCssCls,
     G_Json:G_Json,
     makeDBtx:makeDBtx,
+    divScreenShot:divScreenShot,
     _GET:G_Json,
     E_I_S: E_I_S,
     E_I: E_I,
@@ -1424,6 +1442,8 @@ const funcHandel = (str) => {
     IS_USERNAME: IS_USERNAME,
     wait_: wait_,
     E_C: E_C,
+    DC_:DC_,
+    EC_:EC_,
     upQuery:dataQuery,
     openOverHide:openOverHide,
     closeOverHide: closeOverHide,
@@ -1432,6 +1452,7 @@ const funcHandel = (str) => {
   });
   
   const L_CSS = (f) => {
+   
     const existingCss = E_I(`css_${f}`);
 
     if (!existingCss) {
@@ -1458,11 +1479,23 @@ const funcHandel = (str) => {
     // Get the number of milliseconds since midnight
     src.src = `${app.dir.script}${f}.js?${time_()}`;
     src.type = "text/javascript";
+
     var afterload =false;
     if(v === 'afterload'){
       afterload =true;
       src.setAttribute('defer','true');
       document.body.appendChild(src);
+    }else  if(v === 'global'){
+      const head = E_T("head")[0];
+      src.setAttribute('defer','true');
+      const iappScript = E_I('i-app-ui');
+      head.insertBefore(src, head.children[head.children.length -1]);
+    }else  if(v === 'https'){
+      const head = E_T("head")[0];
+      src.src = `https://${f}`;
+      src.setAttribute('defer','true');
+      const iappScript = E_I('i-app-ui');
+      head.insertBefore(src, head.children[head.children.length -1]);
     }else{
       const head = E_T("head")[0];
       head.appendChild(src);
@@ -1627,6 +1660,7 @@ const funcHandel = (str) => {
    };
 
   const onTxtChange_ =(k,v)=> {
+    const newOnTxt = [];
   if(onTxtChange[k]){
     for(var i = 0 ; i < onTxtChange[k].length ; i++){
      
@@ -1636,9 +1670,11 @@ const funcHandel = (str) => {
       
       if(elm){
         elm.innerText = eTxt(onTxtChange[k][i][1],onTxtChange[k][i][0],data);
+        newOnTxt.push(onTxtChange[k][i]);
       }
     }
   }
+  onTxtChange[k] = newOnTxt;
   }
   
   const setTxtV = async (ob) => {
@@ -3004,7 +3040,7 @@ const funcHandel = (str) => {
   
   }
   txtv =  txtv.replace(/,(?=[^,]*$)/, '');
-  return  txtv
+  return  txtv;
   }
   const cr_ob_title = (ob,id,e)=>{
     if (ob.TiTx.length == 0) {
@@ -3047,7 +3083,7 @@ const funcHandel = (str) => {
 
     
     let fnSt = EC_(ob.a.fn.toString());
-    const fn = new Function (fnSt);
+    const fn = new  Function(fnSt);
 
     const newFunc = ()=>{
               this.v = i_app_v ;
@@ -3166,6 +3202,14 @@ const funcHandel = (str) => {
         }
         return `${app.dir.img}${src}`;
       
+  }
+  const getImageName = (src)=>{
+    src = src.replace(/\b(.jpg|.png|.gif)\b/g, '');
+    const srcAr = src.split('/');
+    if(srcAr.length > 0){
+       src = srcAr[srcAr.length - 1];
+    }
+    return src;
   }
   /**
   * element actions EventListner
@@ -3763,7 +3807,37 @@ const closeOverHide =(dialog)=>{
  
    
   }
+const tableSetModelData = (ob)=>{
+ const keys    = ob.setModelData;
+ const isTbody = ob.e[1].t == 'tbody' ? true : false;
+ let backElm = [ob.e[0]];
 
+ if(isTbody) {
+    const tbody = ob.e[1];
+    
+    for(var i = 0 ; i < tbody.e.length; i++){
+      
+      for(var r = 0 ; r < tbody.e[i].e.length; r++){
+        // td content
+        tbody.e[i].e[r].attr = {model_data:keys[r]};
+      }
+    }
+    backElm.push(tbody);
+  }else{
+    
+    
+    for(var i = 0 ; i < ob.e.length; i++){
+  
+      for(var r = 0 ; r < ob.e[i].e.length; r++){
+        // td content
+        ob.e[i].e[r].attr = {model_data:keys[r]};
+      }
+    }
+    backElm = ob.e;
+  }
+  
+  return backElm;
+}
   const makeLimitAuto = (ob,data)=>{
 
       const holderId = `${ob.i}_limitHolder`;
@@ -3798,6 +3872,7 @@ const closeOverHide =(dialog)=>{
       setTimeout(reload,1000)
       return false;
     }
+    
     if(body.formObj){
       body = formObj(body);
     }
@@ -3853,7 +3928,10 @@ if(ob.forkey){
   }
   let ob_type = null ,ob_css = null,ob_css_list = [];
   /// set ob_type
+  if(ob.loadAllTxt){
 
+    window.addEventListener("DOMContentLoaded",loadAllTxt());
+  }
   if(ob.t){
 
   ob_type = ob.t;
@@ -3990,7 +4068,11 @@ if(ob.forkey){
   ///  or privte by using i or q  auto {string_idkey} 
   ///  for element query data
   ///  first layout options basic app div
-   //img options
+  //img options
+   if(ob.t == 't' && ob.e && ob.setModelData){
+  
+    ob.e = tableSetModelData(ob);
+    }
    if(ob.t == 'video'){
    if(ob.autoplay){
     e.setAttribute('autoplay','true');
@@ -4038,14 +4120,14 @@ if(ob.forkey){
   
     if(ob.I){
       ob.i =ob.i? ob.i : `${id}_${ob.I}`;
-      
     }
   
     if( ob.i == undefined && ob.id !== undefined){
         ob.i = ob.id;
         e.id = ob.id;
     }else  if( ob.i  == undefined && ob.id == undefined){
-        ob.i =  `${id}_${ob.offset ?ob.offset:0 }`;
+      elmCount = elmCount+1;
+      ob.i =  `${id}_${ob.offset ?ob.offset:0 }_${elmCount}`;
     }
   ob.i = replacePatternId(ob.i,data);
  
@@ -4072,12 +4154,12 @@ if(ob.forkey){
     // select type
    
       if(ob.mod == 'phonecode'){
-        ob.data = {order:'countries'}
+        ob.data = { order:'countries' }
       }
    
       isHideElement = true;
-      holder.t = 'span';
-      holder.i = `${ob.i}_holder`;
+      holder.t      = 'span';
+      holder.i      = `${ob.i}_holder`;
   }
   
   // up = make is the element appended to parent
@@ -4085,6 +4167,19 @@ if(ob.forkey){
   let isCheckbox = false;
   // handel element text
   let isCheckboxOverClass = '';
+  if(ob.t === 'code'){
+    if( ob.code ){
+      const strCode = JDS_(i_app_select_lang[ob.code]);
+     
+      e.innerHTML = styleCodeContent(strCode);
+    }else{
+      e.innerHTML = styleCodeContent(ob.s);
+
+    }
+    const copyToClipBoard = {t:'icon',c:'ICO-copy F_S_15 PD_5  B_R_5 POS_AB RR_0 TT_0 F_B pointer tooltip',e:[{s:'Copied',c:'tooltiptext'}],a:{fn(){copyInnerTextToClipboard(e);}}};
+    ob.e = ob.e?ob.e:[];
+    ob.e.push(copyToClipBoard);
+  }else
   if(ob.s || ob.txt){
   const st = ob.s ? ob.s : ob.txt;
   const txt = eTxt(st,ob.i,data);
@@ -4149,8 +4244,9 @@ if(ob.forkey){
     }else{
       if(ob.write){
         const speed = ob.write.speed ?  ob.write.speed: 100;
-      const callBack = ()=>  typeString(ob.i,txt,speed);
-      setTimeout(callBack,300);
+        const callBack = ()=>  typeString(ob.i,txt,speed);
+        setTimeout(callBack,300);
+
       }else if(ob.writeWait){
         let speed = 100;
         if(ob.writeWait.speed){
@@ -4158,7 +4254,8 @@ if(ob.forkey){
         }
         const callBack = ()=>  waitTypeString(ob.i,txt,speed);
         setTimeout(callBack,300);
-        }else{
+
+      }else{
         e.innerText = txt;
       }
     
@@ -4199,7 +4296,22 @@ if(ob.forkey){
     }
     
   }
- 
+ if(ob.t === 'img'){
+  if(ob.alt){
+    e.setAttribute("alt",ob.alt);
+    e.alt = ob.alt;
+  }else{
+    if(ob.src){
+      const imageName = getImageName(ob.src);
+      e.setAttribute("alt",`From ${app.name} Image Name ${imageName}`);
+      e.alt = `From ${app.name} Image Name ${imageName}`;
+    }else{
+      e.setAttribute("alt",`Image From ${app.name} `);
+      e.alt = `Image From ${app.name} `;
+    }
+    
+  }
+ }
   /// handel element style
   if(ob.style){
     set_style(e,ob.style);
@@ -4497,6 +4609,8 @@ if(ob.forkey){
             G_root(`${app.dir.src}${i_route}.${app.dir.file ? app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route,false]);
         }
   }
+////////////////// SERVER 
+
 
 ///////////////// TEXT BUILD SECTION
 
@@ -4623,8 +4737,55 @@ const createAppTxt =async(lang)=>{
 
 
   }
+  function styleCodeContent(code) {
+    // Escape < and > characters for HTML display
+    code = code.replace(/^\s*,|,\s*$/g, '');
   
-  const G_CSS = (cs) => {
+    code = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    code = code.replace(/\n/g, '<br>');
+
+    // Strings (including template literals)
+    code = code.replace(/(".*?")|('.*?')|(`.*?`)/g, '<span class="string">$1$2$3</span>');
+
+    // Keywords
+    code = code.replace(/\b(if|else|for|while|function|return|var|let|const|npm)\b/g, '<span class="keyword">$1</span>');
+    // legacy
+    code = code.replace(/\b(i-app-create|i-app)\b/g, '<span class="legacy">$1</span>');
+    code = code.replace(/\b(start|projectName)\b/g, '<span class="special_chars">$1</span>');
+    // Numbers
+    //code = code.replace(/\b(\d+)\b/g, '<span class="number">$1</span>');
+
+    // Functions
+    code = code.replace(/\b([a-zA-Z_]\w*)\s*\(/g, '<span class="function">$1</span>(');
+
+    // Comments for JavaScript
+    code = code.replace(/(\/\/.*)/g, '<span class="comment">$1</span>');
+
+    // Comments for PHP
+    code = code.replace(/(\/\*.*?\*\/)/g, '<span class="comment">$1</span>'); // Multiline
+   // code = code.replace(/(\#.*?)/g, '<span class="comment">$1</span>'); // Single line starting with #
+
+    // Square Brackets with different color and line break
+    code = code.replace(/([\[\]])/g, '<span class="brackets_square">$1</span><br>');
+
+    // Curly Braces with different color and line break
+    code = code.replace(/([\{\}])/g, '<span class="brackets_curly">$1</span><br>');
+
+    // Round Brackets with different color
+    code = code.replace(/([()])/g, '<span class="brackets_round">$1</span>');
+
+    // Special Characters with different color
+    code = code.replace(/([:!])/g, '<span class="special_chars">$1</span>');
+
+    // Special Characters with different color and line break
+    code = code.replace(/([,])/g, '<span class="special_chars">$1</span><br>');
+    code = code.replace(/<br>/g, '</br><span class="tab_indent"></span>');
+
+    return '<span class="codeHolder">'+code+'</span>';
+}
+
+
+  const G_CSS = (cs) =>{ 
   const c = cs.split("_");
   let borderProps, borderStyle;
       switch(c[0]){
@@ -4891,16 +5052,18 @@ const createAppTxt =async(lang)=>{
                             '';
       case "BG":
             switch (c[2]) {
+              case "X":
+                return (c.length === 3) ? `.${cs} {background-color:var(--${c[1]});background-image: linear-gradient(to right bottom,#fff ,  var(--${c[1]}) 45%, #000 );}`: '';
               case "W":
-                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #ffffff 51%, var(--${c[1]}) 100%)}` : '';
+                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #ffffff 51%, var(--${c[1]}) 100%);}` : '';
               case "B":
-                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #000000 51%, var(--${c[1]}) 100%)}` : '';
+                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #000000 51%, var(--${c[1]}) 100%);}` : '';
               case "BL":
-                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #0300c0 51%, var(--${c[1]}) 100%)}` : '';
+                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #0300c0 51%, var(--${c[1]}) 100%);}` : '';
               case "YL":
-                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #f7fb00 51%, var(--${c[1]}) 100%)}` : '';
+                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #f7fb00 51%, var(--${c[1]}) 100%);}` : '';
               case "GR":
-                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #04ff00 51%, var(--${c[1]}) 100%)}` : '';
+                return (c.length === 3) ? `.${cs} {background-image: linear-gradient(to right, var(--${c[1]}) 0%, #04ff00 51%, var(--${c[1]}) 100%);}` : '';
               default:
                 return '';
               }
@@ -5173,8 +5336,42 @@ const createAppTxt =async(lang)=>{
     }
   
   }
+  const inCssCls =(name,cls)=>{
+    var isNew = true;
+    
+    for (const style of document.styleSheets) {
+      if (style.ownerNode && style.ownerNode.id && style.ownerNode.id == "F_ASS") {
+       
   
-  
+          for (const rule of style.rules) {
+              if (rule.selectorText == `.${cls}`) {
+                  isNew = false;
+              }
+          }
+
+          if (isNew) {
+                if (style.cssRules) {
+                  
+                    style.insertRule(cls, style.cssRules.length);
+                }else{
+                  style.insertRule(cls, 0);
+                }
+                CL_(['found',style.ownerNode.id ]);
+              }
+
+          
+        }
+      }
+  }
+
+  const divScreenShot = (id,srcBack)=>{
+    const element = E_I_S(id);
+    html2canvas(element).then(canvas => {
+      const imgData = canvas.toDataURL();
+
+      E_I_S(srcBack).src = imgData;
+    })
+  }
   const scrollDir = () => {
   var lastSc = this.lastScroll;
   var crD = window.scrollY;
@@ -5250,7 +5447,7 @@ const createAppTxt =async(lang)=>{
                               position: absolute;
                               transform: scale(1);
                               opacity: 1;
-                      `;
+                              `;
   
                       }
                   }
@@ -5453,6 +5650,17 @@ const createAppTxt =async(lang)=>{
     
 
     };
+
+    const  START_USER_SERVER = ()=>{
+      if(typeof _SERVER_START ===  'function'){
+        _SERVER_START();
+      }else{
+      const callB = (userD)=>{
+        _SERVER_START(userD);
+      }
+        L_S('/js/server.js',callB,[URS(),userData]);
+      }
+    }
   const createApp = async()=>{
     /**
      * load bassc app colors
@@ -5471,7 +5679,16 @@ const createAppTxt =async(lang)=>{
     return true;
     
   }
-
+  function copyInnerTextToClipboard(element) {
+    const textToCopy = element.innerText;
+    navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+            console.log("Text copied to clipboard successfully!");
+        })
+        .catch(err => {
+            console.error("Failed to copy text to clipboard: ", err);
+        });
+}
 
   function handleHistoryChange(event) {
     // Check if the user navigated backward or forward
@@ -5491,7 +5708,8 @@ const createAppTxt =async(lang)=>{
     _POST('/api',{order:'setUserOffline'},false);
   }
   const setUserState = ()=>{
-   if(app.users && userData.id > 0){
+   if(app.users && userData.id && userData.id > 0){
+    START_USER_SERVER();
     window.addEventListener('beforeunload', function (e) {
       if(!desStroy){
             window.userState();

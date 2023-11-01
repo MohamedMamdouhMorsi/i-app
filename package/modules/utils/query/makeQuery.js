@@ -59,7 +59,7 @@ const makeQuery = async(body,tables)=>{
         
         }
     }
- // console.log(['queryText',queryText]);
+    
     return queryText;
 }
 module.exports = makeQuery

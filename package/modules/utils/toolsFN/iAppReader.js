@@ -7,7 +7,7 @@ const {CL_, DC_, EC_, JDS_, JD_, arToSt, stToAr} =require('../../tools');
    */
    const removeComments = (str)=> {
     return str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
-}
+  }
 
 const funcHandel = (str) => {
   /**
@@ -59,6 +59,7 @@ const funcHandel = (str) => {
     return str;
   }
 }
+
 function escapeKeysSym(str) {
   const strArr = str.split('');
   var start = false;
@@ -96,12 +97,12 @@ function escapeKeysSym(str) {
 
 
 
-function convertStrToOb (str) {
-    
-  str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
-  str = escapeKeysSym(str);
+
+  function convertStrToOb (str) {
+    str = escapeKeysSym(str);
     str = funcHandel(str);
- 
+    str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
+
     str = str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
 
     str = str.toString().trim(); // convert to string and remove leading / trailing whitespace
@@ -115,10 +116,10 @@ function convertStrToOb (str) {
     str = str.replace(/\\"/g, '"'); // remove escaped quotes
 
     str = str.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2": '); // add quotes around property names
-        //update string : 
-      
+
+    //update string : 
+
     str = str.replace(/'/g, '"'); // replace single quotes with double quotes
- 
     str = str.replace(/,\s*}/g, '}'); // remove trailing commas
    
     // Add missing commas
@@ -136,9 +137,10 @@ function convertStrToOb (str) {
 
   
     // handel function obj
-   
-    str = str.replace(/([a-z0-9A-Z_]+) "/g, '$1 , "'); // delete last comma comma
+    str = str.replace(/aaa@aaa/g, ':');                 // missing comma
+    str = str.replace(/([a-z0-9A-Z_]+) "/g, '$1 , "');  // delete last comma comma
 
+    
    
     // str = cleanStr(str);
   
@@ -146,14 +148,13 @@ function convertStrToOb (str) {
   };
 
  // This function takes a string and cleans it by removing comments and converting it to an object
-const iAppReader = (str) => {
-// Remove comments from the string using the removeComments function
-str = removeComments(str);
 
-// Convert the cleaned string to an object using the convertStrToOb function
-str = convertStrToOb(str);
+ const iAppReader = (str) => {
 
-// Return the cleaned object
-return str;
-};
+      str = removeComments(str);
+
+      str = convertStrToOb(str);
+
+      return str;
+  };
 module.exports = iAppReader

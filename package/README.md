@@ -143,7 +143,7 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
     * return or choose t:( tx=</p> | ti=</h1> or use html
     *  tag  a | p | b | img etc..) 
     * */
-    t:'ly'
+    t:'div'
     /**
      * v: key
      * shared data virable changed synctacly with objects
@@ -328,7 +328,9 @@ The structure of the file is similar to a Jison file or a JavaScript object. You
     */
     a:{
         e:'blur'
+        /* Or */
         time:1000
+        /* Or Just Default click()*/
         fn:{
             // by default you will recive inside that function 2 var
             //-1  v   its shared object data 

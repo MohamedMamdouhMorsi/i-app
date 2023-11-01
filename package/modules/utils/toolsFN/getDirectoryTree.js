@@ -20,7 +20,6 @@ const  getDirectoryTree =async (rootDir)=>{
   for (var f =0 ; f < files.length; f++) {
     const file = files[f];
     const filePath = path.join(rootDir, file);
-   
     const fileStats = fs.statSync(filePath);
 
     if (fileStats.isDirectory()) {

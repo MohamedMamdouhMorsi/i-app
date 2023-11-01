@@ -8,7 +8,8 @@ const insertValues =(op)=>{
             let opText = "";
             for(var i = 0 ; i < opT.length; i++){
                 opText += ` '${opT[i]}'`;
-                if(opT[i+1]){
+                const nextOp =  opT[i+1] ||  opT[i+1] == '0' ? true : false;
+                if(nextOp){
                     opText += `, `;
                 }
             }
@@ -22,7 +23,8 @@ const insertValues =(op)=>{
         let opTextA = "";
         for(var i = 0 ; i < op.length; i++){
             opTextA += ` '${op[i]}'`;
-            if(op[i+1]){
+            const nextOp =  op[i+1] ||  op[i+1] == '0' ? true : false;
+            if(nextOp){
                 opTextA += `, `;
             }
         }

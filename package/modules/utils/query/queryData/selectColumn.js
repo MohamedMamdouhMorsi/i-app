@@ -1,5 +1,5 @@
 const selectColumn =(op)=>{
-    let opText = ""
+    let opText = "";
     for(var i = 0 ; i < op.length; i++){
         opText += ` ${op[i]}`;
         if(op[i+1]){
