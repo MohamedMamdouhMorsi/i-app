@@ -15,26 +15,32 @@ const asset_file =(req,res,userDir,swScript,userData)=>{
     }else  if (req.url.match(/\/img\/flags\//)) {
         const img = req.url.replace(/\/img\/flags\//,'');
         filePath = path.join(__dirname, '..','..','..','img','flags',img);
-    }else if (req.url.match(/\/server.js/) ) {
-      filePath = path.join(__dirname, '..','..','..','js','server.js');
+    }else  if (req.url.match(/\/img\/install\//)) {
+      const img = req.url.replace(/\/img\/install\//,'');
+      filePath = path.join(__dirname, '..','..','..','img','install',img);
+  }else    if(req.url === '/img/user.jpg' ) {
+      
+      filePath = path.join(__dirname, '..','..','..','img','user.jpg');
+  }else if (req.url.match(/\/server.js/) ) {
+        filePath = path.join(__dirname, '..','..','..','js','server.js');
      
     }else   if (req.url === '/i-app-ui.js' ) {
         filePath = path.join(__dirname, '..','..','..','i-app-ui.js');
         isUiJs = true;
     }else  if (req.url === '/i-app-ui.min.js' ) {
-      filePath = path.join(__dirname, '..','..','..','i-app-ui.min.js');
-      isUiJs = true;
-  }else if (req.url === '/icofont.css') {
+        filePath = path.join(__dirname, '..','..','..','i-app-ui.min.js');
+        isUiJs = true;
+    }else if (req.url === '/icofont.css') {
         filePath = path.join(__dirname,'..','..','..','css', 'icofont.css');
     }else  if (req.url === '/app.png') {
-      filePath = path.join(__dirname,'..','..','..','img', 'app.png');
+        filePath = path.join(__dirname,'..','..','..','img', 'app.png');
     }else if (req.url === '/i-app-basic.css' ) {
         filePath = path.join(__dirname,'..','..','..','css', 'i-app-basic.css');
     }else  if (req.url === '/i-app-basic.min.css' ) {
-      filePath = path.join(__dirname,'..','..','..','css', 'i-app-basic.min.css');
-  }else  if (req.url === '/face-api.min.js' ) {
-    filePath = path.join(__dirname,'..','..','..','lib', 'face-api.min.js');
-}else  {
+        filePath = path.join(__dirname,'..','..','..','css', 'i-app-basic.min.css');
+    }else  if (req.url === '/face-api.min.js' ) {
+        filePath = path.join(__dirname,'..','..','..','lib', 'face-api.min.js');
+    }else {
 
       let is_get = false;
       let lastUrl = req.url;
@@ -60,7 +66,7 @@ const asset_file =(req,res,userDir,swScript,userData)=>{
     }
     if(filePath !== null){
         const extname = path.extname(filePath);
-         contentType = getContentType(extname);
+              contentType = getContentType(extname);
         
         fs.access(filePath, fs.constants.F_OK, (err) => {
             if (err) {
@@ -68,17 +74,22 @@ const asset_file =(req,res,userDir,swScript,userData)=>{
               res.end(`<h1>404 Not Found</h1><p>The requested URL ${req.url} was not found on this server.</p>`);
             } else {
               fs.readFile(filePath, (err, data) => {
+                
                 if (err) {
                   res.writeHead(500, { 'Content-Type': 'text/html' });
                   res.end('<h1>500 Internal Server Error</h1><p>Sorry, there was a problem loading the requested URL.</p>');
+
                 } else {
+
                  if(isUiJs){
                   const userDataSt = `const userData = ${JSON.stringify(userData)}`;
                   const regex = /const userData = {};/g;
                   data = data.toString().replace(regex,userDataSt);
                  }
+
                   res.writeHead(200, { 'Content-Type': contentType });
                   res.end(data);
+
                 }
               });
             }

@@ -12,6 +12,9 @@ const updateTranslate =  require('./app/updateTranslate');
 const updateIcons =  require('./app/updateIcons');
 const updateTxt =  require('./app/updateTxt');
 const serverOffer  = require('./servers/serverOffer');
+const serverAnswer  = require('./servers/serverAnswer');
+const getAnswer  = require('./servers/getAnswer');
+
 const orders  =(body,req,res,i_app_path,i_app)=>{
    if(body.order === 'countries'){
       return countries(res);
@@ -21,6 +24,10 @@ const orders  =(body,req,res,i_app_path,i_app)=>{
       return icons(res);
    }else if(body.order === 'serverOffer'){
       return serverOffer(body,req,res);
+   }else  if(body.order === 'serverAnswer'){
+      return serverAnswer(body,req,res);
+   }else   if(body.order === 'getAnswer'){
+      return getAnswer(body,req,res);
    }else if(body.order === 'addUser'){
        return addUser(body,res);
    }else if(body.order === 'checkUser'){

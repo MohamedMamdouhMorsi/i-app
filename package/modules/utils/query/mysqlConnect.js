@@ -62,7 +62,7 @@ const mysqlConnect = async (body, res_, callBack) => {
     const queryText   = await makeQuery(body, dbConfig.tables);
     const queryTextUp = await makeQuery({query:[{a:'checkUpTime',ob:body}]}, dbConfig.tables);
     const querySize   = await makeQuery({query:[{a:'querySize',ob:body}]}, dbConfig.tables);
-  
+      const stQueryText = queryText.toString();
           const connection = mysql.createConnection({
             host: dbConfig.host,
             user: dbConfig.user,
@@ -70,13 +70,12 @@ const mysqlConnect = async (body, res_, callBack) => {
             database: dbConfig.database,
           });
 
-          connection.connect();
+         
 
           if(isGetQuery(body)){
-
+            connection.connect();
             const upTime = await new Promise((resolve, reject) => {
               connection.query(queryTextUp, (queryError, upTime, fields) => {
-               
                 if (queryError) {
                   console.error("Error executing MySQL query:", queryError.message);
                   reject(queryError);
@@ -85,6 +84,7 @@ const mysqlConnect = async (body, res_, callBack) => {
                 }
               });
             }); 
+
             let Qsize = 0;
             if(querySize && querySize !== undefined && querySize !== ''){
             
@@ -120,13 +120,15 @@ const mysqlConnect = async (body, res_, callBack) => {
               return "UPTODATE";
               }else{
                 const results = await new Promise((resolve, reject) => {
-                  connection.query(queryText, (queryError, results, fields) => {
-                    connection.end();
+                  connection.query(`${stQueryText}`, (queryError, results, fields) => {
+                  
                     if (queryError) {
                       console.error("Error executing MySQL query:", queryError.message);
                       reject(queryError);
                     } else {
+
                       resolve(results);
+                      connection.end();
                     }
                   });
                 });
@@ -141,14 +143,16 @@ const mysqlConnect = async (body, res_, callBack) => {
               }
            
             }else{
+             
               const results = await new Promise((resolve, reject) => {
-                connection.query(queryText, (queryError, results, fields) => {
-                  connection.end();
+                connection.query(`${stQueryText}`, (queryError, results, fields) => {
+                 
                   if (queryError) {
                     console.error("Error executing MySQL query:", queryError.message);
                     reject(queryError);
                   } else {
                     resolve(results);
+                    connection.end();
                   }
                 });
               });
@@ -163,9 +167,9 @@ const mysqlConnect = async (body, res_, callBack) => {
             }
         
           }else{
-  
+            connection.connect();
                       const results = await new Promise((resolve, reject) => {
-                        connection.query(queryText, (queryError, results, fields) => {
+                        connection.query(`${stQueryText}`, (queryError, results, fields) => {
                           if (queryError) {
                             console.error("Error executing MySQL query:", queryError.message);
                             reject(queryError);
@@ -178,12 +182,13 @@ const mysqlConnect = async (body, res_, callBack) => {
                       const backResult = COPY_OB(results);
                       const upTime = await new Promise((resolve, reject) => {
                         connection.query(queryTextUp, (queryError, upTime, fields) => {
-                          connection.end();
+                          
                           if (queryError) {
                             console.error("Error executing MySQL query:", queryError.message);
                             reject(queryError);
                           } else {
                             resolve(upTime);
+                            connection.end();
                           }
                         });
                       }); 

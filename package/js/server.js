@@ -1,507 +1,944 @@
 
-const _SERVER_START = ([_,user])=>{
-          
-        if (!window.RTCPeerConnection && window.mozRTCPeerConnection) {
-            // very basic support for old versions.
-            window.RTCPeerConnection = window.mozRTCPeerConnection;
-        }
-      
-        if (window.DataChannel && !window.RTCDataChannel) {
-            window.RTCDataChannel = window.DataChannel;
-        }
-        this._CON_SERVERS = []; 
-        this._C_U_UT_S = [];
-        this._C_R_U_UT_S = [];
-        this._C_R_U_DB_S = {};
-        window.app_S = new Object();
-        window.localStream = new MediaStream();
-        this.lcl = {};
-        this.poolCon = {
-            state:false,
-            type:"alpha",
-            no:1,
-            cons:0
-        };
+const symbol  = ["►","◄","▲","▼","я","з","л","ь","д","Ф","ф","и","й","ч","ш","ж","я","Д","Э","Ц","щ","г","п","б","ъ","Ю","ä","ß","ü","Ü","ö","ñ","è","ê","É","à"]
+const keys    = ["☺","☻","♥","♦","♣","♠","~"];
+const indexes = [9,8,7,6,5,4,2];
+const letterToNumber = {};
+const numberToLetter = {};
+var valOffset = 0;
+var ab = 1;
+var ac = 1;
+
+var getAnswerTime = 10;
+
+    const i_zip =async (objAr,index,somp)=>{
+
         
-        this._S_S = "u";
-        this._TRY_C_R = false;
-        this._CRU_S = false;
-        this._M_R_SERVER="FALSE";
-        this._KILLER = "FALSE";
-        this._MSG_SC = "FALSE";
-        this._R_S_N = "FALSE";
-        this.killMe = "false";
-        this.dead = [];
-        this.chatAppState = false;
-        var nsno =0;
-        this.streamState = false;
-        var Topf = 0;
-        this.streamType = "v";
-        this._contacts = [];
-        this._MUTE_ALL = false;
-        this._UP_SC_CH_TH = false;
-        this._MUTE_MIC = true;
+        const map = {};
+        let keyNum = 0;
+        var testTxt = "";
+        for(var i = 0 ; i < objAr.length; i++){
+            const txt = objAr[i].txt;
+            testTxt += txt;
+            const txtAr = txt.split("");
+            for(var i = 0 ; i < txtAr.length; i++){
+                if(txtAr[i+index]){
+                    var simple = "";
+                    for(var x = 0 ; x < index ; x++){
+                        const offset = x+i;
+                        simple += txtAr[offset];
+                    }
+                    if(map[simple]){
+                        map[simple] = map[simple] + 1;
+                    }else{
+                        map[`${simple}`] =  1;
+                    }
+                    
+                }
+            }
+        }
         
-            const offerOptions = {
-                    offerToReceiveAudio: true,
-                    offerToReceiveVideo: true
+        const valuesAr = [];
+        var baseNum = 9;
+        if(index == 2){
+            baseNum = symbol.length;
+        }
+        
+            for(const key in map){
+
+                const number = map[key];
+                const regex  = new RegExp(key, "g");
+
+                if(keyNum < baseNum && number > 1){
+
+                    const found   = testTxt.match(regex);
+
+                    if(found && found.length > 1){
+
+                        testTxt  = testTxt.replace(regex,"");
+                        valuesAr.push({key:key , num: number });
+                        keyNum = keyNum + 1;
+                    }
+                }
+            }
+
+            const valuesAr_ =  valuesAr.sort((a, b) => b.num - a.num);
+        
+            const newAr = [];
+            var lastKey = "";
+
+            for(var a = 0 ; a < valuesAr_.length; a++){
+                const valObj = valuesAr_[a].key;
+                lastKey += valObj;
+            }
+            var symbUsed = "";
+            var symbBaseUsed = "";
+            //, val:keyNum ,symbol:symbol[keyNum]
+            for(var i = 0 ; i < objAr.length; i++){
+
+                var txtENCODE = objAr[i].txt;
+                
+                    for(var a = 0 ; a < valuesAr_.length; a++){
+
+                            const valObj = valuesAr_[a];
+                            const key_   = valObj.key;
+                            
+                            const val_   = `${somp}${a+1}`;
+                            const regex  =  new RegExp(`${key_}`, "g");
+                        if(index == 2){
+                            const symbb = symbol[a];    
+                                txtENCODE  = txtENCODE.replace(regex,symbb);
+                                symbUsed += symbb;
+                                
+                        }else{
+                            
+                            txtENCODE  = txtENCODE.split(regex).join(val_);
+                            symbBaseUsed += val_;
+                        }
+                        
+                    }
+
+                    newAr.push({txt:txtENCODE, num:objAr[i].num, len:txtENCODE.length });
+            }
+    
+            newAr.push({ txt:lastKey, num:index, len:lastKey.length });
+        
+            return newAr;
+    }
+
+    const zipJ =async (obj)=>{
+
+        const txt    = obj;
+        const txt64  = _.DC_(txt);
+     
+        var txtAR = [{ txt: txt64 , num:10}];
+
+        for(var i = 0 ; i < keys.length; i++){
+
+            const key   = keys[i];
+            const index = indexes[i];
+
+            txtAR = await i_zip( txtAR, index, key );
+
+        }
+        
+        var len = 0;
+        var txtObj = "";
+        for(var i = 0 ; i < txtAR.length; i++){
+
+            len     += txtAR[i].txt.length;
+            txtObj  += txtAR[i].txt;
+
+            if(i< txtAR.length -1){
+                txtObj +=',';
+            }
+
+        }
+        txtObj = txtObj.replace(/,,,,,,,,/g,"");
+        return txtObj;
+    }
+
+    const zipS = async (txt)=>{
+
+            const zAR    = txt.split(",");
+           
+            if(zAR.length < 8){
+                return txt;
+            }
+            const index2 = zAR.length - 1;
+            const BD2    = [];
+            const BD2TX  = zAR[index2];
+        
+        for (let i = 0; i < BD2TX.length; i += 2) {
+                        BD2.push(BD2TX.slice(i, i + 2));
+            }
+        
+                for (let i = 0; i < BD2.length; i ++) {
+
+                        const key_   = symbol[i];
+                        const val_   = BD2[i];
+                        const regex  = new RegExp(`${key_}`, "g");
+
+                        for (let x = 0; x <index2; x ++) {
+                            const txtQ = zAR[x];
+                            zAR[x]= txtQ.split(regex).join(val_);
+                        }
+                }
+
+                const index4     = zAR.length - 2;
+                const BD4TX      = zAR[index4];
+             
+                const indexSymp4 = keys[5];
+                const BD4        = [];
+                if(BD4TX !== ''){
+                for (let i = 0; i < BD4TX.length; i += 4) {
+                    BD4.push(BD4TX.slice(i, i + 4));
+                }
+
+                const BD4A = [];
+                
+                for (let i = 0; i < BD4.length; i ++) {
+                
+                    const key_   = `${indexSymp4}${i+1}`;
+                    const val_   = BD4[i];
+                    BD4A.push([key_,val_]);
+                }
+                
+                
+                
+                const BD4AR = BD4A.reverse();
+
+                for (let i = 0; i < BD4AR.length; i ++) {
+                
+                        const key_   = BD4AR[i][0];
+                        const val_   = BD4AR[i][1];
+                        const regex  =  new RegExp(`${key_}`, "g");
+
+                        for (let x = 0; x < index4; x ++) {
+                            const txtQ = zAR[x];
+                            zAR[x]= txtQ.split(regex).join(val_);
+                        }
+                }
+                
+            }
+                const index5 = zAR.length - 3;
+                const BD5TX = zAR[index5];
+                const BD5 = [];
+                
+                
+                if(BD5TX !== ''){
+                const indexSymp5 = keys[4];
+                
+                for (let i = 0; i < BD5TX.length; i += 5) {
+                        BD5.push(BD5TX.slice(i, i + 5));
+                    }
+                
+                const BD5A = [];
+                for (let i = 0; i < BD5.length; i ++) {
+                
+                    const key_   = `${indexSymp5}${i+1}`;
+                    const val_   = BD5[i];
+                    BD5A.push([key_,val_]);
+                }
+                const BD5AR = BD5A.reverse();
+
+                for (let i = 0; i < BD5AR.length; i ++) {
+                
+                        const key_   = BD5AR[i][0];
+                        const val_   = BD5AR[i][1];
+                    const regex  =  new RegExp(`${key_}`, "g");
+
+                    for (let x = 0; x < index5; x ++) {
+                        const txtQ = zAR[x];
+                        zAR[x]= txtQ.split(regex).join(val_);
+                    }
+                }
+            }
+                const index6 = zAR.length - 4;
+                const BD6TX = zAR[index6];
+                const BD6 = [];
+                
+                if(BD6TX !== ''){
+                
+                const indexSymp6 = keys[3];
+                
+                for (let i = 0; i < BD6TX.length; i += 6) {
+                        BD6.push(BD6TX.slice(i, i + 6));
+                    }
+                
+                    const BD6A = [];
+                    for (let i = 0; i < BD6.length; i ++) {
+                
+                        const key_   = `${indexSymp6}${i+1}`;
+                        const val_   = BD6[i];
+                        BD6A.push([key_,val_]);
+                    }
+                    const BD6AR = BD6A.reverse();
+
+                    for (let i = 0; i < BD6AR.length; i ++) {
+                
+                            const key_   = BD6AR[i][0];
+                            const val_   = BD6AR[i][1];
+                            const regex  =  new RegExp(`${key_}`, "g");
+                    
+                    for (let x = 0; x < index6; x ++) {
+                        const txtQ = zAR[x];
+                        zAR[x]     = txtQ.split(regex).join(val_);
+                    }
+                }
+                
+                const index7     = zAR.length - 5;
+                const BD7        = [];
+                const BD7TX      = zAR[index7];
+                
+                
+                const indexSymp7 = keys[2];
+                
+                for (let i = 0; i < BD7TX.length; i += 7) {
+                        BD7.push(BD7TX.slice(i, i + 7));
+                    }
+
+                const BD7A = [];
+                for (let i = 0; i < BD7.length; i ++) {
+                
+                    const key_   = `${indexSymp7}${i+1}`;
+                    const val_   = BD7[i];
+                    BD7A.push([key_,val_]);
+                }
+                const BD7AR = BD7A.reverse();
+
+                for (let i = 0; i < BD7AR.length; i ++) {
+                
+                        const key_   = BD7AR[i][0];
+                        const val_   = BD7AR[i][1];
+                    const regex  =  new RegExp(`${key_}`, "g");
+
+                    for (let x = 0; x < index7; x ++) {
+                        const txtQ = zAR[x];
+                        zAR[x]= txtQ.split(regex).join(val_);
+                    }
+                }
+            }
+
+                const index8     = zAR.length - 6;
+                const BD8        = [];
+                const BD8TX      = zAR[index8];
+                const indexSymp8 = keys[1];
+                
+                if(BD8TX !== ''){
+                for (let i = 0; i < BD8TX.length; i += 8) {
+                        BD8.push(BD8TX.slice(i, i + 8));
+                    }
+                
+                const BD8A = [];
+                for (let i = 0; i < BD8.length; i ++) {
+                
+                    const key_   = `${indexSymp8}${i+1}`;
+                    const val_   = BD8[i];
+                    BD8A.push([key_,val_]);
+                }
+                const BD8AR = BD8A.reverse();
+
+                for (let i = 0; i < BD8AR.length; i ++) {
+                
+                        const key_   = BD8AR[i][0];
+                        const val_   = BD8AR[i][1];
+                    const regex  =  new RegExp(`${key_}`, "g");
+            
+                    for (let x = 0; x < index8; x ++) {
+                        const txtQ = zAR[x];
+                        zAR[x]= txtQ.split(regex).join(val_);
+                    }
+                }
+            }
+                const index9     = zAR.length - 7;
+                const BD9        = [];
+                const BD9TX      = zAR[index9];
+                const indexSymp9 = keys[0];
+                if(BD9TX !== ''){
+                
+                for (let i = 0; i < BD9TX.length; i += 9) {
+                        BD9.push(BD9TX.slice(i, i + 9));
+                    }
+
+                const BD9A = [];
+                for (let i = 0; i < BD9.length; i ++) {
+                
+                    const key_   = `${indexSymp9}${i+1}`;
+                    const val_   = BD9[i];
+                    BD9A.push([key_,val_]);
+                }
+                const BD9AR = BD9A.reverse();
+
+                for (let i = 0; i < BD9AR.length; i ++) {
+                
+                        const key_   = BD9AR[i][0];
+                        const val_   = BD9AR[i][1];
+                        const regex  =  new RegExp(`${key_}`, "g");
+
+                        const txtQ = zAR[0];
+                        zAR[0]= txtQ.split(regex).join(val_);
+                    
+                }
                 }
         
-            const iceConfiguration = {
-                configuration:offerOptions, 
-                iceServers: [
+                return _.EC_(zAR[0]);
+    }
+
+
+
+
+const _SERVER_START = ([_,user])=>{
+          
+    if (!window.RTCPeerConnection && window.mozRTCPeerConnection) {
+        // very basic support for old versions.
+        window.RTCPeerConnection = window.mozRTCPeerConnection;
+    }
+  
+    if (window.DataChannel && !window.RTCDataChannel) {
+        window.RTCDataChannel = window.DataChannel;
+    }
+
+
+
+    window.app_S = new Object();
+    window.localStream = new MediaStream();
+
+ 
+
+    var offerNo = 0;
+ 
+    var waitAnswer    = false;
+    const connectionDeviceToken = [];
+    const offerOptions = {
+        offerToReceiveAudio: true,
+        offerToReceiveVideo: true
+    }
+    
+    const iceConfiguration = {
+        configuration:offerOptions, 
+        iceServers: [
                         {  
                             urls: "stun:stun.call.m-w-n.com:5349" 
-                        }, {
+                        },
+                        {
                             urls: 'turn:turn.call.m-w-n.com:3478',
                             credential: 'pass',
                             username: 'mwn'
                         }
                     ],
-                    sdpSemantics: "unified-plan" 
-                }
-                const _S_ON_OPEN = (m,w)=>{
-                    CL_(["open !!!!",m,w]);
-                    if(window.app_S[w]){
-                    var ava;
-                    if (_NT._UDA !== "FALSE" && _NT._UDA.upi !== "FALSE") {
-                        ava = _NT._UDA.upi;
-                    }else{
-                        ava = "J_a";
-                    }
-                    var cc = "";
-                            if(window.app_S[w].candidate){
-                                cc = `,"CANDIDATE":${_.JDS_(window.app_S[w].candidate)}`;
-                            }
-                            var uid = _NT._UDA && _NT._UDA !== "FALSE" && _NT._UDA.id ? _NT._UDA.id :0; 
-                            window.app_S[w].channel.send(`{"typ":"START","no":"${this.poolCon.no}","uid":${uid},"un":"${_NT._UD.un}","avatar":"${ava}"${cc}}`);
-                      
-                            if(this._KILLER == "FALSE" && window.app_S[w].str == "u"){
-                            this._KILLER = w;
-                            window.app_S[w].channel.send('{"typ":"KILL"}');
-                        }
-                    }
-                }
-        
-            const _S_ON_CLOSE = (m,w)=>{
-                        CL_(["closed !!!!",m,w]);
-            
-                        if(window.app_S[w]){
-                            if(window.app_S[w].kill){
-                                this.dead.push(window.app_S[w].ut);   
-                            }
-        
-                        this._CON_SERVERS =this._CON_SERVERS.filter(function(e) {
-                            if(e !== w){
-                                return e;
-                            }
-                        });
-                        this._C_U_UT_S =this._C_U_UT_S.filter(function(e) {
-                            if(e !== window.app_S[w].ut){
-                                return e;
-                            }
-                        });
-        
-                        for(var po = 0 ; po < this._contacts.length; po++){
-                            var e = this._contacts[po];
-                            if(e.ut == w){
-                                this._contacts[po].ot = 0;
-                            }
-                        }
-        
-                        if(this.chatAppState){
-                            var utr = `UCB_ICO_${window.app_S[w].ut}`;
-                            var uts = `UCB_ICO_B_${window.app_S[w].ut}`;
-                            D_CL([utr,"F_RE5"]);
-                            A_CL(utr,"F_GRY9");
-                            D_CL([uts,"F_RE5"]);
-                            A_CL(uts,"F_GRY9");
-                        }
-        
-                       
-                        if(this._KILLER == w){
-                            if(this._CON_SERVERS.length > 0){
-                            var mw = this._CON_SERVERS[0];
-                                if(window.app_S[mw]){
-                                    window.app_S[mw].channel.send('{"typ":"KILL"}');
-                                    }
-                                }
-                            }
-                            
-                            if(window.app_S[w].str == "rm" ){
-                                C_U_R(window.app_S[w].un);
-                                this._C_R_U_UT_S =this._C_R_U_UT_S.filter(function(e) {
-                                    if(e !== window.app_S[w].ut){
-                                        return e;
-                                    }
-                                });
-                                if(this._C_R_U_DB_S[window.app_S[w].ut]){
-                                   delete this._C_R_U_DB_S[window.app_S[w].ut]; 
-                                }
-                                _R_UP_U();
-                            }
-                            if(window.app_S[w].str == "r" || window.app_S[w].str == "ru" || window.app_S[w].str == "rur" ){
-                                C_U_R(window.app_S[w].un);
-                            }
-                            delete window.app_S[w];
-                        }
-                }
-        
-        const _S_ON_MSG = (m,w,n)=>{
-               
-            var msg = _.JD_(n);
-            
-                if(window.app_S[w]){
-                    
-                    if(msg.typ == "START"){
-          
-                        if(msg.CANDIDATE){
-                            _SERVER_CANDIDATE(w,window.app_S[w].ut,msg.CANDIDATE);
-                        }
-                        window.app_S[w].un = msg.un;
-                        window.app_S[w].uid = msg.uid;
-                        window.app_S[w].avatar = msg.avatar;
-                        window.app_S[w].connect = true;
-          
-                        CL_(["START",w,window.app_S[w]]);
-                        this._CON_SERVERS.push(w);
-                        var newUt =true;
-                        if(window.app_S[w].type == "ping"){
-                            window.app_S[w].channel.send('{"typ":"ping"}');
-                        }
-          
-                        if(window.app_S[w].str == "r" || window.app_S[w].str == "rm"){
-                            this.streamState = true;
-                        }
-          
-                        for(var y=0; y < this._C_U_UT_S.length;y++){
-                            if( this._C_U_UT_S[y] == window.app_S[w].ut ){
-                                newUt =false;
-                            }
-                        }
-          
-                        if(newUt &&  window.app_S[w].str == "u" ){
-                            this._C_U_UT_S.push(window.app_S[w].ut);
-                        }
-                    
-                        if(this.chatAppState){
-                            UP_CHAT_STATE(window.app_S[w].ut);
-                        }
-          
-          
-                        CL_(["streamState >>>>>>>",this.streamState ,window.app_S[w].op]);
-                            
-                            if(this.streamState &&  window.app_S[w].op == "myRoom" ){
-                            
-                                var utut = window.app_S[w].ut;
-                                
-                                this._C_R_U_UT_S.push(utut);
-                                this._C_R_U_DB_S[utut] = {
-                                        un:window.app_S[w].un,
-                                        avatar: window.app_S[w].avatar,
-                                        rid: window.app_S[w].rid,
-                                        uid:window.app_S[w].uid
-                                    };
-                                var funV1 = ()=>{
-                                    _STREAM(w);
-                                    _R_UP_U();
-                                }
-                                setTimeout(funV1,1000);
-                                    
-                            }
-          
-                            if(this.streamState &&  window.app_S[w].op == "rur" ){
-                                _STREAM(w);
-                            }
-          
-                            if(OpOf !== "FALSE"){
-                                if(window.app_S[w].op !== "myRoom"|| window.app_S[w].op !== "room"){
-                                    this.poolCon.state = true;
-                                    this.poolCon.type  = "beta";
-                                    this.poolCon.no    = msg.no + 1;
-                                    this.poolCon.alpha = window.app_S[w].ut;
-                                }else if(OpOf == "FALSE"){
-                                    this.poolCon.state = true;
-                                    this.poolCon.beta  = window.app_S[w].ut;
-                                }
-                            }
-          
-                        }else if(msg.typ == "ping"){
-                            _S_PING(w);
-                        }else  if(msg.typ == "rOf"){
-                        if(IF_SERVER(msg.target,"rm")){
-                            var ccs = _G_S_K(msg.target,"rm")
-                                if(window.app_S[ccs] &&  window.app_S[ccs].connect){
-                                    window.app_S[ccs].channel.send(`{"typ":"rcOf","target":"${window.app_S[w].ut}","msg":${_.JDS_(msg.msg)}}`);
-                                }
-                        }
-                    
-                        }else if(msg.typ == "rcOf"){
-                                var funV2 = ()=>{
-                                    _crAn(msg.target,msg.msg,"rur","rur");
-                                }
-                                setTimeout(funV2,1000);
-                        }else if(msg.typ == "rAn"){
-                            if(IF_SERVER(msg.target,"rm")){
-                                var ccs = _G_S_K(msg.target,"rm");
-                                var funV3 = ()=>{
-                                    window.app_S[ccs].channel.send(`{"typ":"S_A","mode":"net","msg":${_.JDS_(msg.msg)}}`);
-                                }
-                                setTimeout(funV3,1000);
-                            }
-                        }else  if(msg.typ == "pong"){
-                            _S_PONG(w);
-                        }else  if(msg.typ == "S_A"){
-                            var funV4 = ()=>{
-                                _S_AN([msg.msg]);
-                            }
-                            setTimeout(funV4,1000);
-                        }else  if(msg.typ == "KILL"){
-                            window.app_S[w].kill = true;
-                        }else if(msg.typ == "MSG"){
-          
-                            if(msg.mode && msg.mode == "user"){
-                                if(this.chatAppState){
-                                    UP_MSG(msg.msg,window.app_S[w].ut,window.app_S[w].un)
-                                }
-                            }else  if(msg.mode && msg.mode == "call") {
-                                I_C_C(msg.msg,window.app_S[w].ut)
-                            }else  if(msg.mode && msg.mode == "room") {
-                                S_M_R(msg);
-                                _SERVER_MSG_CTRL(w,window.app_S[w].un,msg.msg);
-                            }else  if(msg.mode && msg.mode == "toMyRoom") {
-                                _SERVER_MSG_CTRL("toMyRoom",msg.ut,msg.msg);
-                            }else{
-                                _SERVER_MSG_CTRL(w,window.app_S[w].un,msg.msg);
-                            }
-                        
-                        }else if(msg.typ == "SIGNAL"){
-                            CL_(["MSG SIGNAL >>>>>>>",m,w,n]);
-                            _SIGNAL(w,msg.un,msg);
-                        }else if(msg.typ == "RMD"){
-                            this._C_R_U_UT_S = msg.RMU;
-                            this._C_R_U_DB_S = msg.RMUD;
-                            CL_(["RMD >>>>>>>",m,w,n]);
-                        _UP_R_U();
-                        }else if(msg.typ == "CLOSE"){
-                            window.app_S[w].s.close();
-                        }else  if(msg.typ == "MEDIA-OFFER"){
-                            CL_(["MSG MEDIA-OFFER >>>>>>>",m,w,n]);
-                            _SERVER_MEDIA_OFFER(w,msg.un,msg.of);
-                        }else if(msg.typ == "MEDIA-ANSWER"){
-                            CL_(["MSG MEDIA-ANSWER >>>>>>>",m,w,n]);
-                            _SERVER_MEDIA_ANSWER(w,msg.un,msg.af);
-                        }else if(msg.typ == "MEDIA-OFFER-CANDIDATE"){
-                            CL_(["MSG MEDIA-OFFER-CANDIDATE >>>>>>>",m,w,n]);
-                            _SERVER_MEDIA_OFFER_CANDIDATE(w,msg.un,msg.CANDIDATE);
-                        }else if(msg.typ == "MEDIA-ANSWER-CANDIDATE"){
-                            CL_(["MSG MEDIA-ANSWER-CANDIDATE >>>>>>>",m,w,n]);
-                            _SERVER_MEDIA_ANSWER_CANDIDATE(w,msg.un,msg.CANDIDATE);
-                        }
+        sdpSemantics: "unified-plan" 
+    }
+
+    /**
+     * tools and genral functions
+     */
+
+     const IF_SERVER =(dt,str)=>{
+        for (const [key, value] of Object.entries(window.app_S)) {
+
+            if(value.dt == dt && value.str == str){
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * serverSystem
+     */
+
+    const serverSystem = (msg)=>{
+
+        const type = msg.typ;
+
+        if(type == 'transfer'){
+            // transfer for direct connection 
+            var directConnection = false;
+            for(var i = 0 ; i < connectionDeviceToken.length ; i++){
+                if(connectionDeviceToken[i].target == msg.target){
+                    directConnection = true;
                 }
             }
-        const _crAn =(ut,ot,op,str)=>{
-             
-                let stO = {};
-                stO     = _.JD_(_.EC_(ot));
-                _.CL(['_crAn',stO]);
-                stO.sdp = stO.sdp.replace(/_/g,'=');
-                stO.sdp = _.EC_(stO.sdp);
-                stO.sdp = stO.sdp.toString();
-                var s   = stO.key;
-                var ofown = stO.offerOwner;
-                var gogo = GoAns(s,ut,op,str);
-              
-                if(gogo == true){
-              
-                     window.app_S[s] = {
-                      type:"pong",
-                      ut:ut,
-                      op:op,
-                      connect:false,
-                      key:s,
-                      str:str,
-                      candidate:[],
-                      anCandNo:0,
-                      offerOwner:ofown,
-                      offerAnswer:_NT._ST.MWU_un
-                    };
-                            
-                     BombMe(s);
-              
-                        if(ot.i && op == "room" || ot.i && op == "rur" ){
-                            window.app_S[s].rid = ot.i;
-                        }
-                
-                    window.app_S[s].s = new RTCPeerConnection(iceConfiguration);
-                    window.app_S[s].s.setRemoteDescription(stO).then(a=>console.log("done"))
-                    window.app_S[s].s.ondatachannel = e => {
-                        const RC     = e.channel;
-                        RC.onmessage = e => _S_ON_MSG("Remote",s,e.data);
-                        RC.onopen    = e => _S_ON_OPEN("Remote",s) ;
-                        RC.onclose   = e => _S_ON_CLOSE("Remote",s);
-                        window.app_S[s].channel = RC;
-              
-                    }
-              
-                    if(stO.candidate){
-              
-                            stO.candidate = stO.candidate.replace(/_/g,'=');
-                            stO.candidate = _.EC_(stO.candidate);
-                            stO.candidate = _.JD_(stO.candidate);
-              
-                            for(var l = 0 ; l < stO.candidate.length;l++){
-                                var stCan = stO.candidate[l];
-                                let candidate = new RTCIceCandidate(stCan);
-                                window.app_S[s].s.addIceCandidate(candidate,TrueAddCandidate,FalseAddCandidate);
-                            }
-                    }
-                    
-                    window.app_S[s].s.createAnswer().then(an=>{
-                    window.app_S[s].s.setLocalDescription(new RTCSessionDescription(an));
-                    window.app_S[s].answerGR = an;
-                        });
-              
-                    window.app_S[s].s.onicecandidate = e =>  {
-                        if(e.candidate){
-                            window.app_S[s].candidate.push(e.candidate);
-                            window.app_S[s].anCandNo =window.app_S[s].anCandNo +1 ;
-                            var ann = window.app_S[s].anCandNo ;
-                            var upOf = ()=>{
-                                _C_ANUP(s,ann,op,ot,ut);
-                            }
-                            setTimeout(upOf,300);
-                        }
-                    }
-              }
+            if(directConnection){
+                sendMsg(msg.target , msg);
+            }else{
+                sendMsg(connectionDeviceToken[0] , msg);
+            }
+            // transfer for next user 
+            
+        }else if(type == 'notification'){
+            
         }
-              
-        const _crOf = (ut,t,op,str)=>{
-                        
-                CL_(["New Offer",ut,t,op,str]);
-                   // BombOf(ut,str);
+    }
+
+    const _G_S_K =(dt,str)=>{
+        for (const [key, value] of Object.entries(window.app_S)) {
+                if(value.dt == dt && value.str == str){
+                    return key;
+                }
+            }
+    }
+
+    /**
+     *  candidate handler
+     */
+    const TrueAddCandidate =()=>{
+            // CL_(["TrueAddCandidate"])
+    }
+         
+    const FalseAddCandidate =(e)=>{
+            //  CL_(["FalseAddCandidate",e])
+    }
+
+    /**
+     * send msg
+     */
+
+    const sendMsg =async (token,msgData)=>{
+        
+        const res = await zipJ(msgData);
+       
+        window.app_S[token].channel.send(res);
+    }
+
+    /**
+     * ping & pong
+     */
+    
+    const _S_PING =(token)=>{
+                if(window.app_S[token]){
+        
+                    var pingoc = ()=>{
+                        if(window.app_S[token]){
+                            window.app_S[token].s.close();
+                        }
+                    }
+
+                    var pingo = ()=>{
+                        const msgData = '{"typ":"pong"}';
+                        sendMsg(token,msgData);
+                        window.app_S[token].ping =  setTimeout(pingoc,60000);
                     
-              
-                    nsno = nsno +1;
-                    var s = `SERVER_${ut}`;
+                    }
+
+                    if(window.app_S[token].ping){
+                        window.clearTimeout(window.app_S[token].ping);
+                    }
+                    setTimeout(pingo,30000);
+                
+            }
+    } 
+
+    const _S_PONG =(token)=>{
+        if(window.app_S[token]){
+
+            var pingoc = ()=>{
+                if(window.app_S[token]){
+                window.app_S[token].s.close();
+                }
+            }
+
+            var pingo = ()=>{
+                
+                const msgData = '{"typ":"ping"}';
+                sendMsg(token,msgData);
+                window.app_S[token].pong =  setTimeout(pingoc,60000);
+                
+            }
+
+            if(window.app_S[token].pong){
+                window.clearTimeout(window.app_S[token].pong);
+            }
+
+            setTimeout(pingo,30000);
+            
+        }
+    }
+
+    /**
+     * msg handler
+     */
+
+        const _S_ON_OPEN  = (m,w)=>{
+            CL_(["open !!!!",m,w]);
+
+            if(window.app_S[w]){
+            var ava;
+
+            if (user && user.upi && user.upi !== "FALSE") {
+                ava = user.upi;
+            }else{
+                ava = "img/user.jpg";
+            }
+
+                        var uid = user && user.id && user.id !== "FALSE" && user.id  ?  user.id :0; 
+                        const msgData =`{"typ":"START","uid":${uid},"un":"${user.username}","avatar":"${ava}"}`;
+                        sendMsg(w,msgData);
+                  
+            }
+        }
+        
+        const _S_ON_CLOSE = (m,w)=>{
+                CL_(["closed !!!!",m,w]);
+    
+                if(window.app_S[w]){
+                    delete window.app_S[w];
+                }
+        }
+
+        const _S_ON_MSG   = async (m,w,n)=>{
+         
+                const set = await zipS(n);
+                _.CL(['set>>>>>>>',set]);
+                var msg = _.JD_(set);
+
+                if(window.app_S[w]){
+                
+                    if(msg.typ == "START"){
+
+                            window.app_S[w].un      = msg.un;
+                            window.app_S[w].uid     = msg.uid;
+                            window.app_S[w].avatar  = msg.avatar;
+                            window.app_S[w].connect = true;
+                
+                            CL_(["START",w,window.app_S[w]]);
+
+                            if(window.app_S[w].type == "ping"){
+                                const msgData = '{"typ":"ping"}';
+                                sendMsg(w,msgData);
+                            }   
+
+                    }else if(msg.typ == "ping"){
+
+                        _S_PING(w);
+                    // the next connection 
+                    var s = `SERVER_${user.deviceToken}`;
+                    if(!window.app_S[s]){
+                        _crOf("u", "alpha");
+                    }
+                    }else if(msg.typ == "pong"){
+
+                        _S_PONG(w);
+                        
+
+                    }else if(msg.typ == "system"){
+                        serverSystem(msg);
+                    }else if(msg.typ == "user"){
+
+                    }
+            }
+        }
+
+    /**
+     * contracts handler
+     */
+
+        /**
+         * offer
+         */
+
+        // Create Offer
+
+            const _crOf = (typ,op)=>{
+                
+                    const dt = user.deviceToken;
+                    const ut = user.userToken;
+                    offerNo = offerNo + 1;
+                    var s = `SERVER_${dt}`;
+
                     window.app_S[s] =  {
-                      type:"ping",
-                      ut:ut,
-                      op:op,
-                      connect:false,
-                      str:str,
-                      rtcCOffSt:1,
-                      candidate:[],
-                      ofCandNo:0
+                    type:"ping",
+                    dt: dt ,
+                    ut: ut ,
+                    op: op ,
+                    connect: false ,
+                    str: typ ,
+                    rtcCOffSt: 1 ,
+                    candidate: [] ,
+                    ofCandNo: 0
                     };
-              
-                    window.app_S[s].s = {};
-                    window.app_S[s].s =  new RTCPeerConnection(iceConfiguration);
+            
+                    window.app_S[s].s                = {};
+                    window.app_S[s].s                =  new RTCPeerConnection();
                     window.app_S[s].connectionState  = window.app_S[s].s.connectionState;
-              
-                    const OC = window.app_S[s].s.createDataChannel("sendChannel");
+            
+                    const OC     = window.app_S[s].s.createDataChannel("sendChannel");
                     OC.onmessage = e =>_S_ON_MSG("Local",s,e.data);
                     OC.onopen    = e =>_S_ON_OPEN("Local",s);
                     OC.onclose   = e =>_S_ON_CLOSE("Local",s);
-              
+            
                     window.app_S[s].channel = OC;
                     window.app_S[s].s.createOffer().then((o) => { 
-                        _.CL(['oo',o])
+                       
                         window.app_S[s].s.setLocalDescription(o);
                     });
                     
                     window.app_S[s].s.onicecandidate = e =>  {
                         if(e.candidate){
-                            _.CL(['ee',e])
+                     
                             window.app_S[s].candidate.push(e.candidate);
                             window.app_S[s].ofCandNo =  window.app_S[s].ofCandNo + 1;
                             var ofn = window.app_S[s].ofCandNo ;
                             var upOf = ()=>{
-                                _OF_CAND(s,ofn,t);
+                                _OF_CAND(s,ofn,typ);
                             }
                             setTimeout(upOf,300);
                         }
                     }       
-        }
-        const IF_SERVER =(ut,str)=>{
-            for (const [key, value] of Object.entries(window.app_S)) {
-                if(value.ut == ut && value.str == str){
-                    return true;
-                }
             }
-            return false;
-            }
-        
-        const _G_S_K =(ut,str)=>{
-            for (const [key, value] of Object.entries(window.app_S)) {
-                    if(value.ut == ut && value.str == str){
-                        return key;
-                    }
-                }
-            }
-        const GoAns = (s,ut,op,str)=>{
-           var go = true;
-           if(window.app_S[s]){
-               go = false;
-           }
-           if(IF_SERVER(ut,str)){
-                var ns = _G_S_K(ut,str);
-                if(window.app_S[ns].connect){
-                    go = false;
-                }
-           }
-           return go;
-        }
+
+        // Create Candidate
+
         const _OF_CAND = (s,ofn,t)=>{
-        
+
             if(
                 window.app_S[s] &&
                 window.app_S[s].ofCandNo == ofn && 
                 window.app_S[s].s.localDescription && 
                 window.app_S[s].s.localDescription.sdp
                 ){ 
+
             var ll  = {};
                 ll.sdp  = _.DC_(window.app_S[s].s.localDescription.sdp);
                 ll.type = window.app_S[s].s.localDescription.type;    
                 ll.key  = s;
+                ll.ownerDeviceTokken  = window.app_S[s].dt;
                 ll.offerOwner = user.username;
-        
+
                 if(window.app_S[s].candidate){
                     ll.candidate = _.DC_(_.JDS_(window.app_S[s].candidate));
                 }
-        
+
                 if(window.app_S[s].str == "u"){
+
                         this.MW_DNS = ll;
                         const offerToSend = _.DC_(_.JDS_(ll));
                         const serverOfferCallback = (res)=>{
-                            CL_(['serverOfferCallback',res]);
+                                setTimeout(getAnswer,6000);
+                            
                         }
-                        _._POST('/api',{order:'serverOffer',dns:offerToSend},serverOfferCallback);
+                        _._POST('/api',{ order:'serverOffer', dns:offerToSend}, serverOfferCallback);
                         
-                      //  GU_(1);
-                }else  if(window.app_S[s].str == "rm"){
-                        this.MW_R_DNS = ll;
-                        window.app_S[s].myRoom = true;
-                      //  GR_();
-                }else if(window.app_S[s].str == "ru"){
-                        ll.i = window.app_S[this.MW_R_S_N].rid;
-                       // GRCS_(ll,window.app_S[s].ut);
-                }else if(window.app_S[s].str  == "c"){
-        
-                    if(window.app_S[s] && window.app_S[s].connect && window.app_S[s].channel){
-                        ll.op = op;
-                        window.app_S[s].channel.send(`{"typ":"MSG","mode":"call","msg":${_.JDS_(ll)}}`);
-                    }
-                }  
+                    //  GU_(1);
+                }
             }
         }
+
+        const  getNewOffer = (s)=>{
+            
+                const lastS = window.app_S[s];
+                connectionDeviceToken.push(lastS.dt);
+
+                const serverOfferCallback = ()=>{
+
+                    console.log("Data Offer");
+                    
+                }
+
+            _._POST('/api',{ order:'getNewOffer', dts: connectionDeviceToken}, serverOfferCallback);
+        }
+        
+        // Get Answer  
+
+        const getAnswer = (x)=>{
+            if(!x){
+                const callBack = (x)=>{
+                    const inCallBack = ()=>{
+                        getAnswer(x);
+                    }
+                    setTimeout(inCallBack,6000);
+                }
+                _._POST('/api',{order:'getAnswer'},callBack);
+            }else{
+                if(x.res && x.res.length > 0){
+                _S_AN(x.res);
+                }else{
+                const callBack = (x)=>{
+                    const inCallBack = ()=>{
+                        getAnswer(x);
+                    }
+                    setTimeout(inCallBack,10000);
+                }
+                const checkAnswer = ()=>{
+                    _._POST('/api',{order:'getAnswer'},callBack);
+                }
+
+                        if(getAnswerTime > 0){
+
+                            checkAnswer();
+                            getAnswerTime = getAnswerTime -1;
+
+                        }else{
+
+                            getAnswerTime = 10;
+                            setTimeout(checkAnswer,900000);
+                        }
+                
+                }
+                
+            }
+        }
+
+        // Sign Answer 
+
+        const _S_AN = (ca)=>{
+
+            if(ca.length > 0){
+
+            for(var tu = 0 ; tu < ca.length; tu++){
+
+                const answerBody    = ca[tu];
+                const textAnswer    = _.EC_(answerBody.answer);
+                const ObjectAnswer  = _.JD_(textAnswer); 
+                var dt   = ca[tu].dt; 
+
+                if(window.app_S[ObjectAnswer.key]){
+                    CL_(["SIGN ANSWER >>>>>>>",ObjectAnswer.ans]);
+                        window.app_S[ObjectAnswer.key].s.setRemoteDescription(new RTCSessionDescription(ObjectAnswer.ans));
+                        window.app_S[ObjectAnswer.key].dt = dt;
+                                
+                        if(ObjectAnswer.candidate){
+                            for(var t = 0 ; t < ObjectAnswer.candidate.length;t++){
+                                let candidate = new RTCIceCandidate(ObjectAnswer.candidate[t]);
+                                window.app_S[ObjectAnswer.key].s.addIceCandidate(candidate,TrueAddCandidate,FalseAddCandidate);
+                            }
+                        }
+
+                        if(window.app_S[ObjectAnswer.key].str == "u" ){
+                            getNewOffer(ObjectAnswer.key);
+                        }
+
+                        if(window.app_S[ObjectAnswer.key].str == "rm"){
+                            window.app_S[ObjectAnswer.key].rid = ObjectAnswer.rid;
+                        }
+                        if(window.app_S[ObjectAnswer.key].str == "ru"){
+                            window.app_S[ObjectAnswerv.key].rid = ObjectAnswer.rid;
+                        }
+                }
+                    
+                }
+                
+            }
+        }
+
+        /**
+         * Answer
+         */
+        
+        // Create Answer
+
+        const GoAns = (s,dt,op,str)=>{
+            var go = true;
+            if(window.app_S[s]){
+                go = false;
+            }
+            if(IF_SERVER(dt,str)){
+                 var ns = MW_G_S_K(dt,str);
+                 if(window.app_S[ns].connect){
+                     go = false;
+                 }
+            }
+            return go;
+         }
+
+        const _crAn =(connect,op,str)=>{
+
+                const dt = connect.DT;
+                const ot = connect.CT;
+                const ut = connect.UT;
+                const idt = connect.ID;
+                    let stO = {};
+                    stO     = _.JD_(_.EC_(ot));
+                   
+                    stO.sdp   = stO.sdp.replace(/_/g,'=');
+                    stO.sdp   = _.EC_(stO.sdp);
+                    stO.sdp   = stO.sdp.toString();
+                   
+                    var s     = stO.key;
+                    var ofown = stO.offerOwner;
+                    var gogo  = GoAns(s,dt,op,str);
+                
+                    if(gogo == true){
+                
+                        window.app_S[s] = {
+                        type:"pong",
+                        dt:dt,
+                        ut:ut,
+                        oid:idt,
+                        op: op,
+                        connect: false,
+                        key: s,
+                        str: str,
+                        candidate: [],
+                        anCandNo: 0,
+                        ownerDeviceTokken: stO.ownerDeviceTokken,
+                        offerOwner: ofown,
+                        offerAnswer: user.username
+                        };
+                                
+                        // BombMe(s);
+                
+                            if(ot.i && op == "room" || ot.i && op == "rur" ){
+                                window.app_S[s].rid = ot.i;
+                            }
+                    
+                        window.app_S[s].s = new RTCPeerConnection();
+                        window.app_S[s].s.setRemoteDescription(stO).then(a=>console.log("done"))
+                        window.app_S[s].s.ondatachannel = e => {
+                            const RC     = e.channel;
+                            RC.onmessage = e => _S_ON_MSG("Remote",s,e.data);
+                            RC.onopen    = e => _S_ON_OPEN("Remote",s) ;
+                            RC.onclose   = e => _S_ON_CLOSE("Remote",s);
+                            window.app_S[s].channel = RC;
+                
+                        }
+                
+                        if(stO.candidate){
+                
+                                stO.candidate = stO.candidate.replace(/_/g,'=');
+                                stO.candidate = _.EC_(stO.candidate);
+                                stO.candidate = _.JD_(stO.candidate);
+                
+                                for(var l = 0 ; l < stO.candidate.length;l++){
+                                    var stCan = stO.candidate[l];
+                                    let candidate = new RTCIceCandidate(stCan);
+                                    window.app_S[s].s.addIceCandidate(candidate,TrueAddCandidate,FalseAddCandidate);
+                                }
+                        }
+                        
+                        window.app_S[s].s.createAnswer().then( an=>{ 
+                        window.app_S[s].s.setLocalDescription(new RTCSessionDescription(an));
+                        window.app_S[s].answerGR = an;
+                            });
+                
+                        window.app_S[s].s.onicecandidate = e =>  {
+                            if(e.candidate){
+                                window.app_S[s].candidate.push(e.candidate);
+                                window.app_S[s].anCandNo =window.app_S[s].anCandNo +1 ;
+                                var ann = window.app_S[s].anCandNo ;
+                                var upOf = ()=>{
+                                    
+                                    _C_ANUP(s);
+                                }
+                                setTimeout(upOf,300);
+                            }
+                        }
+                }
+            }
+        
+        
+            // Up Answer
+
+        const _C_ANUP = (s)=>{
+            
+            const serverAnswerCallback = ()=>{
+                CL_(['serverAnswerCallback'])
+            }
+            var ans =  {};
+            ans.ans = window.app_S[s].answerGR ;
+            ans.candidate = window.app_S[s].candidate;
+            ans.key = window.app_S[s].key;
+           
+            _._POST('/api', {
+                order:'serverAnswer',
+                dns:_.DC_(_.JDS_(ans)),
+                owner:window.app_S[s].ownerDeviceTokken,
+                oid:window.app_S[s].oid
+            },
+            serverAnswerCallback
+            );
+        
+        }  
+
+        /**
+         * General function 
+         */
+
         if(user.connect && user.connect.DT){
-            const ut = user.connect.DT;
-            const ot = user.connect.CT;
-            _crAn(ut,ot,"OpOf","u");
-            CL_(["Make Answer ???????",1,OpOf]);
+          
+            _crAn(user.connect,"OpOf","u");
+            CL_(["Make Answer ??????? "]);
         }else{
-            _crOf(user.connectToken,"u","alpha","u");
-            CL_(["Make offer !!!!!!!!"]);
+            _crOf("u","alpha");
+            CL_(["Make Offer !!!!!!!! "]);
         }
 }

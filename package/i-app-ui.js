@@ -121,7 +121,7 @@ const configFire = (con, lan,ty,theme,sendNumber) => {
     }
 }
 
-const GOS = (function(d, s, id) {
+const GOS = (d, s, id)=> {
     var hh = d.getElementsByTagName('head')[0];
    
     hh.innerHTML += '<meta name="google-signin-scope" content="profile email">';
@@ -134,7 +134,7 @@ const GOS = (function(d, s, id) {
     js.id = id;
     js.src = 'https://apis.google.com/js/platform.js';
     fjs.parentNode.insertBefore(js, fjs)
-}(document,  'script','google-jssdk'));
+};
 
 
 var fcmCon = {};
@@ -173,6 +173,8 @@ const i_app = (()=>{
     let selectLang = "en";
     let selectLangDirection = "l";
     let historyIndex = 0;
+    let autoClsDrive = [];
+    var runAutoClsrun = false;
     const destroySession = ()=>{
       deleteConstKeys(userData)
       app = {};
@@ -833,6 +835,10 @@ const FCMTCS = (e) => {
 }
 const readyNumber = {}
 const FCMTC = (e,numberHolder,activeHolder) => {
+  if(!E_I('google-jssdk')){
+    GOS(document,  'script','google-jssdk');
+  }
+ 
   if(E_I_V(e) !== ''){
 
     const sendNumber = ()=>{
@@ -1291,29 +1297,33 @@ const loadAllTxt =async ()=>{
        var time = 300;
        let count = 0;
        const defLang = app.defLang ?  app.defLang : "en" ;
+       let totalTime = Object.keys(i_app_lang[defLang]).length * 400;
+       totalTime = totalTime + 3000;
+     
        if(lang !== defLang){
         for(const key in i_app_lang[defLang]){
           if(!i_app_lang[lang][key]){
-          const text = i_app_lang[defLang][key];
-            const callback =(value)=>{
-              i_app_lang[lang][key] = value;
-              count = count + 1 ;
-                if (count === Object.keys(i_app_lang[defLang]).length) {
-                  const callBack = ()=>{
-                    const lastLang = i_app_lang[lang];
-                      _POST('/api',{order:'updateTranslate',data:lastLang ,lang:lang},false);
-                  }
-                  setTimeout(callBack,5000);
-                }
-            }
-          const tt = ()=>{
-            translateFromTo(defLang,lang,text,callback);
-          }
+
+              const text = i_app_lang[defLang][key];
+
+              const callbackA =(value)=>{
+                  i_app_lang[lang][key] = value;
+              }
+
+              const tt = ()=>{
+                  translateFromTo(defLang,lang,text,callbackA);
+              }
           
-          setTimeout(tt,time);
-          time = time + 300;
+            setTimeout(tt,time);
+            time = time + 300;
+
         }
         }
+        const callBackB = ()=>{
+          const lastLang = i_app_lang[lang];
+            _POST('/api',{order:'updateTranslate',data:lastLang ,lang:lang},false);
+        }
+        setTimeout(callBackB,totalTime);
        }
       }
     }
@@ -2050,7 +2060,7 @@ const loadAllTxt =async ()=>{
       } else {
           mywindow.document.close();
           mywindow.focus();
-          mywindow.print();
+          mywindoelw.print();
           mywindow.close();
       }
   
@@ -2206,7 +2216,7 @@ const loadAllTxt =async ()=>{
           this.sli_MEM.push({ e: e, s: v, ls: 0, l: lastAC });
       }
       if (lastAC == -1) {
-          curAC = 0;
+           curAC = 0;
       } else {
           for (var aa = 0; aa < slides.length; aa++) {
               var clsLS = slides[aa].className.split(" ");
@@ -3390,8 +3400,6 @@ const closeOverHide =(dialog)=>{
           selectModel.e[1].e[0].e[2].e =ob.e;
           for(var i = 0; i < selectModel.e[1].e[0].e[2].e.length;i++){
             if(selectModel.e[1].e[0].e[2].e[i].v || selectModel.e[1].e[0].e[2].e[i].val){
-            
-           
               const fnStItem = `{_.IN_V("${ob.i}","${selectModel.e[1].e[0].e[2].e[i].val}");_.CL_(_.E_I_V('${ob.i}'));_.SW_CL("${ob.i}_selectScreen","D_N");_.elmChange('${ob.i}');}`;
               const fnStItemDC = DC_(fnStItem);
                     selectModel.e[1].e[0].e[2].e[i].a = {fn:fnStItemDC};
@@ -3518,6 +3526,44 @@ const closeOverHide =(dialog)=>{
     }
  }
 
+ const processCls =(id,cls)=>{
+    
+  if(E_I_S(id)){
+    const elm = E_I_S(id);
+        if(elV(elm)){
+            CL_(['ok',elm]);
+          A_CL(id,autoCls);
+        }else{
+            CL_(['no',elm]);
+          D_CL(id,autoCls);
+        }
+    }
+ }
+
+
+ const autoCls =()=>{
+
+    var lastautoClsDrive = [];
+
+    for(var i = 0 ; i < autoClsDrive.length;i++){
+
+          const id        = autoClsDrive[i].id;
+          const classname = autoClsDrive[i].class;
+
+          if(E_I_S(id)){
+              processCls(id,cls);
+              lastautoClsDrive.push({id:id , class: cls});
+          }
+    }
+      autoClsDrive =lastautoClsDrive;
+  }
+  const runAutoCls = ()=>{
+    if(!runAutoClsrun){
+      runAutoClsrun = true;
+      window.addEventListener("scroll",autoCls());
+    }
+ 
+}
   /**
    * create elment
    * from i-app object
@@ -4088,11 +4134,14 @@ if(ob.forkey){
     ob.data = {order:'languages'}
   }
   if(ob.mod === 'icons'){
-    ob.data = {order:'icons'}
+      ob.data = {order:'icons'}
   }
    if(ob.src){
     e.src = G_SRC(ob.src);
     }
+    if(ob.srcUrl){
+      e.src = ob.srcUrl;
+      }
     if(ob.srcQ && data[ob.srcQ]){
       e.src = G_SRC(data[ob.srcQ]);
       }
@@ -4283,7 +4332,6 @@ if(ob.forkey){
 
   if(ob.hr){
     if(ob.hr.http ){
-    
       e.href = `http://${ob.hr.http}`;
     }else if(ob.hr.https){
       e.href = `http://${ob.hr.https}`;
@@ -4442,7 +4490,7 @@ if(ob.forkey){
     if(ob.act){
       act_FN(ob.act,e)
     }
-  
+   
   /**
   * if elm have childs
   */
@@ -4495,6 +4543,10 @@ if(ob.forkey){
   
     }
   }
+
+ 
+
+
   /**
    * input value update
    * ralted text ev.{}
@@ -4504,6 +4556,7 @@ if(ob.forkey){
       
       CR_({c:'slider round '+isCheckboxOverClass},id,false)
     }
+
     setInputEvent(ob.i);
     if(ob.mod == 'password'){
       const funcSt = `{
@@ -4542,6 +4595,12 @@ if(ob.forkey){
       I_OB[id].children = [ob.i];
     }
   }
+
+  if(ob.autoCls){
+
+      runAutoCls();
+      autoClsDrive.push({id:ob.i , class: ob.autoCls});
+}
   }
 
   const IS_EMAIL = (em) => {
@@ -5373,14 +5432,14 @@ const createAppTxt =async(lang)=>{
     })
   }
   const scrollDir = () => {
-  var lastSc = this.lastScroll;
-  var crD = window.scrollY;
-  var dir = "up";
-  if (lastSc < crD) {
-      dir = "down";
-  }
-  this.lastScroll = crD;
-  return dir;
+      var lastSc = this.lastScroll;
+      var crD = window.scrollY;
+      var dir = "up";
+      if (lastSc < crD) {
+          dir = "down";
+      }
+      this.lastScroll = crD;
+      return dir;
   }
   const rotateY = (element) => {
     let start;
@@ -5734,7 +5793,8 @@ const createAppTxt =async(lang)=>{
      * i.app { mode : ""}
      */
      if(app.mode !== "dev"){
-      startSw();
+      window.addEventListener("DOMContentLoaded",startSw());
+      
     }
     await createApp();
     if (i_root == "start") {

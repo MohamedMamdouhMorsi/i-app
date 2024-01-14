@@ -1,11 +1,12 @@
 {
-    "users":["id","username","firstname","lastname","email","phonenumber","userType","activate"],
-    "usersSessions":["userId","deviceToken","scureToken","connectToken"],
-    "usersPasswords":["userId","password"],
-    "usersApps":["id","appName","description"],
-    "usersType":["id","typeName","description"],
-    "typesApps":["typeId","appId"],
-    "permissions":["id","permissionName","description"],
-    "appsPermissions":["appId","permissionId"],
-    "usersPermissions":["userId","appId","permissionId"]
+    "users": ["id", "username", "firstname", "lastname", "email", "phonenumber", "userType", "activate"],
+    "usersSessions": ["userId","userToken","deviceToken","scureToken","connectToken"],
+    "answers": ["id","userId","ownerId","answerId","answer"],
+    "usersPasswords": ["userId","password"],
+    "usersApps": ["id","appName","description"],
+    "usersType": ["id","typeName","description"],
+    "typesApps": ["typeId","appId"],
+    "permissions": ["id","permissionName","description"],
+    "appsPermissions": ["appId","permissionId"],
+    "usersPermissions": ["userId","appId","permissionId"]
 }

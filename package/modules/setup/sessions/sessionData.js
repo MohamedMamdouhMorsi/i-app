@@ -40,7 +40,7 @@ const sessionData = async (req,res,app,data)=>{
         }else{
           userData.notSecure = true;
           res.destroySession = true;
-          console.log(['sessionData1',deviceId])
+         
           res.setHeader('Set-Cookie',[ `deviceId=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `userId=''; Expires=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `timestamp=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `destroy='true'; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`]);
           app(req,res,data, userData);
       }}else{
@@ -53,7 +53,7 @@ const sessionData = async (req,res,app,data)=>{
               }else{
                 userData.notSecure = true;
                 res.destroySession = true;
-                console.log(['sessionData2',deviceId])
+               
                 res.setHeader('Set-Cookie',[ `deviceId=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `userId=''; Expires=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `timestamp=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `destroy='true'; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`]);
                
                 app(req,res,data, userData);

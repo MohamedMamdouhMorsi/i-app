@@ -22,10 +22,12 @@
                         
                         {
                             c:'WW PD_5'
-                            e:[{
-                            t:'b'
-                            s:'Select More Languages : '
-                        }]
+                            e:[
+                                {
+                                    t:'b'
+                                    s:'Select More Languages : '
+                                }
+                            ]
                         }
                         {
                             c:'WW PD_5'
@@ -95,10 +97,9 @@
                         {
                             c:'WW'
                             e:[
-                                 {
+                                {
                                     t:'h2'
-                                    s:'Translate '
-
+                                    s:'Translate'
                                 }
                                 {
                                     t:'p'

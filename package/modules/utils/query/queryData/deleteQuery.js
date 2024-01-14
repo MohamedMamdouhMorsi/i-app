@@ -8,8 +8,7 @@ const deleteQuery = (ob,tables)=>{
     const limit =ob.l && ob.l.toString() == '0' ? '' :  `LIMIT ${ob.l.toString()}`; 
 
    
-    let getText = `DELETE FROM ${tableName} WHERE ${orAndOptionText} ${limit}`;
-
+    let getText = `DELETE  FROM ${tableName} WHERE ${orAndOptionText} ${limit}`;
         return getText;
     }else{
         console.log(`table ${tableName} is not exist`);

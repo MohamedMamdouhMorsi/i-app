@@ -19,47 +19,47 @@ const makeQuery = async(body,tables)=>{
         let queryAction = cureOB.a;
       
         if(queryAction === "get"){
-            queryText += getQuery(cureOB,tables);
-           
+            return  getQuery(cureOB,tables);
+         
         }else   if(queryAction === "getJ"){
-            queryText += getJQuery(cureOB,tables);
+            return  getJQuery(cureOB,tables);
            
         }else  if(queryAction === "in"){
           
-            queryText += insertQuery(cureOB,tables);
+            return  insertQuery(cureOB,tables);
         
         }else  if(queryAction === "up"){
           
-            queryText += updateQuery(cureOB,tables);
+            return  updateQuery(cureOB,tables);
         
         }else  if(queryAction === "del"){
           
-            queryText += deleteQuery(cureOB,tables);
+            return  deleteQuery(cureOB,tables);
         
         }else  if(queryAction === "check"){
           
-            queryText += checkQuery(cureOB);
+            return  checkQuery(cureOB);
         
         }else   if(queryAction === "querySize"){
             
           if(cureOB.ob.query[0].a === 'get'){
-            queryText += querySize(cureOB,tables);
+            return  querySize(cureOB,tables);
           }else if(cureOB.ob.query[0].a === 'getJ'){
-            queryText += querySizeJoin(cureOB,tables);
+            return  querySizeJoin(cureOB,tables);
           }
             
         
         }else  if(queryAction === "checkUpTime"){
           
-            queryText += checkQueryUptime(cureOB);
+            return  checkQueryUptime(cureOB);
         
         }else   if(queryAction === "create"){
           
-            queryText += cureOB.d;
+            return  cureOB.d;
         
         }
     }
     
-    return queryText;
+   
 }
 module.exports = makeQuery

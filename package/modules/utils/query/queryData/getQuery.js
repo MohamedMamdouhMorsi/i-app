@@ -1,4 +1,4 @@
-const orAndOption = require('./orAndOption');
+const orAndOption  = require('./orAndOption');
 const selectColumn = require('./selectColumn');
 const getLimit = (ob)=>{
     let  limit = '';
@@ -23,15 +23,22 @@ const getQuery = (ob,tables)=>{
     if(tables[tableName]){
     
     const orAndOptionText = orAndOption(ob.q,tables[tableName]);
-    const limit =getLimit(ob); 
+    const limit = getLimit(ob); 
     if(!ob.s){
         ob.s = ["A"];
     }
-    const selectedColumn = ob.s && ob.s[0] === "A" ?  '*' : selectColumn(ob.s).toString();
+   
     
-    let getText = `SELECT ${selectedColumn} FROM ${tableName} WHERE ${orAndOptionText} ${limit}`;
-  
-            return getText;
+        
+            if(ob.s && ob.s[0] == "A"){
+             const   getText =  "SELECT  *  FROM "+ tableName +" WHERE "+ orAndOptionText +" "+ limit;
+             return getText;
+            }else{
+                const selectedColumn = selectColumn(ob.s).toString();
+                const  getText =  "SELECT "+ selectedColumn +" FROM "+ tableName +" WHERE "+ orAndOptionText +" "+ limit;
+                return getText;
+            }
+           
     }else{
         console.log(`table ${tableName} is not exist`);
     }

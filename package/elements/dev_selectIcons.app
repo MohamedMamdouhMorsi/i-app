@@ -1,4 +1,6 @@
 {
+    i:'selectIconsdiv'
+    c:'H_200'
     e:[
                   {
                                 t:'sl'
@@ -11,17 +13,19 @@
                                     e:'change' 
                                     fn:{
                                         const val = _.E_I_V('iconSelect');
-                                        navigator.clipboard.writeText(val);
-                                  }
+                                        _.In_S('selectIconsRes',val);
+                                    }
                              
                                 }
-                                   model:[
+                                model:[
                                         {
                                             t:'op'
+                                            q:{
+                                                i:'name'
+                                                s:'op'
+                                            }
                                             vq:'class'
                                             s:'q.{name}'
-
-
                                         }
                                     ]
                         }

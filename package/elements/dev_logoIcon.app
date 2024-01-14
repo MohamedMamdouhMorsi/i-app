@@ -176,16 +176,12 @@
                                                 const sizeIs = sizeA[0];
                                                 const maxWidth = sizeIs; // Set your desired width
                                                 const maxHeight = sizeIs; // Set your desired height
-                                                let width = img.width;
-                                                let height = img.height;
-
-                                               
                                                 const canvas = _.CE_('canvas');
-                                                canvas.width = width;
-                                                canvas.height = height;
+                                                canvas.width = maxWidth;
+                                                canvas.height = maxHeight;
                                                 canvas.background = 'transparent';
                                                 const ctx = canvas.getContext('2d');
-                                                ctx.drawImage(img, 0, 0, width, height);
+                                                ctx.drawImage(img, 0, 0, maxWidth, maxHeight);
                                                    const resizedImageData = canvas.toDataURL('image/png', 1); 
                                                         imagesAr.push({ image: resizedImageData , src:sizeE.src });
                                               }
