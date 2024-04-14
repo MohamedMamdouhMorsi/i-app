@@ -10,7 +10,7 @@ const sessionData = async (req,res,app,data)=>{
     const fingerPrint   = deviceInfo.fingerPrint;
     const timestamp_    = new Date(Date.now());
     const expires       = new Date(Date.now() + 9000);
-
+  
     let cookies = req.headers.cookie ? req.headers.cookie.split('; ') : [];
     let deviceId ,timestamp,userId;
     
@@ -31,8 +31,8 @@ const sessionData = async (req,res,app,data)=>{
       const cureDeviceId = creatAUTH(authSt);
       if(deviceId === cureDeviceId){
       const chickUserData = routerUsers.get(userId);
-    
-        if(chickUserData.id && chickUserData.id  > 0){
+   
+        if( chickUserData.id && chickUserData.id  > 0){
           if(chickUserData.deviceToken && cureDeviceId === chickUserData.deviceToken){
           userData = chickUserData;
           req.user = userData;
@@ -43,7 +43,8 @@ const sessionData = async (req,res,app,data)=>{
          
           res.setHeader('Set-Cookie',[ `deviceId=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `userId=''; Expires=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `timestamp=''; Expires=${timestamp_.toUTCString()}; HttpOnly; SameSite=Strict`, `destroy='true'; Expires=${expires.toUTCString()}; HttpOnly; SameSite=Strict`]);
           app(req,res,data, userData);
-      }}else{
+      }
+    }else{
         userData = chickUserData;
         req.user = userData;
         res.darkData = 'amazing';

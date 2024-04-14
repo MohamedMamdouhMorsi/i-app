@@ -18,27 +18,35 @@ const asset_file =(req,res,userDir,swScript,userData)=>{
     }else  if (req.url.match(/\/img\/install\//)) {
       const img = req.url.replace(/\/img\/install\//,'');
       filePath = path.join(__dirname, '..','..','..','img','install',img);
-  }else    if(req.url === '/img/user.jpg' ) {
+    }else    if(req.url === '/img/user.jpg' ) {
       
       filePath = path.join(__dirname, '..','..','..','img','user.jpg');
-  }else if (req.url.match(/\/server.js/) ) {
+    }else    if(req.url === '/three.js' ) {
+      
+      filePath = path.join(__dirname, '..','..','..','js','WEBGL','three.module.js');
+    }else  if(req.url.match(/\/server.js/) ) {
         filePath = path.join(__dirname, '..','..','..','js','server.js');
      
-    }else   if (req.url === '/i-app-ui.js' ) {
-        filePath = path.join(__dirname, '..','..','..','i-app-ui.js');
+    }else if(req.url.match(/\/WEBGL\//)) {
+      const file = req.url.replace(/\/WEBGL\//,'');
+
+      filePath = path.join(__dirname, '..','..','..','js','WEBGL',file);
+   
+    }else if(req.url === '/i-app-ui.js' ) {
+            filePath = path.join(__dirname, '..','..','..','i-app-ui.js');
+            isUiJs = true;
+    }else if(req.url === '/i-app-ui.min.js' ) {
+            filePath = path.join(__dirname, '..','..','..','i-app-ui.min.js');
         isUiJs = true;
-    }else  if (req.url === '/i-app-ui.min.js' ) {
-        filePath = path.join(__dirname, '..','..','..','i-app-ui.min.js');
-        isUiJs = true;
-    }else if (req.url === '/icofont.css') {
+    }else if(req.url === '/icofont.css') {
         filePath = path.join(__dirname,'..','..','..','css', 'icofont.css');
-    }else  if (req.url === '/app.png') {
+    }else  if(req.url === '/app.png') {
         filePath = path.join(__dirname,'..','..','..','img', 'app.png');
     }else if (req.url === '/i-app-basic.css' ) {
         filePath = path.join(__dirname,'..','..','..','css', 'i-app-basic.css');
-    }else  if (req.url === '/i-app-basic.min.css' ) {
+    }else  if(req.url === '/i-app-basic.min.css' ) {
         filePath = path.join(__dirname,'..','..','..','css', 'i-app-basic.min.css');
-    }else  if (req.url === '/face-api.min.js' ) {
+    }else  if(req.url === '/face-api.min.js' ) {
         filePath = path.join(__dirname,'..','..','..','lib', 'face-api.min.js');
     }else {
 

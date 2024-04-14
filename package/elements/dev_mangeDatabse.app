@@ -53,7 +53,7 @@
                                     } 
                                     ]
                                     a:{
-                                        e:'auto'
+                                     
                                         fn:{
                                             
                                         }
@@ -115,20 +115,25 @@
                                         }
                                 notKey:['id' 'userType' 'typeName' 'activate' 'DBId' 'Qsize' ]
                             }
-                             {
+                           {
+                            c:'WW'
+                              q:{
+                                            s:'activateAllHolder'
+                                            i:'id'
+                                        }
+                            e:[
+                                  {
                               
                                         c:'_MR_10 T_C'
                                 e:[
                                     {
-                                         perQ:{
-                                            key:'activate'
-                                        }
+                                       
                                         t:'sl'
                                          c:'WW D_B ST_PR_2'
                                         vq:'activate'
                                         s:'Search in status'
                                         q:{
-                                            s:'activate'
+                                            s:'oct'
                                             i:'id'
                                         }
                                         e:[
@@ -136,11 +141,19 @@
                                             {
                                                 t:'op'
                                                 val:'0'
+                                                  q:{
+                                                        s:'opD'
+                                                        i:'id'
+                                                    }
                                                 s:'Deactive'
                                             }
                                             {
                                                 t:'op'
                                                 val:'1'
+                                                     q:{
+                                                        s:'opA'
+                                                        i:'id'
+                                                    }
                                                 s:'Active'
                                             }
                                         ]
@@ -148,6 +161,8 @@
                                     }
                                 ]
                             }
+                            ]
+                           }
                             {
                                 perQ:{
                                     key:'userType'
@@ -162,12 +177,12 @@
                                         t:'sl'
                                         vq:'userType'
                                         c:'WW D_B ST_PR_2'
-                                         s:'Search in Accounts Types'
+                                        s:'Search in Accounts Types'
                                         q:{
                                             s:'usersType'
                                             i:'id'
                                         }
-                                        data:[{
+                                        _IQuery_:[{
                                         a: 'get'
                                         n: 'usersType'
                                         s: ['A']

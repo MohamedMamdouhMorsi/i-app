@@ -127,13 +127,14 @@ const GOS = (d, s, id)=> {
     hh.innerHTML += '<meta name="google-signin-scope" content="profile email">';
     hh.innerHTML += '<meta name="google-signin-client_id" content="94508468930-rnl3toalkm9akk5kri0qff4i6f39fcv9.apps.googleusercontent.com">';
     var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {
-        return;
-    }
-    js = d.createElement(s);
-    js.id = id;
-    js.src = 'https://apis.google.com/js/platform.js';
-    fjs.parentNode.insertBefore(js, fjs)
+      if (d.getElementById(id)) {
+          return;
+      }
+
+      js = d.createElement(s);
+      js.id = id;
+      js.src = 'https://apis.google.com/js/platform.js';
+      fjs.parentNode.insertBefore(js, fjs)
 };
 
 
@@ -149,17 +150,19 @@ const i_app = (()=>{
     /** app data obj */
     let app ={};
     let I_OB = {};
-    const I_O = (k)=>{return I_OB[k]?I_OB[k]:false }
+    const I_O = (k)=>{return I_OB[k]?I_OB[k]:false };
+
     const I_O_O = (op)=>{
       const ob = []
       for (const [k, v] of Object.entries(I_OB)) {
-        if(v[op]){
-          ob.push(I_OB[k]);
-        }
+          if(v[op]){
+            ob.push(I_OB[k]);
+          }
         }
         return ob;
      }
-     const userData = {};
+    
+    const userData = {};
     let i_app_v = {};
     let i_app_colors =[];
     let i_app_style = {};
@@ -176,7 +179,7 @@ const i_app = (()=>{
     let autoClsDrive = [];
     var runAutoClsrun = false;
     const destroySession = ()=>{
-      deleteConstKeys(userData)
+      deleteConstKeys(userData);
       app = {};
       I_OB = {};
       document.innerHTML = '';
@@ -232,7 +235,7 @@ const i_app = (()=>{
     var hh = Now.getHours();
     var mm = Now.getMinutes();
     var ss = Now.getSeconds();
-    
+    var ms = MM + 1;
     if (hh >= 12) {
         var hhr = hh - 12;
     } else {
@@ -252,7 +255,11 @@ const i_app = (()=>{
     } else {
         crdate = DD;
     }
-  
+    if (ms < 10) {
+        crmonth = "0" + ms;
+    } else {
+        crmonth = ms;
+    }
     this.V_TIME = hh + ':' + mm + ':' + ss;
     this.V_DATE = '' + YY + '-' + crmonth + '-' + crdate + '';
     this.V_DAY = crdate;
@@ -281,16 +288,16 @@ const i_app = (()=>{
   }
   }
   const stToAr = (st)=>{
-  const ar  = [];
-  const stAr =typeof st === 'string' && st.length > 0 ? st.split(" "):[];
-  if(isAr(stAr)){
-  for(let s = 0 ; s < stAr.length;s++){
-    if(stAr[s] !== "" && stAr[s] !== " " && stAr[s] !== null){
-      ar.push(stAr[s]);
+    const ar  = [];
+    const stAr =typeof st === 'string' && st.length > 0 ? st.split(" "):[];
+    if(isAr(stAr)){
+      for(let s = 0 ; s < stAr.length;s++){
+        if(stAr[s] !== "" && stAr[s] !== " " && stAr[s] !== null){
+          ar.push(stAr[s]);
+        }
+      }
+      return ar;
     }
-  }
-  return ar;
-  }
   }
   const selectStyleToOb =(ar)=>{
     const ob = {};
@@ -498,22 +505,23 @@ const i_app = (()=>{
       console.error('Error: COPY_OB argument is not an object');
       return;
     }
-  
-    const { a, ...rest } = ob;
-    const NewOb = { ...rest };
-  
-    if (a ) {
-      NewOb.a = a;
-    }
-  
-    return NewOb;
+    const newOB = JDS_(ob);
+  if(JD_(newOB)){
+    const NewOb = JD_(newOB);
+   
+     return NewOb;
+  }else{
+   const newOb = Object.assign({}, ob);
+   return ob;
+  }
+
   };  
   /**
   * Returns the current timestamp in milliseconds
   * @returns {number} The current timestamp in milliseconds
   */
   const time_ = () => {
-  return new Date().getTime();
+    return new Date().getTime();
   }
   /**
   
@@ -618,8 +626,15 @@ const hideOtherKeys = (k,obj)=>{
 }
 const DEL_ = (id)=>{
   const myNode = isString(id) ? E_I_S(id) : id;
-  myNode.remove();
-  deleteChildren(id);
+  if(myNode){
+    myNode.remove();
+    deleteChildren(id);
+  }
+
+
+ if(I_OB[id]){
+  delete I_OB[id];
+ }
 } 
   const GTX = (txt)=>{
     return i_app_select_lang[txt] ? i_app_select_lang[txt] : txt;
@@ -709,8 +724,10 @@ const DEL_ = (id)=>{
   }
   const D_CL = (m, w) => {
     if(Array.isArray(m) && ! w){
+
       D_CL_A(m);
     }else{
+
       D_CL_A([m,w]);
     }
   }
@@ -730,6 +747,7 @@ const DEL_ = (id)=>{
         }
         e.className = "";
         kw = kw.replace(/  /g, '');
+       CL_(['recive',m,w])
         e.className = U_CSS(kw);
     }
   }
@@ -836,7 +854,7 @@ const FCMTCS = (e) => {
 const readyNumber = {}
 const FCMTC = (e,numberHolder,activeHolder) => {
   if(!E_I('google-jssdk')){
-    GOS(document,  'script','google-jssdk');
+   // GOS(document,  'script','google-jssdk');
   }
  
   if(E_I_V(e) !== ''){
@@ -861,11 +879,13 @@ const FCMTC = (e,numberHolder,activeHolder) => {
       if(res == true){
         AL_('number is allready exist !!');
       }else{
-        readyNumber[E_I_V(e)] = true;
-        E_I_S(`${e}_view`).setAttribute('disabled','true');
-        E_I_S("recaptcha-container-tx").innerText = "Solve Recaptcha";
+      //  readyNumber[E_I_V(e)] = true;
+      //  E_I_S(`${e}_view`).setAttribute('disabled','true');
+        //E_I_S("recaptcha-container-tx").innerText = "Solve Recaptcha";
         //  configFire(app.fcm, selectLang,"reC",i_app_theme,sendNumber);
-        sendNumber()
+        D_CL("signFormHolder","D_N");
+        A_CL("phonenumber-active-holder","D_N");
+      //  sendNumber();
       }
     
     }
@@ -950,7 +970,9 @@ const funcHandel = (str) => {
     return str;
   }
 }
-   
+   const GTL = (txt)=>{
+    window.location.href = txt;
+   }
   // This function returns the root name and directory of the current page's JavaScript file
   const i_root_ = () => {
     // Set a default file extension of '.app'
@@ -1001,10 +1023,11 @@ const funcHandel = (str) => {
     }
     function convertStrToOb (str) {
    
-        str = funcHandel(str);
+       
        
         str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
         str = escapeKeysSym(str);
+        str = funcHandel(str);
         str = str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
         
         str = str.toString().trim(); // convert to string and remove leading / trailing whitespace
@@ -1022,7 +1045,8 @@ const funcHandel = (str) => {
         str = str.replace(/'/g, '"'); // replace single quotes with double quotes
      
         str = str.replace(/,\s*}/g, '}'); // remove trailing commas
-       
+        str = str.replace(/,\s*]/g, ']'); // remove trailing commas
+        
         // Add missing commas
 
         str = str.replace(/" "/g, '" , "'); // missing comma
@@ -1036,7 +1060,8 @@ const funcHandel = (str) => {
         str = str.replace(/}"/g, '} , "'); // missing comma
         str = str.replace(/}{/g, '} , {'); // missing comma
         str = str.replace(/"{/g, '" , {'); // missing comma
-
+        str = str.replace(/,,/g, ','); // remove trailing commas
+       
       
         // handel function obj
        
@@ -1045,9 +1070,10 @@ const funcHandel = (str) => {
         str = str.replace(/fndc/g, 'fn'); // clear fndc
         str = str.replace(/aaa@aaa/g, ':');
         str = str.replace(/"/g, "'");
-        
-        // str = cleanStr(str);
-      
+      //  str = str.replace(/,,/g, ','); // missing comma
+      //  str = str.replace(/, ]/g, ' ]'); // missing comma
+ 
+   
         return str;
       };
   
@@ -1062,7 +1088,14 @@ const funcHandel = (str) => {
     // Return the cleaned object
     return str;
   };
-  
+  const isValidFunction = (str) => {
+    try {
+        new Function(`return ${str}`);
+        return true;
+    } catch (error) {
+        return false;
+    }
+};
   const OBJ_ = (st)=>{
 
     const fn = new Function(`{return ${st}; }`);
@@ -1109,11 +1142,17 @@ const funcHandel = (str) => {
                     var jsonOb ;
                     if(isJson(txt)){
                         // Clean the text response using the cleanSt function  
-                       
+                        txt = txt.replace(/fndc/g, 'fn');
                         jsonOb = JD_(txt);
                     } else{
-                        var jsonTx = cleanSt(txt);
-                            jsonOb = OBJ_(jsonTx);
+                      
+                    if(isValidFunction(txt)){
+                      jsonOb = OBJ_(txt);
+                    }else{
+                      var jsonTx = cleanSt(txt);
+                      jsonOb = OBJ_(jsonTx);
+                    }
+                           
                     }
 
                     // Log the cleaned JSON to the console for debugging
@@ -1121,7 +1160,7 @@ const funcHandel = (str) => {
                     for(var u = 0 ; u < wait_root[url].length ; u++){
                       const callBack_ = wait_root[url][u][0];
                       const data_ = wait_root[url][u][1];
-                      callBack_(jsonOb, data_);
+                      callBack_(jsonOb, [data_,data]);
                     }
                   delete  wait_root[url];
                   });
@@ -1139,6 +1178,145 @@ const funcHandel = (str) => {
  
   };
   
+const symbol  = ["►","◄","▲","▼","я","з","л","ь","д","Ф","и","й","ч","ш","ж","я","Д","Э","Ц","щ","г","п","б","ъ","Ю","ä","ß","ü","Ü","ö","ñ","è","ê","É","à"]
+const keys    = ["☺","☻","♥","♦","♣","♠","ф"];
+const indexes = [9,8,7,6,5,4,2];
+const letterToNumber = {};
+const numberToLetter = {};
+
+
+var getAnswerTime = 10;
+
+    const i_zip =async (objAr,index,somp)=>{
+
+        
+        const map = {};
+        let keyNum = 0;
+        var testTxt = "";
+        for(var i = 0 ; i < objAr.length; i++){
+            const txt = objAr[i].txt;
+            testTxt += txt;
+            const txtAr = txt.split("");
+            for(var i = 0 ; i < txtAr.length; i++){
+                if(txtAr[i+index]){
+                    var simple = "";
+                    for(var x = 0 ; x < index ; x++){
+                        const offset = x+i;
+                        simple += txtAr[offset];
+                    }
+                    if(map[simple]){
+                        map[simple] = map[simple] + 1;
+                    }else{
+                        map[`${simple}`] =  1;
+                    }
+                    
+                }
+            }
+        }
+        
+        const valuesAr = [];
+        var baseNum = 9;
+        if(index == 2){
+            baseNum = symbol.length;
+        }
+        
+            for(const key in map){
+
+                const number = map[key];
+                const regex  = new RegExp(key, "g");
+
+                if(keyNum < baseNum && number > 1){
+
+                    const found   = testTxt.match(regex);
+
+                    if(found && found.length > 1){
+
+                        testTxt  = testTxt.replace(regex,"");
+                        valuesAr.push({key:key , num: number });
+                        keyNum = keyNum + 1;
+                    }
+                }
+            }
+          
+            const valuesAr_ =  valuesAr.sort((a, b) => b.num - a.num);
+        
+            const newAr = [];
+            var lastKey = "";
+
+            for(var a = 0 ; a < valuesAr_.length; a++){
+                const valObj = valuesAr_[a].key;
+                lastKey += valObj;
+            }
+            var symbUsed = "";
+            var symbBaseUsed = "";
+            //, val:keyNum ,symbol:symbol[keyNum]
+            for(var i = 0 ; i < objAr.length; i++){
+
+                var txtENCODE = objAr[i].txt;
+                
+                    for(var a = 0 ; a < valuesAr_.length; a++){
+
+                            const valObj = valuesAr_[a];
+                            const key_   = valObj.key;
+                            
+                            const val_   = `${somp}${a+1}`;
+                            const regex  =  new RegExp(`${key_}`, "g");
+                        if(index == 2){
+                            const symbb = symbol[a];    
+                                txtENCODE  = txtENCODE.replace(regex,symbb);
+                                symbUsed += symbb;
+                                
+                        }else{
+                            
+                            txtENCODE  = txtENCODE.split(regex).join(val_);
+                            symbBaseUsed += val_;
+                        }
+                        
+                    }
+
+                    newAr.push({txt:txtENCODE, num:objAr[i].num, len:txtENCODE.length });
+            }
+    
+            newAr.push({ txt:lastKey, num:index, len:lastKey.length });
+        
+            return newAr;
+    }
+
+    const zipJ =async (obj)=>{
+
+        const txt    = obj;
+        
+        const txt64  = DC_(txt);
+     
+        var txtAR = [{ txt: txt64 , num:10}];
+
+        for(var i = 0 ; i < keys.length; i++){
+
+            const key   = keys[i];
+            const index = indexes[i];
+
+            txtAR = await i_zip( txtAR, index, key );
+
+        }
+        
+        var len = 0;
+        var txtObj = "";
+        for(var i = 0 ; i < txtAR.length; i++){
+
+            len     += txtAR[i].txt.length;
+            txtObj  += txtAR[i].txt;
+
+            if(i< txtAR.length -1){
+                txtObj +=',';
+            }
+
+        }
+        txtObj = txtObj.replace(/,,,,,,,,/g,"");
+        return txtObj;
+    }
+
+   
+
   const G_Json = (url,callback) => {
     return new Promise((resolve, reject) => {
       // Fetch data from the specified URL
@@ -1164,48 +1342,104 @@ const funcHandel = (str) => {
         });
     });
   };
+
   const Queries ={} 
+  function compress(text) {
+    var compressedText = '';
+    for (var i = 0; i < text.length; i++) {
+        var charCode = text.charCodeAt(i);
+        //console.log(["compress charCode:",compress , charCode + 300]);
+        compressedText += String.fromCharCode(charCode + 1000); // Offset by 1000
+    }
+    return DC_(compressedText);
+}
+
+const getQueryVal  = (data,Q)=>{
+  for(var o = 0 ; o < data.length;o++){
+    
+    data[o] = updateQueryValue(data[o],Q);
+  
+ }
+
+return data;
+}
   const _POST =  async(url, data, callback) => {
     let send = true;
     let isQuery = false;
-    const strQ = data.query ? data.query : data;
-    if (data.query || data[0] && data[0].a) {
-      
-    
-      const queryName =await SHA256(JDS_(strQ));
-    
-      isQuery = true;
-      if (Queries[queryName]) {
-        if (Queries[queryName].res) {
-          const res = Queries[queryName].res;
-          data.upTime = res.upTime;
-          if (Queries[queryName].callBack) {
-              Queries[queryName].callBack.push(callback);
-            }
-        } else {
-          if (Queries[queryName].callBack) {
-                Queries[queryName].callBack.push(callback);
-                send = false;
-          }
-        }
-      } else {
-        Queries[queryName] = { callBack: [callback], process: true };
-      }
-    }
-   
+    var strQ = data;
+    const Q_O = data.Q ? data.Q : false;
+  
+      if (data.query|| data._IQuery_ || data[0] && data[0].a) {
 
-      if (send) {
+        if (data.query){
         
+          var queryVal = getQueryVal(data.query,Q_O);
+          data.query = queryVal;
+        }else if (data._IQuery_){
+          
+          var queryVal = getQueryVal(data._IQuery_,Q_O);
+          data ={query: queryVal};
+        }else{
+          
+          var queryVal = getQueryVal(data,Q_O);
+          data.query = queryVal;
+        }
+
+        strQ =  data ;
+      
+        if(data.Q){
+           delete data.Q;
+        }
+        
+        const queryName =await SHA256(JDS_(strQ));
+      
+        isQuery = true;
+        if (Queries[queryName]) {
+          if (Queries[queryName].res) {
+            const res = Queries[queryName].res;
+            data.upTime = res.upTime;
+            if (Queries[queryName].callBack) {
+                Queries[queryName].callBack.push(callback);
+              }
+          } else {
+            if (Queries[queryName].callBack) {
+                  Queries[queryName].callBack.push(callback);
+                  send = false;
+            }
+          }
+        } else {
+          Queries[queryName] = { callBack: [callback], process: true };
+        }
+      }
+      if(data.query && data.query[0] && data.query[0].noCash){
+        send = true;
+      }
+     
+      if (send) {
+        const jsonSt =JDS_(data);
+      
+        const DEDATA = DC_(jsonSt);
+
        fetch(url, {
           method: "POST",
-          body: JSON.stringify(data),
+        
+          mode: "same-origin",
+          cache: 'no-cache', 
+          credentials: "same-origin", 
           headers: {
-            "Content-type": "applica tion/json; charset=UTF-8",
+            "Content-Type": "application/x-www-form-urlencoded",  
+            "Accept":       "application/json" 
           },
+          redirect: 'follow',
+          referrerPolicy: 'no-referrer',
+          body: "msg="+DEDATA,
         })
           .then((res) => res.json())
           .then(async(json) => {
-           
+            if(app.mode == 'dev'){
+              CL_(['con',data,json])
+            }
+          
             if (json.res && json.res === "destroySession") {
               destroySession();
             } else {
@@ -1222,10 +1456,13 @@ const funcHandel = (str) => {
                     
                     }
                    
-                    for (const cureCallBack of Queries[queryName].callBack) {
-                      cureCallBack(json, data);
+                    for (var c = 0 ; c < Queries[queryName].callBack.length; c++) {
+                      const cureCallBack = Queries[queryName].callBack[c];
+                            cureCallBack(json, data);
+
                     }
-                    Queries[queryName].callBack = [];
+                    
+                    delete  Queries[queryName];
                   }
                 }
               } else {
@@ -1239,6 +1476,7 @@ const funcHandel = (str) => {
     }
   
   };
+
   const SWV =(data)=>{
     if(typeof SWITCH_VOICE === 'function'){
       return SWITCH_VOICE(data)
@@ -1388,11 +1626,95 @@ const loadAllTxt =async ()=>{
     }
   }
    }
-   CL_(JDS_(upTxtArabic));
-   CL_(JDS_(dbA));
-   CL_(JDS_(dbB));
+
   }
+  const onListChange =(containerId,cls,callBack)=>{
+    
+  
+  const container = E_I_S(containerId);
+  let draggingItem = null;
+
+  container.addEventListener('dragstart', (e) => {
+    draggingItem = e.target;
+    e.target.classList.add('dragging');
+    const draggableElements = [...draggingItem.querySelectorAll(`.notDrag`)];
+    
+    for(var i = 0 ; i < draggableElements.length; i++){
+      draggableElements[i].classList.add('notDragStart');
+    }
+  });
+
+  container.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    const afterElement = getDragAfterElement(container, e.clientY);
+    const draggable = document.querySelector('.dragging');
+    if (afterElement == null) {
+      container.appendChild(draggable);
+    } else {
+      container.insertBefore(draggable, afterElement);
+    }
+  });
+
+  const getDragAfterElement = (container, y)=> {
+    const draggableElements = [...container.querySelectorAll(`.${cls}:not(.dragging)`)];
+
+    return draggableElements.reduce((closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = y - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset: offset, element: child };
+      } else {
+        return closest;
+      }
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+  }
+
+  container.addEventListener('dragend', () => {
+    draggingItem.classList.remove('dragging');
+    const draggableElements = [...draggingItem.querySelectorAll(`.notDrag`)];
+    
+    for(var i = 0 ; i < draggableElements.length; i++){
+      draggableElements[i].classList.remove('notDragStart');
+    }
+    draggingItem = null;
+    updateListOrder();
+  });
+
+  const  updateListOrder =()=> {
+    const items = container.querySelectorAll(`.${cls}`);
+   
+    const updatedOrder = [];
+    items.forEach((item, index) => {
+      updatedOrder.push({
+        id:item.i,
+        no: index + 1
+      });
+    });
+    callBack(updatedOrder); 
+   }
+}
+  const setV = (k,v)=>{
+    i_app_v[k] = v;
+  }
+  const upQuery = (ob,data)=>{
+    
+    DEL_E(ob.i);
+    dataQuery(ob,data);
+  }
+  const UPDATE = (id,data)=>{
+    const OB = I_O(id);
+    upQuery(OB,data);
+  }
+
   const URS = () => Object.freeze({
+    getWhite:getWhite,
+    getBlack:getBlack,
+    sortByKey:sortByKey,
+    Toast:showToast,
+    onListChange:onListChange,
+    UPDATE:UPDATE,
+    SHA:SHA256,
+    GTL:GTL,
     dev_translate:dev_translate,
     JDS_:JDS_,
     JD_:JD_,
@@ -1449,12 +1771,15 @@ const loadAllTxt =async ()=>{
     FCMTA: FCMTA,
     AL_: AL_,
     IS_EMAIL: IS_EMAIL,
+    IS_PHONE_NUMBER:IS_PHONE_NUMBER,
     IS_USERNAME: IS_USERNAME,
     wait_: wait_,
     E_C: E_C,
     DC_:DC_,
     EC_:EC_,
-    upQuery:dataQuery,
+    DATE:V_DATE,
+    setV:setV,
+    upQuery:upQuery,
     openOverHide:openOverHide,
     closeOverHide: closeOverHide,
     hideOtherKeys: hideOtherKeys,
@@ -1487,11 +1812,14 @@ const loadAllTxt =async ()=>{
     const src = CE_('script');
     src.id = `js_${f}`;
     // Get the number of milliseconds since midnight
-    src.src = `${app.dir.script}${f}.js?${time_()}`;
-    src.type = "text/javascript";
+    src.src = `${app.dir.script}${f}.${v==='module'?'mjs':'js'}?${time_()}`;
+    src.type = v == 'module' ? "module":"text/javascript";
 
     var afterload =false;
-    if(v === 'afterload'){
+    if(v === 'module'  ){
+     
+      document.body.appendChild(src);
+    }else   if(v === 'afterload' ){
       afterload =true;
       src.setAttribute('defer','true');
       document.body.appendChild(src);
@@ -1652,11 +1980,11 @@ const loadAllTxt =async ()=>{
   }
   const setObV = async (ob) => {
   
-  i_app_v = {...i_app_v,...ob}
+  //i_app_v = {...i_app_v,...ob}
   for (const [k, v] of Object.entries(ob)) {
    
     Object.defineProperty(i_app_v, k, {
-      get: () => this[k],
+      get: () =>{return this[k];},
       set: (_v) => {
         this[k] = _v;
         onValueChange_(k, this[k]);
@@ -3082,25 +3410,28 @@ const loadAllTxt =async ()=>{
         E_I_S(id).appendChild(newTitle);
     }
   }
-  const  ESF = (ob)=>{
+  const  ESF =async (ob)=>{
 
   if(ob.a){
   let ev = ob.a.e ? ob.a.e : 'click' ;  
-
 
 
     if(typeof ob.a.fn === 'string'){
 
     
     let fnSt = EC_(ob.a.fn.toString());
-    const fn = new  Function(fnSt);
 
-    const newFunc = ()=>{
+   // const fn = new  Function(fnSt);
+    const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+    
+    const myAsync = new AsyncFunction(fnSt);
+    const newFunc =async ()=>{
               this.v = i_app_v ;
               this._ = URS();
               this.Q = ob.Q ? ob.Q : false;
+              this.U = userData;
               try{ 
-                return fn(this.v,this._,this.Q );
+                return await myAsync(this.v,this._,this.Q,this.U );
             }catch(err){
               CL_(["your function return error"+err,fnSt]);
             }
@@ -3170,7 +3501,7 @@ const loadAllTxt =async ()=>{
         L_SCRIPT('cele',[e,URS()]);
     }
   }
-  const L_ROUTE = (body,[id,data,i_route,ob])=>{
+  const L_ROUTE = (body,[[id,data,i_route,ob],dataincome])=>{
   
     if(!i_app_model[i_route] ){
       i_app_model[i_route] = COPY_OB(body);
@@ -3180,10 +3511,11 @@ const loadAllTxt =async ()=>{
       for (const key in ob) {
         if(key !== 'I' && key !== 'offset' && key !== 'i'  && key !== 'q' && key !== 'i_e' && key !== 'e' && key !== 't' && key !== 'typ'){
           if(key == 'c'){
+
             const IObCls = ob.c ? ob.c : "";
-          const INObCls = newOb[key]? newOb[key]: "";
+            const INObCls = newOb[key]? newOb[key]: "";
+            newOb[key] = IObCls +" "+ INObCls;
           
-          newOb[key] = IObCls +" "+ INObCls;
           }else{
           
             newOb[key] = ob[key];
@@ -3192,7 +3524,7 @@ const loadAllTxt =async ()=>{
         }
       }
     }
-    
+    newOb.replace = true;
     CR_(newOb,id,data);
       
   }
@@ -3271,6 +3603,7 @@ const loadAllTxt =async ()=>{
   }
   function filterData(e, array) {
     const matchingIndices = [];
+   
     const inputField = E_I_V(e);
     for (let i = 0; i < array.length; i++) {
       const keys = Object.keys(array[i]);
@@ -3289,7 +3622,7 @@ const loadAllTxt =async ()=>{
         matchingIndices.push(i);
       }
     }
-  
+   
     return matchingIndices;
   }
   
@@ -3301,23 +3634,23 @@ const filterSearchItems = (e,data)=>{
     //filter data 
     if(E_I_V(searchElement) == ''){
       for(var i =0 ; i < data.length; i++){
-        const element =  `${i}_item`;
+        const element =  `${e}_${i}_item`;
         D_CL([element,'D_N'])
       }
     }else{
       const matchData = filterData(searchElement,data);
       if(matchData.length >0){
         for(var i =0 ; i < data.length; i++){
-          const element =  `${i}_item`;
+          const element =  `${e}_${i}_item`;
           A_CL(element,'D_N')
         }
           for(var i =0 ; i < matchData.length; i++){
-            const element =  `${matchData[i]}_item`;
+            const element =  `${e}_${matchData[i]}_item`;
             D_CL([element,'D_N'])
           }
       }else{
         for(var i =0 ; i < data.length; i++){
-          const element =  `${i}_item`;
+          const element =  `${e}_${i}_item`;
           D_CL([element,'D_N'])
         }
       }
@@ -3349,17 +3682,12 @@ const closeOverHide =(dialog)=>{
   }
 } 
  const selectElement =(ob,data)=>{
- 
+
   const holderId = `${ob.i}_holder`;
 
-    if(!i_app_model['sl'] ){
-          const callback = (body,[ob,data])=>{
-            i_app_model['sl'] = body;
-            selectElement(ob,data);
-          }
-        G_root('sl.app',callback,[ob,data]);
-      
-    }else if(i_app_model['sl'] ){
+  i_app_model['sl'] ={t:'sp',c:'F_B',e:[{t:'sp',c:'pointer'},{i:'select12',c:'WW D_N HH POS_FX TT_0 LL_0 RR_0 B_W Ztop',e:[{c:',container MD HH',e:[{c:'WW  MD MW_400 T_L',e:[{t:'icon',c:'ICO-arrow-left F_S_30   TT_10 pointer'}]},{c:'WW mT_80 MD MW_400',e:[{t:'in',c:'WW mB_30 input'},{ t:'icon', c:'ICO-close POS_AB RR_0 pointer' }]},{ c:'WW T_L MW_400 MD SCROLL H_400'}]}]}]};
+  
+       
       
       const NewSelectElment = ()=>{
         const fnStOpen = `{_.D_CL(["${ob.i}_selectScreen","D_N"]);_.openOverHide(); }`;
@@ -3371,15 +3699,22 @@ const closeOverHide =(dialog)=>{
         selectModel.e[0].a = {fn: fnStOpenDC}
         if(ob.c){
           if(!ob.c.match(/pointer/)){
-            ob.c += ' pointer selectIcon pL_15 pR_15 pT_5 pB_5';
+            if( ob.mod == 'phonecode'  ){
+              ob.c += ' pointer  pL_15 pR_15 pT_5 pB_4';
+              }else{
+                ob.c += ' pointer selectIcon pL_15 pR_15 pT_5 pB_4';
+              }
           }
+          
           selectModel.e[0].c = ob.c;
         }
-        const searchFnSt = `{_.filterSearchItems("${ob.i}",${data && data.length > 0 ? JDS_(data) : false})}`;
-        const searchFnStDC = DC_(searchFnSt);
-        const clearInputFnSt = `{_.IN_V("${ob.i}_selectSearch",'');}`;
-        const clearInputFnStDC = DC_(clearInputFnSt);
-        const basicSearchText = ob.s ? ob.s : 'search-text';
+
+
+        const searchFnSt        = `{_.filterSearchItems("${ob.i}",${data && data.length > 0 ? JDS_(data) : false})}`;
+        const searchFnStDC      = DC_(searchFnSt);
+        const clearInputFnSt    = `{_.IN_V("${ob.i}_selectSearch",'');}`;
+        const clearInputFnStDC  = DC_(clearInputFnSt);
+        const basicSearchText   = ob.s ? ob.s : 'search-text';
 
         selectModel.e[1].e[0].e[0].a =  {fn: fnStCloseDC}
         selectModel.e[1].i = `${ob.i}_selectScreen`;
@@ -3405,13 +3740,13 @@ const closeOverHide =(dialog)=>{
                     selectModel.e[1].e[0].e[2].e[i].a = {fn:fnStItemDC};
                     selectModel.e[1].e[0].e[2].e[i].t = 'ly';
                     selectModel.e[1].e[0].e[2].e[i].c = 'pointer WW PD_5 ST_B_GRY8_1';
-                    selectModel.e[1].e[0].e[2].e[i].i = `${i}_item`;
+                    selectModel.e[1].e[0].e[2].e[i].i = `${ob.i}_${i}_item`;
             }
           
           }
          
-          selectModel.e[0].s = selectModel.e[1].e[0].e[2].e[0] && selectModel.e[1].e[0].e[2].e[0].s ?selectModel.e[1].e[0].e[2].e[0].s : 'No Items';
-        
+          selectModel.e[0].s = selectModel.e[1].e[0].e[2].e[0] && selectModel.e[1].e[0].e[2].e[0].s ? selectModel.e[1].e[0].e[2].e[0].s : 'No Items';
+       
           CR_(selectModel,holderId,data);
           
         }else {
@@ -3432,7 +3767,7 @@ const closeOverHide =(dialog)=>{
                 const fnStItemDC = DC_(fnStItem);
                 const selectItem = {
                   c:'WW ST_B_GRY8_1 pointer PD_4',
-                  i: `${i}_item`,
+                  i: `${ob.i}_${i}_item`,
                   e:[
                     {
                       t:'img',
@@ -3487,7 +3822,7 @@ const closeOverHide =(dialog)=>{
                     const fnStItemDC = DC_(fnStItem);
                     const selectItem = {
                       c:'WW ST_B_GRY8_1 pointer PD_4 F_B',
-                      i: `${i}_item`,
+                      i: `${ob.i}_${i}_item`,
                       e:[
                         {
                           t:'sp',
@@ -3498,7 +3833,7 @@ const closeOverHide =(dialog)=>{
                       Q:data[i] ,
                       a:{fn:fnStItemDC}
                   }
-                  if(ob.data && ob.data.order && ob.data.order == 'icons'){
+                  if(ob._IQuery_ && ob._IQuery_.order && ob._IQuery_.order == 'icons'){
                     selectItem.e = [{
                       t:'icon',
                       c:'F_S_30 '+data[i].class
@@ -3508,6 +3843,7 @@ const closeOverHide =(dialog)=>{
                   }
               }
               let findS = 'No Data';
+    
                if(ob.model[0].s){
                 findS = ob.model[0].s;
                }else if(ob.model[0].e[0] && ob.model[0].e[0].s){
@@ -3523,7 +3859,7 @@ const closeOverHide =(dialog)=>{
         }
        
         
-    }
+    
  }
 
  const processCls =(id,cls)=>{
@@ -3531,10 +3867,10 @@ const closeOverHide =(dialog)=>{
   if(E_I_S(id)){
     const elm = E_I_S(id);
         if(elV(elm)){
-            CL_(['ok',elm]);
+           
           A_CL(id,autoCls);
         }else{
-            CL_(['no',elm]);
+        
           D_CL(id,autoCls);
         }
     }
@@ -3574,33 +3910,49 @@ const closeOverHide =(dialog)=>{
    * 
    */
 
-  const dataQuery = (ob)=>{
+  const dataQuery = (ob,dataQ)=>{
+    const spinnerId  = `spinner_${ob.i}`;
+      CR_( {
+        c:'WW T_C',
+        i:spinnerId,
+        e:[{
+            t:'icon',
+            c:'ICO-spinner roll F_S_80 F_PR'
+        }]
+    }, ob.i);
 
-     if(ob.limitAuto && ob.data && ob.data.length){
+     if(ob.limitAuto && ob._IQuery_ && ob._IQuery_.length){
       const DB_name = `linesNum_${ob.Q.DBId}`;
 
-        for(var o = 0 ; o < ob.data.length;o++){
-            if(ob.data[o].l){
+        for(var o = 0 ; o < ob._IQuery_.length;o++){
+      
+           
 
                     if(E_I_V(DB_name)){
-                      ob.data[o].limitAuto =E_I_V(DB_name);
+                      ob._IQuery_[o].limitAuto =E_I_V(DB_name);
                     }else{
-                      ob.data[o].limitAuto = ob.limitAuto ;
+                      ob._IQuery_[o].limitAuto = ob.limitAuto ;
                     }
                     if(ob.last){
-                      ob.data[o].last =ob.last;
+                      ob._IQuery_[o].last =ob.last;
                     }
-                  }
+                  
               }
       }
 
       const callback = (res,data)=>{
+        CL_(['callback recive delete id ', spinnerId])
+        DEL_(spinnerId);
         const Qsize = res.Qsize ? res.Qsize  : 0; 
-        
-        res = res.res;
-        if(ob.limitAuto && ob.data && ob.data.length){
-
            
+              res = res.res;
+              if(ob.sortBy){
+              
+                res = sortByKey(res,ob.sortBy);
+             
+              }
+        if(ob.limitAuto && ob._IQuery_ && ob._IQuery_.length){
+
               const DB_name = `linesNum_${ob.Q.DBId}`;
               const DB_Qsize = `Qsize_${ob.Q.DBId}`;
               const DB_pageNo = `reasltBt_${ob.Q.DBId}`;
@@ -3641,7 +3993,8 @@ const closeOverHide =(dialog)=>{
               
             }
             const elmId = ob.i;
-        
+            I_OB[ ob.i].childsQ = res;
+            if(res.length > 0){
               for(var i = 0; i < res.length ; i++){
                 const obData = res[i];
                 if(ob.joinQuery && ob.Q){
@@ -3668,7 +4021,16 @@ const closeOverHide =(dialog)=>{
                     }
                 }
               }
+            }else{
 
+              if(ob.else){
+                CR_(ob.else,elmId,dataQ);
+              }
+             
+            }
+            if(ob.a){
+              ESF(ob);
+            }
          if(ob.t && ob.t == 'sl'){
          const waitFor = ()=>{
           selectElement(ob,res);
@@ -3677,17 +4039,124 @@ const closeOverHide =(dialog)=>{
          }
        }
 
-       if(ob.data.order){
-        _POST('/api',{order:ob.data.order},callback);
+       if(ob._IQuery_.order){
+
+            _POST('/api',{order:ob._IQuery_.order ,Q:dataQ},callback);
+
           }else{
-        if(ob.autoLimit){
-          _POST('/api',{query:ob.data},callback);
-        }else{
-          _POST('/api',{query:ob.data},callback);
-        }
+            if(ob.autoLimit){
+              _POST('/api',{query:ob._IQuery_,Q:dataQ},callback);
+            }else{
+              _POST('/api',{query:ob._IQuery_,Q:dataQ},callback);
+            }
       
         }
   
+  }
+
+  const updateQueryValue = (query,Qo)=>{
+    
+    if(query.q){
+      for(var ob = 0 ; ob < query.q.length; ob++){
+        if(typeof query.q[ob] === 'object'){
+          if(query.q[ob].t && query.q[ob].t == "app"){
+            if( i_app[query.q[ob].d ]){
+              query.q[ob] = i_app[query.q[ob].d ];
+            }else{
+              query.q[ob] = null;
+            }
+           
+          }else    if(query.q[ob].t && query.q[ob].t == "date"){
+           
+            query.q[ob] = this.V_DATE;
+           
+          }else    if(query.q[ob].t && query.q[ob].t == "user"){
+ 
+            if( userData[query.q[ob].d ]){
+              query.q[ob] = userData[query.q[ob].d ];
+            }else{
+              query.q[ob] = null;
+            }
+          }else  if(query.q[ob].t && query.q[ob].t == "val"){
+ 
+            if( E_I_V(query.q[ob].d )){
+              query.q[ob] =  E_I_V(query.q[ob].d );
+            }else{
+              query.q[ob] = null;
+            }
+          }else  if(query.q[ob].t && query.q[ob].t == "v"){
+ 
+            if( i_app_v[query.q[ob].d ]){
+              query.q[ob] = i_app_v[query.q[ob].d ];
+            }else{
+              query.q[ob] = null;
+            }
+          }else  if(query.q[ob].t && query.q[ob].t == "Q"){
+          
+            if(Qo && Qo[query.q[ob].d ]){
+             
+              query.q[ob] = Qo[query.q[ob].d ];
+            }else{
+              query.q[ob] = null;
+            }
+          }
+        }
+      }
+    }
+    if(query.d){
+      for(var ob = 0 ; ob < query.d.length; ob++){
+        if(typeof query.d[ob] === 'object'){
+          if(query.d[ob].t && query.d[ob].t == "app"){
+            if( i_app[query.d[ob].d ]){
+              query.d[ob] = i_app[query.d[ob].d ];
+            }else{
+              query.d[ob] = null;
+            }
+           
+          }else   if(query.d[ob].t && query.d[ob].t == "date"){
+            query.d[ob] = this.V_DATE;
+          
+
+          }else   if(query.d[ob].t && query.d[ob].t == "user"){
+  
+            if( userData[query.d[ob].d ]){
+
+              query.d[ob] = userData[query.d[ob].d ];
+
+            }else{
+
+              query.d[ob] = null;
+            }
+
+          }else  if(query.d[ob].t && query.d[ob].t == "val"){
+            
+            if( E_I_V(query.d[ob].d )){
+              query.d[ob] =  E_I_V( query.d[ob].d );
+            }else{
+              query.d[ob] = null;
+            }
+
+          }else  if(query.d[ob].t && query.d[ob].t == "v"){
+  
+            if( i_app_v[query.d[ob].d ]){
+              query.d[ob] = i_app_v[query.d[ob].d ];
+            }else{
+              query.d[ob] = null;
+            }
+            
+          }else  if(query.d[ob].t && query.d[ob].t == "Q"){
+ 
+            if(Qo &&  Qo[query.d[ob].d ]){
+           
+              query.d[ob] = Qo[query.d[ob].d ];
+            }else{
+              query.d[ob] = null;
+            }
+          }
+        }
+      }
+    }
+    return query;
   }
   const formTableObj = (body)=>{
     const form = {c:'TT_0 mT_37',e:[]}
@@ -3794,7 +4263,7 @@ const closeOverHide =(dialog)=>{
     }
     return form;
   }
-
+ 
   const permissionsQueryControl = (per,data)=>{
   if(per.key && data[per.key]){
     const value = data[per.key].toString();
@@ -3814,10 +4283,28 @@ const closeOverHide =(dialog)=>{
     if(perData.data){
       if(perData.data == 'app'){
         if(app[perData.key] == perData.value){
-          return app[perData.key];
+          return true;
         }else{
           return false;
         }
+      }else if(perData.data == 'user'){
+
+      if(userData && userData.id > 0 && userData.permissions && userData.permissions.length > 0){
+
+        const appName = perData.appName;
+        const permissionName = perData.permissionName;
+        var auth = false;
+
+        for(var i = 0 ; i <  userData.permissions.length ; i++){
+
+            const permission = userData.permissions[i];
+            if(permission.permissionName == permissionName && permission.appName == appName){
+              auth = true;
+            }
+
+        }
+        return auth;
+      }
       }
     }
     return false;
@@ -3853,6 +4340,7 @@ const closeOverHide =(dialog)=>{
  
    
   }
+
 const tableSetModelData = (ob)=>{
  const keys    = ob.setModelData;
  const isTbody = ob.e[1].t == 'tbody' ? true : false;
@@ -3887,13 +4375,13 @@ const tableSetModelData = (ob)=>{
   const makeLimitAuto = (ob,data)=>{
 
       const holderId = `${ob.i}_limitHolder`;
-    
+   
         if(!i_app_model['limitAuto'] ){
               const callback = (body,[ob,data])=>{
                 i_app_model['limitAuto'] =COPY_OB(body);
                 makeLimitAuto(ob,data);
               }
-            G_root('limitAuto.app',callback,[ob,data]);
+            G_root('limitAuto.app',callback,[[ob,data],false]);
           
         }else if(i_app_model['limitAuto'] ){
           const limitAuto = COPY_OB(i_app_model['limitAuto']);
@@ -3905,10 +4393,37 @@ const tableSetModelData = (ob)=>{
          }
       
          limitAuto.Q = Querie;
+        
          CR_(limitAuto,holderId,Querie);
         }
   }
+  const showToast =(message)=> {
+    const  duration = 9000;
+    // Create a new toast element
+    var toast = document.createElement('div');
+    toast.classList.add('toast');
+    toast.textContent = message;
 
+    // Append the toast to the body
+    document.body.appendChild(toast);
+
+    // Automatically remove the toast after a specified duration
+    setTimeout(function() {
+        toast.remove();
+    }, duration);
+}
+  const sortByKey=(array, key)=> {
+    return array.sort(function(a, b) {
+      if( a[key] && a[key] !== null){
+        var x = a[key];
+        var y = b[key];
+      
+          return x - y;
+      }
+        
+       
+    });
+}
   const CR_ =async (body,id,data)=>{
    
     if(!i_app_lang[selectLang]){
@@ -3937,10 +4452,27 @@ const tableSetModelData = (ob)=>{
   * BASIC FONTS
   */
   if(body.per){
-    const perTrue = permissionsControl(body.per);
-    if(!perTrue){
-      return ;
+    let per = true;
+    if(body.per == 'isuser'){
+      if(userData.id === 0){
+        GTL("/login");
+        per =false;
+      }
+    }else if(body.per == 'notuser'){
+      if(userData.id > 0){
+        GTL("/user");
+        per =false;
+        return true;
+      }
+    }else{
+      const perTrue = permissionsControl(body.per);
+      if(!perTrue){
+        per =false;
+      }
     }
+   if(!per){
+      return true;
+   }
   }
 
  
@@ -3959,6 +4491,7 @@ if(ob.forkey){
   const fork =  forKeys(ob,data);
   ob.e = ob.e  ? [...fork,...ob.e]:[...fork];
 }
+
   if(data){
    ob.Q = data;   
   }else  if(ob.Q){
@@ -4011,7 +4544,9 @@ if(ob.forkey){
    
   }
   }
-  
+
+
+
   if(ob.perClass){
     const perTrue = permissionsControl(ob.perClass);
     if(perTrue){
@@ -4096,17 +4631,29 @@ if(ob.forkey){
         }
       }`; 
     const updateInputFnSTDC = DC_(updateInputFnST);
-    const countryCode = {t:'sl',vq:'dialCode',i:`${ob.i}_dialCode`,c:'input F_PR F_S_12',mod:'phonecode',a:{e:'change',fn:updateInputFnSTDC}}
+    const countryCode = { 
+                          t:'sl', 
+                          vq:'dialCode', 
+                          i:`${ob.i}_dialCode`, 
+                          c:'input F_PR F_S_13', 
+                          mod:'phonecode', 
+                          a:{
+                            e:'change',
+                            fn:updateInputFnSTDC
+                          } 
+                        }
+
       CR_(countryCode,id,false);
+
       const viewInput = COPY_OB(ob);
-      viewInput.i = `${ob.i}_view`;
-      viewInput.a = {e:'input',fn:updateInputFnSTDC}
-      viewInput.mod = 'tel';
+      viewInput.i     = `${ob.i}_view`;
+      viewInput.a     = { e:'input', fn: updateInputFnSTDC }
+      viewInput.mod   = 'tel';
+
       CR_(viewInput,id,false);
           isHideElement =true;
     }
   }
-  
 
   /// create HTML Element
   const e = CE_(HT_(ob));
@@ -4131,10 +4678,10 @@ if(ob.forkey){
     e.height = ob.height;
    }
    if(ob.mod === 'languages'){
-    ob.data = {order:'languages'}
+    ob._IQuery_ = {order:'languages'}
   }
   if(ob.mod === 'icons'){
-      ob.data = {order:'icons'}
+      ob._IQuery_ = {order:'icons'}
   }
    if(ob.src){
     e.src = G_SRC(ob.src);
@@ -4143,7 +4690,33 @@ if(ob.forkey){
       e.src = ob.srcUrl;
       }
     if(ob.srcQ && data[ob.srcQ]){
-      e.src = G_SRC(data[ob.srcQ]);
+      if(Array.isArray(data[ob.srcQ])){
+        var imgSrc = "";
+       
+        const srcArray = data[ob.srcQ];
+        const sortSrcArray = sortByKey(srcArray,'num');
+        if(sortSrcArray[0].body == null){
+          if(ob.srcERR){
+            e.src =  G_SRC(ob.srcERR);
+          }
+        }else{
+          for(var i = 0 ; i < sortSrcArray.length; i++){
+            imgSrc += sortSrcArray[i].body;
+          }
+          e.src = imgSrc;
+      }
+      }else{
+        e.src = G_SRC(data[ob.srcQ]);
+      }
+      
+      }else if(ob.srcQ && !data[ob.srcQ]){
+        if(ob.srcERR){
+          e.src =  G_SRC(ob.srcERR);
+        }
+      }
+      if(ob.srcERR && ob.src){
+        const srcERR = G_SRC(ob.srcERR);
+          e.setAttribute("onerror",`()=>{return this.src='${srcERR}';}`);
       }
     ///set global variables
   
@@ -4178,23 +4751,22 @@ if(ob.forkey){
       elmCount = elmCount+1;
       ob.i =  `${id}_${ob.offset ?ob.offset:0 }_${elmCount}`;
     }
-  ob.i = replacePatternId(ob.i,data);
+    ob.i = replacePatternId(ob.i,data);
  
    ob.i = ob.i.replace(/ , /g, ''); // missing comma
   }
 
-  
-  if(ob.limitAuto){
-    CR_({i:`${ob.i}_limitHolder`},id,data);
-    makeLimitAuto(ob,data);
-    
-  }
+ 
+
   if(body.t && body.t == 'in' && body.label || body.t && body.t == 'in' && body.mod === 'checkbox'){
+   
     const inputLabelHolder = {
       t:'label',
       i:`${ob.i}_inputHolder`
     }
+
     CR_(inputLabelHolder,id,data);
+
     id = `${ob.i}_inputHolder`;
 
   }
@@ -4203,12 +4775,13 @@ if(ob.forkey){
     // select type
    
       if(ob.mod == 'phonecode'){
-        ob.data = { order:'countries' }
+        ob._IQuery_ = { order:'countries' }
       }
    
       isHideElement = true;
       holder.t      = 'span';
       holder.i      = `${ob.i}_holder`;
+
   }
   
   // up = make is the element appended to parent
@@ -4218,6 +4791,7 @@ if(ob.forkey){
   let isCheckboxOverClass = '';
   if(ob.t === 'code'){
     if( ob.code ){
+
       const strCode = JDS_(i_app_select_lang[ob.code]);
      
       e.innerHTML = styleCodeContent(strCode);
@@ -4228,26 +4802,32 @@ if(ob.forkey){
     const copyToClipBoard = {t:'icon',c:'ICO-copy F_S_15 PD_5  B_R_5 POS_AB RR_0 TT_0 F_B pointer tooltip',e:[{s:'Copied',c:'tooltiptext'}],a:{fn(){copyInnerTextToClipboard(e);}}};
     ob.e = ob.e?ob.e:[];
     ob.e.push(copyToClipBoard);
-  }else
+
+  }else{
+
   if(ob.s || ob.txt){
+
   const st = ob.s ? ob.s : ob.txt;
   const txt = eTxt(st,ob.i,data);
+
     if(ob_type == "in" ){
+
       e.placeholder = txt !== undefined ? txt : '';
       let displayLabel = "D_N";
  
       if(ob.mod === 'checkbox'){
       
-        ob.label = true;
-        if(ob.val){
-          e.checked = true;
-        }
-        isCheckbox = true;
-        isCheckboxOverClass = ob_css ? ob_css : '';
-        displayLabel = 'switch';
-        ob_css_list.push('D_N');
-  
-        ob_css = ' D_N';
+          ob.label = true;
+
+          if(ob.val){
+            e.checked = true;
+          }
+          isCheckbox = true;
+          isCheckboxOverClass = ob_css ? ob_css : '';
+          displayLabel = 'switch';
+          ob_css_list.push('D_N');
+    
+          ob_css = ' D_N';
       }
       if(ob.label){
    
@@ -4255,11 +4835,13 @@ if(ob.forkey){
        
         
         if(!isCheckbox && ob.val || !isCheckbox && ob.vq){
-          displayLabel = ""
+          displayLabel = "";
         }
+
         if(ob.labelClass){
           userClass = ob.labelClass;
         }
+
         let labelTop = ''; 
         if(ob.labelLeft){
           labelTop = 'NW_100'; 
@@ -4280,7 +4862,7 @@ if(ob.forkey){
           
         }
         CR_(label,id,false);
-        id = `${ob.i}_inputHolder`
+        id = `${ob.i}_inputHolder`;
         e.addEventListener('input',()=>{
        
           if(E_I_V(ob.i) == ''){
@@ -4291,12 +4873,15 @@ if(ob.forkey){
         });
       }
     }else{
+
       if(ob.write){
+
         const speed = ob.write.speed ?  ob.write.speed: 100;
         const callBack = ()=>  typeString(ob.i,txt,speed);
         setTimeout(callBack,300);
 
       }else if(ob.writeWait){
+        
         let speed = 100;
         if(ob.writeWait.speed){
             speed =  ob.writeWait.speed;
@@ -4310,6 +4895,7 @@ if(ob.forkey){
     
     }
   }
+}
 
   if(ob_type == "in"){
     if(ob.mod){
@@ -4344,7 +4930,9 @@ if(ob.forkey){
     }
     
   }
+
  if(ob.t === 'img'){
+
   if(ob.alt){
     e.setAttribute("alt",ob.alt);
     e.alt = ob.alt;
@@ -4359,6 +4947,7 @@ if(ob.forkey){
     }
     
   }
+
  }
   /// handel element style
   if(ob.style){
@@ -4368,8 +4957,9 @@ if(ob.forkey){
     let iconTheme =i_app_theme === 'light'?'ICO-moon':'ICO-sun';
     ob_css = ob_css + " "+iconTheme; 
   }
+
   if(ob_css !== null){
-  e.className = U_CSS(ob_css);
+    e.className = U_CSS(ob_css);
   }
   /**
   * before append options 
@@ -4377,14 +4967,17 @@ if(ob.forkey){
   if (ob.name) {
     e.setAttribute("name", ob.name);
   }
+
   if(ob.attr){
     for (const [k, v] of Object.entries(ob.attr)) {
       e.setAttribute(k, v);
-      }
+    }
   }
-  if ( ob.TiTx) {
-  cr_ob_title(ob,id,e);
+
+  if( ob.TiTx) {
+    cr_ob_title(ob,id,e);
   }
+
   if (ob.col) {
     e.setAttribute("colspan", ob.col);
   }
@@ -4392,18 +4985,23 @@ if(ob.forkey){
   if (ob.row) {
     e.setAttribute("rowspan", ob.row);
   }
+
   if (ob.spellcheck) {
     e.setAttribute("spellcheck", ob.spellcheck);
   }
+
   if (ob.contenteditable) {
     e.setAttribute("contenteditable", ob.contenteditable);
   }
+
   if (ob.role) {
     e.setAttribute("role", ob.role);
   }
+
   if (ob.dir) {
     e.setAttribute("dir", ob.dir);
   }
+
   if(e.type == 'tel'){
     e.setAttribute("pattern","[0-9]{3}-[0-9]{2}-[0-9]{3}");
   }
@@ -4413,55 +5011,93 @@ if(ob.forkey){
      HolderElement = CE_(HT_(holder));
      HolderElement.setAttribute("i", holder.i);
   }
+
   /**
   * append child to parent
   */
-  
-  if(isI_APP){
-  //set the basic screen object i_sc
-  i_sc.e = e;
-  // append to html body
+   e.i = ob.i;
+    let append = true;
+    if(!isI_APP && ob.replace){
+    E_I_S(id).replaceWith(e);
+     append = false;
+    }
+    if(ob.insertBefore){
+     const insertObBefore = ()=>{
+      const parentElm = E_I_S(ob.insertBefore).parentNode;
+      const targetElm = E_I_S(ob.insertBefore);
+      parentElm.insertBefore(e, targetElm); 
+       
+     }
+      if(E_I_S(ob.insertBefore)){
+        insertObBefore();
+      }else{
+        setTimeout(insertObBefore,600)
+      }
+      append = false;
+    }
+    if(isI_APP){
 
-  document.body.appendChild(e);
-  
-  if(holder.t){
-    document.body.appendChild(HolderElement);
+        //set the basic screen object i_sc
+        i_sc.e = e;
+        // append to html body
+        if(append){
+          document.body.appendChild(e);
+        
+        }
+        
+        
+        if(append && holder.t){
 
-  }
+          document.body.appendChild(HolderElement);
+
+        }
 
 
-  up = true;
-  
-  }else if(id && E_I(id)){
-  // append to element have public id
-  if(!isHideElement){
-  E_I(id).appendChild(e);
-  }
-  if(holder.t){
-  E_I(id).appendChild(HolderElement);
-  }
-  up =true;
-  
-  }else if(id && E_I_S(id)){
-  // append to element have privte id
-  if(!isHideElement){
-  E_I_S(id).appendChild(e);
-  }
-  if(holder.t){
-    E_I_S(id).appendChild(HolderElement);
-  }
-  up =true;
-  
-  }
+        up = true;
+    
+    }else if(id && E_I(id)){
+        // append to element have public id
 
+        if(append && !isHideElement){
+          E_I(id).appendChild(e);
+        }
+
+        if(append && holder.t){
+          E_I(id).appendChild(HolderElement);
+        }
+
+        up =true;
+    
+    }else if(id && E_I_S(id)){
+        // append to element have privte id
+        if(append && !isHideElement){
+          E_I_S(id).appendChild(e);
+        }
+
+        if(append && holder.t){
+          E_I_S(id).appendChild(HolderElement);
+        }
+        up =true;
+    
+    }
+   
+    if(ob.limitAuto){
+    
+      CR_({i:`${ob.i}_limitHolder`,insertBefore:ob.i},id,data);
+
+      makeLimitAuto(ob,data);
+    
+  }
    /**
   * 
   * ob options 
   * to create new elm
   * 
   */
-  
-    e.setAttribute('i',ob.i);//for develope {{{delete me for porduction}}}
+ if(app.mode == 'dev'){
+  e.setAttribute('i',ob.i);
+ }
+   
 
     ob.i_e = e;// link html elm to the ob 
     I_OB[ob.i] = ob;//set the ob in i-app objects tree define by i 
@@ -4470,7 +5106,7 @@ if(ob.forkey){
         if(ob.mod && ob.mod == 'phonecode'){
 
         }else{
-          if(!ob.data ){
+          if(!ob._IQuery_ ){
             selectElement(ob,data);
           }
          
@@ -4483,7 +5119,7 @@ if(ob.forkey){
       }
     }
      /// handel element event function
-  if(ob.a){
+  if(ob.a && !ob._IQuery_ ){
 
     ESF(ob);
     }
@@ -4509,9 +5145,9 @@ if(ob.forkey){
   }
   }
   
-  if(ob.data && !ob.I){
+  if(ob._IQuery_ ){
 
-    dataQuery(ob);
+    dataQuery(ob,data);
   
 }
   if(ob.IRoute || ob.I){
@@ -4520,40 +5156,45 @@ if(ob.forkey){
     
     if(! i_app_model[IROUTE] ){
     G_root(`${app.dir.src}${IROUTE}.${app.dir.file ? app.dir.file :'app'}`,L_ROUTE,[ob.i,data,IROUTE,ob]);
+
     }else if(i_app_model[IROUTE]){
-    
+     
      const I_R =COPY_OB(i_app_model[IROUTE]);
+     I_R.replace = true;
      for (const key in ob) {
      
-      if(key !== 'I' && key !== 'offset' && key !== 'i' && key !== 'i_e'){
-        if(key == 'c'){
-          const IObCls = ob.c ? ob.c : "";
-          const INObCls = I_R[key]? I_R[key]: "";
+      if(key !== 'I' && key !== 'offset' && key !== 'i' && key !== '_IQuery_' && key !== 'query' && key !== 'i_e'){
+          if(key == 'c'){
+            const IObCls = ob.c ? ob.c : "";
+            const INObCls = I_R[key]? I_R[key]: "";
+            
+            I_R[key] = IObCls +" "+ INObCls;
+          }else{
           
-          I_R[key] = IObCls +" "+ INObCls;
-        }else{
-         
-          I_R[key] = ob[key];
-        }
+            I_R[key] = ob[key];
+          }
      
 
       }
     }
       CR_(I_R,ob.i,data);
-  
+     
+    return true;
     }
   }
-
- 
-
-
   /**
    * input value update
    * ralted text ev.{}
    */
    if(ob_type == "in" ){
     if(isCheckbox){
-      
+      if(ob.val && ob.val == "1" ){
+        e.checked = true;
+        e.value = "1";
+      }else if(ob.val && ob.val == "0" ){
+        e.checked = false;
+        e.value = "0";
+      }
       CR_({c:'slider round '+isCheckboxOverClass},id,false)
     }
 
@@ -4613,7 +5254,11 @@ if(ob.forkey){
     }
     return res;
   }
-
+  function IS_PHONE_NUMBER(phoneNumber) {
+    // Regular expression to match a phone number in the format +XXXXXXXXXXXX
+    var phoneRegex = /^\+\d{12}$/;
+    return phoneRegex.test(phoneNumber);
+  }
   const IS_USERNAME = (un)=>{
     // Remove non-alphanumeric characters and ensure lowercase
     var filteredUsername = un.replace(/[^a-z0-9]/g, "").toLowerCase();
@@ -5189,7 +5834,12 @@ const createAppTxt =async(lang)=>{
         }
         return colorVal;
   }
-  
+  const getWhite =()=>{
+   return GET_COLOR("W");
+  }
+   const getBlack =()=>{
+    return GET_COLOR("B");
+   }
   const CREATE_COLOR_ROOT_VAR = async(colors,styleElm) => {
   
   var myRoot = '';
@@ -5415,7 +6065,7 @@ const createAppTxt =async(lang)=>{
                 }else{
                   style.insertRule(cls, 0);
                 }
-                CL_(['found',style.ownerNode.id ]);
+              
               }
 
           
@@ -5639,6 +6289,7 @@ const createAppTxt =async(lang)=>{
   let w = "";
   let b = "";
   
+  
   for (var l = 0; l < selectThemeColors.length; l++) {
       if (selectThemeColors[l].k == "W") { w = selectThemeColors[l].v; }
       if (selectThemeColors[l].k == "B") { b = selectThemeColors[l].v; }
@@ -5652,6 +6303,7 @@ const createAppTxt =async(lang)=>{
   /**
    * create and update Head Tag
    */
+   updateThemeColor();
    if(!theme){
  
   await  CREATE_COLOR_ROOT_VAR(i_app_theme_colors,"TC_ASS");
@@ -5677,6 +6329,15 @@ const createAppTxt =async(lang)=>{
     D_CL([i,"ICO-moon"]);
    } 
   }
+  
+  }
+  const updateThemeColor = ()=>{
+  
+  
+    let themeColor = selected_theme_colors.theme  ?  selected_theme_colors.theme  :  selected_theme_colors.PR_D;
+   const  themeElm = E_N("theme-color")[0];
+   themeElm.content = themeColor;
+
   }
   const switchTheme  = ()=>{
   
@@ -5696,12 +6357,12 @@ const createAppTxt =async(lang)=>{
     }
   }
 
-  const createAppContent = (i_app_OB) => {
+  const createAppContent = (i_app_OB,dataIncome) => {
     i_sc.ob = i_app_OB;
     const root = window.location.pathname.replace(/\//g,"");
     if(root == ''){
       const appRoot = app.dir.start.replace(/.app/g,'');
-      i_app_model[appRoot] = i_app_OB;
+      i_app_model[appRoot] =COPY_OB( i_app_OB);
     }
   
     createAppObjV(i_root);

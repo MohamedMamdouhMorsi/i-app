@@ -5,8 +5,7 @@
     "usersPasswords": ["userId","password"],
     "usersApps": ["id","appName","description"],
     "usersType": ["id","typeName","description"],
-    "typesApps": ["typeId","appId"],
     "permissions": ["id","permissionName","description"],
-    "appsPermissions": ["appId","permissionId"],
-    "usersPermissions": ["userId","appId","permissionId"]
+    "appsPermissions": ["appId","typeId","permissionId"],
+    "usersTypeAppsUsage":["appId","typeId","usageLimit"]
 }

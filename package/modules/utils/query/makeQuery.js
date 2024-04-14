@@ -45,7 +45,9 @@ const makeQuery = async(body,tables)=>{
           if(cureOB.ob.query[0].a === 'get'){
             return  querySize(cureOB,tables);
           }else if(cureOB.ob.query[0].a === 'getJ'){
-            return  querySizeJoin(cureOB,tables);
+          
+            $sql =  querySizeJoin(cureOB.ob.query[0],tables);
+            return  $sql ;
           }
             
         

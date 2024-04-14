@@ -21,7 +21,8 @@ const getAnswer = (userData,req,res)=>{
         res,
         callBack);
       };
-  db({
+
+    db({
         query:[
             {
                 a:'get',

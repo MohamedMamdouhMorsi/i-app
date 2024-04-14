@@ -22,7 +22,7 @@ const readAppData =async (makeAppServer)=>{
   // 
   let swScript = "";
 
-  const {tree,userDir,userPublicDir,i_app_path,assetArray,i_app_db_path} =await appDirFn();
+  const {tree,userDir,userPublicDir,i_app_path,assetArray,i_app_db_path} = await appDirFn();
 
     
 
@@ -74,12 +74,16 @@ if(!fs.existsSync(i_app_path)){
                       }
                   })[0];
   
-                  const PR_D = styleColor.filter(e=>{
+                  var PR_D = styleColor.filter(e=>{
                       if(e.k == "PR_D"){
                           return e.v;
                       }
                   })[0];
-                  
+                  PR_D = styleColor.filter(e=>{
+                    if(e.k == "theme"){
+                        return e.v;
+                    }
+                })[0];
                   manifest = manifestMaker(i_app,{PR_D : PR_D , PR : PR})
                   const server =   makeAppServer(port,[i_app, PR_D.v,manifest,tree,userDir,i_app_st,swScript,i_app_path]);
                     if(!fs.existsSync(i_app_db_path)){
@@ -92,8 +96,10 @@ if(!fs.existsSync(i_app_path)){
                 }
             });
           }else{
-            manifest = manifestMaker(i_app,false)
-         const server =   makeAppServer(port,[i_app, '#000',manifest,tree,userDir,i_app_st,swScript,i_app_path]);
+
+            manifest = manifestMaker(i_app,false);
+            const server =   makeAppServer(port,[i_app, '#000',manifest,tree,userDir,i_app_st,swScript,i_app_path]);
+
               if(!fs.existsSync(i_app_db_path)){
                 console.warn(messages.dbAlert);
               }else{

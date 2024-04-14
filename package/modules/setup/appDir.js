@@ -4,7 +4,7 @@ const getDirectoryArray = require('../utils/toolsFN/getDirectoryArray');
 const path = require('path');
 let treeState = false;
 let treeData = {}
-const appDir =async ()=>{
+const appDir = async ()=>{
     const userDir = path.dirname(require.main.filename); 
     const userPublicDir  = path.join(userDir, 'public');
    
@@ -15,9 +15,10 @@ const appDir =async ()=>{
         treeData = tree;
     }
   
-    const i_app_path = path.join(userDir, 'i.app');
+    const i_app_path    = path.join(userDir, 'i.app');
     const i_app_db_path = path.join(userDir, 'db.app');
-    const assetArray = ['/',...getDirectoryArray(treeData,'')];
+    const assetArray    = ['/',...getDirectoryArray(treeData,'')];
+    
     return{
         tree:treeData,
         userDir:userDir.toString(),

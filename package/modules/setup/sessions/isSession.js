@@ -11,10 +11,12 @@ const isSession =  (req)=>{
 
 
     let cookies = req.headers.cookie ? req.headers.cookie.split('; ') : [];
-    let deviceId ,timestamp,userId;
+    let deviceId , timestamp, userId;
     
     for (let cookie of cookies) {
+      
       let [name, value] = cookie.split('=');
+
           if (name === 'deviceId') {
             deviceId = value;
           } else  if (name === 'timestamp') {
@@ -28,13 +30,14 @@ const isSession =  (req)=>{
      
       const authSt = `${fingerPrint}-${timestamp}`;
       const cureDeviceId = creatAUTH(authSt);
+
       if(deviceId === cureDeviceId){
       const chickUserData = routerUsers.get(userId);
     
         if(chickUserData.id && chickUserData.id  > 0){
-        return true;
-        }else{
-        return false;
+            return true;
+          }else{
+            return false;
         }
     }
 }

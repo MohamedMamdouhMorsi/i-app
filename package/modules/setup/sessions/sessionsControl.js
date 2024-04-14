@@ -12,12 +12,14 @@ const sessionsControl = async (req,res,app,data)=>{
     const fingerPrint     = deviceInfo.fingerPrint;
     const timestamp_      = new Date(Date.now());
     const expires         = new Date(Date.now() + 9000);
-   
+    const is_logOut = req.url == "/logout" ? true : false;
     let cookies = req.headers.cookie ? req.headers.cookie.split('; ') : [];
     let deviceId , timestamp, userId;
     
     for (let cookie of cookies) {
+
       let [name, value] = cookie.split('=');
+
       if (name === 'deviceId') {
         deviceId = value;
       } else  if (name === 'timestamp') {
@@ -25,6 +27,7 @@ const sessionsControl = async (req,res,app,data)=>{
       } else if (name === 'userId') {
         userId = value;
       }
+
     }
     
     if (userId && userId !== undefined && deviceId && deviceId !== undefined && timestamp && timestamp !== undefined) {
@@ -36,15 +39,16 @@ const sessionsControl = async (req,res,app,data)=>{
         const chickUserData = routerUsers.get(userId);
             
           const isUser = (res_,res)=>{
+
                 delete checkDB[deviceId];
-             
-                if(res_.length > 0){
+
+                if(  res_.length > 0){
                
                     if(chickUserData.id && chickUserData.id  > 0 ){
                       if(chickUserData.deviceToken ){
                         if(cureDeviceId === chickUserData.deviceToken){
                             userData =  res_[0];
-
+                          
                             const isUserCallback = (connectToken)=>{
                            
                               if(connectToken.length > 0){
@@ -55,40 +59,50 @@ const sessionsControl = async (req,res,app,data)=>{
                                   DT: connectToken[0].deviceToken,
                                   CT: connectToken[0].connectToken
                                 }
+
                                 if(connectToken[0].userId && connectToken[0].userId !== 0){
                                   db({
-                                  query:[
-                                      {
-                                          a:'del',
-                                          n:'answers',
-                                          q:[[[2,connectToken[0].userId,'eq']]],
-                                          l:'0'
-                                      }
-                                      ]
+                                      query:[
+                                          {
+                                              a:'del',
+                                              n:'answers',
+                                              q:[[[2,connectToken[0].userId,'eq']]],
+                                              l:'0'
+                                          }
+                                          ]
                                       },
                                       res,
                                       ()=>{});
-                                    }
+                                }
+
                                 db({
                                   query:[
-                                      {
-                                          a:'up',
-                                          n:'usersSessions',
-                                          d:[[5,'FALSE']],
-                                          q:[[[1,connectToken[0].userId,'eq']]],
-                                          l:1
-                                      }
+                                        {
+                                            a:'up',
+                                            n:'usersSessions',
+                                            d:[[5,'FALSE']],
+                                            q:[[[1, connectToken[0].userId, 'eq']]],
+                                            l:1
+                                        }
                                       ]
                                       },
-                                          res,
-                                          ()=>{
-                                            console.log('offer deleted')
-                                          });
+                                      res,
+                                      ()=>{
+                                        console.log('offer deleted')
+                                      });
                               }
                               req.user = userData;
                               routerUsers.set(userData);
-                             
-                              app(req,res,data, userData);
+                              const permissionCallback = (userPermissions)=>{
+                                if(userPermissions.length > 0){
+                                  userData.permissions = userPermissions;
+                                 
+                                }else{
+                                  userData.permissions = [];
+                                }
+                                app(req,res,data, userData);
+                              }
+                              getPermissions(userData.userType,permissionCallback);
 
                             }
                        
@@ -105,6 +119,7 @@ const sessionsControl = async (req,res,app,data)=>{
                       }
                      
                   }  else{
+
                     userData =  res_[0];
                     const isUserCallback = (connectToken)=>{
                     
@@ -147,12 +162,26 @@ const sessionsControl = async (req,res,app,data)=>{
                                       console.log('offer deleted')
                                     });
                       }
+
                       req.user = userData;
                       routerUsers.set(userData);
                       delete checkDB[deviceId];
                      
-                      app(req,res,data, userData);
+                      const permissionCallback = (userPermissions)=>{
+
+                          if(userPermissions.length > 0){
+                            userData.permissions = userPermissions;
+                          
+                          }else{
+                            userData.permissions = [];
+                          }
+                        app(req,res,data, userData);
+                      }
+
+                      getPermissions(userData.userType,permissionCallback);
+
                     }
+
                     getConnection(userData.id, isUserCallback);
           
                   }
@@ -164,8 +193,77 @@ const sessionsControl = async (req,res,app,data)=>{
               
                       app(req,res,data, userData);
                 }
+                
           }
-
+          const getPermissions = (typeId,call_Back)=>{
+            console.log(["userID",userId])
+            db({
+              query:[
+                {
+                  a:'getJ',
+                  n:'appsPermissions',
+                  q:[[[ 2, typeId,'eq']]],
+                  s:["A"],
+                  l:0,
+                  j: [{
+                    n: "permissions",
+                    q: [
+                        [
+                            [ 
+                              1,
+                              { 
+                                "t": "q",
+                                "d": "permissionId"
+                              }, 
+                                "eq"
+                            ]
+                        ]
+                    ],
+                    s: ["A"],
+                    l: 1
+                },{
+                  n: "usersApps",
+                  q: [
+                      [
+                          [ 
+                            1,
+                            { 
+                              "t": "q",
+                              "d": "appId"
+                            }, 
+                              "eq"
+                          ]
+                      ]
+                  ],
+                  s: ["appName"],
+                  l: 1
+              },{
+                n: "usersTypeAppsUsage",
+                q: [
+                    [
+                        [ 
+                          1,
+                          { 
+                            "t": "q",
+                            "d": "appId"
+                          }, 
+                            "eq"
+                        ],[ 
+                          2,
+                          typeId, 
+                            "eq"
+                        ]
+                    ]
+                ],
+                s: ["usageLimit"],
+                l: 1
+            }]
+                  }
+                ]
+              },
+            res,
+            call_Back);
+          }
           const getConnection = (id,callBack)=>{
        
             db({

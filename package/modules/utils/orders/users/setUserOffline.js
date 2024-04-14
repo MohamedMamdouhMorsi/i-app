@@ -16,6 +16,7 @@ const setUserOffline =(body,req,res)=>{
                 false);
 
     routerUsers.del(req.user.deviceToken);
+ 
     res.writeHead(200, { 'Content-Type': 'application/json'});
     res.end(JSON.stringify({ res: true}));
 

@@ -18,6 +18,7 @@ const valueFN = (ob,master)=>{
 }
 const orAndOptionJoin =(op,tables, tableName,master)=>{
     const table = tables[tableName];
+   
     let opText = "";
     for(var orOp = 0 ; orOp < op.length; orOp++){
         const OrOB = op[orOp];
@@ -25,9 +26,14 @@ const orAndOptionJoin =(op,tables, tableName,master)=>{
         for(var andOp = 0; andOp < OrOB.length; andOp++){
             const AndOB = OrOB[andOp];
            
-            let columnIndex = AndOB[0] ;
-            let columnName ;
-            if(typeof columnIndex === 'string' ){
+            const columnIndex = AndOB[0] ;
+            var columnName = "";
+            if(typeof columnIndex === 'number' ){
+               const columnIndex_ = columnIndex - 1;
+                const columnName_ = table[columnIndex_];
+                columnName = `${tableName}.${columnName_}`;
+            
+           }else if(typeof columnIndex === 'string' ){
                 let coulmnExist = false;
                 for(var i = 0 ; i < table.length; i++){
                     if(table[i] == columnIndex){
@@ -37,10 +43,8 @@ const orAndOptionJoin =(op,tables, tableName,master)=>{
                 if(coulmnExist){
                     columnName = `${tableName}.${columnIndex}`;
                 }
-            }else if(typeof columnIndex === 'number' ){
-                 columnIndex = columnIndex - 1;
-                 columnName = `${tableName}.${table[columnIndex]}`;
-            }
+              
+            } 
             const realtionText = AndOB[2]
             const realtion = realationSympole[realtionText] ? realationSympole[realtionText] : 'false';
             var ValueOB = AndOB[1];
@@ -49,6 +53,8 @@ const orAndOptionJoin =(op,tables, tableName,master)=>{
                 Value = valueFN(ValueOB,master);
             }else if(typeof ValueOB === 'string'){
                 Value = `'${ValueOB}'`
+            }else if(typeof ValueOB === 'number'){
+                Value = ValueOB
             }
             let AndText = '';
             

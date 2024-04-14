@@ -19,6 +19,6 @@ const checkQueryUptime = (ob)=>{
     }
    }
 
-        return `SELECT TABLE_NAME, UPDATE_TIME FROM  information_schema.tables WHERE ${tableName} `;
+        return `SELECT TABLE_NAME, UPDATE_TIME FROM  information_schema.tables WHERE ${tableName} ;`;
 }
 module.exports = checkQueryUptime

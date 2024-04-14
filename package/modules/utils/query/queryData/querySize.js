@@ -9,9 +9,16 @@ const querySize = (obs,tables)=>{
 
     const orAndOptionText   = orAndOption(ob.q,tables[tableName]);
     let   selectedColumn    = selectColumn([0]) ;
-    let   getText           = `SELECT ${selectedColumn} FROM ${tableName} WHERE ${orAndOptionText} `;
-
+    
+    if(ob.s && ob.s[0] == "A"){
+        const   getText =  "SELECT  *  FROM "+ tableName +" WHERE "+ orAndOptionText  +" ;";
         return getText;
+       }else{
+           const selectedColumn = selectColumn(ob.s);
+           const  getText =  "SELECT "+ selectedColumn +" FROM "+ tableName +" WHERE "+ orAndOptionText +" ;";
+           return getText;
+       }
+       
 
     }else{
 

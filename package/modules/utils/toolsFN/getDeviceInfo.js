@@ -52,7 +52,6 @@ function getBrowser(userAgent) {
     { regex: /msie/i, value: 'Internet Explorer' },
     { regex: /Trident/i, value: 'Internet Explorer' },
     { regex: /firefox/i, value: 'Firefox' },
-  
     { regex: /chrome/i, value: 'Chrome' },
     { regex: /edge/i, value: 'Edge' },
     { regex: /opera/i, value: 'Opera' },
@@ -107,20 +106,22 @@ function getDevice(userAgent) {
   return 'Computer';
 }
  function getDeviceInfo(req) {
+  
   const userAgent = getUserAgent(req);
   const ip = getIP(req);
   const os = getOS(userAgent);
   const browser = getBrowser(userAgent);
   const device = getDevice(userAgent);
   const fingerPrint = `${userAgent}-${os}-${browser}-${device}`;
+  
   return {
-    userAgent,
-    ip,
-    os,
-    browser,
-    device,
-    fingerPrint,
-  };
+          userAgent,
+          ip,
+          os,
+          browser,
+          device,
+          fingerPrint,
+        };
 };
 
 module.exports = getDeviceInfo

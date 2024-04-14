@@ -12,6 +12,7 @@ const checkUser = (userData,res)=>{
             res.end(JSON.stringify({ res: false}));
         }
     }
+
     db({query:[{a:'get',n:'users',l:'1',q:[[['phonenumber',userData.phonenumber,'eq']]]}]},false,callback);
  }else  if(userData.username){
     const callback =(dbres)=>{
@@ -19,6 +20,7 @@ const checkUser = (userData,res)=>{
             res.writeHead(200, { 'Content-Type': 'application/json'});
             res.end(JSON.stringify({ res: true}));
         }else{
+            
             res.writeHead(200, { 'Content-Type': 'application/json'});
             res.end(JSON.stringify({ res: false}));
         }

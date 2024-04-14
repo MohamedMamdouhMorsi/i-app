@@ -1,4 +1,5 @@
 const selectColumnJoin =(op,tableName,sn)=>{
+ 
     let opText = ""
     for(var i = 0 ; i < op.length; i++){
         const selectColumnName =sn[i]? ` AS ${sn[i]}` : ''; 
@@ -7,6 +8,7 @@ const selectColumnJoin =(op,tableName,sn)=>{
             opText += `, `;
         }
     }
+ 
     return opText;
 
 }

@@ -23,6 +23,43 @@ body {
     -moz-osx-font-smoothing: grayscale;
  
 }
+#VRButton{
+    display: none;
+}
+.iconStep{
+    position: absolute;
+    margin-top: 7px;
+    top:0;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    margin-left: 0;
+}
+.divStep{
+    display: inline-block;
+    left: 0;
+    float: left;
+    height: 35px;
+}
+.lineWStep{
+    background-color: #ffffff;
+    width: 100%;
+    margin-top: 15px;
+    left: 20px;
+    margin-bottom: 15px;
+    height: 5px;
+}
+
+.linePStep{
+    background-color: var(--PR);
+   
+    top: 0;
+    margin-top: 15px;
+    position: absolute;
+    left: 20px;
+    height: 5px;
+}
 /*
 code style
 */
@@ -205,6 +242,9 @@ font-family: 'Cairo'
 .FF_serif{
     font-family:serif;
 }
+.FF_sys{
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 
 body::-webkit-scrollbar {
     width: 10px;
@@ -266,7 +306,20 @@ svg:not(:root) {
     overflow: hidden;
 }
 
-
+/*
+Button Basic
+BT
+B_PR_D F_WHITE B_R_5 pT_5 pB_5 pR_10 pL_10 mT_10 ST_WHITE_2 MD
+*/
+.BT{
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: none;
+  
+}
 button,
 html input[type="button"],
 input[type="reset"],
@@ -431,11 +484,13 @@ dragable
 .hovTW:hover,
 .hovTW:focus{
 width: auto;
+
 filter: brightness(100%);
 }
 .hovTW{
     width: 10px;
     height: 30px;
+    transition: width 1s ease, filter 1s ease; 
 }
 .hovTW{
     overflow: hidden;
@@ -444,7 +499,8 @@ filter: brightness(100%);
     content: '\22EE';
     font-size: 14px;
     line-height: 0;
-    color: var(--B);
+    
+    cursor: pointer;
 }
 .selectIcon::after{
     content: '\25be';
@@ -454,7 +510,7 @@ filter: brightness(100%);
 }
 .hovTW:hover:before,
 .hovTW:hover:focus{
-   display: none;
+  display: none;
 }
 .HOV:hover ,
 .HOV:focus  {
@@ -491,6 +547,10 @@ filter: brightness(100%);
 .HOVCPRD:hover ,
 .HOVCPRD:focus  {
     color: var(--PR_D);
+}
+.HOVBPRD:hover ,
+.HOVBPRD:focus  {
+    background: var(--PR_D);
 }
 .HOVCWHITE:hover ,
 .HOVCWHITE:focus  {
@@ -758,6 +818,10 @@ GLASS
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+.BBST{
+    background: rgb(0,0,0);
+background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(241,241,241,0) 100%);
+}
 /****************************************************
 auto class
 */
@@ -983,7 +1047,7 @@ custom element
     border: none;
     border-bottom: 4px solid var(--PR);
     color:var(--B);
-    padding: 5px 10px;
+    padding: 4px 10px;
 
 }
 .inputLabel{
@@ -995,7 +1059,7 @@ custom element
 .switch {
     position: relative;
     display: inline-block;
-    width: 45px;
+    width: 100px;
     height: 22px;
 }
 
@@ -1017,6 +1081,7 @@ custom element
     width: 45px;
     height: 22px;
     top: 0;
+    padding: 5px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -1046,10 +1111,11 @@ custom element
 
 .slider.round:before {
     border-radius: 50%;
+    position: absolute;
 }
 
 .Ztop {
-    z-index: 10;
+    z-index: 999;
 }
 
 /* @media */
@@ -1245,6 +1311,20 @@ animation class
 /**
 */
 
+.closeSlide{
+    animation: anmiCloseSlide 6000 ease-in;
+    overflow: hidden;
+    height: 0px;
+}
+
+@keyframes anmiCloseSlide{
+    0%{
+        height: auto;
+    }
+    100%{
+        height: 0px;
+    }
+}
 .ani_maxHight{
     -webkit-transition: max-height 1s; 
     -moz-transition: max-height 1s; 
@@ -1315,6 +1395,9 @@ control degree
 
 .rotate_90{
     transform: rotate(90deg);
+}
+.rotate_m90{
+    transform: rotate(-90deg);
 }
 .rotate_180{
     transform: rotate(180deg);
@@ -2012,4 +2095,100 @@ margin: 30px auto 0 auto;
     100%{
         background-color: hsl(200, 20%, 95%);
     }
+}
+.VRICON{
+    position: fixed;
+    bottom: 10px;
+    right: 5%;
+    cursor: pointer;
+    font-size: 50px;
+    color: #fff;
+}
+
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    animation: fadeInOut 3s ease-in-out forwards;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.OV_YA{
+    overflow-y:auto ;
+    height: 80vh;
+}
+.slideC {
+    width: 100%; /* Set the width of the container */
+    overflow: hidden; /* Hide any content that overflows the container */
+}
+
+.slideW {
+    display: flex; /* Use flexbox for horizontal layout */
+    transition: transform 0.5s ease; /* Smooth transition for sliding effect */
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.slideI {
+    flex: 0 0 auto; /* Prevent items from growing or shrinking */
+    width: 20%; /* Set width of each slide */
+    min-width: 200px;
+    margin-right: 10px; /* Adjust spacing between slides */
+}
+
+/* Optional: Hide horizontal scrollbar */
+
+
+div.slideW::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+   
+}
+
+div.slideW::-webkit-scrollbar-thumb {
+    background: var(--PR);
+    border-radius: 10px;
+}
+
+div.slideW::-webkit-scrollbar-track {
+    background: var(--W);
+    position: absolute;
+    display:flow-root;
+}
+.dragC{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.dragIcon{
+    cursor: grab;
+display: block;
+    width: 100%;
+}
+.notDrag.notDragStart{
+    pointer-events: none;
+}
+.dragI.dragging {
+    opacity: 0.5;
+   
 }

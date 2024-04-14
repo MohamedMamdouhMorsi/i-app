@@ -6,11 +6,14 @@ const getContentType = (extname) => {
         return 'text/css';
       case '.js':
         return 'text/javascript';
+        case '.mjs':
+          return 'text/javascript';
       case '.json':
         return 'application/json';
       case '.png':
         return 'image/png';
-      case '.jpg':
+        case '.hdr':
+        case '.jpg':
       case '.jpeg':
         return 'image/jpeg';
       case '.ico':

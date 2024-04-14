@@ -8,6 +8,7 @@ const updateQuery = (ob,tables)=>{
     const upData = setUpData(ob.d,tables[tableName])
     const limit = ob.l && ob.l.toString() == '0' ? '' : `LIMIT ${ob.l.toString()}`; 
     let getText = `UPDATE ${tableName} SET ${upData} WHERE ${orAndOptionText} ${limit}`;
+    console.log(getText);
         return getText;
     }else{
         console.log(`table ${tableName} is not exist`);

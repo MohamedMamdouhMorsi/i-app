@@ -1,16 +1,20 @@
 const orders = require('./orders/orders');
-const query = require('./query/query');
-const apiRes = (body,req,res,i_app_path,i_app)=>{
+
+const UpdateQueryInput = require('./query/UpdateQueryInput');
+const apiRes =async (body,req,res,i_app_path,i_app,userDir)=>{
 
 const data = JSON.parse(body);
-
+console.log(data);
     if(data.order){
         // do order
        return  orders(data, req, res, i_app_path, i_app);
        
     }else if(data.query){
         // do query
-        return query(data,res);
+
+const body_ = await UpdateQueryInput(data,userDir,i_app,res);
+
+      
     }else{
         res.writeHead(400, { 'Content-Type': 'application/json'});
         res.end(JSON.stringify({ message: 'Invalid request method' }));

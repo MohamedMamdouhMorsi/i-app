@@ -1,105 +1,124 @@
 
-const isSession = require('./sessions/isSession');
+const isSession       = require('./sessions/isSession');
 const sessionsControl = require('./sessions/sessionsControl');
-const sessionData = require('./sessions/sessionData');
-const {api} = require('../main');
-const {getfileName} = require('../tools');
-const path = require('path');
-const fs = require('fs');
-const is_api_ = require('./middelWare/is_api');
-const is_app_ = require('./middelWare/is_app');
-const is_asset_ = require('./middelWare/is_asset');
-const is_route_ = require('./middelWare/is_route');
-const app_file = require('./middelWare/app_file');
-const asset_file = require('./middelWare/asset_file');
-const route_file = require('./middelWare/route_file');
-const router = require('../utils/router/router');
-const routerPost = require('../utils/router/routerPost');
-const middleWareApp = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path])=>{
-  const url = req.url;
-  const is_user = isSession(req);
-  const appWare = (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path],userData)=>{
-    req.user = userData;
+const sessionData     = require('./sessions/sessionData');
+const {api}           = require('../main');
+const {getfileName}   = require('../tools');
+const path            = require('path');
+const fs              = require('fs');
+const is_api_         = require('./middelWare/is_api');
+const is_app_         = require('./middelWare/is_app');
+const is_asset_       = require('./middelWare/is_asset');
+const is_route_       = require('./middelWare/is_route');
+const app_file        = require('./middelWare/app_file');
+const asset_file      = require('./middelWare/asset_file');
+const route_file      = require('./middelWare/route_file');
+const router          = require('../utils/router/router');
+const routerUsers     = require('../utils/router/routerUsers');
+const routerPost      = require('../utils/router/routerPost');
+const logOut          = require('../utils/orders/users/logoutUser');
 
-    if (req.method === 'POST') {
-      if(res.destroySession){
-        console.log('res.destroySession')
-        res.writeHead(400, { 'Content-Type': 'text/html' });
-        res.end(JSON.stringify({ res: 'destroySession' }));
-      }else{
-      const is_api   = is_api_(url);
-      if(is_api){
-        return api(req,res,i_app_path,i_app);
-      }else{
-  
-        const userRouterPost =  routerPost.match(req,res);
-        if(!userRouterPost){
-          res.writeHead(200, { 'Content-Type': 'text/html' });
-          res.end('<h1>500 Internal Server Error</h1><p>Sorry, there was a problem loading the requested URL.</p>');
-        }
-      }}
-    }else if(req.method === 'GET'){
-  
-    const userRouter =  router.match(req,res);
-    if (req.url.match(/models/)) {
+const middleWareApp   = async (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path])=>{
+
+    const url       = req.url;
+    const is_logOut = req.url == "/logout" ? true : false;
+   
+    const is_user   = isSession(req);
+
+    const appWare =async (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path],userData)=>{
       
-      const model = req.url.replace(/\/models\//,'');
-  
-      filePath = path.join(__dirname, '..','..','lib','models',model);
-      fs.readFile(filePath, (err, data) => {
-        if (err) {
-      
-         res.writeHead(500, { 'Content-Type': 'text/html' });
-         res.end('<h1>500 Internal Server Error</h1><p>Sorry, there was a problem loading the requested URL.</p>');
-        } else {
-     
-     
-           res.writeHead(200, { 'Content-Type':'text/html' });
-           res.end(data);
-      
-        return true;
-        }
-      });
-      return true;
-  }
-    if(!userRouter){
-  
-  
-      const path = require('path');
- 
-      const extname = path.extname(req.url);
-      const is_app   = is_app_(extname);
-      const is_asset = is_asset_(extname);
-      const is_route = is_route_(extname);
-      const fileName = getfileName(req);
-  
-      if(is_app){
-        return app_file(req,res,extname,fileName,manifest,i_app_st,tree,userDir,i_app);
-      }else if(is_asset){
-        return asset_file(req,res,userDir,swScript,userData);
-      }else if(is_route){
-        return route_file(req,res,i_app,colorPR_D);
-      }else{
-        res.writeHead(400, { 'Content-Type': 'text/html' });
-        res.end('<h1>500 Internal Server Error</h1><p>Sorry, there was a problem loading the requested URL.</p>');
-      }
-           
-  
-  
+          req.user = userData;
+          if(is_logOut){
+   
+            res =  logOut(req,res);
+           }
+          if (req.method === 'POST') {
+            if(res.destroySession){
+              console.log('res.destroySession')
+              res.writeHead(200, { 'Content-Type': 'text/html' });
+              res.end(JSON.stringify({ res: 'destroySession' }));
+            }else{
+            const is_api   = is_api_(url);
+            if(is_api){
+              return api(req,res,i_app_path,i_app,userDir);
+              
+            }else{
+        
+              const userRouterPost =  routerPost.match(req,res);
+              if(!userRouterPost){
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.end('<h1>500 Internal Server Error</h1><p>Sorry, there was a problem loading the requested URL.</p>');
+              }
+            }}
+          }else if(req.method === 'GET'){
+            
+
+          
+            
+   
+            const userRouter =  router.match(req,res);
+              if (req.url.match(/models/)) {
+                
+                const model = req.url.replace(/\/models\//,'');
+            
+                filePath = path.join(__dirname, '..','..','lib','models',model);
+                fs.readFile(filePath, (err, data) => {
+                  if (err) {
+                
+                  res.writeHead(500, { 'Content-Type': 'text/html' });
+                  res.end('<h1>500 Internal Server Error</h1><p>Sorry, there was a problem loading the requested URL.</p>');
+                  } else {
+              
+              
+                    res.writeHead(200, { 'Content-Type':'text/html' });
+                    res.end(data);
+                
+                  return true;
+                  }
+                });
+                return true;
+            }
+
+                  if(!userRouter){
+                
+                
+                    const path = require('path');
+              
+                    const extname = path.extname(req.url);
+                    const is_app   = is_app_(extname);
+                    const is_asset = is_asset_(extname);
+                    const is_route = is_route_(extname);
+                    const fileName = getfileName(req);
+                
+                      if(is_app){
+                        return app_file(req,res,extname,fileName,manifest,i_app_st,tree,userDir,i_app);
+                      }else if(is_asset){
+                        return asset_file(req,res,userDir,swScript,userData);
+                      }else if(is_route){
+                        return route_file(req,res,i_app,colorPR_D);
+                      }else{
+                        res.writeHead(400, { 'Content-Type': 'text/html' });
+                        res.end('<h1>500 Internal Server Error</h1><p>Sorry, there was a problem loading the requested URL.</p>');
+                      }
+                        
+                
+                
+                  }
+
+          }
     }
+
+    if (i_app.users ) {
+
+          if(is_user){
+            sessionData(req,res,appWare, [i_app, colorPR_D, manifest,tree,userDir,i_app_st,swScript,i_app_path]);
+          }else{
+            sessionsControl(req,res, appWare, [i_app, colorPR_D, manifest,tree,userDir,i_app_st,swScript,i_app_path]);
+          }
+    }else  {
+      appWare(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path], {id:0,notBasic:true});
+      
     }
-
-
 }
-  if (i_app.users ) {
-    if(is_user){
-      sessionData(req,res,appWare,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path]);
-    }else{
-      sessionsControl(req,res,appWare,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path]);
-    }
-  }else  {
-    appWare(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path], {id:0,notBasic:true});
-    
-  }
-}
+
 module.exports = middleWareApp

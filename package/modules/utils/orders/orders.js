@@ -10,6 +10,7 @@ const dataBaseReport =  require('./users/dataBaseReport');
 const updateAppData =  require('./app/updateAppData');
 const updateTranslate =  require('./app/updateTranslate');
 const updateIcons =  require('./app/updateIcons');
+const saveImage =  require('./app/saveImage');
 const updateTxt =  require('./app/updateTxt');
 const serverOffer  = require('./servers/serverOffer');
 const serverAnswer  = require('./servers/serverAnswer');
@@ -48,6 +49,8 @@ const orders  =(body,req,res,i_app_path,i_app)=>{
       return updateTxt(body,res,i_app_path,i_app);
    }else   if(body.order === 'uploadIcons'){
       return updateIcons(body,res,i_app_path,i_app);
+   }else   if(body.order === 'saveImage'){
+      return saveImage(body,res,i_app_path,i_app);
    }else{
       res.writeHead(200, { 'Content-Type': 'application/json'});
       res.end(JSON.stringify({ res: false}));

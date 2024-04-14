@@ -1,6 +1,6 @@
 
-const symbol  = ["►","◄","▲","▼","я","з","л","ь","д","Ф","ф","и","й","ч","ш","ж","я","Д","Э","Ц","щ","г","п","б","ъ","Ю","ä","ß","ü","Ü","ö","ñ","è","ê","É","à"]
-const keys    = ["☺","☻","♥","♦","♣","♠","~"];
+const symbol  = ["►","◄","▲","▼","я","з","л","ь","д","Ф","и","й","ч","ш","ж","я","Д","Э","Ц","щ","г","п","б","ъ","Ю","ä","ß","ü","Ü","ö","ñ","è","ê","É","à"];
+const keys    = ["☺","☻","♥","♦","♣","♠","ф"];
 const indexes = [9,8,7,6,5,4,2];
 const letterToNumber = {};
 const numberToLetter = {};
@@ -691,12 +691,16 @@ const _SERVER_START = ([_,user])=>{
                 if(window.app_S[s].str == "u"){
 
                         this.MW_DNS = ll;
-                        const offerToSend = _.DC_(_.JDS_(ll));
+                        
+                        const JDSData =_.JDS_(ll);
+                        
+                        const offerToSend = _.DC_(JDSData);
+                        _.CL_(offerToSend)
                         const serverOfferCallback = (res)=>{
                                 setTimeout(getAnswer,6000);
                             
                         }
-                        _._POST('/api',{ order:'serverOffer', dns:offerToSend}, serverOfferCallback);
+                        _._POST('/api',{ order:'serverOffer', dns:`${offerToSend}`}, serverOfferCallback);
                         
                     //  GU_(1);
                 }
@@ -710,7 +714,7 @@ const _SERVER_START = ([_,user])=>{
 
                 const serverOfferCallback = ()=>{
 
-                    console.log("Data Offer");
+                    console.log(["Data Offer",connectionDeviceToken]);
                     
                 }
 
@@ -917,10 +921,12 @@ const _SERVER_START = ([_,user])=>{
             ans.ans = window.app_S[s].answerGR ;
             ans.candidate = window.app_S[s].candidate;
             ans.key = window.app_S[s].key;
-           
+            const JDSData = _.JDS_(ans);
+           const data =_.DC_(JDSData);
+            _.CL_(['data',data]);
             _._POST('/api', {
                 order:'serverAnswer',
-                dns:_.DC_(_.JDS_(ans)),
+                dns:`${data}`,
                 owner:window.app_S[s].ownerDeviceTokken,
                 oid:window.app_S[s].oid
             },

@@ -5638,9 +5638,11 @@ icon {
 }
 
 .ICO-twitter:before {
-    content: "\ed7a";
+    content: "𝕏";
 }
-
+.ICO-X:before {
+    content: "𝕏";
+}
 .ICO-typo3:before {
     content: "\ed7b";
 }

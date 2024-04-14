@@ -6,9 +6,13 @@
         tabs:{
             cureBody:'appInfo'
             cureTab:'infoTab'
-
+     
         }
+        appPermissionsList:[]
+        typeNameList:[]
+        
     }
+   
     e:[
         {
             c:'WW'
@@ -126,7 +130,7 @@
                                                             _.E_I_S('heroImg').src = _.G_SRC('hero.png');
                                                             }else  if(_.theme == "dark"){
                                                         
-                                                            _.D_CL(['heroHolder', 'heroBack']);
+                                                            _.D_CL('heroHolder', 'heroBack');
                                                             _.A_CL('theme_icon', 'ICO-sun');
                                                                 _.E_I_S('heroImg').src = _.G_SRC('heroW.png');
                                                             }
@@ -146,10 +150,10 @@
                                     s:'info'
                                     a:{
                                         fn:{
-                                            _.D_CL([v.tabs.cureTab,'activeTab']);
+                                            _.D_CL(v.tabs.cureTab,'activeTab');
                                             _.A_CL(v.tabs.cureBody,'D_N');
                                             _.A_CL('infoTab','activeTab');
-                                            _.D_CL(['appInfo','D_N']);
+                                            _.D_CL('appInfo','D_N');
                                             v.tabs.cureTab = 'infoTab';
                                             v.tabs.cureBody = 'appInfo';
                                         }
@@ -162,10 +166,10 @@
                                     s:'dir'
                                     a:{
                                         fn:{
-                                            _.D_CL([v.tabs.cureTab,'activeTab']);
+                                            _.D_CL(v.tabs.cureTab,'activeTab');
                                             _.A_CL(v.tabs.cureBody,'D_N');
                                             _.A_CL('dirTab','activeTab');
-                                            _.D_CL(['appDir','D_N']);
+                                            _.D_CL('appDir','D_N');
                                             v.tabs.cureTab = 'dirTab';
                                             v.tabs.cureBody = 'appDir';
                                         }
@@ -178,10 +182,10 @@
                                     s:'lang'
                                     a:{
                                         fn:{
-                                            _.D_CL([v.tabs.cureTab,'activeTab']);
+                                            _.D_CL(v.tabs.cureTab,'activeTab');
                                             _.A_CL(v.tabs.cureBody,'D_N');
                                             _.A_CL('langTab','activeTab');
-                                                _.D_CL(['lang','D_N']);
+                                                _.D_CL('lang','D_N');
                                             v.tabs.cureTab = 'langTab';
                                             v.tabs.cureBody = 'lang';
                                         }
@@ -194,10 +198,10 @@
                                     s:'theme'
                                     a:{
                                         fn:{
-                                            _.D_CL([v.tabs.cureTab,'activeTab']);
+                                            _.D_CL(v.tabs.cureTab,'activeTab');
                                             _.A_CL(v.tabs.cureBody,'D_N');
                                             _.A_CL('themeTab','activeTab');
-                                                _.D_CL(['theme','D_N']);
+                                                _.D_CL('theme','D_N');
                                             v.tabs.cureTab = 'themeTab';
                                             v.tabs.cureBody = 'theme';
                                         }
@@ -209,14 +213,14 @@
                                     t:'b'
                                     i:'usersTab'
                                     c:'PD_10   mR_10 mL_10  F_B pointer D_N'
-                                    s:'users'
+                                    s:'system'
                                     perClass:{ data:'app' key:'users' value:'true'  delClass:'D_N'}
                                     a:{
                                         fn:{
-                                            _.D_CL([v.tabs.cureTab,'activeTab']);
+                                            _.D_CL(v.tabs.cureTab,'activeTab');
                                             _.A_CL(v.tabs.cureBody,'D_N');
                                             _.A_CL('usersTab','activeTab');
-                                            _.D_CL(['users','D_N']);
+                                            _.D_CL('users','D_N');
                                             v.tabs.cureTab  = 'usersTab';
                                             v.tabs.cureBody = 'users';
                                                 
@@ -226,6 +230,7 @@
                             ]
                         }
                     ]
+
                 }
                
                 {
@@ -251,4 +256,60 @@
             ]
         }
     ]
+                        a:{
+                        e:'auto'
+                        fn:{
+                             const queryA = {
+                                    _IQuery_: [ {
+                                                a: 'get',
+                                                n: 'usersType',
+                                                s: ['A'],
+                                                l: '0',
+                                                q: [
+                                                    [
+                                                        ['id', '0', 'uneq']
+                                                    ]
+                                                ]
+                                        }
+                                    ]
+                            };
+
+                            const queryB = {
+                                    _IQuery_: [ {
+                                                a: 'get',
+                                                n: 'permissions',
+                                                s: ['A'],
+                                                l: '0',
+                                                q: [
+                                                    [
+                                                        ['id', '0', 'uneq']
+                                                    ]
+                                                ]
+                                        }
+                                    ]
+                            };
+                                                    
+                            const getUserType = (data)=>{
+
+                                    if(data.res){
+
+                                        _.setV('typeNameList',data.res);
+                                      
+                                        
+                                    }
+                            };
+
+                            const getPermissions = (data_)=>{
+                                    
+                                    if(data_.res){
+                                         _.setV('appPermissionsList',data_.res);
+                                    
+                                  
+                                    }
+
+                            };
+                            _._POST('/api',queryB,getPermissions);
+                            _._POST('/api',queryA,getUserType);
+                        }
+                    }
 }

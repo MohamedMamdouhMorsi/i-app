@@ -1,8 +1,7 @@
 const mysqlConnect = require('./mysqlConnect');
 
-
 const query = (body,res_)=>{
-   
+  
     const callBack = (data,res,upTime,Qsize)=>{
         var Qsize_ = 0;
         if(typeof Qsize === 'number'){

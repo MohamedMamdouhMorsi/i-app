@@ -96,7 +96,8 @@
                                                                             }else{
                                                                                 _.A_CL('usersTab','D_N');
                                                                                   _.A_CL('users','D_N');
-                                                                                _.AL_('You will  deactivate users option that will deactivate  users system and will not effect or delete your database you can take the necessary action for this')
+                                                                                _.AL_('You will  deactivate users option that will deactivate  users system and will not effect or delete your database you can take the necessary action for this');
+
                                                                               v.app.users = 'false';
                                                                             }
                                                                         }
@@ -125,7 +126,7 @@
                                                                         
                                                                              v.app.mode = 'dev';
                                                                             }else{
-                                                                                _.AL_('You will switch the dev mode To return the application to development mode,  mode:dev  must be added to the i.app file')
+                                                                                _.AL_('You will switch the dev mode To return the application to development mode,  mode:dev  must be added to the i.app file');
                                                                               delete  v.app.mode;
                                                                             }
                                                                         }
@@ -149,7 +150,7 @@
                                                         ]
                                                      }
                                                 ]
-                                            }
+                                            };
                                              _.CR_( pwa,'appInfo',false);
                                             }
                                         }

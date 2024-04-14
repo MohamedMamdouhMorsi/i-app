@@ -8,22 +8,36 @@ const saveSpeechSynthesis = (body) => {
 
   if (fs.existsSync(filePath)) {
     fs.readFile(filePath, (err, data) => {
+
       if (err) {
+
         console.log("error :", err);
+
       } else {
+
         const dataSet = JSON.parse(data);
+
         for (var i = 0; i < inputData.length; i++) {
-          const dataName = inputData[i].name;
-          var notExist = true;
-          for (var x = 0; x < dataSet.length; x++) {
-            const dataSetName = dataSet[x];
-            if (dataSetName.name == dataName) {
-              notExist = false;
+
+            const dataName  = inputData[i].name;
+            var   notExist  = true;
+
+            for (var x = 0; x < dataSet.length; x++) {
+
+                const dataSetName = dataSet[x];
+
+                  if (dataSetName.name == dataName) {
+
+                      notExist = false;
+
+                  }
             }
-          }
-          if (notExist) {
-            dataSet.push(inputData[i]);
-          }
+
+            if (notExist) {
+
+                dataSet.push(inputData[i]);
+
+            }
         }
         fs.writeFileSync(filePath, JSON.stringify(dataSet, null, 2));
       }

@@ -1,9 +1,9 @@
 const selectColumn =(op)=>{
     let opText = "";
     for(var i = 0 ; i < op.length; i++){
-        opText += ` ${op[i]}`;
+        opText += " `"+op[i]+"` ";
         if(op[i+1]){
-            opText += `, `;
+            opText += " , ";
         }
     }
     return opText;

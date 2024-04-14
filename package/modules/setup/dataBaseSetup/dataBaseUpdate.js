@@ -25,7 +25,7 @@ if(i_app.users){
             }else{
             
                 let dbSt            = data.toString();
-                let cleanDataSt     = iAppReader(dbSt)
+                let cleanDataSt     = iAppReader(dbSt);
                 const jsonData      = JD_(cleanDataSt);
                 if(jsonData && jsonData.mysql){
                     dbConfigFn.set(jsonData.mysql[0]);
@@ -36,22 +36,20 @@ if(i_app.users){
                 if(jsonData.mysql && jsonData.mysql.length > 0){
 
                 const basicDataBase = jsonData.mysql[0];
-                const basicTables =basicDataBase.tables ?basicDataBase.tables: false ; 
-                const basicDB = ['users','usersSessions','usersPasswords','usersApps','usersType','typesApps','permissions','appsPermissions','usersPermissions'];
-                const insertDB = {
-                    usersApps:['users', 'Basic Users App'],
-                    usersType:['admin', 'Basic Admin User'],
-                    typesApps:[1,1],
-                    permissions:[
-                        ['create','Ability to create new orders'],
-                        ['update','Ability to update existing orders'],
-                        ['delete','Ability to delete orders'],
-                        ['view','Ability to view order details'],
-                        ['approve','Ability to approve orders']
-                    ],
-                    appsPermissions:[[1,1],[1,2],[1,3],[1,4],[1,5]],
-                    usersPermissions:[[1,1,1],[1,1,2],[1,1,3],[1,1,4],[1,1,5]]
-                }
+                const basicTables   = basicDataBase.tables ?basicDataBase.tables: false ; 
+                const basicDB       = ['users','usersSessions','usersPasswords','usersApps','usersType','permissions','appsPermissions','usersTypeAppsUsage'];
+                const insertDB      = {
+                                        usersApps:['users', 'Basic Users App'],
+                                        usersType:['admin', 'Basic Admin User'],
+                                        permissions:[
+                                                    ['create', 'Ability to create new orders'],
+                                                    ['update', 'Ability to update existing orders'],
+                                                    ['delete', 'Ability to delete orders'],
+                                                    ['view', 'Ability to view order details'],
+                                                    ['approve', 'Ability to approve orders']
+                                        ],
+                                        appsPermissions:[[1,1,1],[1,1,2],[1,1,3],[1,1,4],[1,1,5]]
+                                    };
                 let needDB   = [];
                 const editDB = [];
               

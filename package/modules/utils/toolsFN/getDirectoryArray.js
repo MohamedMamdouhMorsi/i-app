@@ -5,9 +5,10 @@ function getDirectoryArray(tree,pathD) {
     let lastPath =  '' ;
 
     if(tree.type == "folder"){
+        
         if(tree.name !== '' && tree.name !== 'public'){
-        lastPath = pathD +'/'+ tree.name;
-    }
+            lastPath = pathD +'/'+ tree.name;
+        }
    
     for(var c = 0 ; c < tree.children.length; c++){
         if(tree.children[c].type == "folder"){

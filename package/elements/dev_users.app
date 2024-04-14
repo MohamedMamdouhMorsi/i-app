@@ -1,40 +1,24 @@
  {
+     
         c:'WW D_N'
         i:'users'
         e:[
             {
                 c:'WW'
                 e:[
-                    {
-                        t:'ti'
-                        s:'Users System '
-                    }
+                    
                     {
                         t:'b'
                         s:'dataBaseCheck'
                     }
-                    {
-                        t:'icon'
-                        c:'ICO-refresh F_B F_S_20 pointer _MR_10 '
-                        a:{
-                            fn:{
-                                _.DEL_E('databaseHolder');
-                                    _.CR_({
-                                            I:'dev_database'
-                                            },
-
-                                            'databaseHolder',false);
-                            
-                            }
-                        }
-                    }
+         
                     {
                         i:'dataBaseHandler'
                         c:'D_INB'
                         a:{
                             e:'auto'
                             fn:{
-                                const callBack = (res,data)=>{
+                                     const callBack = (res,data)=>{
                                     if(res.res){
                                         _.CR_({t:'icon',c:'ICO-check F_S_30 F_GRE7'},'dataBaseHandler',false);
                                             _.CR_({

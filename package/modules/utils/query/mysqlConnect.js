@@ -6,11 +6,23 @@ const path = require('path');
 const fs = require('fs');
 const mysql = require('mysql');
 const makeQuery    = require('./makeQuery');
+
 const isGetQuery = (ob)=>{
   const query = ob.query;
   for(var q = 0 ; q < query.length;q++){
     const cureAction = query[q].a;
     if(cureAction === 'get' || cureAction === 'getJ'){
+      return true;
+    }
+    
+  }
+  return false;
+}
+const isInsertQuery = (ob)=>{
+  const query = ob.query;
+  for(var q = 0 ; q < query.length;q++){
+    const cureAction = query[q].a;
+    if(cureAction === 'in' ){
       return true;
     }
     
@@ -34,6 +46,7 @@ const isUpToDate = (userDate,dbDate)=>{
   }
   return process;
 }
+
 const isAutoLimit = (ob)=>{
   var isAutoLimit_ = false;
   for(var i = 0 ; i < ob.length;i++){
@@ -43,6 +56,7 @@ const isAutoLimit = (ob)=>{
   }
   return isAutoLimit_;
 }
+
 const makeUpTodate =(dbDate)=>{
   const AUTHARRAY = [];
   for(var d = 0 ; d < dbDate.length ; d++){
@@ -52,6 +66,38 @@ const makeUpTodate =(dbDate)=>{
   }
   return AUTHARRAY;
 }
+const getTables =(ob)=> {
+  let query = ob.query;
+  let back = [];
+
+  for (let q in query) {
+      let cureAction = query[q].j;
+      
+      for (let c in cureAction) {
+          let cureTableName = cureAction[c].n;
+          back.push(cureTableName);
+      }
+  }
+
+  return back;
+}
+const updateBack = (result,selectables)=>{
+  for(var r = 0 ; r < result.length;r++){
+    const row = result[r];
+    for (const columnName in row) {
+      const dataColumn =  row[columnName] ;
+        if (Object.hasOwnProperty.call(row, columnName)) {
+            if (selectables.includes(columnName)) {
+              row[columnName] = JSON.parse(dataColumn);
+            } else {
+              row[columnName] = dataColumn;
+            }
+      }
+    }
+     result[r] = row;
+  }
+ return result;
+}
 const mysqlConnect = async (body, res_, callBack) => {
 
     const dbConfig = dbConfigFn.get();
@@ -59,29 +105,34 @@ const mysqlConnect = async (body, res_, callBack) => {
     if(dbConfig && dbConfig.host  && dbConfig.user  && dbConfig.password ){
 
     
-    const queryText   = await makeQuery(body, dbConfig.tables);
+    const queryText   = await makeQuery( body, dbConfig.tables);
+    if(queryText){
     const queryTextUp = await makeQuery({query:[{a:'checkUpTime',ob:body}]}, dbConfig.tables);
-    const querySize   = await makeQuery({query:[{a:'querySize',ob:body}]}, dbConfig.tables);
-      const stQueryText = queryText.toString();
-          const connection = mysql.createConnection({
+    const querySize   = await makeQuery({query:[{ a:'querySize',ob:body}]}, dbConfig.tables);
+    const stQueryText = queryText.toString();
+    const selectedTables = getTables(body);
+    const connection = mysql.createConnection({
             host: dbConfig.host,
             user: dbConfig.user,
             password: dbConfig.password,
             database: dbConfig.database,
-          });
-
-         
+          } );
 
           if(isGetQuery(body)){
             connection.connect();
             const upTime = await new Promise((resolve, reject) => {
+
               connection.query(queryTextUp, (queryError, upTime, fields) => {
                 if (queryError) {
-                  console.error("Error executing MySQL query:", queryError.message);
-                  reject(queryError);
-                } else {
-                  resolve(upTime);
-                }
+
+                    console.error("Error executing MySQL query:", queryError.message);
+                    reject(queryError);
+                
+                  } else {
+                
+                    resolve(upTime);
+                
+                  }
               });
             }); 
 
@@ -133,14 +184,14 @@ const mysqlConnect = async (body, res_, callBack) => {
                   });
                 });
               
-                const backResult = COPY_OB(results);
-               
-                  if(typeof callBack === 'function'){
-                    callBack(backResult, res_,makeUpTodateData,Qsize);
+                  const backResult = COPY_OB(results);
+                
+                      if(typeof callBack === 'function'){
+                          callBack(backResult, res_,makeUpTodateData,Qsize);
+                      }
+        
+                    return backResult;
                   }
-    
-                return backResult;
-              }
            
             }else{
              
@@ -158,7 +209,7 @@ const mysqlConnect = async (body, res_, callBack) => {
               });
             
               const backResult = COPY_OB(results);
-              
+              const backResultUpdate = updateBack(backResult,selectedTables);
                 if(typeof callBack === 'function'){
                   callBack(backResult, res_,makeUpTodateData,Qsize);
                 }
@@ -174,6 +225,7 @@ const mysqlConnect = async (body, res_, callBack) => {
                             console.error("Error executing MySQL query:", queryError.message);
                             reject(queryError);
                           } else {
+                           
                             resolve(results);
                           }
                         });
@@ -195,28 +247,37 @@ const mysqlConnect = async (body, res_, callBack) => {
                       const upTimeData = COPY_OB(upTime);
                       const makeUpTodateData = makeUpTodate(upTimeData);
                         if(typeof callBack === 'function'){
-                          callBack(backResult, res_,makeUpTodateData,false);
+                          
+                          if(isInsertQuery(body)){
+                            callBack(backResult.insertId, res_,makeUpTodateData,false);
+                          
+                           }else{
+                            callBack(backResult, res_,makeUpTodateData,false);
+                           }
                         }
-
-                      return backResult;
+                        if(isInsertQuery(body)){
+                        
+                         return backResult.insertId;
+                        }else{
+                          return backResult;
+                        }
+                     
           }
         }else{
           if(typeof callBack === 'function'){
-            callBack([], res_,makeUpTodateData,false);
+            callBack([], res_,[{sorry:true}],false);
           }
 
-        return false;
+          return false;
         }
-/*} catch (err) {
-    console.log(
-      "No db.app file exists!! To connect to the MySQL DB, you need to create db.app file to store your db connection data"
-    );
-   
-    if(typeof callBack === 'function'){
-      callBack(err.message, res_);
-    }
-    return false;
-  }*/
+        }else{
+            if(typeof callBack === 'function'){
+              callBack([], res_,makeUpTodateData,false);
+            }
+
+            return false;
+          
+        }
 };
 
 module.exports = mysqlConnect;

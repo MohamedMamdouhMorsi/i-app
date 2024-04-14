@@ -38,6 +38,9 @@
     if(app.fcm){
       innerHTML +='<script id="fireSrc" src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>';
     }
+    if(app.three){
+      innerHTML +='<script type="importmap">{"imports": {"three": "./three.js"}}</script>';
+    }
     innerHTML +=`<script type="application/javascript" id:"i-app-ui" src=${devMode? "/i-app-ui.js" : "/i-app-ui.min.js"} async defer ></script>`;
 
     innerHTML += `</head> <body> </body> </html>`;

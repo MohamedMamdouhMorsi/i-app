@@ -15,15 +15,15 @@
                    const linesNumSt = `linesNum_${Q.DBId}`;
                    const curePageSt = `curePage_${Q.DBId}`;
   
-                   const QsizeSt = `Qsize_${Q.DBId}`;
-                   const Qsize = parseInt(_.E_I_V(QsizeSt));
-                   const linesNum = parseInt(_.E_I_V(linesNumSt));
-                   const curePage = parseInt(_.E_I_V(curePageSt));
+                   const QsizeSt       = `Qsize_${Q.DBId}`;
+                   const Qsize         = parseInt(_.E_I_V(QsizeSt));
+                   const linesNum      = parseInt(_.E_I_V(linesNumSt));
+                   const curePage      = parseInt(_.E_I_V(curePageSt));
                    const totalCureRows = curePage * linesNum;
-                    const pageClac = Qsize /  linesNum;
+                   const pageClac   = Qsize /  linesNum;
                    const pageNumber = pageClac > parseInt(pageClac) ? parseInt(pageClac) +1 : parseInt(pageClac);
-                   const backNum = totalCureRows - linesNum * 2;
-                   const nextPage = curePage - 1; 
+                   const backNum    = totalCureRows - linesNum * 2;
+                   const nextPage   = curePage - 1; 
             
                    if(nextPage === 1){
                       _.A_CL(`backBt_${Q.DBId}`,'D_N');
@@ -59,29 +59,32 @@
                    _.DEL_E(Q.table);
                    const linesNumSt = `linesNum_${Q.DBId}`;
                    const curePageSt = `curePage_${Q.DBId}`;
-                   const QsizeSt = `Qsize_${Q.DBId}`;
+                   const QsizeSt    = `Qsize_${Q.DBId}`;
            
                
-                   const Qsize = parseInt(_.E_I_V(QsizeSt));
-                   const linesNum = parseInt(_.E_I_V(linesNumSt));
-                   const curePage = parseInt(_.E_I_V(`curePage_${Q.DBId}`));
-                   const pageClac = Qsize /  linesNum;
+                   const Qsize      = parseInt(_.E_I_V(QsizeSt));
+                   const linesNum   = parseInt(_.E_I_V(linesNumSt));
+                   const curePage   = parseInt(_.E_I_V(`curePage_${Q.DBId}`));
+                   const pageClac   = Qsize /  linesNum;
                    const pageNumber = pageClac > parseInt(pageClac) ? parseInt(pageClac) +1 : parseInt(pageClac);
                    
                    const nextPage = curePage + 1; 
                     if(nextPage > 1 && pageNumber > 1){
                         _.D_CL([`backBt_${Q.DBId}`,'D_N']);
                     }
+
                    if(nextPage === pageNumber){
                         _.A_CL(`forwardBt_${Q.DBId}`,'D_N');
                    }
-                  _.IN_V(`curePage_${Q.DBId}`,nextPage);
-                  _.In_S(`pageNo_${Q.DBId}`,`Page No ${nextPage}`);
+                    _.IN_V(`curePage_${Q.DBId}`,nextPage);
+                    _.In_S(`pageNo_${Q.DBId}`,`Page No ${nextPage}`);
+
                     const totalCureRows = curePage * linesNum;
-                    table.last = totalCureRows  ;
-                    table.backMove = false;
-                      table.forwardMove = true;
-                   _.upQuery(table);
+
+                        table.last = totalCureRows  ;
+                        table.backMove = false;
+                        table.forwardMove = true;
+                        _.upQuery(table);
                 }
             }
         }
@@ -98,6 +101,48 @@
             mod:'number'
             s:'lines No'
             vq:'lines'
+            a:{
+                e:'change'
+                fn:{
+                        const table = _.I_O(Q.table);
+                                _.DEL_E(Q.table);
+                   const linesNumSt = `linesNum_${Q.DBId}`;
+                   const curePageSt = `curePage_${Q.DBId}`;
+                   const QsizeSt    = `Qsize_${Q.DBId}`;
+           
+               
+                    const Qsize      = parseInt(_.E_I_V(QsizeSt));
+                    var linesNum   = parseInt(_.E_I_V(linesNumSt));
+                     if(linesNum > Qsize ){
+                        linesNum = Qsize -1;
+                        _.IN_V(`linesNumSt`,linesNum);
+                    }
+                    const curePage   = parseInt(_.E_I_V(`curePage_${Q.DBId}`));
+                    const pageClac   = Qsize /  linesNum;
+
+                   
+                        const pageNumber = pageClac > parseInt(pageClac) ? parseInt(pageClac) +1 : parseInt(pageClac);
+                        
+                        const nextPage = curePage ; 
+                            if(nextPage > 1 && pageNumber > 1){
+                                _.D_CL([`backBt_${Q.DBId}`,'D_N']);
+                            }
+
+                            if(nextPage === pageNumber){
+                                _.A_CL(`forwardBt_${Q.DBId}`,'D_N');
+                            }
+                                _.IN_V(`curePage_${Q.DBId}`,nextPage);
+                                _.In_S(`pageNo_${Q.DBId}`,`Page No ${nextPage}`);
+
+                            const totalCureRows = curePage * linesNum;
+
+                                table.last          = totalCureRows  ;
+                                table.backMove      = false;
+                                table.forwardMove   = true;
+                                _.upQuery(table);
+                  
+                }
+            }
         }
       
             {

@@ -3,7 +3,7 @@ const middleWareApp = require('./middleWareApp');
 
 const makeAppServer = (port,data,get)=>{
     const server =new http.createServer((req, res) => {
-
+     
         middleWareApp(req,res,data);
      
     });

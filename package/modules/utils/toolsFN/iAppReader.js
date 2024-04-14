@@ -61,34 +61,34 @@ const funcHandel = (str) => {
 }
 
 function escapeKeysSym(str) {
-  const strArr = str.split('');
-  var start = false;
-  var type = '';
-  var out = '';
-  for(var i = 0; i < strArr.length; i++){
-  const cureValue = strArr[i];
-    if(cureValue == '"' ){
-      if(start == true && type == cureValue){
-        type = '';
-        start=  false;
-      }else{
-        type = '"';
-        start=  true;
+    const strArr = str.split('');
+    var start = false;
+    var type = '';
+    var out = '';
+    for(var i = 0; i < strArr.length; i++){
+    const cureValue = strArr[i];
+      if(cureValue == '"' ){
+        if(start == true && type == cureValue){
+          type = '';
+          start=  false;
+        }else{
+          type = '"';
+          start=  true;
+        }
+      
       }
-     
-    }
-    if(cureValue == "'"){
-      if(start == true && type == cureValue){
-        type = '';
-        start=  false;
-      }else{
-        type = "'";
-        start=  true;
+      if(cureValue == "'"){
+        if(start == true && type == cureValue){
+          type = '';
+          start=  false;
+        }else{
+          type = "'";
+          start=  true;
+        }
       }
-    }
-    if(start && cureValue ==':' ){
-      out +='aaa@aaa';
-    }else{
+      if(start && cureValue ==':' ){
+        out +='aaa@aaa';
+      }else{
       out +=cureValue;
     }
   }
@@ -99,9 +99,11 @@ function escapeKeysSym(str) {
 
 
   function convertStrToOb (str) {
+    str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
     str = escapeKeysSym(str);
     str = funcHandel(str);
-    str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
+    
+ 
 
     str = str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
 
@@ -157,4 +159,5 @@ function escapeKeysSym(str) {
 
       return str;
   };
+
 module.exports = iAppReader

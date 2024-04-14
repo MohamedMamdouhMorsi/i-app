@@ -27,15 +27,20 @@ const getQuery = (ob,tables)=>{
     if(!ob.s){
         ob.s = ["A"];
     }
-   
+    var orderBy = "";
+    if(ob.order){
+        orderBy = 'ORDER BY '+ob.order;
+    }
     
         
             if(ob.s && ob.s[0] == "A"){
-             const   getText =  "SELECT  *  FROM "+ tableName +" WHERE "+ orAndOptionText +" "+ limit;
+             const   getText =  "SELECT  *  FROM "+ tableName +" WHERE "+ orAndOptionText +" "+orderBy+""+ limit;
+            
              return getText;
             }else{
-                const selectedColumn = selectColumn(ob.s).toString();
-                const  getText =  "SELECT "+ selectedColumn +" FROM "+ tableName +" WHERE "+ orAndOptionText +" "+ limit;
+                const selectedColumn = selectColumn(ob.s);
+                const  getText =  "SELECT "+ selectedColumn +" FROM "+ tableName +" WHERE "+ orAndOptionText +" "+orderBy+""+ limit+";";
+                
                 return getText;
             }
            
