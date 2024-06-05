@@ -1,4 +1,4 @@
-const {checkForSqlInjection} = require('../../tools');
+const {checkForSqlInjection,EC_} = require('../../tools');
 
 const routerPost = {
     routes: {},
@@ -10,32 +10,41 @@ const routerPost = {
         const checkInjectionGET = checkForSqlInjection(req.url);
    
       if(!checkInjectionGET){
-        let reqBody = '';
+        var reqBody = '';
   
         req.on('data', chunk => {
           reqBody += chunk.toString();
         });
-        const checkInjectionPOST = checkForSqlInjection(reqBody);
-        if(!checkInjectionPOST){
-                if (this.routes[req.url]) {
-                
-                        req.on('end', () => {
-                            this.routes[req.url].callback(req, res,reqBody,this.routes[req.url].data);
-                            return true;
-                        });
-                    
+       
+          req.on('end', () => {
+            const msgArray  = reqBody.split("=");
+            const msgBody   = msgArray[1];
+            const msgDecode = EC_(msgBody);
+            
+            const checkInjectionPOST = checkForSqlInjection(msgDecode);
+                if(!checkInjectionPOST){
+                  const postBody = JSON.parse(msgDecode);
+                    if (this.routes[req.url]) {
+                          this.routes[req.url].callback(req, res,postBody,this.routes[req.url].data);
+                          return true;
+                      } else {
+                          return false;
+
+                      }
                 } else {
-                    return false;
+                  res.statusCode = 500;
+                  res.writeHead('Content-Type', 'application/json');
+                  res.end(JSON.stringify({ message: 'Invalid request method' }));
                 }
+          });
+              
+
+          
     } else {
         res.statusCode = 500;
         res.writeHead('Content-Type', 'application/json');
         res.end(JSON.stringify({ message: 'Invalid request method' }));
-      }
-    } else {
-        res.statusCode = 500;
-        res.writeHead('Content-Type', 'application/json');
-        res.end(JSON.stringify({ message: 'Invalid request method' }));
+        
       }
     }
   };

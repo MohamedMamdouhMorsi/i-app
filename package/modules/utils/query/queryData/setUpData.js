@@ -4,7 +4,7 @@ const setUpData =(data,table)=>{
         const columnIndex = data[i][0] -1;
         const columnName  = table[columnIndex];
         const value = data[i][1];
-        if(typeof value === 'string'){
+        if(typeof value === 'string' && value !== 'now()' ){
             upData += `${columnName} = '${value}'`;
         }else{
             upData += `${columnName} = ${value}`;

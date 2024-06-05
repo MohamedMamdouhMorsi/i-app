@@ -5,7 +5,7 @@ const {searchFiles,manifestMaker,iAppReader} = require('../main');
 const appDirFn= require('./appDir');
 
 const dbData = require('./dbData');
-const readAppData =async (makeAppServer)=>{
+const readAppData =async (makeAppServer,devAppData)=>{
   // basic dir appDir
   let messages =  {
     iappError: "Please add i.app file to your project main directory",
@@ -54,6 +54,7 @@ if(!fs.existsSync(i_app_path)){
     
     if(jsonData){
       i_app = jsonData
+      i_app = {...i_app,...devAppData}
       port  = i_app.port;
 
       const themeColorSearch =  searchFiles(tree,'style.json');
@@ -85,7 +86,7 @@ if(!fs.existsSync(i_app_path)){
                     }
                 })[0];
                   manifest = manifestMaker(i_app,{PR_D : PR_D , PR : PR})
-                  const server =   makeAppServer(port,[i_app, PR_D.v,manifest,tree,userDir,i_app_st,swScript,i_app_path]);
+                  const server =   makeAppServer(port,[i_app, PR_D.v,manifest,tree,userDir,swScript,i_app_path]);
                     if(!fs.existsSync(i_app_db_path)){
                       console.warn(messages.dbAlert);
                     }else{
@@ -98,7 +99,7 @@ if(!fs.existsSync(i_app_path)){
           }else{
 
             manifest = manifestMaker(i_app,false);
-            const server =   makeAppServer(port,[i_app, '#000',manifest,tree,userDir,i_app_st,swScript,i_app_path]);
+            const server =   makeAppServer(port,[i_app, '#000',manifest,tree,userDir,swScript,i_app_path]);
 
               if(!fs.existsSync(i_app_db_path)){
                 console.warn(messages.dbAlert);

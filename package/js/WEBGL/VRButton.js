@@ -31,7 +31,7 @@ class VRButton {
 
 			//
 
-			button.style.display = '';
+			button.style.display = 'none';
 
 			button.style.cursor = 'pointer';
 			button.style.left = 'calc(50% - 50px)';
@@ -102,7 +102,7 @@ class VRButton {
 
 		function disableButton() {
 
-			button.style.display = '';
+			button.style.display = 'none';
 
 			button.style.cursor = 'auto';
 			button.style.left = 'calc(50% - 75px)';
@@ -186,11 +186,12 @@ class VRButton {
 				message.innerHTML = 'WEBXR NOT AVAILABLE';
 
 			}
-
+			message.style.left = 'calc(50% - 90px)';
 			message.style.left = 'calc(50% - 90px)';
 			message.style.width = '180px';
 			message.style.textDecoration = 'none';
-
+			message.style.display = 'none';
+			message.id = 'VRButton';
 			stylizeElement( message );
 
 			return message;

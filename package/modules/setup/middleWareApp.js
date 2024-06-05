@@ -14,18 +14,19 @@ const app_file        = require('./middelWare/app_file');
 const asset_file      = require('./middelWare/asset_file');
 const route_file      = require('./middelWare/route_file');
 const router          = require('../utils/router/router');
+const routerData      = require('../utils/router/routerData');
 const routerUsers     = require('../utils/router/routerUsers');
 const routerPost      = require('../utils/router/routerPost');
 const logOut          = require('../utils/orders/users/logoutUser');
 
-const middleWareApp   = async (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path])=>{
+const middleWareApp   = async (req,res,[i_app,colorPR_D,manifest,tree,userDir,swScript,i_app_path])=>{
 
     const url       = req.url;
     const is_logOut = req.url == "/logout" ? true : false;
    
     const is_user   = isSession(req);
 
-    const appWare =async (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path],userData)=>{
+    const appWare =async (req,res,[i_app,colorPR_D,manifest,tree,userDir,swScript,i_app_path],userData)=>{
       
           req.user = userData;
           if(is_logOut){
@@ -56,7 +57,11 @@ const middleWareApp   = async (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_
           
             
    
-            const userRouter =  router.match(req,res);
+            const userRouter =await  router.match(req,res);
+            if(!userRouter){
+              const appData = routerData.get();
+              i_app = {...i_app,...appData};
+            }
               if (req.url.match(/models/)) {
                 
                 const model = req.url.replace(/\/models\//,'');
@@ -81,7 +86,7 @@ const middleWareApp   = async (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_
 
                   if(!userRouter){
                 
-                
+                    
                     const path = require('path');
               
                     const extname = path.extname(req.url);
@@ -91,7 +96,7 @@ const middleWareApp   = async (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_
                     const fileName = getfileName(req);
                 
                       if(is_app){
-                        return app_file(req,res,extname,fileName,manifest,i_app_st,tree,userDir,i_app);
+                        return app_file(req,res,extname,fileName,manifest,tree,userDir,i_app);
                       }else if(is_asset){
                         return asset_file(req,res,userDir,swScript,userData);
                       }else if(is_route){
@@ -111,12 +116,12 @@ const middleWareApp   = async (req,res,[i_app,colorPR_D,manifest,tree,userDir,i_
     if (i_app.users ) {
 
           if(is_user){
-            sessionData(req,res,appWare, [i_app, colorPR_D, manifest,tree,userDir,i_app_st,swScript,i_app_path]);
+            sessionData(req,res,appWare, [i_app, colorPR_D, manifest,tree,userDir,swScript,i_app_path]);
           }else{
-            sessionsControl(req,res, appWare, [i_app, colorPR_D, manifest,tree,userDir,i_app_st,swScript,i_app_path]);
+            sessionsControl(req,res, appWare, [i_app, colorPR_D, manifest,tree,userDir,swScript,i_app_path]);
           }
     }else  {
-      appWare(req,res,[i_app,colorPR_D,manifest,tree,userDir,i_app_st,swScript,i_app_path], {id:0,notBasic:true});
+      appWare(req,res,[i_app,colorPR_D,manifest,tree,userDir,swScript,i_app_path], {id:0,notBasic:true});
       
     }
 }

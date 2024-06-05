@@ -12,7 +12,7 @@ console.log(data);
     }else if(data.query){
         // do query
 
-const body_ = await UpdateQueryInput(data,userDir,i_app,res);
+    const body_ = await UpdateQueryInput(data,userDir,i_app,res);
 
       
     }else{

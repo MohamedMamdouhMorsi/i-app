@@ -59,6 +59,7 @@
                                                                         _.AL_('Please Restart Your Server ');
                                                                     }
                                                                     };
+                                                                    
                                                     const appInfo = {
                                                             name:_.E_I_V('inputForm_name'),
                                                             title:_.E_I_V('inputForm_title'),
@@ -121,22 +122,23 @@
                                                 }
                                     ]
                                     a:{
-                                                        fn:{
+                                        fn:{
 
-                                                            if(_.theme == "light"){
-                                                        
-                                                            _.A_CL('heroHolder', 'heroBack');
-                                                            _.A_CL('theme_icon', 'ICO-moon');
-                                                            _.E_I_S('heroImg').src = _.G_SRC('hero.png');
-                                                            }else  if(_.theme == "dark"){
-                                                        
-                                                            _.D_CL('heroHolder', 'heroBack');
-                                                            _.A_CL('theme_icon', 'ICO-sun');
-                                                                _.E_I_S('heroImg').src = _.G_SRC('heroW.png');
-                                                            }
-                                                            _.switchTheme();
-                                                        }
-                                                    }
+                                            if(_.theme == "light"){
+                                        
+                                                _.A_CL('heroHolder', 'heroBack');
+                                                _.A_CL('theme_icon', 'ICO-moon');
+                                                _.E_I_S('heroImg').src = _.G_SRC('hero.png');
+
+                                            }else  if(_.theme == "dark"){
+                                        
+                                                _.D_CL('heroHolder', 'heroBack');
+                                                _.A_CL('theme_icon', 'ICO-sun');
+                                                _.E_I_S('heroImg').src = _.G_SRC('heroW.png');
+                                            }
+                                            _.switchTheme();
+                                        }
+                                    }
                                 }
                             ]
                         }

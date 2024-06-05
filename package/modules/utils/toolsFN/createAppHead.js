@@ -9,7 +9,10 @@
     }else if(!app.defLang && app.lang && app.lang.length > 0){
       defaultLang = app.lang[0];
     }
-  
+    var imgBody = "";
+    if(app.imgSrc){
+        imgBody = '<div class="WW HH TT_0 LL_0  T_C POS_AB overHide" id="generalHolderImg"><img src="'+app['imgSrc']+'" class="imgCoverAll" /></div>';
+    }
    let innerHTML  = `<!DOCTYPE html><html lang="${defaultLang}"> <head>`;
     innerHTML += `<title>${app.title}</title>`;
     innerHTML += `<meta name="type" content="${app.type}">`;
@@ -41,9 +44,10 @@
     if(app.three){
       innerHTML +='<script type="importmap">{"imports": {"three": "./three.js"}}</script>';
     }
+    innerHTML +=`<script type="application/javascript" >const appData = ${JSON.stringify(app)};</script>`;
     innerHTML +=`<script type="application/javascript" id:"i-app-ui" src=${devMode? "/i-app-ui.js" : "/i-app-ui.min.js"} async defer ></script>`;
 
-    innerHTML += `</head> <body> </body> </html>`;
+    innerHTML += `</head> <body>${imgBody}</body> </html>`;
 
     return innerHTML.toString();
   }

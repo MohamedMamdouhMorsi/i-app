@@ -498,15 +498,22 @@ const i_app = (()=>{
       console.error('Error: COPY_OB argument is not an object');
       return;
     }
-  
-    const { a, ...rest } = ob;
-    const NewOb = { ...rest };
-  
-    if (a ) {
-      NewOb.a = a;
+   const jsonSt = JDS_(ob);
+    if(JD_(jsonSt)){
+      const NewOb =JD_(jsonSt);
+      return NewOb;
+    }else{
+      const { a, ...rest } = ob;
+      const NewOb = { ...rest };
+    
+      if (a ) {
+        NewOb.a = a;
+      }
+
+      return NewOb;
+
     }
   
-    return NewOb;
   };  
   /**
   * Returns the current timestamp in milliseconds

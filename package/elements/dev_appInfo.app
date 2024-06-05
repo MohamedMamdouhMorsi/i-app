@@ -83,7 +83,7 @@
                                                         t:'in',
                                                         i:'isUsers',
                                                         s:'users',
-                                                        val:v.app.users ?true:false,
+                                                        val:v.app.users ? true:false,
                                                         mod:'checkbox',
                                                              a:{
                                                                     e:'change',

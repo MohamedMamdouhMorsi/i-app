@@ -19,7 +19,7 @@ const isUrlDevApp =(url)=>{
   }
   return false;
 }
-const app_file =(req,res,ext,fileName,manifest,i_app_st,tree,userDir,i_app)=>{
+const app_file =(req,res,ext,fileName,manifest,tree,userDir,i_app)=>{
     var backBody = null;
     var filePath = null;
     let isApp    = isUrlFilleApp(req.url);
@@ -54,7 +54,7 @@ const app_file =(req,res,ext,fileName,manifest,i_app_st,tree,userDir,i_app)=>{
         backBody = JDS_(manifest);
         isApp = true;
     } else if (backBody == null && req.url === '/i.app') {
-        backBody = i_app_st;
+        backBody = JSON.stringify(i_app);
         isApp = true;
     }else{
 

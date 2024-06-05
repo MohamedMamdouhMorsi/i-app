@@ -5,7 +5,7 @@ const addUser = (userData,res)=>{
  userData = userData.data;
  console.log(userData);
  const callBack = (res_,res)=>{
-    const userId  = res_.insertId;
+    const userId  = res_;
     const passHash = creatAUTH(userData.password);
     db({query:[{a:'in',n:'usersPasswords',d:[userId,passHash]}]},false,false);
     res.writeHead(200, { 'Content-Type': 'application/json'});

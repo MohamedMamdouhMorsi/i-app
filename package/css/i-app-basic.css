@@ -23,43 +23,47 @@ body {
     -moz-osx-font-smoothing: grayscale;
  
 }
+
 #VRButton{
     display: none;
 }
+
 .iconStep{
     position: absolute;
     margin-top: 7px;
     top:0;
     cursor: pointer;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     left: 0;
     margin-left: 0;
 }
+
 .divStep{
     display: inline-block;
     left: 0;
     float: left;
     height: 35px;
 }
+
 .lineWStep{
     background-color: #ffffff;
     width: 100%;
-    margin-top: 15px;
-    left: 20px;
-    margin-bottom: 15px;
+    margin-top: 12px;
+    left: 12px;
+    margin-bottom: 12px;
     height: 5px;
 }
 
 .linePStep{
     background-color: var(--PR);
-   
     top: 0;
-    margin-top: 15px;
+    margin-top: 12px;
     position: absolute;
-    left: 20px;
+    left: 12px;
     height: 5px;
 }
+
 /*
 code style
 */
@@ -73,14 +77,17 @@ code{
     font-size: 16px;            /* font size */
     color:var(--AC);
 }
+
 .codeHolder{
     
     padding: 5px 10px;   
 }
+
 .tab_indent {
     display: inline-block;
     width: 2em;  /* Adjust this value based on the desired "tab" width */
 }
+
 .keyword {
     color:#5d5dff;
 }
@@ -92,9 +99,11 @@ code{
 .number {
     color: red;
 }
+
 .legacy{
     color: var(--PR);
 }
+
 .function {
     color: rgb(241, 67, 241);
 }
@@ -106,18 +115,21 @@ code{
 .brackets_square{
     color: rgb(174, 87, 236);
 } 
+
 .brackets_curly{
     color: rgb(82, 59, 255);
 } 
+
 .brackets_round{
     color: rgb(114, 137, 221);
 } 
+
 .special_chars{
     color: rgb(7, 220, 0);
 }
 
-  
-  .tooltip .tooltiptext {
+
+.tooltip .tooltiptext {
     visibility: hidden;
     width: 50px;
     background-color: #555;
@@ -135,7 +147,7 @@ code{
     transition: opacity 0.3s;
   }
   
-  .tooltip .tooltiptext::after {
+.tooltip .tooltiptext::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -146,7 +158,7 @@ code{
     border-color: #555 transparent transparent transparent;
   }
   
-  .tooltip:active .tooltiptext {
+.tooltip:active .tooltiptext {
     visibility: visible;
     opacity: 1;
   }
@@ -237,7 +249,7 @@ font-family: 'Cairo'
     font-family:monospace;
 }
 .FF_sansserif{
-    font-family:sans-serif;
+    font-family:'Roboto', sans-serif;
 }
 .FF_serif{
     font-family:serif;
@@ -411,7 +423,9 @@ hr {
     bottom: 0;
     margin-bottom: 5px;
 }
-
+.B_N{
+    border: none;
+}
 .table tr:nth-of-type(2n){
  
     filter: brightness(90%);
@@ -994,6 +1008,13 @@ overflow
 }
 
 
+
+.SCROLLER::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+   
+}
+
 .SCROLLER::-webkit-scrollbar-thumb {
   
     background: var(--PR);
@@ -1004,11 +1025,14 @@ overflow
     background: var(--W);
     position: absolute;
 }
-.SCROLLER ::-webkit-scrollbar-track {
-    background: var(--W);
-    position: absolute;
-}
 
+
+
+.overAutoX::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+   
+}
 .overAutoX ::-webkit-scrollbar-thumb {
     background: var(--PR);
     border-radius: 10px;
@@ -1115,10 +1139,15 @@ custom element
 }
 
 .Ztop {
-    z-index: 999;
+    z-index: 11999;
 }
 
 /* @media */
+.mHO{
+    overflow-x: hidden;
+    height: 60%;
+    
+}
 .main,.FLX_C{
     width: 80%;
     max-width: 1200px;
@@ -1142,6 +1171,9 @@ custom element
 .pc{
     display: none;
 }
+.mHO{
+    height: 80%;
+}
 .mob{
     display: unset;
 }
@@ -1157,7 +1189,9 @@ custom element
     width: 100%;
     
 }
-
+.mHO{
+    height: 80%;
+}
 .labtob{
     display: none;
 }
@@ -1166,7 +1200,11 @@ custom element
 }
   }
 
-
+.center{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
 /*lazyCards */
   .lazyCards {
     width: 100vw;
@@ -1702,14 +1740,21 @@ Drop Btn
 /*
 img Cover 
 */
+
+
 /*
 to control view area use  overflow hidden holder
 */
+
 .imgHolder {
     width: 100%;
     overflow: hidden;
 }
-
+.imgCoverAll {
+    width: 100%;
+    
+    height: 100%;
+}
 .imgCover {
     width: 100%;
     
@@ -1727,7 +1772,12 @@ to control view area use  overflow hidden holder
     margin-right: -50%;
 
 }
+.imgCoverAll {
+    width: 400%;
+    margin-left: -150%;
+    margin-right: -150%;
 
+}
 .imgCoverL {
     width: 200%;
     margin-right: -100%;
@@ -1738,6 +1788,12 @@ to control view area use  overflow hidden holder
 .imgCover {
     width: 200%;
     margin-left: -50%;
+   
+}
+.imgCover {
+    width: 200%;
+    margin-left: -50%;
+    margin-right: -50%;
    
 }
 .imgCoverL {
@@ -2131,10 +2187,143 @@ margin: 30px auto 0 auto;
         opacity: 0;
     }
 }
+.OV_YAH{
+    overflow-y:auto ;
+    height: 100vh;
+}
 .OV_YA{
     overflow-y:auto ;
     height: 80vh;
 }
+
+.IC3{
+   color: #ffffff;
+   font-size: 20px;
+   text-align: center;
+   align-content: center;
+   display: inline-block;
+   padding: 5px;
+   border: 1px #fff solid;
+   background-color:rgba(0, 0, 0, 0.432);
+   backdrop-filter: blur(2px);
+   border-radius: 50%;
+}
+.ICDIVH {
+    font-weight: bold;
+    font-size: 16px;
+ 
+}
+.ICDIVP {
+    padding: 10px;
+   text-align: start;
+    font-size: 16px;
+
+}
+.ICDIV{
+    font-size: 12px;
+    position: absolute;
+    text-align: center;
+    align-content: center;
+    left: 0;
+    top: 30px;
+    width: max-content;
+    padding:10px 5px ;
+    background-color:rgba(0, 0, 0, 0.432);
+    backdrop-filter: blur(2px);
+    border-radius: 15px;
+    
+}
+.light {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    animation: fade-out 2s linear infinite; /* Loop forever */
+  }
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+.IC2{
+   font-size: 18px;
+   position: absolute;
+   text-align: center;
+   cursor: pointer;
+   background-color:rgba(0, 0, 0, 0.432);
+   backdrop-filter: blur(2px);
+   align-content: center;
+   left: 0;
+   top: 0;
+   width:30px;
+   height:30px;
+
+   border-radius: 50%;
+}
+.ICX{
+
+    position: absolute;
+
+    border-radius: 50%;
+ 
+    align-content: center;
+   
+    width:50px;
+    height:50px;
+ 
+    border-radius: 50%;
+ }
+.ICOAC{
+padding: 10px;
+border-radius: 50%;
+font-size: 20px;
+cursor: pointer;
+}
+
+.OV_YA::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+   
+}
+
+.OV_YA::-webkit-scrollbar-thumb {
+    background: var(--PR);
+    border-radius: 10px;
+}
+
+.OV_YA::-webkit-scrollbar-track {
+    background: var(--W);
+    position: absolute;
+}
+
+
+.OV_YAV{
+    overflow-y: auto;
+    height: 87%;
+    max-height: 570px;
+}
+.OV_YAV::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+   
+}
+
+.OV_YAV::-webkit-scrollbar-thumb {
+    background: var(--PR);
+    border-radius: 10px;
+}
+
+.OV_YAV::-webkit-scrollbar-track {
+    background: var(--W);
+    position: absolute;
+}
+
 .slideC {
     width: 100%; /* Set the width of the container */
     overflow: hidden; /* Hide any content that overflows the container */
@@ -2182,13 +2371,54 @@ div.slideW::-webkit-scrollbar-track {
 
 .dragIcon{
     cursor: grab;
-display: block;
+    display: block;
     width: 100%;
 }
+
 .notDrag.notDragStart{
     pointer-events: none;
+    
 }
+
 .dragI.dragging {
     opacity: 0.5;
    
 }
+
+/*
+slide range
+*/
+/* The slider itself */
+.slider_ {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+  
+    height: 10px; /* Specified height */
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+  }
+  
+  /* Mouse-over effects */
+  .slider_:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+  
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+  .slider_::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 15px; /* Set a specific slider handle width */
+    height: 15px; /* Slider handle height */
+    background: #6c6c6c; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+  }
+  
+  .slider_::-moz-range-thumb {
+    width: 15px; /* Set a specific slider handle width */
+    height: 15px; /* Slider handle height */
+    background: #6c6c6c; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+  }

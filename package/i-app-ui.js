@@ -112,7 +112,6 @@ const configFire = (con, lan,ty,theme,sendNumber) => {
         E_T("head")[0].appendChild(src);
         src.onload =()=>{
           CL_(["this is script"]);
-         
           setTimeout(loadFire,3000);
         }
       
@@ -123,19 +122,27 @@ const configFire = (con, lan,ty,theme,sendNumber) => {
 
 const GOS = (d, s, id)=> {
     var hh = d.getElementsByTagName('head')[0];
-   
-    hh.innerHTML += '<meta name="google-signin-scope" content="profile email">';
-    hh.innerHTML += '<meta name="google-signin-client_id" content="94508468930-rnl3toalkm9akk5kri0qff4i6f39fcv9.apps.googleusercontent.com">';
+
+
     var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
           return;
       }
-
+      const scope = d.createElement('meta');
+      scope.name = "google-signin-scope";
+      scope.content= "profile email";
+      const client = d.createElement('meta');
+      client.name = "google-signin-client_id";
+      client.content= "94508468930-rnl3toalkm9akk5kri0qff4i6f39fcv9.apps.googleusercontent.com";
       js = d.createElement(s);
       js.id = id;
       js.src = 'https://apis.google.com/js/platform.js';
-      fjs.parentNode.insertBefore(js, fjs)
+      fjs.parentNode.insertBefore(scope, fjs);
+      fjs.parentNode.insertBefore(client, fjs);
+
+      fjs.parentNode.insertBefore(js, fjs);
 };
+
 
 
 var fcmCon = {};
@@ -429,6 +436,71 @@ const i_app = (()=>{
   @param {string} mw - The element to display.
   */
   const Show = (mw) => { return E_I(mw).style.display = 'block'; }
+
+
+
+  function initIndexedDB(databaseName, version, objectStoreName, successCallback, errorCallback) {
+    const request = window.indexedDB.open(databaseName, version);
+
+    request.onerror = function(event) {
+        errorCallback("IndexedDB error: " + event.target.errorCode);
+    };
+
+    request.onupgradeneeded = function(event) {
+        const db = event.target.result;
+        db.createObjectStore(objectStoreName, { keyPath: 'IDB' });
+    };
+
+    request.onsuccess = function(event) {
+        const db = event.target.result;
+        successCallback(db);
+    };
+}
+
+// Function to set data in IndexedDB
+
+function setDataDB(databaseName, version, objectStoreName, data, successCallback, errorCallback) {
+  initIndexedDB(databaseName, version, objectStoreName,
+      function(db) {
+          const transaction = db.transaction(objectStoreName, 'readwrite');
+          const store = transaction.objectStore(objectStoreName);
+
+          transaction.oncomplete = function() {
+              successCallback("Data saved successfully");
+          };
+
+          transaction.onerror = function(event) {
+              errorCallback("Error saving data: " + event.target.error);
+          };
+
+          data.forEach(item => {
+              store.put(item); // Ensure each item has a valid key
+          });
+      },
+      errorCallback
+  );
+}
+
+// Function to get data from IndexedDB
+function getDataDB(databaseName, version, objectStoreName, successCallback, errorCallback) {
+    initIndexedDB(databaseName, version, objectStoreName,
+        function(db) {
+            const transaction = db.transaction(objectStoreName, 'readonly');
+            const store = transaction.objectStore(objectStoreName);
+            const request = store.getAll();
+
+            request.onsuccess = function(event) {
+                successCallback(event.target.result);
+            };
+
+            request.onerror = function(event) {
+                errorCallback("Error getting data: " + event.target.error);
+            };
+        },
+        errorCallback
+    );
+}
+
   /**
   
   Sets an item in local storage.
@@ -472,6 +544,7 @@ const i_app = (()=>{
   @returns {string} The resulting JSON string.
   */
   const JDS_ = (mw) => { return JSON.stringify(mw) }
+
   /**
   
   Displays a message in an alert box.
@@ -505,17 +578,17 @@ const i_app = (()=>{
       console.error('Error: COPY_OB argument is not an object');
       return;
     }
-    const newOB = JDS_(ob);
-  if(JD_(newOB)){
-    const NewOb = JD_(newOB);
-   
-     return NewOb;
-  }else{
-   const newOb = Object.assign({}, ob);
-   return ob;
-  }
+  
+    const { a, ...rest } = ob;
+    const NewOb = { ...rest };
+  
+    if (a ) {
+      NewOb.a = a;
+    }
+  
+    return NewOb;
+  };   
 
-  };  
   /**
   * Returns the current timestamp in milliseconds
   * @returns {number} The current timestamp in milliseconds
@@ -623,6 +696,12 @@ const hideOtherKeys = (k,obj)=>{
         }
     }
     deleteChildren(id);
+}
+const  scrollToBottom = () =>{
+  window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth'
+  });
 }
 const DEL_ = (id)=>{
   const myNode = isString(id) ? E_I_S(id) : id;
@@ -747,7 +826,7 @@ const DEL_ = (id)=>{
         }
         e.className = "";
         kw = kw.replace(/  /g, '');
-       CL_(['recive',m,w])
+    
         e.className = U_CSS(kw);
     }
   }
@@ -820,17 +899,22 @@ const DEL_ = (id)=>{
         return false;
     }
   }
-const makeFunction = (fn)=>{
-return DC_(fn);
-}
+
+  const makeFunction = (fn)=>{
+        return DC_(fn);
+  }
+
 /**
  * SHA256 Encrypt
  */
+
  const SHA256 = async(message) => {
+ 
   const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
-  const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8); // hash the message
+  const hashBuffer = await  crypto.subtle.digest("SHA-256", msgUint8); // hash the message
   const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
   const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+
   return hashHex;
 }
 
@@ -854,7 +938,7 @@ const FCMTCS = (e) => {
 const readyNumber = {}
 const FCMTC = (e,numberHolder,activeHolder) => {
   if(!E_I('google-jssdk')){
-   // GOS(document,  'script','google-jssdk');
+    GOS(document,  'script','google-jssdk');
   }
  
   if(E_I_V(e) !== ''){
@@ -862,7 +946,7 @@ const FCMTC = (e,numberHolder,activeHolder) => {
     const sendNumber = ()=>{
     
     if(readyNumber[E_I_V(e)]){
-     //FCMTCS(e);
+    FCMTCS(e);
       D_CL([activeHolder,"D_N"]);
       A_CL(numberHolder,"D_N");
       var ms = GTX("sending-sms");
@@ -879,13 +963,13 @@ const FCMTC = (e,numberHolder,activeHolder) => {
       if(res == true){
         AL_('number is allready exist !!');
       }else{
-      //  readyNumber[E_I_V(e)] = true;
-      //  E_I_S(`${e}_view`).setAttribute('disabled','true');
-        //E_I_S("recaptcha-container-tx").innerText = "Solve Recaptcha";
-        //  configFire(app.fcm, selectLang,"reC",i_app_theme,sendNumber);
+      readyNumber[E_I_V(e)] = true;
+       E_I_S(`${e}_view`).setAttribute('disabled','true');
+       E_I_S("recaptcha-container-tx").innerText = "Solve Recaptcha";
+        configFire(app.fcm, selectLang,"reC",i_app_theme,sendNumber);
         D_CL("signFormHolder","D_N");
         A_CL("phonenumber-active-holder","D_N");
-      //  sendNumber();
+      sendNumber();
       }
     
     }
@@ -1141,16 +1225,15 @@ const funcHandel = (str) => {
 
                     var jsonOb ;
                     if(isJson(txt)){
-                        // Clean the text response using the cleanSt function  
-                        txt = txt.replace(/fndc/g, 'fn');
+                     
                         jsonOb = JD_(txt);
                     } else{
                       
                     if(isValidFunction(txt)){
-                      jsonOb = OBJ_(txt);
+                      jsonOb = JD_(txt);
                     }else{
-                      var jsonTx = cleanSt(txt);
-                      jsonOb = OBJ_(jsonTx);
+                      
+                      jsonOb = JD_(jsonTx);
                     }
                            
                     }
@@ -1390,7 +1473,7 @@ return data;
         if(data.Q){
            delete data.Q;
         }
-        
+      
         const queryName =await SHA256(JDS_(strQ));
       
         isQuery = true;
@@ -1410,13 +1493,24 @@ return data;
         } else {
           Queries[queryName] = { callBack: [callback], process: true };
         }
+      }else if(data.order && data.order == 'getAnswer'){
+        for(const key in Queries){
+          if( Queries[key]  !== null){
+             callback({res:[]});
+             send = false;
+          }
+        }
       }
+
       if(data.query && data.query[0] && data.query[0].noCash){
         send = true;
       }
-     
+     const lastData = data ;
+     if(lastData.Q){
+      delete lastData.Q;
+   }
       if (send) {
-        const jsonSt =JDS_(data);
+        const jsonSt =JDS_(lastData);
       
         const DEDATA = DC_(jsonSt);
 
@@ -1476,7 +1570,20 @@ return data;
     }
   
   };
-
+  const resizeImg = (src,width,height)=>{
+    const img = new Image();
+    img.src = src;
+    img.onload = function() {
+    const canvas = CE_('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = width;
+    canvas.height = height;
+    ctx.drawImage(img, 0, 0, width, height);
+    const resizedImageData = canvas.toDataURL('image/jpeg'); // Change format as needed
+    return resizedImageData;
+    }
+  
+} 
   const SWV =(data)=>{
     if(typeof SWITCH_VOICE === 'function'){
       return SWITCH_VOICE(data)
@@ -1673,11 +1780,12 @@ const loadAllTxt =async ()=>{
     draggingItem.classList.remove('dragging');
     const draggableElements = [...draggingItem.querySelectorAll(`.notDrag`)];
     
-    for(var i = 0 ; i < draggableElements.length; i++){
-      draggableElements[i].classList.remove('notDragStart');
-    }
-    draggingItem = null;
-    updateListOrder();
+      for(var i = 0 ; i < draggableElements.length; i++){
+        draggableElements[i].classList.remove('notDragStart');
+      }
+      
+      draggingItem = null;
+      updateListOrder();
   });
 
   const  updateListOrder =()=> {
@@ -1707,6 +1815,14 @@ const loadAllTxt =async ()=>{
   }
 
   const URS = () => Object.freeze({
+    scrollToBottom:scrollToBottom,
+    COPYE:copyInnerTextToClipboard,
+    COPYTX:COPYTX,
+    GTD:GTD,
+    IND:IND,
+    getDataDB:getDataDB,
+    setDataDB:setDataDB,
+    resizeImg:resizeImg,
     getWhite:getWhite,
     getBlack:getBlack,
     sortByKey:sortByKey,
@@ -1982,7 +2098,7 @@ const loadAllTxt =async ()=>{
   
   //i_app_v = {...i_app_v,...ob}
   for (const [k, v] of Object.entries(ob)) {
-   
+   if(!i_app_v[k]){
     Object.defineProperty(i_app_v, k, {
       get: () =>{return this[k];},
       set: (_v) => {
@@ -1990,6 +2106,8 @@ const loadAllTxt =async ()=>{
         onValueChange_(k, this[k]);
       },
     });
+   }
+ 
     
    // Assign the value directly to the property
    i_app_v[k] = v; 
@@ -3414,12 +3532,12 @@ const loadAllTxt =async ()=>{
 
   if(ob.a){
   let ev = ob.a.e ? ob.a.e : 'click' ;  
+    const funcBody = ob.a.fndc ? ob.a.fndc : ob.a.fn;
 
-
-    if(typeof ob.a.fn === 'string'){
-
+    if(typeof funcBody === 'string'){
+      
     
-    let fnSt = EC_(ob.a.fn.toString());
+    let fnSt = EC_(funcBody.toString());
 
    // const fn = new  Function(fnSt);
     const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
@@ -3467,7 +3585,7 @@ const loadAllTxt =async ()=>{
         this.v = i_app_v ;
         this._ = URS();
         try{ 
-          return ob.a.fn(this.v,this._);
+          return funcBody(this.v,this._);
       }catch(err){
         CL_("your function return error"+err);
       }
@@ -3504,9 +3622,10 @@ const loadAllTxt =async ()=>{
   const L_ROUTE = (body,[[id,data,i_route,ob],dataincome])=>{
   
     if(!i_app_model[i_route] ){
-      i_app_model[i_route] = COPY_OB(body);
+      const bodyStr = JDS_(body);
+      i_app_model[i_route] = bodyStr;
     }
-    const newOb =  COPY_OB(body);
+    const newOb =  JD_(i_app_model[i_route]);
     if(ob && typeof ob === 'object'){
       for (const key in ob) {
         if(key !== 'I' && key !== 'offset' && key !== 'i'  && key !== 'q' && key !== 'i_e' && key !== 'e' && key !== 't' && key !== 'typ'){
@@ -3685,16 +3804,16 @@ const closeOverHide =(dialog)=>{
 
   const holderId = `${ob.i}_holder`;
 
-  i_app_model['sl'] ={t:'sp',c:'F_B',e:[{t:'sp',c:'pointer'},{i:'select12',c:'WW D_N HH POS_FX TT_0 LL_0 RR_0 B_W Ztop',e:[{c:',container MD HH',e:[{c:'WW  MD MW_400 T_L',e:[{t:'icon',c:'ICO-arrow-left F_S_30   TT_10 pointer'}]},{c:'WW mT_80 MD MW_400',e:[{t:'in',c:'WW mB_30 input'},{ t:'icon', c:'ICO-close POS_AB RR_0 pointer' }]},{ c:'WW T_L MW_400 MD SCROLL H_400'}]}]}]};
+  i_app_model['sl'] =JDS_({t:'sp',c:'F_B',e:[{t:'sp',c:'pointer'},{i:'select12',t:'dialog',c:'WW  HH  TT_0 LL_0 RR_0 B_W Ztop',e:[{c:',container MD HH',e:[{c:'WW  MD MW_400 T_L',e:[{t:'icon',c:'ICO-arrow-left F_S_30   TT_10 pointer'}]},{c:'WW mT_80 MD MW_400',e:[{t:'in',c:'WW mB_30 input'},{ t:'icon', c:'ICO-close POS_AB RR_0 pointer' }]},{ c:'WW T_L MW_400 MD SCROLL H_400'}]}]}]});
   
        
       
       const NewSelectElment = ()=>{
-        const fnStOpen = `{_.D_CL(["${ob.i}_selectScreen","D_N"]);_.openOverHide(); }`;
+        const fnStOpen = `{_.E_I_S("${ob.i}_selectScreen").showModal();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); }`;
         const fnStOpenDC = DC_(fnStOpen);
-        const fnStClose = `{_.A_CL("${ob.i}_selectScreen","D_N");_.closeOverHide(); }`;
+        const fnStClose = `{_.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); }`;
         const fnStCloseDC = DC_(fnStClose);
-        const selectModel = COPY_OB(i_app_model['sl']);
+        const selectModel = JD_(i_app_model['sl']);
         selectModel.e[0].i = `${ob.i}_selectButton`;
         selectModel.e[0].a = {fn: fnStOpenDC}
         if(ob.c){
@@ -3735,7 +3854,7 @@ const closeOverHide =(dialog)=>{
           selectModel.e[1].e[0].e[2].e =ob.e;
           for(var i = 0; i < selectModel.e[1].e[0].e[2].e.length;i++){
             if(selectModel.e[1].e[0].e[2].e[i].v || selectModel.e[1].e[0].e[2].e[i].val){
-              const fnStItem = `{_.IN_V("${ob.i}","${selectModel.e[1].e[0].e[2].e[i].val}");_.CL_(_.E_I_V('${ob.i}'));_.SW_CL("${ob.i}_selectScreen","D_N");_.elmChange('${ob.i}');}`;
+              const fnStItem = `{_.IN_V("${ob.i}","${selectModel.e[1].e[0].e[2].e[i].val}");_.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); _.elmChange('${ob.i}');}`;
               const fnStItemDC = DC_(fnStItem);
                     selectModel.e[1].e[0].e[2].e[i].a = {fn:fnStItemDC};
                     selectModel.e[1].e[0].e[2].e[i].t = 'ly';
@@ -3758,7 +3877,7 @@ const closeOverHide =(dialog)=>{
                 const imgSrc     = `flags/${lowerCode}.png`;
                 const fnStItem   = `{
                   _.IN_V("${ob.i}","${data[i].dialCode}");
-                  _.SW_CL("${ob.i}_selectScreen","D_N");
+                  _.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); 
                   _.elmChange('${ob.i}_dialCode');
                   _.E_I_S('${ob.i}_flag').src = _.G_SRC('${imgSrc}');
                   _.E_I_S('${ob.i}_code').innerText = '${data[i].dialCode}';
@@ -3766,27 +3885,27 @@ const closeOverHide =(dialog)=>{
   
                 const fnStItemDC = DC_(fnStItem);
                 const selectItem = {
-                  c:'WW ST_B_GRY8_1 pointer PD_4',
-                  i: `${ob.i}_${i}_item`,
-                  e:[
-                    {
-                      t:'img',
-                      c:'W_20',
-                      src:imgSrc
-                    },
-                    {
-                      t:'sp',
-                      s:'q.{dialCode} ',
-                      c:'F_GRY7 W_50 mL_10 '
-                    },{
-                      t:'sp',
-                      s:'q.{name} ',
-                      c:'F_S_12 '
-                    },{
-                      t:'sp',
-                      s:' ( q.{originalName} )',
-                      c:'F_S_12 '
-                    }
+                                  c:'WW ST_B_GRY8_1 pointer PD_4',
+                                  i: `${ob.i}_${i}_item`,
+                                  e:[
+                                    {
+                                      t:'img',
+                                      c:'W_20',
+                                      src:imgSrc
+                                    },
+                                    {
+                                      t:'sp',
+                                      s:'q.{dialCode} ',
+                                      c:'F_GRY7 W_50 mL_10 '
+                                    },{
+                                      t:'sp',
+                                      s:'q.{name} ',
+                                      c:'F_S_12 '
+                                    },{
+                                      t:'sp',
+                                      s:' ( q.{originalName} )',
+                                      c:'F_S_12 '
+                                    }
                   ],
                   Q:data[i] ,
                   a:{fn:fnStItemDC}
@@ -3814,7 +3933,7 @@ const closeOverHide =(dialog)=>{
                     const fnStItem   = `{
                       ${vq}
                       _.elmChange('${ob.i}');
-                      _.SW_CL("${ob.i}_selectScreen","D_N");
+                      _.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); 
                       _.E_I_S("${ob.i}_selectButton").innerHTML = '';
                       _.CR_(${JDS_(_selectButtonData)} ,'${ob.i}_selectButton',${JDS_(data[i])});
                     }`;
@@ -3843,14 +3962,29 @@ const closeOverHide =(dialog)=>{
                   }
               }
               let findS = 'No Data';
-    
-               if(ob.model[0].s){
-                findS = ob.model[0].s;
-               }else if(ob.model[0].e[0] && ob.model[0].e[0].s){
-                findS = ob.model[0].e[0].s;
-               }
-               
-              selectModel.e[0].e    = [{t:'sp', Q:data[0], i:`${ob.i}_Button`, s:findS , c:'mL_5 F_B'}];
+              var qq = data[0];
+              if(ob.vq && ob.Q && ob.Q[ob.vq]){
+                const testParentVal = ob.Q[ob.vq];
+                if(ob.model[0].vq){
+                  const keyModelVal = ob.model[0].vq;
+                  for(var i =0; i < data.length;i++){
+
+                    if(data[i][keyModelVal] == testParentVal){
+                        qq = data[i];
+                    }
+
+                  }
+                }
+              }
+                if(ob.model[0].s){
+                  findS = ob.model[0].s;
+                 }else if(ob.model[0].e[0] && ob.model[0].e[0].s){
+                  findS = ob.model[0].e[0].s;
+                 }
+              
+              
+              
+              selectModel.e[0].e    = [{t:'sp', Q:qq, i:`${ob.i}_Button`, s:findS , c:'mL_5 F_B' }];
         
               CR_(selectModel,holderId,false);
             }
@@ -3939,9 +4073,9 @@ const closeOverHide =(dialog)=>{
                   
               }
       }
-
+    
       const callback = (res,data)=>{
-        CL_(['callback recive delete id ', spinnerId])
+
         DEL_(spinnerId);
         const Qsize = res.Qsize ? res.Qsize  : 0; 
            
@@ -3992,6 +4126,7 @@ const closeOverHide =(dialog)=>{
               }
               
             }
+            
             const elmId = ob.i;
             I_OB[ ob.i].childsQ = res;
             if(res.length > 0){
@@ -4378,13 +4513,13 @@ const tableSetModelData = (ob)=>{
    
         if(!i_app_model['limitAuto'] ){
               const callback = (body,[ob,data])=>{
-                i_app_model['limitAuto'] =COPY_OB(body);
+                i_app_model['limitAuto'] =JDS_(body);
                 makeLimitAuto(ob,data);
               }
             G_root('limitAuto.app',callback,[[ob,data],false]);
           
         }else if(i_app_model['limitAuto'] ){
-          const limitAuto = COPY_OB(i_app_model['limitAuto']);
+          const limitAuto = JD_(i_app_model['limitAuto']);
           let Querie = {}
          if(ob.Q){
           Querie = {lines:ob.limitAuto,table:ob.i,...ob.Q}
@@ -4555,9 +4690,9 @@ if(ob.forkey){
         ob_css += ob.perClass.addClass;
       }
       if( ob.perClass.delClass){
-        ob_css_list = ob_css_list.filter(e=>{
-          if(e !==  ob.perClass.delClass){
-            return e;
+        ob_css_list = ob_css_list.filter(o=>{
+          if(o !==  ob.perClass.delClass){
+            return o;
           }
         });
         const regex =  new RegExp( ob.perClass.delClass, "g");
@@ -4566,9 +4701,9 @@ if(ob.forkey){
     }else{
       if(ob.perClass.addClass){
       
-        ob_css_list = ob_css_list.filter((e)=>{
-                if(e !==  ob.perClass.addClass){
-                  return e;
+        ob_css_list = ob_css_list.filter((o)=>{
+                if(o !==  ob.perClass.addClass){
+                  return o;
                 }
               });
         const regex =  new RegExp( ob.perClass.addClass, "g");
@@ -4619,8 +4754,9 @@ if(ob.forkey){
   if(ob_type == "in" ){
   //input type
   if(ob_css_list.includes("D_N")){
-  isHideElement =true;
+    isHideElement =true;
   }
+
   if(ob.mod && ob.mod == 'phone'){
     const updateInputFnST =`{
       const code= _.E_I_V("${ob.i}_dialCode");
@@ -4903,13 +5039,15 @@ if(ob.forkey){
     }
   
   }
-  if(ob.val){
+if(ob.val){
     e.value = ob.val;
     e.setAttribute('value',e.value);
 }else   if(ob.vq){
-  const value = data[ob.vq]?data[ob.vq]:e.vq;
-  e.value = value;
-  e.setAttribute('value',value);
+
+   
+  
+  e.value = data[ob.vq];
+  e.setAttribute('value',data[ob.vq]);
 
 }else   if(ob.value){
   e.value = ob_value(ob);
@@ -5135,18 +5273,19 @@ if(ob.forkey){
   if(up){
           if(Array.isArray(elm)){
             for(let i = 0 ; i < elm.length;i++){
-              let el = elm[i];
-          
-              const ch = COPY_OB(el);
-              ch.offset = i;
-              CR_(ch,ob.i,data);
+             
+                let el = elm[i];
+                const ch = COPY_OB(el);
+                      ch.offset = i;
+                      CR_(ch,ob.i,data);
+            
             }
           }
   }
   }
   
   if(ob._IQuery_ ){
-
+ 
     dataQuery(ob,data);
   
 }
@@ -5159,7 +5298,7 @@ if(ob.forkey){
 
     }else if(i_app_model[IROUTE]){
      
-     const I_R =COPY_OB(i_app_model[IROUTE]);
+     const I_R =JD_(i_app_model[IROUTE]);
      I_R.replace = true;
      for (const key in ob) {
      
@@ -5256,8 +5395,21 @@ if(ob.forkey){
   }
   function IS_PHONE_NUMBER(phoneNumber) {
     // Regular expression to match a phone number in the format +XXXXXXXXXXXX
-    var phoneRegex = /^\+\d{12}$/;
-    return phoneRegex.test(phoneNumber);
+    var is_num = false;
+    var length= false;
+    if(parseInt(phoneNumber) > 0){
+      is_num = true;
+    }
+    const toString = phoneNumber.toString();
+    if(toString.length > 7){
+      length= true;
+    }
+ 
+    if(is_num && length){
+      return true;
+    }else{
+      return false;
+    }
   }
   const IS_USERNAME = (un)=>{
     // Remove non-alphanumeric characters and ensure lowercase
@@ -5277,7 +5429,7 @@ if(ob.forkey){
     scrollToTop();
     E_I("i-app").remove();
     if(i_app_model[i_route]){
-        i_sc.ob = COPY_OB(i_app_model[i_route]);
+        i_sc.ob = JD_(i_app_model[i_route]);
        CR_(i_app_model[i_route],"i-app",false);
     }else{
         
@@ -5288,18 +5440,20 @@ if(ob.forkey){
     const appRoot = app.dir.start.replace(/.app/g,'');
     window.history.pushState({ page: window.location.pathname }, window.location.pathname, i_route);
     i_root_();
-    
+   if( E_I("i-app")){
     E_I("i-app").remove();
+   } 
+  
     I_OB = {};
     scrollToTop();
    
     createAppObjV(i_route);
         if(i_app_model[i_route]){
-         i_sc.ob = COPY_OB(i_app_model[i_route]);
+         i_sc.ob = JD_(i_app_model[i_route]);
                 CR_(i_sc.ob,"i-app",false);
                 for(var i = 0 ; i < windowHistory.length; i++){
                   if(i_route === windowHistory[i]){
-                    historyIndex =i;
+                      historyIndex = i;
                   }
                 }
         }else{
@@ -5320,7 +5474,7 @@ if(ob.forkey){
 
 const getBrowserLang = ()=>{
     let browserLangData = navigator.languages;
-    let browserLang = browserLangData[1];
+    let browserLang     = browserLangData[1];
     return browserLang;
   }
 
@@ -6362,7 +6516,7 @@ const createAppTxt =async(lang)=>{
     const root = window.location.pathname.replace(/\//g,"");
     if(root == ''){
       const appRoot = app.dir.start.replace(/.app/g,'');
-      i_app_model[appRoot] =COPY_OB( i_app_OB);
+      i_app_model[appRoot] =JDS_( i_app_OB);
     }
   
     createAppObjV(i_root);
@@ -6409,7 +6563,15 @@ const createAppTxt =async(lang)=>{
             console.error("Failed to copy text to clipboard: ", err);
         });
 }
-
+function COPYTX(textToCopy){
+  navigator.clipboard.writeText(textToCopy)
+  .then(() => {
+      console.log("Text copied to clipboard successfully!");
+  })
+  .catch(err => {
+      console.error("Failed to copy text to clipboard: ", err);
+  });
+}
   function handleHistoryChange(event) {
     // Check if the user navigated backward or forward
 
@@ -6494,8 +6656,8 @@ const createAppTxt =async(lang)=>{
      */
   
     // If the app directory is defined, load the i-app
-    if (app.dir) {
-      i_app_load();
+    if (appData && appData.dir) {
+      i_app_load(appData);
     } else {
       // Otherwise, load the app directory data using the G_root function
       G_root(I_APP_DIR, i_app_load);

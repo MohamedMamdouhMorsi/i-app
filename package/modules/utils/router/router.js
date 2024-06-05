@@ -1,15 +1,40 @@
 const {checkForSqlInjection} = require('../../tools');
+
+
 const router = {
     routes: {},
     get(url, callback,data) {
       this.routes[url]= { callback,data };
     },
-    match(req, res) {
+   async match(req, res) {
       const checkInjection = checkForSqlInjection(req.url);
+
       if(!checkInjection){
-      if (this.routes[req.url]) {
-       this.routes[req.url].callback(req, res,this.routes[req.url].data);
-        return true;
+        const urlArr = req.url.split("?");
+        var url_ = req.url;
+        const getQ = {};
+        if(urlArr.length > 0){
+          url_ = urlArr[0];
+          if(urlArr[1] && urlArr[1] !== ""){
+            const getQF = urlArr[1].split("&");
+              if(getQF && getQF.length > 0){
+                for(var i = 0 ; i < getQF.length;i++){
+                  const getQFR = getQF[i].split("=");
+                  if(getQFR[0] && getQFR[1]){
+                      const key = getQFR[0] ;
+                      const val = getQFR[1] ;
+                      getQ[key] = val;
+                  }
+                }
+              }
+
+          }
+         
+        }
+      if (this.routes[url_]) {
+        
+        return  this.routes[url_].callback(req, res,getQ,this.routes[url_].data);
+     
       } else {
         return false;
       }
