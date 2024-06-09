@@ -80,11 +80,12 @@ if(!fs.existsSync(i_app_path)){
                           return e.v;
                       }
                   })[0];
-                  PR_D = styleColor.filter(e=>{
-                    if(e.k == "theme"){
-                        return e.v;
-                    }
-                })[0];
+               for(var wq = 0 ; wq < styleColor.length ; wq++){
+                if(styleColor[wq].k == "theme"){
+                  PR_D = e.v;
+              }
+               }
+              
                   manifest = manifestMaker(i_app,{PR_D : PR_D , PR : PR})
                   const server =   makeAppServer(port,[i_app, PR_D.v,manifest,tree,userDir,swScript,i_app_path]);
                     if(!fs.existsSync(i_app_db_path)){
