@@ -10,6 +10,8 @@ const getContentType = (extname) => {
           return 'text/javascript';
       case '.json':
         return 'application/json';
+        case '.glb':
+          return 'model/gltf-binary';
       case '.png':
         return 'image/png';
         case '.hdr':

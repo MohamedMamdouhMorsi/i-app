@@ -80,13 +80,15 @@ if(!fs.existsSync(i_app_path)){
                           return e.v;
                       }
                   })[0];
-               for(var wq = 0 ; wq < styleColor.length ; wq++){
-                if(styleColor[wq].k == "theme"){
-                  PR_D = e.v;
-              }
-               }
+
+                for(var wq = 0 ; wq < styleColor.length ; wq++){
+                    if(styleColor[wq].k == "theme"){
+                      PR_D = styleColor[wq].v;
+                    }
+                }
               
-                  manifest = manifestMaker(i_app,{PR_D : PR_D , PR : PR})
+                  manifest = manifestMaker(i_app,{PR_D : PR_D , PR : PR});
+                  
                   const server =   makeAppServer(port,[i_app, PR_D.v,manifest,tree,userDir,swScript,i_app_path]);
                     if(!fs.existsSync(i_app_db_path)){
                       console.warn(messages.dbAlert);

@@ -50,13 +50,19 @@ const app_file =(req,res,ext,fileName,manifest,tree,userDir,i_app)=>{
       }
     });
     return true;
-}else  if (req.url === '/manifest.json') {
+}else if (req.url === '/countryFlags.json') {
+
+      filePath = path.join(__dirname, '..','..','..','img','flags','countryFlags.json');
+      isApp = true;
+
+}else if (req.url === '/manifest.json') {
+
         backBody = JDS_(manifest);
         isApp = true;
-    } else if (backBody == null && req.url === '/i.app') {
+} else if (backBody == null && req.url === '/i.app') {
         backBody = JSON.stringify(i_app);
         isApp = true;
-    }else{
+}else{
 
       if (req.url === '/limitAuto.app' ) {
         filePath = path.join(__dirname, '..','..','..','elements','limitAuto.app');

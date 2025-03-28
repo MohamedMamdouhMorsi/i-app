@@ -53,24 +53,42 @@ const selectAllColumnsJoinKata = (op,sn)=> {
     return opText;
 }
 const getPointer =(ob, tableName, table)=> {
-    let columnIndex = ob[0][0][0];
     let columnName = "";
+    const DataKeys = [];
+    for(var r = 0 ; r < ob.length; r++){
+        const ORD_ = ob[r];
+        for(var a = 0 ; a < ORD_.length; a++){
+            const ANDD = ORD_[a];
+            let columnIndex = ANDD[0];
+            if (typeof columnIndex === "string") {
+                let columnExist = table.includes(columnIndex);
+                if (columnExist) {
+                    columnName += columnIndex +", ";
+                    DataKeys.push(columnIndex);
+                } else {
+                    console.error("Error");
+                    return;
+                }
+            } else if (typeof columnIndex === "number") {
 
-    if (typeof columnIndex === "string") {
-        let columnExist = table.includes(columnIndex);
-        if (columnExist) {
-            columnName = columnIndex;
-        } else {
-            console.error("Error");
-            return;
-        }
-    } else if (typeof columnIndex === "number") {
-        columnIndex -= 1;
-        if (columnIndex >= 0 && columnIndex < table.length) {
-            columnName = table[columnIndex];
+                   columnIndex -= 1;
+
+                if (columnIndex >= 0 && columnIndex < table.length) {
+                    columnName += table[columnIndex]+", ";
+                    DataKeys.push( table[columnIndex]);
+                }
+                
+            }
         }
     }
-    return columnName;
+   
+  
+    const Back = {
+        str:columnName,
+        key:DataKeys[DataKeys.length -1]
+    }
+
+    return Back;
 }
 const getJQuery = (ob,tables)=>{
 
@@ -117,13 +135,14 @@ const getJQuery = (ob,tables)=>{
                     var multiArraySelect = "";
                     if(joinJson){
                         var selectJoinArray = [];
+                       
                                     if(ob['j'][o]['s'][0] == "A"){
                                         selectJoinArray = cureTableCol;
                                     }else{
                                         selectJoinArray = ob['j'][o]['s'];
                                     }
                         const selectAllColumnsJoin_B = selectAllColumnsJoinKata(selectJoinArray,newColumnSelectNameJoin);
-                        multiArraySelect         = ` (SELECT ${pointerData} , JSON_ARRAYAGG(JSON_OBJECT(${selectAllColumnsJoin_B} )) AS ${cureTableName} FROM ${cureTableName} GROUP BY ${pointerData} ) AS `;
+                        multiArraySelect         = ` (SELECT ${pointerData.str}  JSON_ARRAYAGG(JSON_OBJECT(${selectAllColumnsJoin_B} )) AS ${cureTableName} FROM ${cureTableName} GROUP BY ${pointerData.key} ) AS `;
                     }
                     const joinMethod = ob.j[o].jm ? ob.j[o].jm : 'LEFT';
                     const orAndOptionText_ = orAndOptionJoin(ob.j[o].q,tables,cureTableName,tableName);

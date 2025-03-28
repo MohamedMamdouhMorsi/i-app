@@ -4,15 +4,19 @@ const {JDS_,JD_,EC_}    = require('../../tools');
 const iAppReader    = require('./iAppReader');
 const iAppFileMaker = require('./iAppFileMaker');
 let langOB = {};
+var processed = {}
 const processFile = async (fileAppData,filePath)=>{
 
-        const isKey = (sto)=>{
-            if(sto == 'q' || sto == 'qt' || sto == 't' || sto == 'v' || sto == 'vt' || sto == 'val' || sto == 'app' || sto == 'u' ){
-                return true;
-            }else{
-                return false;
-            }
-        }
+    const isKey = (i, st) => {
+        const keys = ['q', 'qt', 't', 'v', 'vt', 'val', 'app', 'u'];
+        const txt = st.substring(i); // Extract the substring starting from index 'i'
+        
+        // Use 'some' to check if any key matches the start of 'txt'
+        const matchedKey = keys.find(key => txt.startsWith(`${key}.{`));
+        
+        return matchedKey || false; // Return the matched key or false if no match
+    };
+    
         
         const makeShortName = (str)=>{
 
@@ -28,17 +32,20 @@ const processFile = async (fileAppData,filePath)=>{
             let strData         = strDataR;
 
             while (langOB[strData]) {
+
                     if(count <= crNo){
                         strData = strData.substring(0,count);
                     }else{
                         strData = `${strData}_${count}`;
                     }
+
                     count++;
             }
 
             if (strData.startsWith("-")) {
-                strData = strData.substring(1);
-               
+
+                    strData = strData.substring(1);
+
               }
             
             return strData;
@@ -46,7 +53,7 @@ const processFile = async (fileAppData,filePath)=>{
 
         const isStringExist = (str)=>{
                 for(const st in langOB){
-                    if(langOB[st] == str){
+                    if(langOB[st] === str){
                         return st;
                     }
                 }
@@ -54,106 +61,137 @@ const processFile = async (fileAppData,filePath)=>{
         }
 
         const newStringOb = (str)=>{
-           if(typeof str === 'string'){
-
-           }else{
-            return str;
-           }
-            const strAr = str.split("");
-            var Laststr = "";
-            var objectIsOpen = false;
-            const prag = [];
-            var render       = true;
-            var isObject     = false;
-            var cutAndUp     = false;
-            var stateType    = 'free'; 
-            for(var i = 0 ; i < strAr.length; i++){
-
-         
-                const alpha      = strAr[i];
-                const betaIndex  = i + 1;
-                const gammaIndex = i + 2;
-                const isKey_     = isKey(alpha);
-
-                if(isKey_ && strAr[betaIndex] && strAr[gammaIndex]){
-                   
-                    const beta       = strAr[betaIndex];
-                    const gamma      = strAr[gammaIndex];
-
-                    if(beta === '.' && gamma === '{' && Laststr !== ''){
-
-                        isObject    = true;
-                        prag.push({t:stateType,s:`${Laststr}`});
-                        Laststr     = alpha; 
-
-                    }
-               
-                }
-
-                    if( alpha == '}'){
-
-                        stateType = 'fun';
-                        isObject  = false;
-                        cutAndUp  = true;
-
-                    }
-
-                    if(i == strAr.length - 1){
-
-                        cutAndUp = true;
-
-                    }
-
-                    if(render){
-                        Laststr = `${Laststr}${alpha}`;
-
-                        if(cutAndUp){
-
-                            prag.push({t:stateType,s:Laststr});
-                            Laststr       = "";
-                            cutAndUp      = false;
-
-                            if(stateType == 'fun'){
-                                stateType = 'free';
-                            } 
-
-                        }
-                    }
-
-            }
-                    var lastStr = "";
-                  
-                    for(var i = 0 ; i < prag.length; i++){
-                        if(prag[i].t == 'free'){
-
-                            const isStringExist_            = isStringExist(prag[i].s);
-
-                            if(isStringExist_){
-
-                                lastStr += `t.{${isStringExist_}}`;
-
-                            }else{
-
-                                const isStr                  = prag[i].s.replace(/[^a-z]/g, '');
-
-                                if(isStr !== ''){
-
-                                    const shortName          = makeShortName(prag[i].s);
-                                    langOB[shortName]        = prag[i].s;
-                                    lastStr                 += `t.{${shortName}}` ;
-
-                                }else{
-                                    lastStr += prag[i].s ;
-                                }
-                            }
-                        
-                        }else{
-                            lastStr += prag[i].s ;
-                        }
-                    }
+            if(typeof str === 'string'){
+    
+                const strAr      = str.split("");
+                var Laststr      = "";
+                const prag       = [];
+    
+                
+                var isObject     = false;
+                var stateType    = 'free'; 
+                var objectKey = "";
+                var recordObject = false;
+                var recordObjectStart = 0;
+ 
+                for(var i = 0 ; i < strAr.length; i++){
+ 
+                 var pushedToprag       = false;
+                 const alpha      = strAr[i];
+                 if(isObject && alpha === '}'){
+                     isObject = false;
+                     Laststr = Laststr+'}';
+                     
+                     prag.push({t: stateType , s:`${ Laststr }`});
+                     pushedToprag       = true;
+ 
+                    
+                     Laststr = "";
+                     stateType = 'free';
+                 }else{
+                     if(isObject ){
+                         Laststr = `${Laststr}${alpha}`;
+                     }else{
+ 
+                         var isKey_ = isKey(i,str);
+ 
+                         if(stateType === 'free' && isKey_ ){
+                             // if key for transalate start to record it 
+                             if(isKey_ === 't' || isKey_ === 'qt' || isKey_ === 'vt'){
+                                 recordObject = true;
+                                 if(isKey_ === 't' ){
+                                     recordObjectStart = 3;
+                                 }else{
+                                     recordObjectStart = 4;
+                                 }
+                             }
+ 
+                                 isObject    = true;
+                                 prag.push({t: stateType , s:`${ Laststr }`});
+                                 pushedToprag       = true;
+                                 stateType   = "fun";
+                                 Laststr     = ""; 
+                                 Laststr     = alpha; 
+                         }else{
+                            Laststr = `${Laststr}${alpha}`;
+                         }
+                     }
+                 }
                  
-                return lastStr;
-        }
+                 
+              
+              
+ 
+                 if(isObject && alpha !== '}' && recordObject){
+                   
+                     if(recordObjectStart > 0){
+                        
+                         recordObjectStart = recordObjectStart - 1;
+ 
+                     }else{
+                        
+                         objectKey += alpha;
+                     }
+ 
+                 }else  if( alpha == '}' && recordObject){
+                   
+                    
+                    
+                     if(langOB[objectKey]){
+                         processed[objectKey] = true;
+                         recordObject = false;
+                         objectKey = "";
+                     }
+                 }
+ 
+                     
+ 
+                     if(!pushedToprag && i == strAr.length - 1){
+ 
+                         prag.push({t: stateType , s:`${ Laststr }`});
+ 
+                     }
+             }
+                     var newStr = "";
+                    
+                     for(var i = 0 ; i < prag.length; i++){
+                       
+                         if(prag[i].t === 'free' && prag[i].s !== '' && prag[i].s !== ' ' && prag[i].s !== ' , ' ){
+                            console.log(prag[i].s)
+                             const isStringExist_            = isStringExist(prag[i].s);
+                             console.log(isStringExist_)
+                             if(isStringExist_){
+                               
+                                
+                                 newStr += `t.{${isStringExist_}}`;
+                                 processed[isStringExist_] = true;
+                             }else{
+ 
+                                 const isStr                  = prag[i].s.replace(/[^a-z]/g, '');
+                                 
+                                 if(isStr !== ''){
+                                    
+                                     const shortName          = makeShortName(isStr);
+                                     
+                                     langOB[shortName]        = prag[i].s;
+                                     newStr                  += `t.{${shortName}}` ;
+                                     processed[shortName]     = true;
+
+                                 }else{
+                                    newStr += prag[i].s ;
+                                 }
+                             }
+                         
+                         }else{
+                            newStr += prag[i].s ;
+                         }
+                     }
+                  
+                 return newStr;
+             }else{
+                 return str;
+             }
+         }
 
         const newArStringOb = (ar)=>{
            if(Array.isArray(ar)){
@@ -329,9 +367,18 @@ function prettyPrint(obj) {
         await fs.writeFileSync(filePath, pretty);
         console.log('saved > '+filePath);
     }
+    const lastClean = {};
+
+    for (const key in langOB) {
+        if (processed[key]) {
+            lastClean[key] = langOB[key];
+        }
+    }
         await fs.writeFileSync(i_app_langDir, JSON.stringify(langOB,null,2));
-    console.log(data.length);
+      
     res.writeHead(200, { 'Content-Type': 'application/json'});
     res.end(JDS_({ res: true }));
  }
  module.exports = readAndUpdate
+
+ //why-choose-us

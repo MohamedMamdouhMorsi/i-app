@@ -1,6 +1,7 @@
 /**********************************************************
 Basic Body 
 */
+
 html,
 body {
     width: 100%!important;
@@ -23,7 +24,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
  
 }
-
+img {
+    width: 100%; /* or any percentage or width value */
+    height: auto; /* This maintains the aspect ratio */
+  }
 #VRButton{
     display: none;
 }
@@ -45,9 +49,19 @@ body {
     float: left;
     height: 35px;
 }
-
+.lineGStep{
+    background-color: #c8c8c8;
+    position: absolute;
+    width: 100%;
+    margin-top: 12px;
+    opacity: 0.5;
+    left: 12px;
+    margin-bottom: 12px;
+    height: 5px;
+}
 .lineWStep{
     background-color: #ffffff;
+    position: absolute;
     width: 100%;
     margin-top: 12px;
     left: 12px;
@@ -786,7 +800,9 @@ tringB{
 /***
 GLASS
 **/
-
+.NOBG{
+    background-color: transparent;
+}
 .BBGLASS{
     background-color:rgba(0, 0, 0, 0.432);
     backdrop-filter: blur(2px);
@@ -845,6 +861,9 @@ cursor
 */
 .pointer {
     cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 .move {
     cursor: move;
@@ -975,6 +994,9 @@ height
 }
 .W_F_C{
     width: fit-content;
+}
+.W_FIT{
+    min-width: -webkit-fill-available;
 }
 .H_F_C{
     height: fit-content;
@@ -1348,11 +1370,40 @@ animation class
 */
 /**
 */
+#start-screen {
+    opacity: 1;
+    animation: none;
+  }
+  
+  /* The class to apply when you want to hide the element */
+.hideScreen {
+    opacity: 20; /* Fades out the element */
+    pointer-events: none; /* Prevents interaction during fade-out */
+    
+  }
+  
+  /* Optional: After the opacity reaches 0, you can hide the element with `display` */
+.hiddenScreen {
+    animation: fadeOut 3s ease-out forwards; /* 5 seconds fade-out */
+    pointer-events: none; /* Prevent interaction during the animation */
+  }
 
+  
+  /* Keyframe for the fade-out animation */
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+ 
 .closeSlide{
     animation: anmiCloseSlide 6000 ease-in;
     overflow: hidden;
     height: 0px;
+
 }
 
 @keyframes anmiCloseSlide{
@@ -2163,10 +2214,11 @@ margin: 30px auto 0 auto;
 
 .toast {
     position: fixed;
-    top: 20px;
+    top: 100px;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
@@ -2379,7 +2431,10 @@ div.slideW::-webkit-scrollbar-track {
     pointer-events: none;
     
 }
-
+.noClick{
+    pointer-events: none;
+    
+}
 .dragI.dragging {
     opacity: 0.5;
    
@@ -2421,4 +2476,23 @@ slide range
     height: 15px; /* Slider handle height */
     background: #6c6c6c; /* Green background */
     cursor: pointer; /* Cursor on hover */
+  }
+  
+  .search-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
+    outline: none;
+  }
+
+  .search-button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    border: 1px solid #4CAF50;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 16px;
   }

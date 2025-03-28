@@ -143,7 +143,7 @@ function convertStrToOb (str) {
   str = str.replace(/} "/g, '} , "'); // missing comma
   str = str.replace(/} {/g, '} , {'); // missing comma
   str = str.replace(/" {/g, '" , {'); // missing comma
-
+  str = str.replace(/\] \[/g, '] , ['); // missing comma
   str = str.replace(/""/g, '" , "'); // missing comma
   str = str.replace(/]"/g, '] , "'); // missing comma
   str = str.replace(/}"/g, '} , "'); // missing comma

@@ -43,6 +43,7 @@
     }
     if(app.three){
       innerHTML +='<script type="importmap">{"imports": {"three": "./three.js"}}</script>';
+      
     }
     innerHTML +=`<script type="application/javascript" >const appData = ${JSON.stringify(app)};</script>`;
     innerHTML +=`<script type="application/javascript" id:"i-app-ui" src=${devMode? "/i-app-ui.js" : "/i-app-ui.min.js"} async defer ></script>`;

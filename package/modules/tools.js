@@ -16,7 +16,7 @@ Decodes a base64-encoded string.
 const EC_ = (mw) => {
   let n;
   try {
-    n = Buffer.from(mw, 'base64').toString('ascii');
+    n = Buffer.from(mw, 'base64').toString('utf8');
     return n;
   } catch (e) {
     console.log("Error EC_ =>", n);

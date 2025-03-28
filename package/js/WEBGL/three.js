@@ -21381,6 +21381,7 @@
 			console.log( 'THREE.WebGLRenderer: Context Lost.' );
 
 			_isContextLost = true;
+			window.location.reload();
 
 		}
 

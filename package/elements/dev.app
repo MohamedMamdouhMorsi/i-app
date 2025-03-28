@@ -1,6 +1,6 @@
 {
     page:true
- 
+   
     c:'PD_20  main'
     v:{
         tabs:{
@@ -259,59 +259,59 @@
         }
     ]
                         a:{
-                        e:'auto'
-                        fn:{
-                             const queryA = {
-                                    _IQuery_: [ {
-                                                a: 'get',
-                                                n: 'usersType',
-                                                s: ['A'],
-                                                l: '0',
-                                                q: [
-                                                    [
-                                                        ['id', '0', 'uneq']
+                            e:'auto'
+                            fn:{
+                                const queryA = {
+                                        _IQuery_: [ {
+                                                    a: 'get',
+                                                    n: 'usersType',
+                                                    s: ['A'],
+                                                    l: '0',
+                                                    q: [
+                                                        [
+                                                            ['id', '0', 'uneq']
+                                                        ]
                                                     ]
-                                                ]
-                                        }
-                                    ]
-                            };
+                                            }
+                                        ]
+                                };
 
-                            const queryB = {
-                                    _IQuery_: [ {
-                                                a: 'get',
-                                                n: 'permissions',
-                                                s: ['A'],
-                                                l: '0',
-                                                q: [
-                                                    [
-                                                        ['id', '0', 'uneq']
+                                const queryB = {
+                                        _IQuery_: [ {
+                                                    a: 'get',
+                                                    n: 'permissions',
+                                                    s: ['A'],
+                                                    l: '0',
+                                                    q: [
+                                                        [
+                                                            ['id', '0', 'uneq']
+                                                        ]
                                                     ]
-                                                ]
-                                        }
-                                    ]
-                            };
-                                                    
-                            const getUserType = (data)=>{
+                                            }
+                                        ]
+                                };
+                                                        
+                                const getUserType = (data)=>{
 
-                                    if(data.res){
+                                        if(data.res){
 
-                                        _.setV('typeNameList',data.res);
-                                      
+                                            _.setV('typeNameList',data.res);
                                         
-                                    }
-                            };
+                                            
+                                        }
+                                };
 
-                            const getPermissions = (data_)=>{
+                                const getPermissions = (data_)=>{
+                                        
+                                        if(data_.res){
+                                            _.setV('appPermissionsList',data_.res);
+                                        
                                     
-                                    if(data_.res){
-                                         _.setV('appPermissionsList',data_.res);
-                                    
-                                  
-                                    }
+                                        }
 
-                            };
-                            _._POST('/api',queryB,getPermissions);
-                            _._POST('/api',queryA,getUserType);
-                        }
+                                };
+                                _._POST('/api',queryB,getPermissions);
+                                _._POST('/api',queryA,getUserType);
+                            }
                     }
 }

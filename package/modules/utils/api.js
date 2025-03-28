@@ -11,7 +11,7 @@ const numberToLetter = {};
 const zipS = async (txt)=>{
 
   const zAR    = txt.split(",");
- console.log(["zar",txt,zAR]);
+
   if(zAR.length < 8){
 
       return txt;

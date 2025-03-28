@@ -7,9 +7,8 @@ const numberToLetter = {};
 var valOffset = 0;
 var ab = 1;
 var ac = 1;
-var wakeUp_ = false;
+
 var getAnswerTime = 10;
-var setSleepTime = 30;
 
     const i_zip =async (objAr,index,somp)=>{
 
@@ -540,7 +539,7 @@ const _SERVER_START = ([_,user])=>{
      */
 
         const _S_ON_OPEN  = (m,w)=>{
-            CL_(["open !!!!",m,w]);
+           // CL_(["open !!!!",m,w]);
 
             if(window.app_S[w]){
             var ava;
@@ -559,7 +558,7 @@ const _SERVER_START = ([_,user])=>{
         }
         
         const _S_ON_CLOSE = (m,w)=>{
-                CL_(["closed !!!!",m,w]);
+               // CL_(["closed !!!!",m,w]);
     
                 if(window.app_S[w]){
                     delete window.app_S[w];
@@ -581,7 +580,7 @@ const _SERVER_START = ([_,user])=>{
                             window.app_S[w].avatar  = msg.avatar;
                             window.app_S[w].connect = true;
                 
-                            CL_(["START",w,window.app_S[w]]);
+                          //  CL_(["START",w,window.app_S[w]]);
 
                             if(window.app_S[w].type == "ping"){
                                 const msgData = '{"typ":"ping"}';
@@ -696,7 +695,7 @@ const _SERVER_START = ([_,user])=>{
                         const JDSData =_.JDS_(ll);
                         
                         const offerToSend = _.DC_(JDSData);
-                        _.CL_(offerToSend)
+                       // _.CL_(offerToSend)
                         const serverOfferCallback = (res)=>{
                                 setTimeout(getAnswer,6000);
                             
@@ -715,7 +714,7 @@ const _SERVER_START = ([_,user])=>{
 
                 const serverOfferCallback = ()=>{
 
-                    console.log(["Data Offer",connectionDeviceToken]);
+                  //  console.log(["Data Offer",connectionDeviceToken]);
                     
                 }
 
@@ -725,45 +724,42 @@ const _SERVER_START = ([_,user])=>{
         // Get Answer  
 
         const getAnswer = (x)=>{
-            if(wakeUp_){
-                    
-                if(!x){
-                    const callBack = (x)=>{
-                        const inCallBack = ()=>{
-                            getAnswer(x);
-                        }
-                        setTimeout(inCallBack,6000);
+            if(!x){
+                const callBack = (x)=>{
+                    const inCallBack = ()=>{
+                        getAnswer(x);
                     }
-                    _._POST('/api',{order:'getAnswer'},callBack);
-                }else{
-                    if(x.res && x.res.length > 0){
-                    _S_AN(x.res);
-                    }else{
-                    const callBack = (x)=>{
-                        const inCallBack = ()=>{
-                            getAnswer(x);
-                        }
-                        setTimeout(inCallBack,10000);
-                    }
-                    const checkAnswer = ()=>{
-                        _._POST('/api',{order:'getAnswer'},callBack);
-                    }
-
-                            if(getAnswerTime > 0){
-
-                                checkAnswer();
-                                getAnswerTime = getAnswerTime -1;
-
-                            }else{
-
-                                getAnswerTime = 10;
-                                setTimeout(checkAnswer,900000);
-                            }
-                    
-                    }
-                    
+                    setTimeout(inCallBack,6000);
                 }
-             }
+                _._POST('/api',{order:'getAnswer'},callBack);
+            }else{
+                if(x.res && x.res.length > 0){
+                _S_AN(x.res);
+                }else{
+                const callBack = (x)=>{
+                    const inCallBack = ()=>{
+                        getAnswer(x);
+                    }
+                    setTimeout(inCallBack,10000);
+                }
+                const checkAnswer = ()=>{
+                    _._POST('/api',{order:'getAnswer'},callBack);
+                }
+
+                        if(getAnswerTime > 0){
+
+                            checkAnswer();
+                            getAnswerTime = getAnswerTime -1;
+
+                        }else{
+
+                            getAnswerTime = 10;
+                            setTimeout(checkAnswer,900000);
+                        }
+                
+                }
+                
+            }
         }
 
         // Sign Answer 
@@ -780,7 +776,7 @@ const _SERVER_START = ([_,user])=>{
                 var dt   = ca[tu].dt; 
 
                 if(window.app_S[ObjectAnswer.key]){
-                    CL_(["SIGN ANSWER >>>>>>>",ObjectAnswer.ans]);
+                   // CL_(["SIGN ANSWER >>>>>>>",ObjectAnswer.ans]);
                         window.app_S[ObjectAnswer.key].s.setRemoteDescription(new RTCSessionDescription(ObjectAnswer.ans));
                         window.app_S[ObjectAnswer.key].dt = dt;
                                 
@@ -870,7 +866,7 @@ const _SERVER_START = ([_,user])=>{
                             }
                     
                         window.app_S[s].s = new RTCPeerConnection();
-                        window.app_S[s].s.setRemoteDescription(stO).then(a=>console.log("done"))
+                        window.app_S[s].s.setRemoteDescription(stO);
                         window.app_S[s].s.ondatachannel = e => {
                             const RC     = e.channel;
                             RC.onmessage = e => _S_ON_MSG("Remote",s,e.data);
@@ -919,7 +915,7 @@ const _SERVER_START = ([_,user])=>{
         const _C_ANUP = (s)=>{
             
             const serverAnswerCallback = ()=>{
-                CL_(['serverAnswerCallback'])
+            //    CL_(['serverAnswerCallback'])
             }
             var ans =  {};
             ans.ans = window.app_S[s].answerGR ;
@@ -927,7 +923,7 @@ const _SERVER_START = ([_,user])=>{
             ans.key = window.app_S[s].key;
             const JDSData = _.JDS_(ans);
            const data =_.DC_(JDSData);
-            _.CL_(['data',data]);
+           // _.CL_(['data',data]);
             _._POST('/api', {
                 order:'serverAnswer',
                 dns:`${data}`,
@@ -946,33 +942,9 @@ const _SERVER_START = ([_,user])=>{
         if(user.connect && user.connect.DT){
           
             _crAn(user.connect,"OpOf","u");
-            CL_(["Make Answer ??????? "]);
+           // CL_(["Make Answer ??????? "]);
         }else{
             _crOf("u","alpha");
-            CL_(["Make Offer !!!!!!!! "]);
+          //  CL_(["Make Offer !!!!!!!! "]);
         }
-
-        const wakeUp = ()=>{
-            wakeUp_ = true;
-        }
-
-        const sleep =()=>{
-           
-           if(setSleepTime > 0){
-            setSleepTime = setSleepTime - 1 ;
-            setTimeout(sleep,3000);
-           }else{
-            setSleepTime = 30;
-            wakeUp_ = false;
-           }
-         
-        }
-
-        window.addEventListener('blur', sleep);
-        window.addEventListener('focus', wakeUp);
-        window.addEventListener('mousemove', wakeUp);
-        window.addEventListener('keydown', wakeUp);
-        window.addEventListener('keyup', wakeUp);
-        window.addEventListener('keypress', wakeUp);
-        window.addEventListener('mouseout', sleep);
 }

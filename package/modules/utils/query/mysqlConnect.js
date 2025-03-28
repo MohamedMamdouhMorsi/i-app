@@ -271,10 +271,6 @@ const mysqlConnect = async (body, res_, callBack) => {
           return false;
         }
         }else{
-            if(typeof callBack === 'function'){
-              callBack([], res_,makeUpTodateData,false);
-            }
-
             return false;
           
         }

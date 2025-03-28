@@ -10,7 +10,8 @@ const realationSympole ={
 }
 const valueFN = (ob,master)=>{
     let val = '';
-    if(ob.t === 'q'){
+    console.log([ob]);
+    if(ob !== null && ob.t  && ob.t === 'q'){
         const name = ob.n? ob.n+'.' : master+'.';
         val = `${name}${ob.d}` ;
     }

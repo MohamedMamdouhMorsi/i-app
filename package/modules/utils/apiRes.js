@@ -2,9 +2,9 @@ const orders = require('./orders/orders');
 
 const UpdateQueryInput = require('./query/UpdateQueryInput');
 const apiRes =async (body,req,res,i_app_path,i_app,userDir)=>{
-
+   
 const data = JSON.parse(body);
-console.log(data);
+
     if(data.order){
         // do order
        return  orders(data, req, res, i_app_path, i_app);
