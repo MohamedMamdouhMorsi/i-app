@@ -1,29 +1,29 @@
-const orAndOption = require('./orAndOption');
-const selectColumn = require('./selectColumn');
+/**
+ * querySize — Count/size query for non-JOIN SELECT.
+ * Refactored to delegate to getQuery (was ~85% duplicate code).
+ *
+ * Unwraps the nested input format (obs.ob.query[0]) and calls getQuery
+ * with l:'0' (no LIMIT) to get a full result count.
+ *
+ * @param {object} obs — Wrapper: { ob: { query: [queryDescriptor] } }
+ * @param {object} tables — Table schema map
+ * @returns {{ sql: string, params: array }}
+ */
+const getQuery = require('./getQuery');
 
-const querySize = (obs,tables)=>{
+const querySize = (obs, tables) => {
     const ob = obs.ob.query[0];
-    const tableName = ob.n ?  ob.n  :   'No table Name';
 
-    if(tables[tableName] && ob.q){
+    // Delegate to getQuery with no limit (l: '0') and no ordering
+    const sizeOb = {
+        n: ob.n,
+        q: ob.q,
+        s: ob.s,
+        l: '0'
+        // No order, method, limitAuto — querySize doesn't need them
+    };
 
-    const orAndOptionText   = orAndOption(ob.q,tables[tableName]);
-    let   selectedColumn    = selectColumn([0]) ;
-    
-    if(ob.s && ob.s[0] == "A"){
-        const   getText =  "SELECT  *  FROM "+ tableName +" WHERE "+ orAndOptionText  +" ;";
-        return getText;
-       }else{
-           const selectedColumn = selectColumn(ob.s);
-           const  getText =  "SELECT "+ selectedColumn +" FROM "+ tableName +" WHERE "+ orAndOptionText +" ;";
-           return getText;
-       }
-       
+    return getQuery(sizeOb, tables);
+};
 
-    }else{
-
-        console.log(`table ${tableName} is not exist`);
-    
-    }
-}
-module.exports = querySize
+module.exports = querySize;

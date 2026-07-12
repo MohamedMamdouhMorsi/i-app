@@ -9,8 +9,6 @@
 
 [<img src='https://i-app.org/img/i-app.gif' width='128'/>](https://i-app.org)
 
-
-
 ## Welcome To  i-app Revolution .
 ### Build the Future  Build the Next Big Thing
 i-app is a revolutionary new full-stack open-source programming language that aims to help developers improve their productivity by providing them with a working environment and a library of tools to build front-end and back-end applications.

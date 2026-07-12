@@ -40,7 +40,7 @@
                             t:'td'
                             c:'NW_10 settings'
                             e:[ {
-                                c:'POS_AB RR_0 TT_5  BBGLASS hovTW '
+                                c:'POS_AB RR_0 TT_5  BBGLASS hovTW  '
                                 e:[
                                  {
                                     t:'sp'
@@ -168,9 +168,9 @@
                                     key:'userType'
                                 }
                                 q:{
-                                            s:'usersTypeHolder'
-                                            i:'id'
-                                        }
+                                        s:'usersTypeHolder'
+                                        i:'id'
+                                    }
                                             c:'_MR_10 T_C'
                                 e:[
                                     {

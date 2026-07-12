@@ -1,0 +1,95 @@
+{
+    "sqlInjection": {
+        "basic": [
+            "1' OR '1'='1",
+            "' OR '1'='1' --",
+            "' OR '1'='1' /*",
+            "admin'--",
+            "1' OR 1=1--",
+            "' OR ''='",
+            "1' OR '1",
+            "1 OR 1=1",
+            "' OR 'x'='x"
+        ],
+        "union": [
+            "1' UNION SELECT NULL--",
+            "1' UNION SELECT NULL, NULL--",
+            "1' UNION SELECT NULL, NULL, NULL--",
+            "1' UNION SELECT password FROM users--",
+            "1' UNION SELECT username, password FROM admin_users WHERE '1'='1",
+            "' UNION ALL SELECT table_name FROM information_schema.tables--",
+            "' UNION SELECT @@version--"
+        ],
+        "blind": [
+            "1' AND 1=1--",
+            "1' AND 1=2--",
+            "1' AND (SELECT SLEEP(5))--",
+            "1' AND (SELECT COUNT(*) FROM users) > 0--",
+            "1' WAITFOR DELAY '00:00:05'--",
+            "1'; WAITFOR DELAY '00:00:05'--",
+            "1' AND SUBSTRING(@@version,1,1)='5'--"
+        ],
+        "stacked": [
+            "1'; DROP TABLE users;--",
+            "1'; DELETE FROM users;--",
+            "1'; INSERT INTO users VALUES('hacker','pass');--",
+            "1'; UPDATE users SET role='admin';--",
+            "1'; EXEC xp_cmdshell('dir');--"
+        ],
+        "orderBy": [
+            "id; DROP TABLE users; --",
+            "id DESC; DELETE FROM users;--",
+            "1,2,3--",
+            "(SELECT 1 FROM dual)"
+        ],
+        "encoded": [
+            "%27%20OR%20%271%27%3D%271",
+            "1%27%20UNION%20SELECT%20NULL--",
+            "1&#39; OR &#39;1&#39;=&#39;1"
+        ]
+    },
+    "xss": [
+        "<script>alert('XSS')</script>",
+        "<img src=x onerror=alert('XSS')>",
+        "javascript:alert('XSS')",
+        "<svg/onload=alert('XSS')>",
+        "<body onload=alert('XSS')>",
+        "'\"><script>alert(1)</script>",
+        "<iframe src='javascript:alert(1)'>",
+        "<input onfocus=alert(1) autofocus>"
+    ],
+    "pathTraversal": [
+        "../../../etc/passwd",
+        "..\\..\\..\\windows\\system32\\config\\sam",
+        "%2e%2e%2f%2e%2e%2f%2e%2e%2fetc%2fpasswd",
+        "....//....//....//etc/passwd",
+        "..%252f..%252f..%252fetc/passwd",
+        "..%c0%af..%c0%af..%c0%afetc/passwd",
+        "/./../../etc/passwd",
+        "..\\..\\..\\etc\\passwd"
+    ],
+    "forbiddenFiles": [
+        ".env",
+        ".env.local",
+        ".env.production",
+        "config.log",
+        "app.log",
+        "database.sql",
+        "backup.bak",
+        "server.key",
+        "cert.pem",
+        "dump.sqlite",
+        "deploy.sh",
+        "run.bat",
+        ".git/config",
+        ".npmrc"
+    ],
+    "commandInjection": [
+        "; ls -la",
+        "| cat /etc/passwd",
+        "&& rm -rf /",
+        "`whoami`",
+        "$(whoami)",
+        "; echo vulnerable"
+    ]
+}

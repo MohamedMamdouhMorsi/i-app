@@ -1,7 +1,7 @@
 
 const {CL_, DC_, EC_, JDS_, JD_, arToSt, stToAr} =require('../../tools');
-const AppReader = require('./IAppReader');
-const AppFileMaker = require('./iAppFileMaker');
+
+
 var funcKey = 0;
 var fileName = "File Name";
 var objectSt_  = [];
@@ -163,7 +163,6 @@ function convertStrToOb (str) {
 }
 
 // This function takes a string and cleans it by removing comments and converting it to an object
-
 
 function updateQueryRender(fileContent, per) {
     let posttxtArray = fileContent.split("_IQuery_");
@@ -360,15 +359,50 @@ function convertQueryFun(jsonString, key) {
                     objectSt_ = query;
                     if (query["a"]) {
                         let action = query["a"];
-        
+                        let limit = "FALSE";
+                        let order = "FALSE";
+                        let method = "FALSE";
+                        
+                        if(query["l"] && query["l"] !=="0" && isJsVar(query["l"]) ){
+                            limit = query["l"];
+                        }
+                        
+                        if(query["method"] &&  isJsVar(query["method"]) ){
+                            method = query["method"];
+                        }
+                        
+                        if(query["order"]  && isJsVar(query["order"]) ){
+                            order = query["order"];
+                        }
+
                         if (action === "get") {
                             let QE = getInput(query["q"]);
                             let newQ = { "q": QE, "id": queryId };
+                              if(limit !== "FALSE"){
+                                    newQ.l = limit;
+                                }
+                                  if(order !== "FALSE"){
+                                    newQ.order = order;
+                                }
+                                if(method !== "FALSE"){
+                                    newQ.method = method;
+                                }
                             queryArray.push(newQ);
                         } else if (action === "getJ") {
                             let QE = getInput(query["q"]);
                             let QEJ = getJInput(query["j"]);
                             let newQ = { "q": QE, "j": QEJ, "id": queryId };
+                               if(limit !== "FALSE"){
+                                    newQ.l = limit;
+                                }
+
+                                if(order !== "FALSE"){
+                                    newQ.order = order;
+                                }
+
+                                if(method !== "FALSE"){
+                                    newQ.method = method;
+                                }
                             queryArray.push(newQ);
                         } else if (action === "in") {
                             let QD = query["d"];
@@ -419,6 +453,9 @@ function isJsVar (val){
 
 function getInput(QE) {
     let result = [];
+    if (!QE) {
+        return result;
+    }
     for (let or = 0; or < QE.length; or++) {
         let orOB = QE[or];
         for (let and = 0; and < orOB.length; and++) {
@@ -459,17 +496,20 @@ function getJInput(QEJ) {
     }
     return result;
 }
-
 function dataInput(QE) {
+     if (typeof QE === 'object' && QE!== null && !Array.isArray(QE)){
+     return {...QE};
+    }else{
     let result = [];
+    
     for (let i = 0; i < QE.length; i++) {
         let input = QE[i][1];
-        DMAP.push(i);
         result.push(input);
     }
+    
     return result;
 }
-
+}
 const iAppReadQuery = (str,fileName_,id) => {
     fileName   = fileName_;
     func_id    = id;
@@ -483,4 +523,4 @@ const iAppReadQuery = (str,fileName_,id) => {
 
    return [objectSt_,QMAP,QJMAP,DMAP];
 }
-module.exports = iAppReadQuery
+module.exports = iAppReadQuery;

@@ -1,46 +1,38 @@
-
+/**
+ * isSession — Lightweight session existence check.
+ * Phase 2: Now uses shared cookieUtils for cookie parsing.
+ *
+ * Returns true if:
+ *   1. Session cookies present (deviceId, userId, timestamp)
+ *   2. deviceId matches recomputed fingerprint hash
+ *   3. User exists in routerUsers cache with valid id
+ *
+ * @param {object} req — HTTP request
+ * @returns {boolean}
+ */
 const creatAUTH = require('../../utils/toolsFN/createAUTH');
 const getDeviceInfo = require('../../utils/toolsFN/getDeviceInfo');
 const routerUsers = require('../../utils/router/routerUsers');
+const { parseSessionCookies, hasValidSessionCookies } = require('./cookieUtils');
 
-const isSession =  (req)=>{
-
- 
+const isSession = (req) => {
     const deviceInfo = getDeviceInfo(req);
-    const fingerPrint   = deviceInfo.fingerPrint;
+    const fingerPrint = deviceInfo.fingerPrint;
+    const cookies = parseSessionCookies(req);
 
+    if (hasValidSessionCookies(cookies)) {
+        const authSt = `${fingerPrint}-${cookies.timestamp}`;
+        const cureDeviceId = creatAUTH(authSt);
 
-    let cookies = req.headers.cookie ? req.headers.cookie.split('; ') : [];
-    let deviceId , timestamp, userId;
-    
-    for (let cookie of cookies) {
-      
-      let [name, value] = cookie.split('=');
-
-          if (name === 'deviceId') {
-            deviceId = value;
-          } else  if (name === 'timestamp') {
-            timestamp = value;
-          } else if (name === 'userId') {
-            userId = value;
-          }
-    }
-    
-    if (userId && userId !== undefined && deviceId && deviceId !== undefined && timestamp && timestamp !== undefined) {
-     
-      const authSt = `${fingerPrint}-${timestamp}`;
-      const cureDeviceId = creatAUTH(authSt);
-
-      if(deviceId === cureDeviceId){
-      const chickUserData = routerUsers.get(userId);
-    
-        if(chickUserData.id && chickUserData.id  > 0){
-            return true;
-          }else{
-            return false;
+        if (cookies.deviceId === cureDeviceId) {
+            const chickUserData = routerUsers.get(cookies.userId);
+            if (chickUserData.id && chickUserData.id > 0) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
-}
-   
-}
-module.exports = isSession
+};
+
+module.exports = isSession;

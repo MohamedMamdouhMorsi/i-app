@@ -1454,15 +1454,21 @@ return data;
      
         const DEDATA = DC_(jsonSt);
 
+       const postHeaders = {
+            "Content-Type": "application/x-www-form-urlencoded",  
+            "Accept":       "application/json" 
+          };
+       const csrfToken = getCookie('csrfToken');
+       if (csrfToken) {
+          postHeaders["X-CSRF-Token"] = csrfToken;
+       }
+
        fetch(`${httpStarter()}://${appData.domain}${url}`, {
           method: "POST",
           mode: "same-origin",
           cache: 'no-cache', 
           credentials: "same-origin", 
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",  
-            "Accept":       "application/json" 
-          },
+          headers: postHeaders,
           redirect: 'follow',
           referrerPolicy: 'no-referrer',
           body: "msg="+DEDATA,

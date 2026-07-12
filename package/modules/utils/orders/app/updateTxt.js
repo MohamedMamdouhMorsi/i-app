@@ -34,6 +34,7 @@ const copyFolder = async(sourceFolder, destinationFolder)=>{
       }
     });
   }
+
 const updateTxt = async (appData,res,i_app_path,i_app)=>{
 
     const userDir           = path.dirname(require.main.filename); 
@@ -50,7 +51,6 @@ const updateTxt = async (appData,res,i_app_path,i_app)=>{
         if(tree.children.length > 0){
            readAndUpdate(tree.children,langDataJ,i_app_langDir,res);
         }else{
-
             res.writeHead(200, { 'Content-Type': 'application/json'});
             res.end(JDS_({ res: false }));
         }

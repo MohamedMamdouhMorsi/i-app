@@ -45,18 +45,20 @@ i-app start by one function i-app() default with loading
 * @param {string} id - The ID of the element to retrieve.
 * @returns {(Element|false)} - The element with the specified ID or false if the element was not found.
 */
-  const E_I = (id) => {
+
+const E_I = (id) => {
     const element = document.getElementById(id);
     return element !== null ? element : false;
-  };
+};
 
 /**
 * Logs a message to the console.
 * @param {*} message - The message to log.
 */
-    const CL_ = (message) => {
-      console.log(message);
-    };
+
+const CL_ = (message) => {
+    console.log(message);
+  };
 
 /**
 * Creates a new element with the specified tag name.
@@ -67,34 +69,36 @@ i-app start by one function i-app() default with loading
     const elem =   document.createElement(`${tag}`) ;
     return elem;
     };
-      /**
-  * Returns an array of all elements with the specified tag name.
-  * @param {string} tag - The name of the tag to search for.
-  * @returns {Element[]} - An array of elements with the specified tag name.
-  */
+
+/**
+* Returns an array of all elements with the specified tag name.
+* @param {string} tag - The name of the tag to search for.
+* @returns {Element[]} - An array of elements with the specified tag name.
+*/
+
   const E_T = (tag) => {
     return document.getElementsByTagName(tag).length > 0 ? document.getElementsByTagName(tag) : [];
-    };
+  };
     
-  /* *
-   * i-app functions
-   *
-   * */
+/* *
+* i-app functions
+* */
 
 const i_app = (()=>{
 
     'use strict';
-    const userData = {};
+   
+    const public_functions = {};  
     const I_APP_DIR = "/i.app";
     /** app connection & loading state */
     var is_online    = true;
     var first        = true;
     var desStroy     = false;
     /** app data obj */
-    let app ={};
-    let I_OB = {};
-    const I_O = (k)=>{return I_OB[k]?I_OB[k]:false };
+    let app   = {};
+    let I_OB  = {};
 
+    const I_O = (k)=>{return I_OB[k]?I_OB[k]:false };
     const I_O_O = (op)=>{
       const ob = []
       for (const [k, v] of Object.entries(I_OB)) {
@@ -103,24 +107,25 @@ const i_app = (()=>{
           }
         }
         return ob;
-     }
-    
-    
-    let i_app_v = {};
-    let i_app_colors =[];
-    let i_app_style = {};
-    let i_app_theme = "light";
-    let i_app_theme_colors = [];
+    };
+
+    let i_app_v               = {};
+    let i_app_colors          = [];
+    let i_app_style           = {};
+    let i_app_theme           = "light";
+    let i_app_theme_colors    = [];
     let selected_theme_colors = {};
-    let i_app_model = {};
-    let i_app_lang = {};
-    let i_app_select_lang = {};
-    let i_root = "start";
-    let selectLang = "en";
-    let selectLangDirection = "l";
-    let historyIndex = 0;
-    let autoClsDrive = [];
+    let i_app_model           = {};
+    let i_app_lang            = {};
+    let i_app_select_lang     = {};
+    let i_root                = "start";
+    let selectLang            = "en";
+    let selectLangDirection   = "l";
+    let historyIndex          = 0;
+    let autoClsDrive          = [];
+    
     var runAutoClsrun = false;
+    
     const translateManger = {};
     const destroySession = ()=>{
       deleteConstKeys(userData);
@@ -129,9 +134,9 @@ const i_app = (()=>{
         document.innerHTML = '';
         window.location = '/login';
    }
-   const countries ={};
+    const countries ={};
     
-   /**Functions Varibles */
+    /**Functions Varibles */
     
     const windowHistory = [];
     const ReturnScriptFunctions = {};
@@ -274,7 +279,7 @@ const i_app = (()=>{
   
   
 
-      /**
+  /**
   * Returns the element with the specified I Scure .
   * @param {string} id - The ID of the element to retrieve.
   * @returns {(Element|false)} - The element with the specified ID or false if the element was not found.
@@ -591,21 +596,22 @@ function getDataDB(databaseName, version, objectStoreName, successCallback, erro
   
   @returns {undefined}
   */
+
   const L_S = (url, callback, data) => {
-  // Only load the script if it hasn't already been loaded
-  if (!E_I(`script_${url}`)) {
-  // Create a new script element with the specified URL and append it to the <head> of the page
-  const src = CE_("script");
-  src.id = `script_${url}`;
-  src.src = `${url}?${time_()}`;
-  E_T("head")[0].appendChild(src);
-  
-  // If a callback function is specified, add an event listener to the script element that calls the callback when the script has loaded
-  if (callback) {
-  const fn = () => callback(data);
-  src.addEventListener("load", fn);
-  }
-  }
+      // Only load the script if it hasn't already been loaded
+      if (!E_I(`script_${url}`)) {
+      // Create a new script element with the specified URL and append it to the <head> of the page
+      const src = CE_("script");
+      src.id = `script_${url}`;
+      src.src = `${url}?${time_()}`;
+      E_T("head")[0].appendChild(src);
+      
+        // If a callback function is specified, add an event listener to the script element that calls the callback when the script has loaded
+        if (callback) {
+          const fn = () => callback(data);
+          src.addEventListener("load", fn);
+        }
+      }
   };
 
 
@@ -621,19 +627,21 @@ function getDataDB(databaseName, version, objectStoreName, successCallback, erro
         }
       }
     }
-  }
+  };
 
-const hideOtherKeys = (k,obj)=>{
+  const hideOtherKeys = (k,obj)=>{
     for (const key in obj) {
-      const body = obj[key];
-      if(key !== 'infoTab'){
-        A_CL(body,'D_N');
-      }
-}
-  }
+          const body = obj[key];
+          if(key !== 'infoTab'){
+            A_CL(body,'D_N');
+          }
+    }
+  };
+
   const isString = (x) => {
     return Object.prototype.toString.call(x) === "[object String]"
-  }
+  };
+
   const DEL_E_E = (mw) => {
     const myNode = E_I_S(mw);
     if (myNode.childNodes.length > 0) {
@@ -647,31 +655,33 @@ const hideOtherKeys = (k,obj)=>{
         }
     }
   
-  }
-  const deleteChildren = (id)=>{
-    if(I_OB[id] && I_OB[id].children){
-     
-    const children = I_OB[id].children;
-    
-    for(var c = 0 ; c < children.length; c++){
-      const childId  = children[c];
-      const childBody = I_OB[childId];
-      if(childBody && childBody.children){
-        deleteChildren(childId);
-      }
-      delete  I_OB[childId];
-      onValueChange[childId] ? delete onValueChange[childId] : '';
-      onTxtChange[childId] ? delete onTxtChange[childId] : '';
-      onInputChange[childId] ? delete onInputChange[childId] : '';
-      if(elementValue.hasOwnProperty(i_root) && elementValue[i_root].hasOwnProperty(childId)){
-        delete elementValue[i_root][childId];
-      
-      }
-      I_OB[id].children = [];
+  };
 
+  const deleteChildren = (id)=>{
+      if(I_OB[id] && I_OB[id].children){
+      
+      const children = I_OB[id].children;
+      
+      for(var c = 0 ; c < children.length; c++){
+        const childId  = children[c];
+        const childBody = I_OB[childId];
+        if(childBody && childBody.children){
+          deleteChildren(childId);
+        }
+        delete  I_OB[childId];
+        onValueChange[childId] ? delete onValueChange[childId] : '';
+        onTxtChange[childId] ? delete onTxtChange[childId] : '';
+        onInputChange[childId] ? delete onInputChange[childId] : '';
+        if(elementValue.hasOwnProperty(i_root) && elementValue[i_root].hasOwnProperty(childId)){
+          delete elementValue[i_root][childId];
+        
+        }
+        I_OB[id].children = [];
+
+      }
     }
-  }
-  }
+  };
+
   const DEL_E = (id) => {
     const myNode = isString(id) ? E_I_S(id) : id;
 
@@ -682,28 +692,32 @@ const hideOtherKeys = (k,obj)=>{
     }
     deleteChildren(id);
     myNode.innerHTML = '';
-}
-const  scrollToBottom = () =>{
-  window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth'
-  });
-}
-const DEL_ = (id)=>{
-  const myNode = isString(id) ? E_I_S(id) : id;
-  if(myNode){
-    myNode.remove();
-    deleteChildren(id);
-  }
+  };
+
+  const  scrollToBottom = () =>{
+    window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth'
+    });
+  };
+
+  const DEL_ = (id)=>{
+    const myNode = isString(id) ? E_I_S(id) : id;
+    if(myNode){
+      myNode.remove();
+      deleteChildren(id);
+    }
 
 
- if(I_OB[id]){
-  delete I_OB[id];
- }
-} 
+    if(I_OB[id]){
+      delete I_OB[id];
+    }
+  }; 
+
   const GTX = (txt)=>{
     return i_app_select_lang[txt] ? i_app_select_lang[txt] : txt;
-  }
+  };
+
   const cmar = (YY) => {
     var arew = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     var difY = YY - 2000;
@@ -717,7 +731,8 @@ const DEL_ = (id)=>{
         }
     }
     return arew;
-  }   
+  };
+
   const E_I_V = (mw) => {
     var n;
     if(I_O(mw).valsLang){
@@ -742,9 +757,10 @@ const DEL_ = (id)=>{
         }
     } else {
       n = false;
-  }
+    }
     return n;
-  }
+  };
+
   const IN_V = (element,value)=>{
     var id = null;
     if(typeof element === 'string'){
@@ -765,7 +781,7 @@ const DEL_ = (id)=>{
     }else{
       element.value = value;
     }
-  }
+  };
 
   const elmChange = (e)=>{
 
@@ -774,7 +790,8 @@ const DEL_ = (id)=>{
     }else  if(E_I_S(e) && E_I_S(e).onchange){
       E_I_S(e).onchange();
     }
-  }
+  };
+
   const I_IN_V = (m) => {
     var dd = {};
     for (var qq = 0; qq < m.length; qq++) {
@@ -787,8 +804,17 @@ const DEL_ = (id)=>{
         }
     }
     return [dd];
-  }
+  };
+
   const D_CL = (m, w) => {
+    const isStringArray = typeof w === 'string' && w.split(' ').length > 1;
+    if(isStringArray){
+      const wArr = w.split(' ');
+      for(var wa = 0 ; wa < wArr.length;wa++){
+        D_CL(m,wArr[wa]);
+      }
+      return;
+    }
     if(Array.isArray(m) && ! w){
 
       D_CL_A(m);
@@ -796,7 +822,8 @@ const DEL_ = (id)=>{
 
       D_CL_A([m,w]);
     }
-  }
+  };
+
   const D_CL_A = ([m, w]) => {
       
     var e = isString(m) ? E_I_S(m) : m;
@@ -816,12 +843,14 @@ const DEL_ = (id)=>{
     
         e.className = U_CSS(kw);
     }
-  }
+  };
+
   const A_H = (p, c) => {
     for (var e = 0; e < c.length; e++) {
         p.appendChild(c[e]);
     }
-  }
+  };
+
   const selD = (D, M, Y) => {
     var rmr = M < 10 ? "0" + M : M,
         erm = D < 10 ? "0" + D : D;
@@ -829,9 +858,18 @@ const DEL_ = (id)=>{
     this.S_DAY = D;
     this.S_MONTH = M;
     this.S_YEAR = Y;
-  }
+  };
+
   const A_CL = (m, w) => {
     var e = isString(m) ? E_I_S(m) : m;
+    const isStringArray = w.split(' ').length > 1;
+    if(isStringArray){
+      const wArr = w.split(' ');
+      for(var wa = 0 ; wa < wArr.length;wa++){
+        A_CL(m,wArr[wa]);
+      }
+      return;
+    }
     var et = false;
     if (e && e.className) {
 
@@ -853,10 +891,8 @@ const DEL_ = (id)=>{
       }
      
     }
+  };
 
-    
-  
-  }
   const SW_CL = (m, w) => {
   
     if (E_I_S(m)) {
@@ -878,7 +914,8 @@ const DEL_ = (id)=>{
             E_I_S(m).className = U_CSS(w);
         }
     }
-  }
+  };
+
   const slIsView = (el) => {
     if (el.getBoundingClientRect() !== undefined) {
         var rect = el.getBoundingClientRect(),
@@ -893,115 +930,117 @@ const DEL_ = (id)=>{
     } else {
         return false;
     }
-  }
+  };
 
   const makeFunction = (fn)=>{
         return DC_(fn);
-  }
+  };
 
 /**
  * SHA256 Encrypt
  */
 
- const SHA256 = async(message) => {
- 
-  const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
-  const hashBuffer = await  crypto.subtle.digest("SHA-256", msgUint8); // hash the message
-  const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
-  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+  const SHA256 = async(message) => {
+  
+    const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
+    const hashBuffer = await  crypto.subtle.digest("SHA-256", msgUint8); // hash the message
+    const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
 
-  return hashHex;
-}
+    return hashHex;
+  };
 
 
   /**
    * Firebase 
    */
 
-const FCMTCS = (e) => {
-    var n = E_I_V(e);
+  const FCMTCS = (e) => {
+      var n = E_I_V(e);
 
-    firebase.auth().signInWithPhoneNumber(n, window.recaptchaVerifier).then(function(confirmationResult) {
-        window.confirmationResult = confirmationResult;
-        E_I('recaptcha-container').innerHTML = '';
-        var ms = GTX("we-sent-sms-activation-code");
-        AL_(ms);
-    }).catch(function(error) {
-        AL_(error.message);
-    });
-}
+      firebase.auth().signInWithPhoneNumber(n, window.recaptchaVerifier).then(function(confirmationResult) {
+          window.confirmationResult = confirmationResult;
+          E_I('recaptcha-container').innerHTML = '';
+          var ms = GTX("we-sent-sms-activation-code");
+          AL_(ms);
+      }).catch(function(error) {
+          AL_(error.message);
+      });
+  };
 
-const FBC_ =()=>{
-  if(window.FBC && app.fcm){
-  const fbc =  window.FBC({},URS());
-    fbc.start(app.fcm);
-  }
-}
+  const FBC_ =()=>{
+    if(window.FBC && app.fcm){
+        const fbc =  window.FBC({},URS());
+        fbc.start(app.fcm);
+    }
+  };
     // functions
   
     /**
      * .app file reader
      */
-    const removeComments = (str)=> {
+  const removeComments = (str)=> {
         return str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
-    }
+  };
     
-const funcHandel = (str) => {
-  /**
-   * encrypt avale of key  a:  
-   * to handel json object
-   */
-  const ar = str.split('fn:');
-  if (ar.length > 1) {
+  const funcHandel = (str) => {
+      /**
+       * encrypt avale of key  a:  
+       * to handel json object
+       */
+      const ar = str.split('fn:');
+      if (ar.length > 1) {
 
-  
-    
-    let ls = '';
-    for(let a = 0 ; a < ar.length;a++){
-      if(a<1){
-        ls = ar[0]
-      }
-      let op = 0;
-    let cl = 0;
-    let vv = '';
-    let aft = '';
-    let done = false;
-      const cr = ar[a].split('');
-      if(a > 0 && ar[a] !== '' ){
-      for (let c = 0; c < cr.length; c++) {
-        if (!done) {
-          if (cr[c] === '{') {
-            op++;
+      
+        
+        let ls = '';
+        for(let a = 0 ; a < ar.length;a++){
+          if(a<1){
+            ls = ar[0]
           }
-          if (cr[c] === '}') {
-            cl++;
+          let op = 0;
+        let cl = 0;
+        let vv = '';
+        let aft = '';
+        let done = false;
+          const cr = ar[a].split('');
+          if(a > 0 && ar[a] !== '' ){
+          for (let c = 0; c < cr.length; c++) {
+            if (!done) {
+              if (cr[c] === '{') {
+                op++;
+              }
+              if (cr[c] === '}') {
+                cl++;
+              }
+            }
+      
+            if (!done) {
+              if (op === cl) {
+                done = true;
+              }
+              vv += cr[c];
+            } else if (done) {
+              aft += cr[c];
+            }
           }
         }
-  
-        if (!done) {
-          if (op === cl) {
-            done = true;
-          }
-          vv += cr[c];
-        } else if (done) {
-          aft += cr[c];
+        const enc = DC_(vv);
+        ls  += ` fn: '${enc}' ${aft}`;
         }
+        return ls;
+      } else {
+        return str;
       }
-    }
-    const enc = DC_(vv);
-    ls  += ` fn: '${enc}' ${aft}`;
-    }
-    return ls;
-  } else {
-    return str;
-  }
-}
-function openTap(url) {
-  window.open(url, '_blank').focus();
-}
-   const GTL = (url)=>{
+  };
+  
+  function openTap(url) {
+    window.open(url, '_blank').focus();
+  };
+
+  const GTL = (url)=>{
     window.location.href =  `${httpStarter()}://${appData.domain}${url}`;
-   }
+  };
   // This function returns the root name and directory of the current page's JavaScript file
   const i_root_ = () => {
     // Set a default file extension of '.app'
@@ -1038,6 +1077,7 @@ function openTap(url) {
     // Return an object containing the root name and directory with the specified file extension
     return { name: i_root, dir: `${i_root}${ex}` };
   };
+
   function escapeKeysSym(str) {
     const strArr = str.split('');
     var start = false;
@@ -1071,12 +1111,18 @@ function openTap(url) {
       }
     }
     return out;
-    }
-    function convertStrToOb (str) {
+  };
+
+  const escapeSpecialChars = (inputText)=> {
+    const regex = /[\[%\]]/g;
+    return inputText.replace(regex, (match) => `\\${match}`);
+  };
+
+  function convertStrToOb (str) {
    
        
        
-        str = str.replace(/(\r\n|\n|\r)/g, ''); // remove newlines
+        str = str.replace(/\s+/g, ' '); // remove newlines
         str = escapeKeysSym(str);
         str = funcHandel(str);
         str = str.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
@@ -1126,7 +1172,7 @@ function openTap(url) {
  
    
         return str;
-      };
+  };
   
      // This function takes a string and cleans it by removing comments and converting it to an object
   const cleanSt = (str) => {
@@ -1139,14 +1185,16 @@ function openTap(url) {
     // Return the cleaned object
     return str;
   };
+
   const isValidFunction = (str) => {
-    try {
-        new Function(`return ${str}`);
-        return true;
-    } catch (error) {
-        return false;
-    }
-};
+      try {
+          new Function(`return ${str}`);
+          return true;
+      } catch (error) {
+          return false;
+      }
+  };
+
   const OBJ_ = (st)=>{
 
     const fn = new Function(`{return ${st}; }`);
@@ -1196,26 +1244,28 @@ function openTap(url) {
                         jsonOb = JD_(txt);
                     } else{
                       
-                    if(isValidFunction(txt)){
-                      jsonOb = JD_(txt);
-                    }else{
-                      
-                      jsonOb = JD_(jsonTx);
-                    }
+                        if(isValidFunction(txt)){
+                            jsonOb = JD_(txt);
+                        }else{
+                            const jsonTx = cleanSt(txt);
+                            jsonOb = OBJ_(jsonTx); 
+                        }
                            
                     }
 
-                    // Log the cleaned JSON to the console for debugging
-                    // Pass the cleaned JSON and any additional data to the specified callback function
                     for(var u = 0 ; u < wait_root[url].length ; u++){
-                      const callBack_ = wait_root[url][u][0];
-                      const data_ = wait_root[url][u][1];
-                      callBack_(jsonOb, [data_,data]);
+                        const callBack_ = wait_root[url][u][0];
+                        const data_ = wait_root[url][u][1];
+                          callBack_(jsonOb, [data_,data]);
                     }
-                  delete  wait_root[url];
+        
+                    delete  wait_root[url];
+        
                   });
+        
                 }
-        }
+        
+              }
       })
       .catch((e) => {
         // If there is an error, log it to the console
@@ -1228,16 +1278,16 @@ function openTap(url) {
  
   };
   
-const symbol  = ["►","◄","▲","▼","я","з","л","ь","д","Ф","и","й","ч","ш","ж","я","Д","Э","Ц","щ","г","п","б","ъ","Ю","ä","ß","ü","Ü","ö","ñ","è","ê","É","à"]
-const keys    = ["☺","☻","♥","♦","♣","♠","ф"];
-const indexes = [9,8,7,6,5,4,2];
-const letterToNumber = {};
-const numberToLetter = {};
+  const symbol  = ["►","◄","▲","▼","я","з","л","ь","д","Ф","и","й","ч","ш","ж","я","Д","Э","Ц","щ","г","п","б","ъ","Ю","ä","ß","ü","Ü","ö","ñ","è","ê","É","à"]
+  const keys    = ["☺","☻","♥","♦","♣","♠","ф"];
+  const indexes = [9,8,7,6,5,4,2];
+  const letterToNumber = {};
+  const numberToLetter = {};
 
 
-var getAnswerTime = 10;
+  var getAnswerTime = 10;
 
-    const i_zip =async (objAr,index,somp)=>{
+  const i_zip =async (objAr,index,somp)=>{
 
         
         const map = {};
@@ -1330,9 +1380,9 @@ var getAnswerTime = 10;
             newAr.push({ txt:lastKey, num:index, len:lastKey.length });
         
             return newAr;
-    }
+  };
 
-    const zipJ =async (obj)=>{
+  const zipJ =async (obj)=>{
 
         const txt    = obj;
         
@@ -1363,9 +1413,7 @@ var getAnswerTime = 10;
         }
         txtObj = txtObj.replace(/,,,,,,,,/g,"");
         return txtObj;
-    }
-
-   
+  };
 
   const G_Json = (url,callback) => {
     return new Promise((resolve, reject) => {
@@ -1393,26 +1441,39 @@ var getAnswerTime = 10;
     });
   };
 
-  const Queries ={} 
+  const Queries ={};
+
   function compress(text) {
-    var compressedText = '';
-    for (var i = 0; i < text.length; i++) {
-        var charCode = text.charCodeAt(i);
-      
-        compressedText += String.fromCharCode(charCode + 1000); // Offset by 1000
-    }
-    return DC_(compressedText);
-}
+      var compressedText = '';
+      for (var i = 0; i < text.length; i++) {
+          var charCode = text.charCodeAt(i);
+        
+          compressedText += String.fromCharCode(charCode + 1000); // Offset by 1000
+      }
+      return DC_(compressedText);
+  };
 
-const getQueryVal  = (data,Q)=>{
-  for(var o = 0 ; o < data.length;o++){
+  const getQueryVal  = (data,Q)=>{
     
-    data[o] = updateQueryValue(data[o],Q);
+    for(var o = 0 ; o < data.length;o++){
+    
+      data[o] = updateQueryValue(data[o],Q);
   
- }
+    }
 
-return data;
-}
+    return data;
+  };
+
+  /**
+   * Reads a cookie value by name from document.cookie
+   * @param {string} name - The cookie name
+   * @returns {string|null} The cookie value or null
+   */
+  const getCookie = (name) => {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? match[2] : null;
+  };
+
   const _POST =  async(url, data, callback) => {
 
     let send = true;
@@ -1441,7 +1502,7 @@ return data;
         if(data.Q){
            delete data.Q;
         }
-      //CL_(['->',data])
+      
         const queryName =await SHA256(JDS_(strQ));
       
         isQuery = true;
@@ -1482,15 +1543,21 @@ return data;
      
         const DEDATA = DC_(jsonSt);
 
+       const postHeaders = {
+            "Content-Type": "application/x-www-form-urlencoded",  
+            "Accept":       "application/json" 
+          };
+       const csrfToken = getCookie('csrfToken');
+       if (csrfToken) {
+          postHeaders["X-CSRF-Token"] = csrfToken;
+       }
+
        fetch(`${httpStarter()}://${appData.domain}${url}`, {
           method: "POST",
           mode: "same-origin",
           cache: 'no-cache', 
           credentials: "same-origin", 
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",  
-            "Accept":       "application/json" 
-          },
+          headers: postHeaders,
           redirect: 'follow',
           referrerPolicy: 'no-referrer',
           body: "msg="+DEDATA,
@@ -1535,6 +1602,7 @@ return data;
     }
   
   };
+
   const resizeImg = (src,width,height)=>{
     const img = new Image();
     img.src = src;
@@ -1548,14 +1616,16 @@ return data;
     return resizedImageData;
     }
   
-} 
+  };
+
   const SWV =(data)=>{
     if(typeof SWITCH_VOICE === 'function'){
       return SWITCH_VOICE(data)
     }
-  }
+  };
+
   const translateFromTo = async(from,to,text, callback)=> {
-  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURI(text)}`;
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURI(text)}`;
     fetch(url)
         .then(response => { return response.json()})
         .then(data => {
@@ -1576,16 +1646,16 @@ return data;
   
        
         });
-}
+  };
 
-const loadAllTxt =async ()=>{
-  for(let i = 0 ; i < app.lang.length; i++){
-    const lang       = app.lang[i];
-    const langDir    = `${app.dir.txt}${lang}.json`;
-    const langFile   = await G_Json(langDir);
-    i_app_lang[lang] = langFile;
-}
-}
+  const loadAllTxt =async ()=>{
+    for(let i = 0 ; i < app.lang.length; i++){
+        const lang       = app.lang[i];
+        const langDir    = `${app.dir.txt}${lang}.json`;
+        const langFile   = await G_Json(langDir);
+        i_app_lang[lang] = langFile;
+    }
+  };
 
   const dev_translate =async (txt)=>{
     var defLang = app.defLang ?  app.defLang : "en" ;
@@ -1668,146 +1738,158 @@ const loadAllTxt =async ()=>{
   }
   
   const makeDBtx =async (v)=>{
-   const dbA = v.dbA ;
-   const dbB = v.dbB;
-   const upTxtArabic = {};
-   for(var i = 0 ; i < dbA.length;i++){
-    const topic  = dbA[i];
-    if(topic.id !== 19){
-  
-    const topicTitleEn   =  topic.key;
-    const  topicTitleKey = `${topicTitleEn}-A-${topic.id}`;
-    upTxtArabic[topicTitleKey] = topic.title;
-    dbA[i].title = `t.{${topicTitleKey}}`;
-    var subNo = 1;
-    for(var x = 0 ; x < topic.subjects.length;x++){
-      const subject  = topic.subjects[x];
-      const subTitleKey = `${topicTitleKey}-sub-${subNo}`;
-      upTxtArabic[subTitleKey] = subject.title;
-      dbA[i].subjects[x].title = `t.{${subTitleKey}}`;
-      var stepNo = 1;
-      for(var e = 0 ; e < subject.steps.length;e++){
-          const step  = subject.steps[e];
-          const stepTxtKey = `${topicTitleKey}-sub-${subNo}-tx-${stepNo}`;
-          upTxtArabic[stepTxtKey] = step.txt;
-          dbA[i].subjects[x].steps[e].txt = `t.{${stepTxtKey}}`;
-          stepNo=stepNo+1;
-      }
-      subNo = subNo + 1;
-    }
+    const dbA = v.dbA ;
+    const dbB = v.dbB;
+    const upTxtArabic = {};
+    for(var i = 0 ; i < dbA.length;i++){
+      const topic  = dbA[i];
+      if(topic.id !== 19){
     
-  }
-
-   }
-   for(var i = 0 ; i < dbB.length;i++){
-    const topic  = dbB[i];
-    if(topic.id !== 19){
-
-    const topicTitleEn = topic.key;
-
-    const  topicTitleKey = `${topicTitleEn}-B-${topic.id}`;
-    upTxtArabic[topicTitleKey] = topic.title;
-    dbB[i].title = `t.{${topicTitleKey}}`;
-    var subNo = 1;
-    for(var x = 0 ; x < topic.subjects.length;x++){
-      const subject  = topic.subjects[x];
-      const subTitleKey = `${topicTitleKey}-sub-${subNo}`;
-      upTxtArabic[subTitleKey] = subject.title;
-      dbB[i].subjects[x].title = `t.{${subTitleKey}}`;
-      var stepNo = 1;
-      for(var e = 0 ; e < subject.steps.length;e++){
-          const step  = subject.steps[e];
-          const stepTxtKey = `${topicTitleKey}-sub-${subNo}-tx-${stepNo}`;
-          upTxtArabic[stepTxtKey] = step.txt;
-          dbB[i].subjects[x].steps[e].txt = `t.{${stepTxtKey}}`;
-          stepNo=stepNo+1;
+      const topicTitleEn   =  topic.key;
+      const  topicTitleKey = `${topicTitleEn}-A-${topic.id}`;
+      upTxtArabic[topicTitleKey] = topic.title;
+      dbA[i].title = `t.{${topicTitleKey}}`;
+      var subNo = 1;
+      for(var x = 0 ; x < topic.subjects.length;x++){
+        const subject  = topic.subjects[x];
+        const subTitleKey = `${topicTitleKey}-sub-${subNo}`;
+        upTxtArabic[subTitleKey] = subject.title;
+        dbA[i].subjects[x].title = `t.{${subTitleKey}}`;
+        var stepNo = 1;
+        for(var e = 0 ; e < subject.steps.length;e++){
+            const step  = subject.steps[e];
+            const stepTxtKey = `${topicTitleKey}-sub-${subNo}-tx-${stepNo}`;
+            upTxtArabic[stepTxtKey] = step.txt;
+            dbA[i].subjects[x].steps[e].txt = `t.{${stepTxtKey}}`;
+            stepNo=stepNo+1;
+        }
+        subNo = subNo + 1;
       }
-      subNo = subNo + 1;
+      
     }
-  }
-   }
 
-  }
+    }
+    for(var i = 0 ; i < dbB.length;i++){
+      const topic  = dbB[i];
+      if(topic.id !== 19){
+
+          const topicTitleEn = topic.key;
+
+          const  topicTitleKey = `${topicTitleEn}-B-${topic.id}`;
+          upTxtArabic[topicTitleKey] = topic.title;
+          dbB[i].title = `t.{${topicTitleKey}}`;
+          var subNo = 1;
+          for(var x = 0 ; x < topic.subjects.length;x++){
+            const subject  = topic.subjects[x];
+            const subTitleKey = `${topicTitleKey}-sub-${subNo}`;
+            upTxtArabic[subTitleKey] = subject.title;
+            dbB[i].subjects[x].title = `t.{${subTitleKey}}`;
+            var stepNo = 1;
+            for(var e = 0 ; e < subject.steps.length;e++){
+                const step  = subject.steps[e];
+                const stepTxtKey = `${topicTitleKey}-sub-${subNo}-tx-${stepNo}`;
+                upTxtArabic[stepTxtKey] = step.txt;
+                dbB[i].subjects[x].steps[e].txt = `t.{${stepTxtKey}}`;
+                stepNo=stepNo+1;
+            }
+            subNo = subNo + 1;
+          }
+      }
+    }
+
+  };
+
   const onListChange =(containerId,cls,callBack)=>{
     
   
-  const container = E_I_S(containerId);
-  let draggingItem = null;
+      const container = E_I_S(containerId);
+      let draggingItem = null;
 
-  container.addEventListener('dragstart', (e) => {
-    draggingItem = e.target;
-    e.target.classList.add('dragging');
-    const draggableElements = [...draggingItem.querySelectorAll(`.notDrag`)];
-    
-    for(var i = 0 ; i < draggableElements.length; i++){
-      draggableElements[i].classList.add('notDragStart');
-    }
-  });
-
-  container.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    const afterElement = getDragAfterElement(container, e.clientY);
-    const draggable = document.querySelector('.dragging');
-    if (afterElement == null) {
-      container.appendChild(draggable);
-    } else {
-      container.insertBefore(draggable, afterElement);
-    }
-  });
-
-  const getDragAfterElement = (container, y)=> {
-    const draggableElements = [...container.querySelectorAll(`.${cls}:not(.dragging)`)];
-
-    return draggableElements.reduce((closest, child) => {
-      const box = child.getBoundingClientRect();
-      const offset = y - box.top - box.height / 2;
-      if (offset < 0 && offset > closest.offset) {
-        return { offset: offset, element: child };
-      } else {
-        return closest;
-      }
-    }, { offset: Number.NEGATIVE_INFINITY }).element;
-  }
-
-  container.addEventListener('dragend', () => {
-    draggingItem.classList.remove('dragging');
-    const draggableElements = [...draggingItem.querySelectorAll(`.notDrag`)];
-    
-      for(var i = 0 ; i < draggableElements.length; i++){
-        draggableElements[i].classList.remove('notDragStart');
-      }
-      
-      draggingItem = null;
-      updateListOrder();
-  });
-
-  const  updateListOrder =()=> {
-    const items = container.querySelectorAll(`.${cls}`);
-   
-    const updatedOrder = [];
-    items.forEach((item, index) => {
-      updatedOrder.push({
-        id:item.i,
-        no: index + 1
+      container.addEventListener('dragstart', (e) => {
+        draggingItem = e.target;
+        e.target.classList.add('dragging');
+        const draggableElements = [...draggingItem.querySelectorAll(`.notDrag`)];
+        
+        for(var i = 0 ; i < draggableElements.length; i++){
+          draggableElements[i].classList.add('notDragStart');
+        }
       });
-    });
-    callBack(updatedOrder); 
-   }
-}
+
+      container.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(container, e.clientY);
+        const draggable = document.querySelector('.dragging');
+        if (afterElement == null) {
+          container.appendChild(draggable);
+        } else {
+          container.insertBefore(draggable, afterElement);
+        }
+      });
+
+      const getDragAfterElement = (container, y)=> {
+        const draggableElements = [...container.querySelectorAll(`.${cls}:not(.dragging)`)];
+
+        return draggableElements.reduce((closest, child) => {
+          const box = child.getBoundingClientRect();
+          const offset = y - box.top - box.height / 2;
+          if (offset < 0 && offset > closest.offset) {
+            return { offset: offset, element: child };
+          } else {
+            return closest;
+          }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+      }
+
+      container.addEventListener('dragend', () => {
+        draggingItem.classList.remove('dragging');
+        const draggableElements = [...draggingItem.querySelectorAll(`.notDrag`)];
+        
+          for(var i = 0 ; i < draggableElements.length; i++){
+            draggableElements[i].classList.remove('notDragStart');
+          }
+          
+          draggingItem = null;
+          updateListOrder();
+      });
+
+      const  updateListOrder =()=> {
+        const items = container.querySelectorAll(`.${cls}`);
+          
+          const updatedOrder = [];
+            items.forEach((item, index) => {
+              updatedOrder.push({
+                id:item.i,
+                no: index + 1
+              });
+            });
+            callBack(updatedOrder); 
+      }
+  };
+
   const setV = (k,v)=>{
     i_app_v[k] = v;
-  }
+  };
+
   const upQuery = (ob,data)=>{
     
     DEL_E(ob.i);
     dataQuery(ob,data);
-  }
+  };
+
   const UPDATE = (id,data)=>{
     const OB = I_O(id);
     upQuery(OB,data);
+  };
+  const elmen_hide =(el)=>{
+    A_CL(el,'D_N');
   }
 
+  const elmen_show =(el)=>{
+    D_CL(el,'D_N');
+  }
   const URS = () => Object.freeze({
+    hide:elmen_hide,
+    show:elmen_show,
     openTap:openTap,
     scrollToBottom:scrollToBottom,
     COPYE:copyInnerTextToClipboard,
@@ -1837,7 +1919,7 @@ const loadAllTxt =async ()=>{
     E_I_S: E_I_S,
     E_I: E_I,
     E_I_V: E_I_V,
-    print:print,
+    print:printElement,
     G_SRC: G_SRC,
     MW_SW_L: createAppTxt,
     s_Lang: s_Lang,
@@ -1881,6 +1963,7 @@ const loadAllTxt =async ()=>{
     AL_: AL_,
     IS_EMAIL: IS_EMAIL,
     IS_PHONE_NUMBER:IS_PHONE_NUMBER,
+    passCheck: passCheck,
     IS_USERNAME: IS_USERNAME,
     wait_: wait_,
     E_C: E_C,
@@ -1912,16 +1995,18 @@ const loadAllTxt =async ()=>{
         head.insertBefore(src, head.children[0]);
 
     }
-};
-const httpStarter =()=>{
- if( appData.domain ){
-  if(appData.domain.startsWith("127.0.0.1:") || appData.domain.startsWith("localhost")){
-    return "http";
-  }else{
-    return "https";
-  }
- }
-}
+  };
+
+  const httpStarter =()=>{
+    if( appData.domain ){
+      if(appData.domain.startsWith("127.0.0.1:") || appData.domain.startsWith("localhost")){
+        return "http";
+      }else{
+        return "https";
+      }
+    }
+  };
+
   const L_SCRIPT = (f,v)=>{
     const srcFn = URS();
     if(!E_I(`js_${f}`)){
@@ -1983,31 +2068,32 @@ const httpStarter =()=>{
     };
     src.addEventListener('load',srcOnLoad)
     }
-  }else{
-    if(E_I(`js_${f}`)){
-      if(v){
-       
-       
-        const srcOnLoad = ()=> {
+    }else{
+      if(E_I(`js_${f}`)){
+        if(v){
         
-         
-          var rFd = ()=>{
+        
+          const srcOnLoad = ()=> {
           
-              if(typeof ReturnScriptFunctions[f] ===  'function'){
           
-                return  ReturnScriptFunctions[f](v,[srcFn,app]); 
-              }else{
-                  setTimeout(rFd,300);
-              }
-          } 
-         
-          setTimeout(rFd,300);
-      };
-      srcOnLoad();
+            var rFd = ()=>{
+            
+                if(typeof ReturnScriptFunctions[f] ===  'function'){
+            
+                  return  ReturnScriptFunctions[f](v,[srcFn,app]); 
+                }else{
+                    setTimeout(rFd,300);
+                }
+            } 
+          
+            setTimeout(rFd,300);
+        };
+        srcOnLoad();
+        }
       }
     }
-  }
-  }
+  };
+
   const In_S = (m, w) => { 
     let lastw = w;
     let isNums = parseInt(lastw);
@@ -2019,67 +2105,68 @@ const httpStarter =()=>{
     }
      E_I_S(m).innerHTML = w;
      return true;
-  }
-  const HT_ = (ob) => {
-    let typ = '';
-    if(ob.typ ){
-      typ = ob.typ;
-    } else  if(ob.t ){
-      typ = ob.t;
-    } 
-    
-    if(typ == "themeStyle"){
-      THST(ob.r);
-      return "false";
-    } 
+  };
 
-    const tagNames = {
-      "tring": "tring",
-      "ti": "h2",
-      "tx": "p",
-      "ly": "div",
-      "ls": "div",
-      "in": "input",
-      "txa": "textarea",
-      "bt": "button",
-      "img": "img",
-      "br": "br",
-      "hr": "hr",
-      "ico": "ico",
-      "icon": "icon",
-      "cr": "cr",
-      "sl": "select",
-      "op": "option",
-      "ifr": "iframe",
-      "a": "a",
-      "gos": "gos",
-      "t": "table",
-      "tr": "tr",
-      "td": "td",
-      "sp": "span",
-      "lb": "label",
-      "th": "th",
-      "form": "form",
-      "b": "b",
-      "mar": "marquee",
-      "canv": "canvas",
-      "nav": "nav",
-      "ul": "ul",
-      "li": "li",
-      "thead": "thead",
-      "tbody": "tbody"
-    };
- 
-    // Use the input value as the key to retrieve the corresponding tag name from the dictionary object
-   if(tagNames[typ]){
-    return  tagNames[typ];
-   }else  if(typ == ''){
-    return  "div";
-   }else {
-    return typ;
-   }
-}
+  const HT_ = (ob) => {
+      let typ = '';
+      if(ob.typ ){
+        typ = ob.typ;
+      } else  if(ob.t ){
+        typ = ob.t;
+      } 
+      
+      if(typ == "themeStyle"){
+        THST(ob.r);
+        return "false";
+      } 
+
+      const tagNames = {
+        "tring": "tring",
+        "ti": "h2",
+        "tx": "p",
+        "ly": "div",
+        "ls": "div",
+        "in": "input",
+        "txa": "textarea",
+        "bt": "button",
+        "img": "img",
+        "br": "br",
+        "hr": "hr",
+        "ico": "ico",
+        "icon": "icon",
+        "cr": "cr",
+        "sl": "select",
+        "op": "option",
+        "ifr": "iframe",
+        "a": "a",
+        "gos": "gos",
+        "t": "table",
+        "tr": "tr",
+        "td": "td",
+        "sp": "span",
+        "lb": "label",
+        "th": "th",
+        "form": "form",
+        "b": "b",
+        "mar": "marquee",
+        "canv": "canvas",
+        "nav": "nav",
+        "ul": "ul",
+        "li": "li",
+        "thead": "thead",
+        "tbody": "tbody"
+      };
   
+      // Use the input value as the key to retrieve the corresponding tag name from the dictionary object
+    if(tagNames[typ]){
+      return  tagNames[typ];
+    }else  if(typ == ''){
+      return  "div";
+    }else {
+      return typ;
+    }
+  };
+    
   
   /**
   * element builders functions
@@ -2089,28 +2176,29 @@ const httpStarter =()=>{
   */
 
   const onValueChange_ =(k,v)=> {
-  if(onValueChange[k]){
-    for(var i = 0 ; i < onValueChange[k].length ; i++){
-      const elm    = E_I_S(onValueChange[k][i][0]);
-      const OB     =  I_O(onValueChange[k][i][0]) ;
-      const data   = OB.Q ? OB.Q : false; 
-   
-      if(elm){
-      elm.innerText = eTxt(onValueChange[k][i][1],onValueChange[k][i][0],data);
+    if(onValueChange[k]){
+      for(var i = 0 ; i < onValueChange[k].length ; i++){
+        const elm    = E_I_S(onValueChange[k][i][0]);
+        const OB     =  I_O(onValueChange[k][i][0]) ;
+        const data   = OB.Q ? OB.Q : false; 
+    
+        if(elm){
+        elm.innerText = eTxt(onValueChange[k][i][1],onValueChange[k][i][0],data);
+      }
+      }
     }
-    }
-  }
-  }
+  };
+
   const setObV = async (ob) => {
     
     for (const [k, v] of Object.entries(ob)) {
       if (!Object.prototype.hasOwnProperty.call(i_app_v, k)) {
         // If the property doesn't exist on the object, define it
         Object.defineProperty(i_app_v, k, {
-          get: () => { return this[k]; },
+          get: () => { return i_app_v['_' + k]; }, // Store the actual value in a "private" property
           set: (_v) => {
-            this[k] = _v;
-            onValueChange_(k, this[k]);
+            i_app_v['_' + k] = _v;
+            onValueChange_(k, i_app_v['_' + k]);
           },
           configurable: true, // Allow future modifications
           enumerable: true // Ensure property shows up in enumeration
@@ -2120,10 +2208,10 @@ const httpStarter =()=>{
         // Check if the property is configurable before defining it
         if (descriptor && descriptor.configurable) {
           Object.defineProperty(i_app_v, k, {
-            get: () => { return this[k]; },
+            get: () => { return i_app_v['_' + k]; },
             set: (_v) => {
-              this[k] = _v;
-              onValueChange_(k, this[k]);
+              i_app_v['_' + k] = _v;
+              onValueChange_(k, i_app_v['_' + k]);
             },
             configurable: true,
             enumerable: true
@@ -2134,65 +2222,68 @@ const httpStarter =()=>{
         }
       }
   
-      // Assign the value directly to the property
-      i_app_v[k] = v;
-    }
+        // Assign the value directly to the property
+        i_app_v[k] = v;
+      }
   };
   
 
   const onTxtChange_ =(k,v)=> {
     const newOnTxt = [];
-  if(onTxtChange[k]){
-    for(var i = 0 ; i < onTxtChange[k].length ; i++){
-     
-      const elm    = E_I_S(onTxtChange[k][i][0]);
-      const OB     =  I_O(onTxtChange[k][i][0]) ;
-      const data   = OB.Q ? OB.Q : false; 
-      
-      if(elm){
-        elm.innerText = eTxt(onTxtChange[k][i][1],onTxtChange[k][i][0],data);
-        newOnTxt.push(onTxtChange[k][i]);
+      if(onTxtChange[k]){
+        for(var i = 0 ; i < onTxtChange[k].length ; i++){
+        
+          const elm    = E_I_S(onTxtChange[k][i][0]);
+          const OB     =  I_O(onTxtChange[k][i][0]) ;
+          const data   = OB.Q ? OB.Q : false; 
+          
+          if(elm && OB?.t && OB?.t !== 'in' && OB?.t !== 'input'){
+            elm.innerText = eTxt(onTxtChange[k][i][1],onTxtChange[k][i][0],data);
+            newOnTxt.push(onTxtChange[k][i]);
+          }else  if(elm && OB?.t && OB?.t === 'in' || elm && OB?.t && OB?.t === 'input'){
+            elm.placeholder = eTxt(onTxtChange[k][i][1],onTxtChange[k][i][0],data);
+            newOnTxt.push(onTxtChange[k][i]);
+          }
+        }
       }
-    }
-  }
-  onTxtChange[k] = newOnTxt;
+      onTxtChange[k] = newOnTxt;
   }
   
   const setTxtV = async (ob) => {
    
-  
-  i_app_select_lang ={...ob}
-  for (const [k, v] of Object.entries(ob)) {
-   
-    Object.defineProperty(i_app_select_lang, k, {
-      get: () => this[k],
-      set: (_v) => {
-        this[k] = _v;
-        onTxtChange_(k, this[k]);
-      },
-    });
-    
-   // Assign the value directly to the property
-   i_app_select_lang[k] = v; 
-   
-  }
+      
+      i_app_select_lang ={...ob}
+      for (const [k, v] of Object.entries(ob)) {
+      
+        Object.defineProperty(i_app_select_lang, k, {
+          get: () => this[k],
+          set: (_v) => {
+            this[k] = _v;
+            onTxtChange_(k, this[k]);
+          },
+        });
+        
+      // Assign the value directly to the property
+      i_app_select_lang[k] = v; 
+      
+      }
   
   };
   
-
   const onInputChange_ =(k)=> {
     
-    if(onInputChange[k]){
-      
-      for(var i = 0 ; i < onInputChange[k].length ; i++){
-        const elm = E_I_S(onInputChange[k][i][0]);
-        if(elm){
-        elm.innerText = eTxt(onInputChange[k][i][1],onInputChange[k][i][0],false);
+      if(onInputChange[k]){
+        
+        for(var i = 0 ; i < onInputChange[k].length ; i++){
+          const elm = E_I_S(onInputChange[k][i][0]);
+          if(elm){
+          elm.innerText = eTxt(onInputChange[k][i][1],onInputChange[k][i][0],false);
+        }
+        }
       }
-      }
-    }
-    }
-    const setInputV = async (k) => {
+  };
+
+  const setInputV = async (k) => {
     if(elementValue[i_root]){
         Object.defineProperty(elementValue[i_root], k, {
     
@@ -2206,22 +2297,23 @@ const httpStarter =()=>{
         });
       
       }
-    
-      };
-    const setInputEvent = async (i) => {
-      if(E_I_S(i)){
-      E_I_S(i).addEventListener('input', () => {
-        
-        elementValue[i_root][i] = E_I_V(i);
-        onInputChange_(i);
-      });
-      setInputV(i);
-    }
-      };
+  
+  };
+
+  const setInputEvent = async (i) => {
+        if(E_I_S(i)){
+            E_I_S(i).addEventListener('input', () => {
+              
+              elementValue[i_root][i] = E_I_V(i);
+              onInputChange_(i);
+            });
+            setInputV(i);
+        }
+  };
+
   /**
   * TEXT builder
   */
-
 
   /**
    * create for each page route version of ob value
@@ -2242,243 +2334,267 @@ const httpStarter =()=>{
   * v.{ num } var num = 0 ;
   *  
   */
- 
-  const replacePatternTxt = (text,id,data)=>{
-   
-    const txtQ = /q\.\{\s*(?<query>[^\}]+)\s*\}/g;
-    const txtQTranslate = /qt\.\{\s*(?<queryTranslate>[^\}]+)\s*\}/g;
-    const txtTranslate = /t\.\{\s*(?<translate>[^\}]+)\s*\}/g;
-    const txtvalues = /v\.\{\s*(?<values>[^\}]+)\s*\}/g;
-    const txtvaluesTr = /vt\.\{\s*(?<valuesTr>[^\}]+)\s*\}/g;
-    const txtInput = /val\.\{\s*(?<input>[^\}]+)\s*\}/g;
-    const txtApp = /app\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
-    const txtUser = /u\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
-    let output = text;
-  
-        output = text.replace(txtQ, (_, query) =>
-        {
-        let  testData = query.trim();
-        if( data[query.trim()]){
-          if( data[query.trim()] === 0){
-            testData = '0'
-          }else{
-            testData = data[query.trim()]
-          }
-        }else{
-          testData =  false;
-        }
+ const getNestedValue = (obj, path) => {
+    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+};
+ const replacePatternTxt = (text, id, data) => {
 
-          if(testData){
-            return `${testData}`;
-          }else{
-            return query.trim();
-          }
+  const txtQ = /q\.\{\s*(?<query>[^\}]+)\s*\}/g;
+  const txtQTranslate = /qt\.\{\s*(?<queryTranslate>[^\}]+)\s*\}/g;
+  const txtTranslate = /t\.\{\s*(?<translate>[^\}]+)\s*\}/g;
+  const txtvalues = /v\.\{\s*(?<values>[^\}]+)\s*\}/g;
+  const txtvaluesTr = /vt\.\{\s*(?<valuesTr>[^\}]+)\s*\}/g;
+  const txtInput = /val\.\{\s*(?<input>[^\}]+)\s*\}/g;
+  const txtApp = /app\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
+  const txtUser = /u\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
+  let output = text;
 
+  output = text.replace(txtQ, (_, query) => {
+    let testData = query.trim();
+    if (data) {
+      if (data[query.trim()] || data[query.trim()] === 0) {
+
+        if (data[query.trim()] === 0) {
+          testData = '0'
+        } else {
+          testData = data[query.trim()]
         }
-    );
-  
-    output = output.replace(txtApp, (_, appTxt) =>
-    {
-    
-     if(app[appTxt.trim()]){
-       return `t.{${app[appTxt.trim()]}}`;
-     }else{
-       return appTxt.trim();
-     }
-      
-     
-   }
-   );
-   output = output.replace(txtUser, (_, appTxt) =>
-   {
-   
-    if(userData[appTxt.trim()]){
-      return userData[appTxt.trim()];
-    }else{
+      } else {
+        testData = false;
+        console.log('no data found for query replacement');
+      }
+    } else {
+      testData = false;
+      console.log('no data found for query replacement', data);
+    }
+
+    if (testData) {
+      return `${testData}`;
+    } else {
+      return query.trim();
+    }
+
+  });
+
+  output = output.replace(txtApp, (_, appTxt) => {
+
+    if (app[appTxt.trim()]) {
+      return `t.{${app[appTxt.trim()]}}`;
+    } else {
       return appTxt.trim();
     }
-     
-    
-  }
-  );
-    output = output.replace(txtQTranslate, (_, queryTranslate) =>
-    {
-    
-     if(data[queryTranslate.trim()]){
-       return `t.{${data[queryTranslate.trim()]}}`;
-     }else{
-       return queryTranslate.trim();
-     }
-      
-     
-   }
-   );
-   output = output.replace(txtvaluesTr, (_, valuesTr) =>{
-    if(i_app_v.hasOwnProperty(valuesTr.trim())){
-        if(onValueChange[valuesTr.trim()]){
-          let itExsit = false;
-          for(let x = 0 ; x < onValueChange[valuesTr.trim()].length;x++){
-              if(onValueChange[valuesTr.trim()][x][0] == id){ 
-                itExsit = true;
-              }
+
+  });
+
+  output = output.replace(txtUser, (_, appTxt) => {
+
+    if (userData[appTxt.trim()]) {
+      return userData[appTxt.trim()];
+    } else {
+      return appTxt.trim();
+    }
+  });
+
+  output = output.replace(txtQTranslate, (_, queryTranslate) => {
+
+    if (data[queryTranslate.trim()]) {
+      return `t.{${data[queryTranslate.trim()]}}`;
+    } else {
+      return queryTranslate.trim();
+    }
+
+  });
+
+  // --- UPDATED VT (Values Translated) SECTION ---
+  output = output.replace(txtvaluesTr, (_, valuesTr) => {
+    const path = valuesTr.trim();
+    const rootKey = path.split('.')[0]; // Get the main object key
+
+    if (i_app_v.hasOwnProperty(rootKey)) {
+      if (onValueChange[rootKey]) {
+        let itExsit = false;
+        for (let x = 0; x < onValueChange[rootKey].length; x++) {
+          if (onValueChange[rootKey][x][0] == id) {
+            itExsit = true;
           }
-          if(!itExsit){
-            onValueChange[valuesTr.trim()].push([id,text])
-          }
-        }else{
-          onValueChange[valuesTr.trim()] =[[id,text]]
         }
-     return `t.{${i_app_v[valuesTr.trim().toString()]}}`;
-    }else{ 
-      return  valuesTr.trim();
-    }
-    });
-    output = output.replace(txtTranslate, (_, translate) =>
-    {
-     if(i_app_select_lang[translate.trim()]){
-    
-       if(onTxtChange[translate.trim()] ){
-         let itExsit = false;
-         for(let x = 0 ; x < onTxtChange[translate.trim()].length;x++){
-             if(onTxtChange[translate.trim()][x][0] == id){ 
-               itExsit = true;
-             }
-         }
-         if(!itExsit){
-           onTxtChange[translate.trim()].push([id,text])
-         }
-       }else{
-         onTxtChange[translate.trim()] =[[id,text]]
-       }
-      
-       return  `${i_app_select_lang[translate.trim()]}`
-     }else{
-       return translate.trim()
-     }
-   
-   });
-    
-    output = output.replace(txtvalues, (_, values) =>{
-    if(i_app_v.hasOwnProperty(values.trim())){
-        if(onValueChange[values.trim()]){
-          let itExsit = false;
-          for(let x = 0 ; x < onValueChange[values.trim()].length;x++){
-              if(onValueChange[values.trim()][x][0] == id){ 
-                itExsit = true;
-              }
-          }
-          if(!itExsit){
-            onValueChange[values.trim()].push([id,text])
-          }
-        }else{
-          onValueChange[values.trim()] =[[id,text]]
+        if (!itExsit) {
+          onValueChange[rootKey].push([id, text])
         }
-     return `${i_app_v[values.trim().toString()]}`;
-    }else{ 
-      return  values.trim();
-    }
-    });
-    output = output.replace(txtInput, (_, input) =>{
-  
-            if(onInputChange[input.trim()]){
-              let itExsit = false;
-              for(let x = 0 ; x < onInputChange[input.trim()].length;x++){
-                  if(onInputChange[input.trim()][x][0] == id){ 
-                    itExsit = true;
-                  }
-              }
-              if(!itExsit){
-                onInputChange[input.trim()].push([id,text]);
-              }
-            }else{
-              onInputChange[input.trim()] =[[id,text]]
-            }
-            if(elementValue[i_root][input.trim()]){
-              return `${elementValue[i_root][input.trim().toString()]}`;
-            }else{ 
-              return  '';
-            }
-        });
-    
-    return output;
-    }
-    const replacePatternId = (text,data)=>{
-   
-      const txtQ = /q\.\{\s*(?<query>[^\}]+)\s*\}/g;
-      const txtvalues = /v\.\{\s*(?<values>[^\}]+)\s*\}/g;
-      const txtInput = /val\.\{\s*(?<input>[^\}]+)\s*\}/g;
-      const txtApp = /app\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
-      const txtUser = /u\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
-      let output = text;
-    
-          output = text.replace(txtQ, (_, query) =>
-          {
-          let  testData = query.trim();
-          if( data[query.trim()]){
-            if( data[query.trim()] === 0){
-              testData = '0'
-            }else{
-              testData = data[query.trim()]
-            }
-          }else{
-            testData =  false;
-          }
-  
-            if(testData){
-              return `${testData}`;
-            }else{
-              return query.trim();
-            }
-  
-          }
-      );
-    
-      output = output.replace(txtApp, (_, appTxt) =>
-      {
-       if(app[appTxt.trim()]){
-         return `t.{${app[appTxt.trim()]}}`;
-       }else{
-         return appTxt.trim();
-       }
-     }
-     );
-     output = output.replace(txtUser, (_, appTxt) =>
-     {
-      if(userData[appTxt.trim()]){
-        return userData[appTxt.trim()];
-      }else{
-        return appTxt.trim();
+      } else {
+        onValueChange[rootKey] = [[id, text]]
       }
-    }
-    );
-      output = output.replace(txtvalues, (_, values) =>{
-      if(i_app_v.hasOwnProperty(values.trim())){
-       return `${i_app_v[values.trim().toString()]}`;
-      }else{ 
-        return  values.trim();
-      }
-      });
-      output = output.replace(txtInput, (_, input) =>{
-          if(elementValue[i_root][input.trim()]){
-           return `${elementValue[i_root][input.trim().toString()]}`;
-          }else{ 
-            return  '';
-          }
-          });
       
-      return output;
+      // Get deep value
+      const val = path.split('.').reduce((acc, part) => acc && acc[part], i_app_v);
+      return `t.{${val}}`;
+    } else {
+      return valuesTr.trim();
+    }
+  });
+
+  output = output.replace(txtTranslate, (_, translate) => {
+    if (i_app_select_lang[translate.trim()]) {
+
+      if (onTxtChange[translate.trim()]) {
+        let itExsit = false;
+        for (let x = 0; x < onTxtChange[translate.trim()].length; x++) {
+          if (onTxtChange[translate.trim()][x][0] == id) {
+            itExsit = true;
+          }
+        }
+        if (!itExsit) {
+          onTxtChange[translate.trim()].push([id, text])
+        }
+      } else {
+        onTxtChange[translate.trim()] = [[id, text]]
       }
+
+      return `${i_app_select_lang[translate.trim()]}`
+    } else {
+      return translate.trim()
+    }
+
+  });
+
+  // --- UPDATED V (Values) SECTION ---
+  output = output.replace(txtvalues, (_, values) => {
+    const path = values.trim();
+    const rootKey = path.split('.')[0]; // Get the main object key (e.g., 'body')
+
+    // Check if the ROOT key exists in i_app_v (e.g., checks if i_app_v.body exists)
+    if (i_app_v.hasOwnProperty(rootKey)) {
+      
+      // Register the update listener on the ROOT key
+      if (onValueChange[rootKey]) {
+        let itExsit = false;
+        for (let x = 0; x < onValueChange[rootKey].length; x++) {
+          if (onValueChange[rootKey][x][0] == id) {
+            itExsit = true;
+          }
+        }
+        if (!itExsit) {
+          onValueChange[rootKey].push([id, text])
+        }
+      } else {
+        onValueChange[rootKey] = [[id, text]]
+      }
+
+      // Retrieve the nested value (e.g., traverse body -> key -> name)
+      const val = path.split('.').reduce((acc, part) => acc && acc[part], i_app_v);
+      
+      return `${val !== undefined ? val : ''}`;
+    } else {
+      return values.trim();
+    }
+  });
+
+  output = output.replace(txtInput, (_, input) => {
+
+    if (onInputChange[input.trim()]) {
+      let itExsit = false;
+      for (let x = 0; x < onInputChange[input.trim()].length; x++) {
+        if (onInputChange[input.trim()][x][0] == id) {
+          itExsit = true;
+        }
+      }
+      if (!itExsit) {
+        onInputChange[input.trim()].push([id, text]);
+      }
+    } else {
+      onInputChange[input.trim()] = [[id, text]]
+    }
+    if (elementValue[i_root][input.trim()]) {
+      return `${elementValue[i_root][input.trim().toString()]}`;
+    } else {
+      return '';
+    }
+  });
+
+  return output;
+}
+  
+const replacePatternId = (text, data) => {
+
+  const txtQ = /q\.\{\s*(?<query>[^\}]+)\s*\}/g;
+  const txtvalues = /v\.\{\s*(?<values>[^\}]+)\s*\}/g;
+  const txtInput = /val\.\{\s*(?<input>[^\}]+)\s*\}/g;
+  const txtApp = /app\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
+  const txtUser = /u\.\{\s*(?<apptxt>[^\}]+)\s*\}/g;
+  let output = text;
+
+  output = text.replace(txtQ, (_, query) => {
+    let testData = query.trim();
+    if (data[query.trim()]) {
+      if (data[query.trim()] === 0) {
+        testData = '0'
+      } else {
+        testData = data[query.trim()]
+      }
+    } else {
+      testData = false;
+    }
+
+    if (testData) {
+      return `${testData}`;
+    } else {
+      return query.trim();
+    }
+
+  });
+
+  output = output.replace(txtApp, (_, appTxt) => {
+    if (app[appTxt.trim()]) {
+      return `t.{${app[appTxt.trim()]}}`;
+    } else {
+      return appTxt.trim();
+    }
+  });
+  output = output.replace(txtUser, (_, appTxt) => {
+    if (userData[appTxt.trim()]) {
+      return userData[appTxt.trim()];
+    } else {
+      return appTxt.trim();
+    }
+  });
+  
+  // --- UPDATED SECTION ---
+  output = output.replace(txtvalues, (_, values) => {
+    const path = values.trim();
+    const rootKey = path.split('.')[0];
+
+    if (i_app_v.hasOwnProperty(rootKey)) {
+        // Traverse to find the value
+        const val = path.split('.').reduce((acc, part) => acc && acc[part], i_app_v);
+        return `${val !== undefined ? val : ''}`;
+    } else {
+      return values.trim();
+    }
+  });
+  // ----------------------
+
+  output = output.replace(txtInput, (_, input) => {
+    if (elementValue[i_root][input.trim()]) {
+      return `${elementValue[i_root][input.trim().toString()]}`;
+    } else {
+      return '';
+    }
+  });
+
+  return output;
+}
+
   /**
   * Build Function Tools
   * Basic Functions to control 
   * Animtion and Building Tools
-  * 
   */
 
   /**
    * print doc
    */
-  const print = (id,cls)=>{
+
+  const printElement = (id,cls)=>{
     
     const body = E_I_S(id).innerHTML;
     var nD = '';
@@ -2517,33 +2633,34 @@ const httpStarter =()=>{
       _POST('/print',{sc:nD},(res)=>{
      //   CL_(res);
       })
-    }else{
-      var Pagelink = app.name;
+    } else {
+    const Pagelink = app.name;
+    const is_chrome = Boolean(mywindow.chrome);
+    const mywindow = window.open(Pagelink, "_new");
 
-      var mywindow = window.open(Pagelink, "_new");
-      var is_chrome = Boolean(mywindow.chrome);
-      mywindow.document.write(nD);
-      mywindow.document.close();
-      if (is_chrome) {
-          mywindow.onload = () => {
-              mywindow.focus();
-              mywindow.print();
-              mywindow.close();
-          };
-      } else {
-          mywindow.document.close();
-          mywindow.focus();
-          mywindoelw.print();
-          mywindow.close();
-      }
-  
+    mywindow.document.write(nD);
+    mywindow.document.close();
+
+    if (is_chrome) {
+        mywindow.onload = () => {
+            mywindow.focus();
+            mywindow.print();
+            mywindow.close();
+        };
+    } else {
+        mywindow.focus();
+        mywindow.print();
+        mywindow.close();
     }
+}
 
 
   }
+
   const PLAY_SLI_T = () => {
-  SLIDER_SW(['all', 'a']);
+    SLIDER_SW(['all', 'a']);
   }
+  
   const I_SCROL = ([w]) => {
     if (this.scroller == true) {
         if (elV(E_I_S(w))) {
@@ -2581,10 +2698,12 @@ const httpStarter =()=>{
         }
     }
   }
+
   const UP_TIME_SLI = (t) => {
-  clearTimeout(mySliTimeFunc);
-  mySliTimeFunc = setTimeout(PLAY_SLI_T, t);
+    clearTimeout(mySliTimeFunc);
+    mySliTimeFunc = setTimeout(PLAY_SLI_T, t);
   }
+
   const elV = (el) => {
   
   var rect = el.getBoundingClientRect(),
@@ -2606,10 +2725,11 @@ const httpStarter =()=>{
   );
   
   }
-  
+
   const scrollToTop = () => {
   window.scrollTo(0, 0);
   }
+
   const SLIDER_SW = ([q, v]) => {
   
   var o, a;
@@ -2784,30 +2904,31 @@ const httpStarter =()=>{
           }
   
       }
-  }
-  UP_TIME_SLI(3000);
+    }
+    UP_TIME_SLI(3000);
   
-  scollerTime = window.setTimeout(() => { this.scroller = true; }, 800);
+    scollerTime = window.setTimeout(() => { this.scroller = true; }, 800);
   }
   
   const PLAY_SLI = ([w, so]) => {
-  var is_e = true;
-  for (var e = 0; e < this.sli_MEM.length; e++) {
-      if (w == this.sli_MEM[e].e) {
-          is_e = false;
-      }
+    var is_e = true;
+    for (var e = 0; e < this.sli_MEM.length; e++) {
+        if (w == this.sli_MEM[e].e) {
+            is_e = false;
+        }
+    }
+    if (is_e == true) {
+        this.sli_MEM.push({ e: w, l: -1, s: so, ls: 0 });
+    }
+    
+    clearTimeout(mySliTimeFunc);
+    setTimeout(PLAY_SLI_T, 3000);
   }
-  if (is_e == true) {
-      this.sli_MEM.push({ e: w, l: -1, s: so, ls: 0 });
-  }
-  
-  clearTimeout(mySliTimeFunc);
-  setTimeout(PLAY_SLI_T, 3000);
-  }
+
   const poJS = ([m, w]) => {
     poJSOB = [m, w];
-  window.pJSDom = [];
-  var nm = m.replace(/_/g, '');
+    window.pJSDom = [];
+    var nm = m.replace(/_/g, '');
     if (!popJsD.color) {
         popJsD.stroke = {...w.particles.shape.stroke};
         popJsD.color = w.particles.color.value;
@@ -2830,27 +2951,25 @@ const httpStarter =()=>{
       if (w.parent.h !== "100%") {
           w.parent.h = `${ E_I_S(w.parent.i).offsetHeight}px`;
       }
-  
-  
   }
   let isExistFn  = false;
   
-  if(window.particlesJS && typeof window.particlesJS === 'function'){
-    isExistFn  =true ;
-   setTimeout(() => {  window.particlesJS(nm, w) }, 1000);
-  }else{
-  
-      L_SCRIPT("parti",false);
-      const AFL = () => {poJS([m, w]) ;}
-      setTimeout(AFL, 3600);
-  }
+    if(window.particlesJS && typeof window.particlesJS === 'function'){
+      isExistFn  =true ;
+    setTimeout(() => {  window.particlesJS(nm, w) }, 1000);
+    }else{
+    
+        L_SCRIPT("parti",false);
+        const AFL = () => {poJS([m, w]) ;}
+        setTimeout(AFL, 3600);
+    }
   
   }
   /**
   * SCRIPT FUNCTIONS ENGINE
   */
   const GET_MEMORY = (m)=>{
-  return m;
+    return m;
   }
   
   const _RETURN = ([name, data]) => {
@@ -3380,6 +3499,7 @@ const httpStarter =()=>{
       }
   
   }
+
   const SL_P = (w) => {
   
   var Isl = w.sliBol[0];
@@ -3455,14 +3575,19 @@ const httpStarter =()=>{
   }
   return w.elm;
   }
+
   const s_Lang = ()=>{
-  
+  const storageLang = GTD("lang");
+  if(storageLang && storageLang !== null ){
+    return storageLang;
+  }
   const langToSelect = app.lang.filter(l=>{
     if(l !== selectLang){
       return l;
     }});
   return langToSelect[0];
   }
+
   const addTxtChange = (cur_txt_ob,id,txt)=>{
     if(cur_txt_ob.d && onTxtChange[cur_txt_ob.d] && onTxtChange[cur_txt_ob.d].length ){
       let itExsit = false;
@@ -3480,6 +3605,7 @@ const httpStarter =()=>{
    const tv =  i_app_select_lang[cur_txt_ob.d] ? i_app_select_lang[cur_txt_ob.d] : cur_txt_ob.d;
   return tv;
   }
+
   const eTxt = (txt,id,data)=>{
   /// ctreat element inner Text 
   
@@ -3525,6 +3651,7 @@ const httpStarter =()=>{
   txtv =  txtv.replace(/,(?=[^,]*$)/, '');
   return  txtv;
   }
+
   const cr_ob_title = (ob,id,e)=>{
     if (ob.TiTx.length == 0) {
   
@@ -3555,73 +3682,49 @@ const httpStarter =()=>{
         E_I_S(id).appendChild(newTitle);
     }
   }
+
   const  ESF =async (ob)=>{
 
-  if(ob.a){
-  let ev = ob.a.e ? ob.a.e : 'click' ;  
-    const funcBody = ob.a.fndc ? ob.a.fndc : ob.a.fn;
+    if(ob.a){
+      let ev = ob.a.e ? ob.a.e : 'click' ;  
+     
+      const funcBody = ob.a.fndc ? ob.a.fndc : ob.a.fn;
 
-    if(typeof funcBody === 'string'){
+      if(typeof funcBody === 'string'){
+        
       
+      let fnSt = EC_(funcBody.toString());
+      fnSt = fnSt.replace(/\\/g, '/');
+      fnSt = fnSt.replace(/aaa@aaa/g, ':');
+    // const fn = new  Function(fnSt);
     
-    let fnSt = EC_(funcBody.toString());
-    fnSt = fnSt.replace(/\\/g, '/');
-    fnSt = fnSt.replace(/aaa@aaa/g, ':');
-   // const fn = new  Function(fnSt);
-  
-    const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-    
-    const myAsync = new AsyncFunction(fnSt);
-    const newFunc =async ()=>{
-              this.v = i_app_v ;
-              this._ = URS();
-              this.Q = ob.Q ? ob.Q : false;
-              this.U = userData;
-              try{ 
-                return await myAsync(this.v,this._,this.Q,this.U );
-            }catch(err){
-              CL_(["your function return error"+err,fnSt]);
-            }
-            }
-    
-    //
-    if( ev === 'auto' ||  ob.a.time){
-      let theTime = 300;
-      if(ob.a.time){
-        theTime = ob.a.time;
-      }
-    setTimeout(newFunc,theTime);
-    }else {
-      
-      if(ev  === 'click'){
-        ob.i_e.onclick =()=>{
-          newFunc();
+      const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+      const myAsync = new AsyncFunction(fnSt);
+      const newFunc = async (arg)=>{
+        
+                this.v  = i_app_v ;
+                this._  = URS();
+                this.Q  = ob.Q ? ob.Q : false;
+                this.U  = userData;
+                this.FN = public_functions;
+                this.D  = {...arg};
+                  try{ 
+                      return await myAsync(this.v,this._,this.Q,this.U,this.FN ,this.D );
+                  }catch(err){
+                      console.log([" your function return error : "+err,fnSt,public_functions]);
+                  }
+              } 
+
+      if( ev === 'auto' ||  ob.a.time){
+        let theTime = 300;
+        if(ob.a.time){
+          theTime = ob.a.time;
         }
-      }else if(ev  === 'change'){
-        ob.i_e.onchange =()=>{
-          newFunc();
-        }
-      }else{
-        ob.i_e.addEventListener(ev,newFunc);
-      }
-    
-      
-    }
-  
- 
-    }else  {
-      const newFunc = ()=>{
-        this.v = i_app_v ;
-        this._ = URS();
-        try{ 
-          return funcBody(this.v,this._);
-      }catch(err){
-        CL_("your function return error"+err);
-      }
-      }
-      if( ev === 'auto' ){
-        setTimeout(newFunc,300);
-        }else {
+      setTimeout(newFunc,theTime);
+      }else   {
+        if( ob.a.n){
+          public_functions[ob.a.n] = (data)=>{return newFunc(data);};
+        }else{
           if(ev  === 'click'){
             ob.i_e.onclick =()=>{
               newFunc();
@@ -3633,14 +3736,54 @@ const httpStarter =()=>{
           }else{
             ob.i_e.addEventListener(ev,newFunc);
           }
-         
-        }
+      }
       
+        
+      }
+    
+  
+      }else  {
+
+        const newFunc = (arg)=>{
+                this.v  = i_app_v ;
+                this._  = URS();
+                this.Q  = ob.Q ? ob.Q : false;
+                this.U  = userData;
+                this.FN = public_functions;
+                this.D  = {...arg};
+          try{ 
+            return funcBody(this.v,this._,this.Q,this.U,this.FN ,this.D );
+          }catch(err){
+            CL_(["your function return error"+err,funcBody]);
+          }
+        }
+
+        if( ev === 'auto' ){
+            setTimeout(newFunc,300);
+          }else{
+              if( ob.a.n){
+                public_functions[ob.a.n] = (data)=>{return newFunc(data);};
+              } else{
+                if(ev  === 'click'){
+                  ob.i_e.onclick =()=>{
+                    newFunc();
+                  }
+                }else if(ev  === 'change'){
+                  ob.i_e.onchange =()=>{
+                    newFunc();
+                  }
+                }else{
+                  ob.i_e.addEventListener(ev,newFunc);
+                }
+            }
+          }
+        
+      }
+    
+    
     }
-  
-  
   }
-  }
+
   const cele = (e)=>{
     if(typeof Icele === 'function'){
         return Icele([e,URS()])
@@ -3648,6 +3791,7 @@ const httpStarter =()=>{
         L_SCRIPT('cele',[e,URS()]);
     }
   }
+
   const L_ROUTE = (body,[[id,data,i_route,ob],dataincome])=>{
   
     if(!i_app_model[i_route] ){
@@ -3681,11 +3825,12 @@ const httpStarter =()=>{
     CR_(newOb,id,data);
       
   }
+
   const G_SRC = (src)=>{
     if(src == 'app.png'){
       return src;
     }
-  let chick = src.split("_");
+    let chick = src.split("_");
       if(chick.length > 1){
         if(chick[0] == "J"){
             return `${app.dir.img}${chick[1]}.jpg`;
@@ -3699,6 +3844,7 @@ const httpStarter =()=>{
         return `${httpStarter()}://${appData.domain}${app.dir.img}${src}`;
       
   }
+
   const getImageName = (src)=>{
     src = src.replace(/\b(.jpg|.png|.gif)\b/g, '');
     const srcAr = src.split('/');
@@ -3707,6 +3853,7 @@ const httpStarter =()=>{
     }
     return src;
   }
+
   /**
   * element actions EventListner
   */
@@ -3719,15 +3866,17 @@ const httpStarter =()=>{
             });
         }
   }
+
   /**
   * auto value 
   * shortcut for most used auto value
   */
   const ob_value = (ob)=>{
-  if(ob.valsLang){
-  return s_Lang();
+    if(ob.valsLang){
+        return s_Lang();
+    }
   }
-  }
+
   const  set_style = (e,style)=>{
     for (const [k, v] of Object.entries(style)) {
     e.style[k] = v; 
@@ -3755,6 +3904,7 @@ const httpStarter =()=>{
 
     return newData;
   }
+
   function filterData(e, array) {
     const matchingIndices = [];
    
@@ -3780,396 +3930,397 @@ const httpStarter =()=>{
     return matchingIndices;
   }
   
+  const filterSearchItems = (e,data)=>{
+    const searchElement  =  `${e}_selectSearch`;
+    if(data){
 
-const filterSearchItems = (e,data)=>{
-  const searchElement  =  `${e}_selectSearch`;
-  if(data){
-
-    //filter data 
-    if(E_I_V(searchElement) == ''){
-      for(var i =0 ; i < data.length; i++){
-        const element =  `${e}_${i}_item`;
-        D_CL([element,'D_N'])
-      }
-    }else{
-      const matchData = filterData(searchElement,data);
-      if(matchData.length >0){
-        for(var i =0 ; i < data.length; i++){
-          const element =  `${e}_${i}_item`;
-          A_CL(element,'D_N')
-        }
-          for(var i =0 ; i < matchData.length; i++){
-            const element =  `${e}_${matchData[i]}_item`;
-            D_CL([element,'D_N'])
-          }
-      }else{
+      //filter data 
+      if(E_I_V(searchElement) == ''){
         for(var i =0 ; i < data.length; i++){
           const element =  `${e}_${i}_item`;
           D_CL([element,'D_N'])
         }
-      }
-      
-    }
-  
-  }else{
-
-  }
-}
-/**
- * select element
- */
-let is_dialog_open = false;
-const openOverHide =(dialog)=>{
-  if(dialog && !is_dialog_open){
-    is_dialog_open = true;
-    A_CL('i-app','OV_HIDE');
-  }else if(!dialog && !is_dialog_open){
-    A_CL('i-app','OV_HIDE');
-  }
-} 
-const closeOverHide =(dialog)=>{
-  if(dialog && is_dialog_open){
-    is_dialog_open = false;
-    D_CL(['i-app','OV_HIDE']);
-  }else if(!dialog && !is_dialog_open){
-    D_CL(['i-app','OV_HIDE']);
-  }
-} 
-
-
- const selectElement =  async(ob,data)=>{
-
-  const holderId = `${ob.i}_holder`;
-
-  i_app_model['sl'] =JDS_({t:'sp',c:'F_B',e:[{t:'sp',c:'pointer'},{i:'select12',t:'dialog',c:'WW  HH  TT_0 LL_0 RR_0 B_W Ztop',e:[{c:',container MD HH',e:[{c:'WW  MD MW_400 T_L',e:[{t:'icon',c:'ICO-arrow-left F_S_30   TT_10 pointer'}]},{c:'WW mT_80 MD MW_400',e:[{t:'in',c:'WW mB_30 input'},{ t:'icon', c:'ICO-close POS_AB RR_0 pointer' }]},{ c:'WW T_L MW_400 MD SCROLL H_400'}]}]}]});
-  
-       
-      
-      const NewSelectElment = ()=>{
-       
-        const fnStOpen = `{_.E_I_S("${ob.i}_selectScreen").showModal();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); }`;
-        const fnStOpenDC = DC_(fnStOpen);
-        const fnStClose = `{_.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); }`;
-        const fnStCloseDC = DC_(fnStClose);
-        const selectModel = JD_(i_app_model['sl']);
-        selectModel.e[0].i = `${ob.i}_selectButton`;
-        selectModel.e[0].a = {fn: fnStOpenDC}
-        if(ob.c){
-          if(!ob.c.match(/pointer/)){
-            if( ob.mod == 'phonecode'  ){
-              ob.c += ' pointer  pL_15 pR_15 pT_5 pB_4';
-              }else{
-                ob.c += ' pointer selectIcon pL_15 pR_15 pT_5 pB_4';
-              }
+      }else{
+        const matchData = filterData(searchElement,data);
+        if(matchData.length >0){
+          for(var i =0 ; i < data.length; i++){
+            const element =  `${e}_${i}_item`;
+            A_CL(element,'D_N')
           }
-          
-          selectModel.e[0].c = ob.c;
-        }
-
-
-        const searchFnSt        = `{_.filterSearchItems("${ob.i}",${data && data.length > 0 ? JDS_(data) : false})}`;
-        const searchFnStDC      = DC_(searchFnSt);
-        const clearInputFnSt    = `{_.IN_V("${ob.i}_selectSearch",'');}`;
-        const clearInputFnStDC  = DC_(clearInputFnSt);
-        const basicSearchText   = ob.s ? ob.s : 'search-text';
-
-        selectModel.e[1].e[0].e[0].a =  {fn: fnStCloseDC}
-        selectModel.e[1].i = `${ob.i}_selectScreen`;
-        selectModel.e[1].e[0].e[1].e[0].i = `${ob.i}_selectSearch`;
-        selectModel.e[1].e[0].e[1].e[1].a ={fn: clearInputFnStDC};
-        selectModel.e[1].e[0].e[1].e[0].s = ob.mod == 'phonecode' ? `Search Your Country Code (+00)` :basicSearchText;
-        selectModel.e[1].e[0].e[1].e[0].a = {e:'input',fn:searchFnStDC};
-        selectModel.e[1].e[0].e[2].i = `${ob.i}_selectItems`;
-        selectModel.e[1].e[0].e[2].e =[];
-        return selectModel;
-      }
-      
-      const selectModel = NewSelectElment();
-     
-      if(ob.model){
-        if(data){
-         if(ob.mod == 'country'){
-            
-            // countries
-         
-           for(var i = 0 ; i < data.length ; i++){
-            const lowerCode  = data[i].code.toLowerCase();
-            const imgSrc     = countries.flags[lowerCode];
-            const fnStItem   = `{
-              _.IN_V("${ob.i}","${data[i].code}");
-              
-              _.elmChange('${ob.i}');
-              _.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); 
-              
-              _.E_I_S('${ob.i}_flag').src = "${imgSrc}";
-              _.E_I_S('${ob.i}_code').innerText = "${data[i].name}";
-          
-            }`;
-
-            const fnStItemDC = DC_(fnStItem);
-            const selectItem = {
-                              c:'WW ST_B_GRY8_1 pointer PD_4',
-                              i: `${ob.i}_${i}_item`,
-                              e:[
-                                {
-                                  t:'img',
-                                  c:'W_20',
-                                  srcUrl:imgSrc
-                                },
-                                {
-                                  t:'sp',
-                                  s:'q.{name} ',
-                                  c:'F_S_12 '
-                                },{
-                                  t:'sp',
-                                  s:' ( q.{originalName} )',
-                                  c:'F_S_12 '
-                                }
-              ],
-              Q:data[i] ,
-              a:{fn:fnStItemDC}
-          }
-          selectModel.e[1].e[0].e[2].e.push(selectItem);
-          }
-
-          const firstLowerCode  = data[0].code.toLowerCase();
-         
-          const firstImgSrc     =countries.flags[firstLowerCode];
-          selectModel.e[0].e    = [{t:'img',i:`${ob.i}_flag`,srcUrl: firstImgSrc ,c:'W_20'},{t:'sp',i:`${ob.i}_code`,s: data[0].name ,c:'mL_5'},{t:'icon',c:'ICO-caret-down mL_5'}];
-          
-          CR_(selectModel,holderId,false)      
-
-         }else if( ob.mod == 'phonecode'){
-       
-            for(var i = 0 ; i < data.length ; i++){
-              const lowerCode  = data[i].code.toLowerCase();
-              const imgSrc     = countries.flags[lowerCode];
-              const fnStItem   = `{
-                _.IN_V("${ob.i}","${data[i].dialCode}");
-                _.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); 
-                _.elmChange('${ob.i}_dialCode');
-                _.E_I_S('${ob.i}_flag').src = '${imgSrc}';
-                _.E_I_S('${ob.i}_code').innerText = '${data[i].dialCode}';
-              }`;
-
-              const fnStItemDC = DC_(fnStItem);
-              const selectItem = {
-                                c:'WW ST_B_GRY8_1 pointer PD_4',
-                                i: `${ob.i}_${i}_item`,
-                                e:[
-                                  {
-                                    t:'img',
-                                    c:'W_20',
-                                    srcUrl:imgSrc
-                                  },
-                                  {
-                                    t:'sp',
-                                    s:'q.{dialCode} ',
-                                    c:'F_GRY7 W_50 mL_10 '
-                                  },{
-                                    t:'sp',
-                                    s:'q.{name} ',
-                                    c:'F_S_12 '
-                                  },{
-                                    t:'sp',
-                                    s:' ( q.{originalName} )',
-                                    c:'F_S_12 '
-                                  }
-                ],
-                Q:data[i] ,
-                a:{fn:fnStItemDC}
+            for(var i =0 ; i < matchData.length; i++){
+              const element =  `${e}_${matchData[i]}_item`;
+              D_CL([element,'D_N'])
             }
-            selectModel.e[1].e[0].e[2].e.push(selectItem);
-            }
-
-            const firstLowerCode  = data[0].code.toLowerCase();
-           
-            const firstImgSrc     =countries.flags[firstLowerCode];
-            selectModel.e[0].e    = [{t:'img',i:`${ob.i}_flag`,srcUrl: firstImgSrc ,c:'W_20'},{t:'sp',i:`${ob.i}_code`,s: data[0].dialCode ,c:'mL_5'},{t:'icon',c:'ICO-caret-down mL_5'}];
-            
-            CR_(selectModel,holderId,false)
-          }else  if( ob.mod !== 'phonecode' &&  ob.mod !== 'country' && ob.model ){
-          
-            for(var i = 0 ; i < data.length ; i++){
-                for(var m = 0 ; m < ob.model.length ; m++){
-                  const model_ = ob.model[m]; 
-                  const _selectButtonData = {t:"sp",s:model_.s ? model_.s : 'no model text' }
-                  let vq = '';
-                  if(model_.vq &&  data[i][model_.vq] ){
-                    vq = `_.IN_V("${ob.i}","${data[i][model_.vq]}");`;
-                  }else  if(model_.val ){
-                    vq = `_.IN_V("${ob.i}","${model_.val }");`;
-                  }
-                  const decodedData = JDS_(data[i]);
-                  const fnStItem   = `{
-                    ${vq}
-                    _.elmChange('${ob.i}');
-                    _.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); 
-                    _.E_I_S("${ob.i}_selectButton").innerHTML = '';
-                    _.CR_(${JDS_(_selectButtonData)} ,'${ob.i}_selectButton',${decodedData});
-                  }`;
-              
-                  const fnStItemDC = DC_(fnStItem);
-                
-                  const selectItem = {
-                    c:'WW ST_B_GRY8_1 pointer PD_4 F_B',
-                    i: `${ob.i}_${i}_item`,
-                    e:[
-                      {
-                        t:'sp',
-                        s:model_.s,
-                        c:'F_S_12 '
-                      }
-                    ],
-                    Q:data[i],
-                    a:{fn:fnStItemDC}
-                }
-                
-                if(ob._IQuery_ && ob._IQuery_.order && ob._IQuery_.order == 'icons'){
-                  selectItem.e = [{
-                    t:'icon',
-                    c:'F_S_30 '+data[i].class
-                  },...selectItem.e ];
-                }else{
-                  if(model_.e && model_.e.length > 0){
-                    for(var x = 0; x < model_.e.length ; x++){
-                      
-                      selectItem.e.push(model_.e[x]);
-                    }
-                  }
-                }
-                selectModel.e[1].e[0].e[2].e.push(selectItem);
-                }
-            }
-            
-            let findS = 'No Data';
-            var qq = data[0];
-            
-            if(ob.vq && ob.Q && ob.Q[ob.vq]){
-              const testParentVal = ob.Q[ob.vq];
-              if(ob.model[0].vq){
-                const keyModelVal = ob.model[0].vq;
-                for(var i =0; i < data.length;i++){
-
-                  if(data[i][keyModelVal] == testParentVal){
-                      qq = data[i];
-                  }
-
-                }
-              }
-            }
-            
-            if(ob.s){
-              findS = ob.s;
-            }else{
-              if(ob.model[0].s){
-                findS = ob.model[0].s;
-               }else if(ob.model[0].e[0] && ob.model[0].e[0].s){
-                findS = ob.model[0].e[0].s;
-               }
-            }
-            
-            selectModel.e[0].e    = [{t:'sp', Q:qq, i:`${ob.i}_Button`, s:findS , c:'mL_5 F_B' }];
-            CR_(selectModel,holderId,false);
-
+        }else{
+          for(var i =0 ; i < data.length; i++){
+            const element =  `${e}_${i}_item`;
+            D_CL([element,'D_N'])
           }
         }
         
-      }else{
-        if(ob.e && ob.e.length > 0){
-            for(var i = 0; i < ob.e.length;i++){
-              if(ob.e[i].v || ob.e[i].val){
-                  var val_ ;
-                  if(ob.e[i].val){
-                      val_ = ob.e[i].val;
-                  }else if(ob.e[i].v){
-                      val_ = ob.e[i].v;
-                  }
+      }
+    
+    }else{
+
+    }
+  }
+
+  /**
+   * select element
+   */
+
+  let is_dialog_open = false;
+  
+  const openOverHide =(dialog)=>{
+    if(dialog && !is_dialog_open){
+      is_dialog_open = true;
+      A_CL('i-app','OV_HIDE');
+    }else if(!dialog && !is_dialog_open){
+      A_CL('i-app','OV_HIDE');
+    }
+  } 
+  
+  const closeOverHide =(dialog)=>{
+    if(dialog && is_dialog_open){
+      is_dialog_open = false;
+      D_CL(['i-app','OV_HIDE']);
+    }else if(!dialog && !is_dialog_open){
+      D_CL(['i-app','OV_HIDE']);
+    }
+  } 
+
+  const selectElement =  async(ob,data)=>{
+
+    const holderId = `${ob.i}_holder`;
+
+    i_app_model['sl'] =JDS_({t:'sp',c:'F_B',e:[{t:'sp',c:'pointer'},{i:'select12',t:'dialog',c:'WW  HH  TT_0 LL_0 RR_0 B_W Ztop',e:[{c:',container MD HH',e:[{c:'WW  MD MW_400 T_L',e:[{t:'icon',c:'ICO-arrow-left F_S_30   TT_10 pointer'}]},{c:'WW mT_80 MD MW_400',e:[{t:'in',c:'WW mB_30 input'},{ t:'icon', c:'ICO-close POS_AB RR_0 pointer' }]},{ c:'WW T_L MW_400 MD SCROLL H_400'}]}]}]});
+    
+        
+        
+        const NewSelectElment = ()=>{
+        
+          const fnStOpen = `{_.E_I_S("${ob.i}_selectScreen").showModal();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); }`;
+          const fnStOpenDC = DC_(fnStOpen);
+          const fnStClose = `{_.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); }`;
+          const fnStCloseDC = DC_(fnStClose);
+          const selectModel = JD_(i_app_model['sl']);
+          selectModel.e[0].i = `${ob.i}_selectButton`;
+          selectModel.e[0].a = {fn: fnStOpenDC}
+          if(ob.c){
+            if(!ob.c.match(/pointer/)){
+              if( ob.mod == 'phonecode'  ){
+                ob.c += ' pointer  pL_15 pR_15 pT_5 pB_5';
+                }else{
+                  ob.c += ' pointer selectIcon pL_15 pR_15 pT_5 pB_5';
+                }
+            }
+            
+            selectModel.e[0].c = ob.c;
+          }
+
+
+          const searchFnSt        = `{_.filterSearchItems("${ob.i}",${data && data.length > 0 ? JDS_(data) : false})}`;
+          const searchFnStDC      = DC_(searchFnSt);
+          const clearInputFnSt    = `{_.IN_V("${ob.i}_selectSearch",'');}`;
+          const clearInputFnStDC  = DC_(clearInputFnSt);
+          const basicSearchText   = ob.s ? ob.s : 'search-text';
+
+          selectModel.e[1].e[0].e[0].a =  {fn: fnStCloseDC}
+          selectModel.e[1].i = `${ob.i}_selectScreen`;
+          selectModel.e[1].e[0].e[1].e[0].i = `${ob.i}_selectSearch`;
+          selectModel.e[1].e[0].e[1].e[1].a ={fn: clearInputFnStDC};
+          selectModel.e[1].e[0].e[1].e[0].s = ob.mod == 'phonecode' ? `Search Your Country Code (+00)` :basicSearchText;
+          selectModel.e[1].e[0].e[1].e[0].a = {e:'input',fn:searchFnStDC};
+          selectModel.e[1].e[0].e[2].i = `${ob.i}_selectItems`;
+          selectModel.e[1].e[0].e[2].e =[];
+          return selectModel;
+        }
+        
+        const selectModel = NewSelectElment();
+       if( ob.mod == 'phonecode'){
+        
+              for(var i = 0 ; i < data.length ; i++){
+                const lowerCode  = data[i].code.toLowerCase();
+                const imgSrc     = countries.flags[lowerCode];
+                const fnStItem   = `{
+                  _.IN_V("${ob.i}","${data[i].dialCode}");
+                  _.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); 
+                  _.elmChange('${ob.i}_dialCode');
+                  _.E_I_S('${ob.i}_flag').src = '${imgSrc}';
+                  _.E_I_S('${ob.i}_code').innerText = '${data[i].dialCode}';
+                }`;
+
+                const fnStItemDC = DC_(fnStItem);
+                const selectItem = {
+                                  c:'WW ST_B_GRY8_1 pointer PD_4',
+                                  i: `${ob.i}_${i}_item`,
+                                  e:[
+                                    {
+                                      t:'img',
+                                      c:'W_20',
+                                      srcUrl:imgSrc
+                                    },
+                                    {
+                                      t:'sp',
+                                      s:'q.{dialCode} ',
+                                      c:'F_GRY7 W_50 mL_10 '
+                                    },{
+                                      t:'sp',
+                                      s:'q.{name} ',
+                                      c:'F_S_12 '
+                                    },{
+                                      t:'sp',
+                                      s:' ( q.{originalName} )',
+                                      c:'F_S_12 '
+                                    }
+                  ],
+                  Q:data[i] ,
+                  a:{fn:fnStItemDC}
+              }
+              selectModel.e[1].e[0].e[2].e.push(selectItem);
+              }
+
+              const firstLowerCode  = data[0].code.toLowerCase();
+            
+              const firstImgSrc     =countries.flags[firstLowerCode];
+              selectModel.e[0].e    = [{t:'img',i:`${ob.i}_flag`,srcUrl: firstImgSrc ,c:'W_20'},{t:'sp',i:`${ob.i}_code`,s: data[0].dialCode ,c:'mL_5'},{t:'icon',c:'ICO-caret-down mL_5'}];
+               console.log(['selectModel',selectModel,'holder',E_I_S(holderId)])
+              CR_(selectModel,holderId,false)
+            }else  if(ob.model){
+            if(data){
+            if(ob.mod == 'country'){
+                
+                // countries
+            
+              for(var i = 0 ; i < data.length ; i++){
+                const lowerCode  = data[i].code.toLowerCase();
+                const imgSrc     = countries.flags[lowerCode];
+                const fnStItem   = `{
+                  _.IN_V("${ob.i}","${data[i].code}");
                   
-                  const vq = `_.IN_V("${ob.i}","${val_ }");`;
-                  const modelTx = ob.e[i].s ? ob.e[i].s :'no model text';
-                  const _selectButtonData = {t:"sp",s:modelTx} ;
+                  _.elmChange('${ob.i}');
+                  _.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); 
+                  
+                  _.E_I_S('${ob.i}_flag').src = "${imgSrc}";
+                  _.E_I_S('${ob.i}_code').innerText = "${data[i].name}";
+              
+                }`;
+
+                const fnStItemDC = DC_(fnStItem);
+                const selectItem = {
+                                  c:'WW ST_B_GRY8_1 pointer PD_4',
+                                  i: `${ob.i}_${i}_item`,
+                                  e:[
+                                    {
+                                      t:'img',
+                                      c:'W_20',
+                                      srcUrl:imgSrc
+                                    },
+                                    {
+                                      t:'sp',
+                                      s:'q.{name} ',
+                                      c:'F_S_12 '
+                                    },{
+                                      t:'sp',
+                                      s:' ( q.{originalName} )',
+                                      c:'F_S_12 '
+                                    }
+                  ],
+                  Q:data[i] ,
+                  a:{fn:fnStItemDC}
+              }
+              selectModel.e[1].e[0].e[2].e.push(selectItem);
+              }
+
+              const firstLowerCode  = data[0].code.toLowerCase();
+            
+              const firstImgSrc     =countries.flags[firstLowerCode];
+              selectModel.e[0].e    = [{t:'img',i:`${ob.i}_flag`,srcUrl: firstImgSrc ,c:'W_20'},{t:'sp',i:`${ob.i}_code`,s: data[0].name ,c:'mL_5'},{t:'icon',c:'ICO-caret-down mL_5'}];
+              
+              CR_(selectModel,holderId,false)      
+
+            }else if( ob.mod !== 'phonecode' &&  ob.mod !== 'country' && ob.model ){
+              
+                for(var i = 0 ; i < data.length ; i++){
+                    for(var m = 0 ; m < ob.model.length ; m++){
+                      const model_ = ob.model[m]; 
+                      const _selectButtonData = {t:"sp",s:model_.s ? model_.s : 'no model text' }
+                      let vq = '';
+                      if(model_.vq &&  data[i][model_.vq] ){
+                        vq = `_.IN_V("${ob.i}","${data[i][model_.vq]}");`;
+                      }else  if(model_.val ){
+                        vq = `_.IN_V("${ob.i}","${model_.val }");`;
+                      }
+                      const decodedData = JDS_(data[i]);
                       const fnStItem   = `{
                         ${vq}
                         _.elmChange('${ob.i}');
                         _.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); 
                         _.E_I_S("${ob.i}_selectButton").innerHTML = '';
-                        _.CR_(${JDS_(_selectButtonData)} ,'${ob.i}_selectButton',false);
+                        _.CR_(${JDS_(_selectButtonData)} ,'${ob.i}_selectButton',${decodedData});
                       }`;
-                
-                  const fnStItemDC = DC_(fnStItem);modelTx
-                  const selectItem = {
-                    c:'WW ST_B_GRY8_1 pointer PD_4 F_B',
-                    i: `${ob.i}_${i}_item`,
-                    e:[
-                      {
-                        t:'sp',
-                        s:modelTx,
-                        
-                        c:'F_S_12 '
+                  
+                      const fnStItemDC = DC_(fnStItem);
+                    
+                      const selectItem = {
+                        c:'WW ST_B_GRY8_1 pointer PD_4 F_B',
+                        i: `${ob.i}_${i}_item`,
+                        e:[
+                          {
+                            t:'sp',
+                            s:model_.s,
+                            c:'F_S_12 '
+                          }
+                        ],
+                        Q:data[i],
+                        a:{fn:fnStItemDC}
+                    }
+                    
+                    if(ob._IQuery_ && ob._IQuery_.order && ob._IQuery_.order == 'icons'){
+                      selectItem.e = [{
+                        t:'icon',
+                        c:'F_S_30 '+data[i].class
+                      },...selectItem.e ];
+                    }else{
+                      if(model_.e && model_.e.length > 0){
+                        for(var x = 0; x < model_.e.length ; x++){
+                          
+                          selectItem.e.push(model_.e[x]);
+                        }
                       }
-                    ],
-                    Q:data,
-                    a:{fn:fnStItemDC}
+                    }
+                    selectModel.e[1].e[0].e[2].e.push(selectItem);
+                    }
                 }
-                if(ob.e[i].c){
-                  selectItem.c = ob.e[i].c;
-                }
-                selectModel.e[1].e[0].e[2].e.push(selectItem);
-                      
-              }
-            
-            }
-            if(ob.s){
-              selectModel.e[0].s = ob.s;
-            }else{
-              if(ob.e[0] && ob.e[0].s){
-                selectModel.e[0].s =  ob.e[0].s ;
-              }else{
-                selectModel.e[0].s =  'No Items' ;
-              }
-            }
-        
-            
-            
-            const loader = ()=>{
-              if(E_I_S(holderId)){
                 
-                DEL_E(holderId)
-                CR_(selectModel,holderId,false);
-              }else{
+                let findS = 'No Data';
+                var qq = data[0];
+                
+                if(ob.vq && ob.Q && ob.Q[ob.vq]){
+                  const testParentVal = ob.Q[ob.vq];
+                  if(ob.model[0].vq){
+                    const keyModelVal = ob.model[0].vq;
+                    for(var i =0; i < data.length;i++){
+
+                      if(data[i][keyModelVal] == testParentVal){
+                          qq = data[i];
+                      }
+
+                    }
+                  }
+                }
+                
+                if(ob.s){
+                  findS = ob.s;
+                }else{
+                  if(ob.model[0].s){
+                    findS = ob.model[0].s;
+                  }else if(ob.model[0].e[0] && ob.model[0].e[0].s){
+                    findS = ob.model[0].e[0].s;
+                  }
+                }
               
-                setTimeout(loader,200);
+                selectModel.e[0].e    = [{t:'sp', Q:qq, i:`${ob.i}_Button`, s:findS , c:'mL_5 F_B' }];
+          
+                CR_(selectModel,holderId,false);
+
               }
-            
             }
-            setTimeout(loader,200);
+          
+        }else{
+          if(ob.e && ob.e.length > 0){
+              for(var i = 0; i < ob.e.length;i++){
+                if(ob.e[i].v || ob.e[i].val){
+                    var val_ ;
+                    if(ob.e[i].val){
+                        val_ = ob.e[i].val;
+                    }else if(ob.e[i].v){
+                        val_ = ob.e[i].v;
+                    }
+                    
+                    const vq = `_.IN_V("${ob.i}","${val_ }");`;
+                    const modelTx = ob.e[i].s ? ob.e[i].s :'no model text';
+                    const _selectButtonData = {t:"sp",s:modelTx} ;
+                        const fnStItem   = `{
+                          ${vq}
+                          _.elmChange('${ob.i}');
+                          _.E_I_S("${ob.i}_selectScreen").close();_.E_I_S("${ob.i}_selectScreen").scrollTo(0,0); 
+                          _.E_I_S("${ob.i}_selectButton").innerHTML = '';
+                          _.CR_(${JDS_(_selectButtonData)} ,'${ob.i}_selectButton',false);
+                        }`;
+                  
+                    const fnStItemDC = DC_(fnStItem);modelTx
+                    const selectItem = {
+                      c:'WW ST_B_GRY8_1 pointer PD_4 F_B',
+                      i: `${ob.i}_${i}_item`,
+                      e:[
+                        {
+                          t:'sp',
+                          s:modelTx,
+                          
+                          c:'F_S_12 '
+                        }
+                      ],
+                      Q:data,
+                      a:{fn:fnStItemDC}
+                  }
+                  if(ob.e[i].c){
+                    selectItem.c = ob.e[i].c;
+                  }
+                  selectModel.e[1].e[0].e[2].e.push(selectItem);
+                        
+                }
+              
+              }
+              if(ob.s){
+                selectModel.e[0].s = ob.s;
+              }else{
+                if(ob.e[0] && ob.e[0].s){
+                  selectModel.e[0].s =  ob.e[0].s ;
+                }else{
+                  selectModel.e[0].s =  'No Items' ;
+                }
+              }
+          
+              
+              
+              const loader = ()=>{
+                if(E_I_S(holderId)){
+                  
+                  DEL_E(holderId)
+                  CR_(selectModel,holderId,false);
+                }else{
+                
+                  setTimeout(loader,200);
+                }
+              
+              }
+              setTimeout(loader,200);
+              
+            }
+        }
+      
+          
+        
+          
+      
+  }
+
+  const processCls =(id,cls)=>{
+      
+    if(E_I_S(id)){
+      const elm = E_I_S(id);
+          if(elV(elm)){
             
+            A_CL(id,autoCls);
+          }else{
+          
+            D_CL(id,autoCls);
           }
       }
-     
-        
-       
-        
-    
- }
+  }
 
- const processCls =(id,cls)=>{
-    
-  if(E_I_S(id)){
-    const elm = E_I_S(id);
-        if(elV(elm)){
-           
-          A_CL(id,autoCls);
-        }else{
-        
-          D_CL(id,autoCls);
-        }
-    }
- }
-
-
- const autoCls =()=>{
+  const autoCls =()=>{
 
     var lastautoClsDrive = [];
 
@@ -4185,20 +4336,22 @@ const closeOverHide =(dialog)=>{
     }
       autoClsDrive =lastautoClsDrive;
   }
+
   const runAutoCls = ()=>{
     if(!runAutoClsrun){
       runAutoClsrun = true;
       window.addEventListener("scroll",autoCls());
     }
  
-}
+  }
+
   /**
    * create elment
    * from i-app object
    * 
    * @param {object} body 
    * @param {string} id 
-   * @param {array} data 
+   * @param {array}  data 
    * 
    */
 
@@ -4213,12 +4366,12 @@ const closeOverHide =(dialog)=>{
         }]
     }, ob.i);
 
-     if(ob.limitAuto && ob._IQuery_ && ob._IQuery_.length){
+    if(ob.limitAuto && ob._IQuery_ && ob._IQuery_.length){
       const DB_name = `linesNum_${ob.Q.DBId}`;
 
         for(var o = 0 ; o < ob._IQuery_.length;o++){
       
-           
+          
 
                     if(E_I_V(DB_name)){
                       ob._IQuery_[o].limitAuto =E_I_V(DB_name);
@@ -4236,12 +4389,12 @@ const closeOverHide =(dialog)=>{
 
         DEL_(spinnerId);
         const Qsize = res.Qsize ? res.Qsize  : 0; 
-           
+          
               res = res.res;
               if(ob.sortBy){
               
                 res = sortByKey(res,ob.sortBy);
-             
+            
               }
         if(ob.limitAuto && ob._IQuery_ && ob._IQuery_.length){
 
@@ -4254,7 +4407,7 @@ const closeOverHide =(dialog)=>{
                 const linesNum   = parseInt(E_I_V(linesNumSt));
           
                 const pageClac   = Qsize /  linesNum;
-           
+          
                 const pageNumber = pageClac > parseInt(pageClac) ? parseInt(pageClac) +1 : parseInt(pageClac);
                 let pageNumberSt = pageNumber > 1 ? `of ${pageNumber} pages` : '';
           
@@ -4265,9 +4418,9 @@ const closeOverHide =(dialog)=>{
                 In_S(DB_pageNo,pageNumberSt);
                 IN_V(DB_Qsize,Qsize);
               }
-           
-         }
-         
+          
+        }
+        
         
             var models = [];
             if(data.order && data.order === 'languages'){
@@ -4319,20 +4472,20 @@ const closeOverHide =(dialog)=>{
               if(ob.else){
                 CR_(ob.else,elmId,dataQ);
               }
-             
+            
             }
             if(ob.a){
               ESF(ob);
             }
-         if(ob.t && ob.t == 'sl'){
-         const waitFor = ()=>{
+        if(ob.t && ob.t == 'sl'){
+        const waitFor = ()=>{
           selectElement(ob,res);
-         }
-         setTimeout(waitFor,3000);
-         }
-       }
+        }
+        setTimeout(waitFor,3000);
+        }
+      }
 
-       if(ob._IQuery_.order){
+      if(ob._IQuery_.order){
 
             _POST('/api',{order:ob._IQuery_.order ,Q:dataQ},callback);
 
@@ -4408,11 +4561,11 @@ const closeOverHide =(dialog)=>{
               query.d[ob] = null;
             }
            
-          }else   if(query.d[ob].t && query.d[ob].t == "date"){
+          }else if(query.d[ob].t && query.d[ob].t == "date"){
+            
             query.d[ob] = this.V_DATE;
-          
 
-          }else   if(query.d[ob].t && query.d[ob].t == "user"){
+          }else if(query.d[ob].t && query.d[ob].t == "user"){
   
             if( userData[query.d[ob].d ]){
 
@@ -4451,8 +4604,10 @@ const closeOverHide =(dialog)=>{
         }
       }
     }
+   
     return query;
   }
+
   const formTableObj = (body)=>{
     const form = {c:'TT_0 mT_37',e:[]}
     let obj = {};
@@ -4636,37 +4791,38 @@ const closeOverHide =(dialog)=>{
    
   }
 
-const tableSetModelData = (ob)=>{
- const keys    = ob.setModelData;
- const isTbody = ob.e[1].t == 'tbody' ? true : false;
- let backElm = [ob.e[0]];
+  const tableSetModelData = (ob)=>{
+  const keys    = ob.setModelData;
+  const isTbody = ob.e[1].t == 'tbody' ? true : false;
+  let backElm = [ob.e[0]];
 
- if(isTbody) {
-    const tbody = ob.e[1];
-    
-    for(var i = 0 ; i < tbody.e.length; i++){
+  if(isTbody) {
+      const tbody = ob.e[1];
       
-      for(var r = 0 ; r < tbody.e[i].e.length; r++){
-        // td content
-        tbody.e[i].e[r].attr = {model_data:keys[r]};
+      for(var i = 0 ; i < tbody.e.length; i++){
+        
+        for(var r = 0 ; r < tbody.e[i].e.length; r++){
+          // td content
+          tbody.e[i].e[r].attr = {model_data:keys[r]};
+        }
       }
-    }
-    backElm.push(tbody);
-  }else{
+      backElm.push(tbody);
+    }else{
+      
+      
+      for(var i = 0 ; i < ob.e.length; i++){
     
-    
-    for(var i = 0 ; i < ob.e.length; i++){
-  
-      for(var r = 0 ; r < ob.e[i].e.length; r++){
-        // td content
-        ob.e[i].e[r].attr = {model_data:keys[r]};
+        for(var r = 0 ; r < ob.e[i].e.length; r++){
+          // td content
+          ob.e[i].e[r].attr = {model_data:keys[r]};
+        }
       }
+      backElm = ob.e;
     }
-    backElm = ob.e;
+    
+    return backElm;
   }
-  
-  return backElm;
-}
+
   const makeLimitAuto = (ob,data)=>{
 
       const holderId = `${ob.i}_limitHolder`;
@@ -4692,12 +4848,14 @@ const tableSetModelData = (ob)=>{
          CR_(limitAuto,holderId,Querie);
         }
   }
+
   const showToast =(message)=> {
     const  duration = 9000;
     // Create a new toast element
     var toast = document.createElement('div');
     toast.classList.add('toast');
-    toast.textContent = message;
+    toast.id = "toastId";
+    toast.textContent = eTxt(message,"toastId",{}); ;
 
     // Append the toast to the body
     document.body.appendChild(toast);
@@ -4706,7 +4864,8 @@ const tableSetModelData = (ob)=>{
     setTimeout(function() {
         toast.remove();
     }, duration);
-}
+  }
+  
   const sortByKey=(array, key)=> {
     return array.sort(function(a, b) {
       if( a[key] && a[key] !== null){
@@ -4718,7 +4877,8 @@ const tableSetModelData = (ob)=>{
         
        
     });
-}
+  }
+
   const CR_ =async (body,id,data)=>{
    
     if(!i_app_lang[selectLang]){
@@ -4729,10 +4889,10 @@ const tableSetModelData = (ob)=>{
       return false;
     }
     
-    if(body.formObj){
+    if(body?.formObj){
       body = formObj(body);
     }
-    if(body.formTableObj){
+    if(body?.formTableObj){
       body = formTableObj(body);
     }
   let body_ = body;
@@ -4746,7 +4906,7 @@ const tableSetModelData = (ob)=>{
    *  website for new full frame work ui/ux
   * BASIC FONTS
   */
-  if(body.per){
+  if(body?.per){
     let per = true;
   
     if(body.per == 'isuser'){
@@ -4772,14 +4932,14 @@ const tableSetModelData = (ob)=>{
   }
 
  
-  if(body.fonts){
+  if(body?.fonts){
     app.fonts = body.fonts;
     S_FONT();
   }
   
-  if(body.default){
-  body_ = body.default.body;
-  }else if(body.body){
+  if(body?.default){
+  body_ = body.default?.body;
+  }else if(body?.body){
   body_ = body.body;
   }
   
@@ -4796,7 +4956,7 @@ if(ob.forkey){
     data = ob.Q ;  
   }
 
-  if(body.perQ){
+  if(body?.perQ){
     const perTrue = permissionsQueryControl(body.perQ,data);
    
     if(!perTrue){
@@ -4959,7 +5119,7 @@ if(ob.forkey){
 
 
       CR_(countryCode,id,false);
-
+      
       const viewInput = COPY_OB(ob);
       viewInput.i     = `${ob.i}_view`;
       viewInput.a     = { e:'input', fn: updateInputFnSTDC }
@@ -5003,7 +5163,7 @@ if(ob.forkey){
     }
     if(ob.srcUrl){
       e.src = ob.srcUrl;
-      }
+    }
  
     if(ob.srcQ && data[ob.srcQ]){
       if(Array.isArray(data[ob.srcQ])){
@@ -5036,9 +5196,9 @@ if(ob.forkey){
           e.src =  G_SRC(ob.srcERR);
         }
       }
-      if(ob.srcERR && ob.src){
+      if(ob.srcERR ){
         const srcERR = G_SRC(ob.srcERR);
-          e.setAttribute("onerror",`()=>{return this.src='${srcERR}';}`);
+          e.setAttribute("onerror",`this.onerror =null ; this.src='${srcERR}';`);
       }
     ///set global variables
   
@@ -5140,11 +5300,11 @@ if(ob.forkey){
 
   const st = ob.s ? ob.s : ob.txt;
   const txt = eTxt(st,ob.i,data);
+
     if(ob.hr){
-      
-    
       e.setAttribute('aria-label',txt);
     }
+
     if(ob_type == "in" ){
 
       e.placeholder = txt !== undefined ? txt : '';
@@ -5164,6 +5324,7 @@ if(ob.forkey){
     
           ob_css = ' D_N';
       }
+
       if(ob.label){
    
         let userClass = "";
@@ -5179,14 +5340,13 @@ if(ob.forkey){
 
         let labelTop = ''; 
         if(ob.labelLeft){
-          labelTop = 'NW_100'; 
+            labelTop = 'NW_100'; 
         }else{
           if(!isCheckbox){
             ob_css_list.push('inputLabel');
             ob_css += ' inputLabel';
-            labelTop = ' TT_-8 BB_0 mT_-12 POS_AB '; 
+            labelTop = ' TT_-8 BB_0 mT_-22 POS_AB '; 
           }
-
         }
 
         const label = {
@@ -5205,7 +5365,16 @@ if(ob.forkey){
           }else{
             D_CL( [`${ob.i}_label`,"D_N"]);
           }
+       
         });
+         e.onchange = ()=>{
+       
+          if(E_I_V(ob.i) == ''){
+            A_CL( `${ob.i}_label`,"D_N");
+          }else{
+            D_CL( [`${ob.i}_label`,"D_N"]);
+          }
+        };
       }
     }else{
 
@@ -5231,7 +5400,13 @@ if(ob.forkey){
     }
   }
 }
-
+if(ob.t == "dialog"){
+  e.addEventListener('click', (event) => {
+  if (event.target === e) {
+    e.close();
+  }
+});
+}
   if(ob_type == "in"){
     if(ob.mod){
         e.type = ob.mod;
@@ -5249,7 +5424,7 @@ if(ob.val){
   e.value = data[ob.vq];
   e.setAttribute('value',data[ob.vq]);
 
-}else   if(ob.value){
+}else  if(ob.value){
   e.value = ob_value(ob);
   e.setAttribute('value',e.value);
 }
@@ -5434,24 +5609,23 @@ if(ob.val){
     if(ob.limitAuto){
     
       CR_({i:`${ob.i}_limitHolder`,insertBefore:ob.i},id,data);
-
       makeLimitAuto(ob,data);
     
-  }
+    }
    /**
   * 
   * ob options 
   * to create new elm
   * 
   */
- if(app.mode !== 'dev'){
+ if(app.mode == 'dev'){
   e.setAttribute('i',ob.i);
  }
    
 
     ob.i_e = e;// link html elm to the ob 
     I_OB[ob.i] = ob;//set the ob in i-app objects tree define by i 
-    if(isHideElement){
+  if(isHideElement){
       if(ob_type == "sl"){
         if(ob.mod && ob.mod == 'phonecode' && ob.mod == 'country'){
 
@@ -5468,7 +5642,7 @@ if(ob.val){
           I_OB[holder.i]  = holder;
         }
       }
-    }
+  }
      /// handel element event function
   if(ob.a && !ob._IQuery_ ){
 
@@ -5626,6 +5800,67 @@ if(ob.val){
     }
     return res;
   }
+
+  function passCheck(password_) {
+      const checkPasswordStrength =(password)=> {
+          let score = 0;
+          const regexLower = /[a-z]/;
+          const regexUpper = /[A-Z]/;
+          const regexNumber = /[0-9]/;
+          const regexSpecial = /[!@#$%^&*]/;
+
+          if (password.length >= 8) {
+              score++;
+          }
+          if (regexLower.test(password)) {
+              score++;
+          }
+          if (regexUpper.test(password)) {
+              score++;
+          }
+          if (regexNumber.test(password)) {
+              score++;
+          }
+          if (regexSpecial.test(password)) {
+              score++;
+          }
+
+          return score;
+      }
+
+      const  displayPasswordStrength = (score)=> {
+        
+          let strengthText = 'Very Weak';
+          let strengthColor = 'red';
+
+          switch (score) {
+              case 1:
+                  strengthText = 'Weak';
+                  strengthColor = 'F_OR5';
+                  break;
+              case 2:
+                  strengthText = 'Medium';
+                  strengthColor = 'F_OR3';
+                  break;
+              case 3:
+                  strengthText = 'Strong';
+                  strengthColor = 'F_GR3';
+                  break;
+              case 4:
+              case 5:
+                  strengthText = 'Very Strong';
+                  strengthColor = 'F_GR5';
+                  break;
+          }
+
+        return {text:strengthText,color:strengthColor};
+      }
+      
+      const score_ = checkPasswordStrength(password_);
+
+    return displayPasswordStrength(score_);
+  }
+
   function IS_PHONE_NUMBER(phoneNumber) {
     // Regular expression to match a phone number in the format +XXXXXXXXXXXX
     var is_num = false;
@@ -5644,6 +5879,7 @@ if(ob.val){
       return false;
     }
   }
+
   const IS_USERNAME = (un)=>{
     // Remove non-alphanumeric characters and ensure lowercase
     var filteredUsername = un.replace(/[^a-z0-9]/g, "").toLowerCase();
@@ -5669,6 +5905,7 @@ if(ob.val){
         G_root(`${app.dir.src}${i_route}.${app.dir.file ?app.dir.file :'app' }`,L_ROUTE,["i-app",false,i_route,false]);
     }
   }
+
   const openRoot = (i_route) => {
    
     const appRoot = app.dir.start.replace(/.app/g,'');
@@ -5707,13 +5944,13 @@ if(ob.val){
 
 ///////////////// TEXT BUILD SECTION
 
-const getBrowserLang = ()=>{
+  const getBrowserLang = ()=>{
     let browserLangData = navigator.languages;
     let browserLang     = browserLangData[1];
     return browserLang;
   }
 
-const createAppTxt =async(lang)=>{
+  const createAppTxt =async(lang)=>{
 
     if(!lang){
       if(GLOB_LANG !== null){
@@ -5802,6 +6039,7 @@ const createAppTxt =async(lang)=>{
   // If the class is not recognized or invalid, the function returns null.
   *@return {css class}
   */
+
   const CR_ani = (cs)=>{
     
     const deg   = cs.replace(/a_rotate/g,'');
@@ -5847,6 +6085,7 @@ const createAppTxt =async(lang)=>{
 
 
   }
+
   function styleCodeContent(code) {
     // Escape < and > characters for HTML display
     code = code.replace(/^\s*,|,\s*$/g, '');
@@ -5892,13 +6131,573 @@ const createAppTxt =async(lang)=>{
     code = code.replace(/<br>/g, '</br><span class="tab_indent"></span>');
 
     return '<span class="codeHolder">'+code+'</span>';
-}
+  }
+
+  // __ Helper function for Tailwind generation (can be expanded significantly)
+ const generateTWRule = (twClass) => {
+
+    // --- Configuration ---
+    const breakpoints = {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
+        '2xl': '1536px',
+    };
+
+    const states = {
+        hover: ':hover',
+        focus: ':focus',
+    };
+
+    const spacingScale = 0.25;
+    const defaultBorderColor = 'var(--tw-color-gray-300, #d1d5db)';
+
+    // --- CSS Escaping ---
+    const escapeClassName = (className) => {
+        return className
+            .replace(/[/.]/g, "\\$&")
+            .replace(/:/g, "\\:")
+            .replace(/\[/g, "\\[")
+            .replace(/\]/g, "\\]");
+    };
+
+    // --- Parsing Prefixes ---
+    let isDarkMode = false;
+    let screenPrefix = null;
+    let statePrefix = null;
+    let coreClass = twClass;
+    let pseudoSelector = '';
+
+    for (const prefix in breakpoints) {
+        if (coreClass.startsWith(`${prefix}:`)) {
+            screenPrefix = prefix;
+            coreClass = coreClass.substring(prefix.length + 1);
+            break;
+        }
+    }
+
+    if (coreClass.startsWith('dark:')) {
+        isDarkMode = true;
+        coreClass = coreClass.substring(5);
+    }
+
+    for (const prefix in states) {
+        if (coreClass.startsWith(`${prefix}:`)) {
+            if (!statePrefix) {
+                statePrefix = prefix;
+                pseudoSelector = states[prefix];
+                coreClass = coreClass.substring(prefix.length + 1);
+            }
+        }
+    }
+
+    // --- Handle Negative Prefixes ---
+    let isNegative = false;
+    if (coreClass.startsWith('-')) {
+        isNegative = true;
+        coreClass = coreClass.substring(1);
+    }
+
+    // --- Core Class Parsing ---
+    const parts = coreClass.split('-');
+    let prefix = parts[0];
+    let valuePart = parts.slice(1).join('-');
+
+    if (['grid', 'col', 'row', 'min', 'max', 'inline', 'flex', 'border', 'rounded', 'text', 'font', 'leading', 'justify', 'items'].includes(prefix) && parts.length > 1) {
+        if (coreClass.startsWith('grid-cols-')) {
+            prefix = 'grid-cols';
+            valuePart = parts.slice(2).join('-');
+        } else if (coreClass.startsWith('col-span-')) {
+            prefix = 'col-span';
+            valuePart = parts.slice(2).join('-');
+        } else if (coreClass.startsWith('col-start-')) {
+            prefix = 'col-start';
+            valuePart = parts.slice(2).join('-');
+        } else if (coreClass.startsWith('col-end-')) {
+            prefix = 'col-end';
+            valuePart = parts.slice(2).join('-');
+        } else if (coreClass.startsWith('row-span-')) {
+            prefix = 'row-span';
+            valuePart = parts.slice(2).join('-');
+        } else if (coreClass.startsWith('row-start-')) {
+            prefix = 'row-start';
+            valuePart = parts.slice(2).join('-');
+        } else if (coreClass.startsWith('row-end-')) {
+            prefix = 'row-end';
+            valuePart = parts.slice(2).join('-');
+        } else if (coreClass.startsWith('min-w-')) {
+            prefix = 'min-w';
+            valuePart = parts.slice(2).join('-');
+        } else if (coreClass.startsWith('min-h-')) {
+            prefix = 'min-h';
+            valuePart = parts.slice(2).join('-');
+        } else if (coreClass.startsWith('max-w-')) {
+            prefix = 'max-w';
+            valuePart = parts.slice(2).join('-');
+        } else if (coreClass.startsWith('max-h-')) {
+            prefix = 'max-h';
+            valuePart = parts.slice(2).join('-');
+        } else if (coreClass.startsWith('inline-block')) {
+            prefix = 'inline-block'; valuePart = '';
+        } else if (coreClass.startsWith('inline-flex')) {
+            prefix = 'inline-flex'; valuePart = '';
+        } else if (coreClass.startsWith('inline-grid')) {
+            prefix = 'inline-grid'; valuePart = '';
+        } else if (coreClass.startsWith('flex-row')) {
+            prefix = 'flex-row'; valuePart = '';
+        } else if (coreClass.startsWith('flex-col')) {
+            prefix = 'flex-col'; valuePart = '';
+        } else if (coreClass.startsWith('flex-wrap')) {
+            prefix = 'flex-wrap'; valuePart = '';
+        } else if (coreClass.startsWith('flex-nowrap')) {
+            prefix = 'flex-nowrap'; valuePart = '';
+        } else if (coreClass.startsWith('flex-grow')) {
+            prefix = 'flex-grow';
+            valuePart = valuePart === '' ? '1' : valuePart;
+        } else if (coreClass.startsWith('flex-shrink')) {
+            prefix = 'flex-shrink';
+            valuePart = valuePart === '' ? '1' : valuePart;
+        } 
+        
+        // --- FIX: Strict checking for Border Sides ---
+        // We use parts[1] === 'x' instead of startsWith to avoid confusing 'border-blue' with 'border-b'
+        else if (prefix === 'border' && parts[1] === 't') {
+            prefix = 'border-t'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } else if (prefix === 'border' && parts[1] === 'r') {
+            prefix = 'border-r'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } else if (prefix === 'border' && parts[1] === 'b') {
+            prefix = 'border-b'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } else if (prefix === 'border' && parts[1] === 'l') {
+            prefix = 'border-l'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } 
+        // ---------------------------------------------
+
+        else if (coreClass.startsWith('border-solid')) {
+            prefix = 'border-solid'; valuePart = '';
+        } else if (coreClass.startsWith('border-dashed')) {
+            prefix = 'border-dashed'; valuePart = '';
+        }
+        
+        // --- FIX: Strict checking for Rounded Corners ---
+        // Same fix applied here to avoid 'rounded-teal' clashing with 'rounded-t'
+        else if (prefix === 'rounded' && parts[1] === 't') {
+            prefix = 'rounded-t'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } else if (prefix === 'rounded' && parts[1] === 'r') {
+            prefix = 'rounded-r'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } else if (prefix === 'rounded' && parts[1] === 'b') {
+            prefix = 'rounded-b'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } else if (prefix === 'rounded' && parts[1] === 'l') {
+            prefix = 'rounded-l'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } else if (prefix === 'rounded' && parts[1] === 'tl') {
+            prefix = 'rounded-tl'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } else if (prefix === 'rounded' && parts[1] === 'tr') {
+            prefix = 'rounded-tr'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } else if (prefix === 'rounded' && parts[1] === 'br') {
+            prefix = 'rounded-br'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } else if (prefix === 'rounded' && parts[1] === 'bl') {
+            prefix = 'rounded-bl'; valuePart = parts.slice(2).join('-') || 'DEFAULT';
+        } 
+        // ---------------------------------------------
+        
+        else if (coreClass.startsWith('text-left')) {
+            prefix = 'text-left'; valuePart = '';
+        } else if (coreClass.startsWith('text-center')) {
+            prefix = 'text-center'; valuePart = '';
+        } else if (coreClass.startsWith('text-right')) {
+            prefix = 'text-right'; valuePart = '';
+        } else if (coreClass.startsWith('font-bold')) {
+            prefix = 'font-bold'; valuePart = '';
+        } else if (coreClass.startsWith('font-semibold')) {
+            prefix = 'font-semibold'; valuePart = '';
+        } else if (coreClass.startsWith('leading-')) {
+            prefix = 'leading'; valuePart = parts.slice(1).join('-');
+        }
+    }
+
+
+    // --- Helper Functions ---
+    const handleSpacing = (property, value, allowNegative = false) => {
+        const modifier = (allowNegative && isNegative) ? -1 : 1;
+        if (value === 'auto') return `margin: auto;`;
+        if (property.startsWith('margin') && value === 'auto' && (property === 'margin-left' || property === 'margin-right')) return `${property}: auto;`;
+        if (property.startsWith('margin') && value === 'auto' && (property === 'margin-top' || property === 'margin-bottom')) return `${property}: auto;`;
+
+        const num = parseFloat(value);
+        if (!isNaN(num)) {
+            if (num === 0) return `${property}: 0px;`;
+            return `${property}: ${modifier * num * spacingScale}rem;`;
+        }
+        if (value === 'px') return `${property}: ${modifier * 1}px;`
+        return null;
+    };
+
+    const handleSize = (property, value) => {
+        // 1. Handle specific Max-Width named scales (xs, sm, md, lg, xl, 2xl...)
+        if (property === 'max-width') {
+            const maxWidths = {
+                '0': '0rem',
+                'none': 'none',
+                'xs': '20rem',
+                'sm': '24rem',
+                'md': '28rem',
+                'lg': '32rem',
+                'xl': '36rem',
+                '2xl': '42rem',
+                '3xl': '48rem',
+                '4xl': '56rem',
+                '5xl': '64rem',
+                '6xl': '72rem',
+                '7xl': '80rem',
+                'prose': '65ch',
+            };
+            if (maxWidths[value]) return `${property}: ${maxWidths[value]};`;
+
+            // Handle max-w-screen-{breakpoint} (e.g., max-w-screen-md)
+            if (value.startsWith('screen-')) {
+                const screenKey = value.replace('screen-', '');
+                if (breakpoints[screenKey]) return `${property}: ${breakpoints[screenKey]};`;
+            }
+        }
+
+        // 2. Generic Keywords
+        if (value === 'full') return `${property}: 100%;`;
+        if (value === 'screen' && property.includes('width')) return `${property}: 100vw;`;
+        if (value === 'screen' && property.includes('height')) return `${property}: 100vh;`;
+        if (value === 'auto') return `${property}: auto;`;
+        if (value === 'min') return `${property}: min-content;`;
+        if (value === 'max') return `${property}: max-content;`;
+        if (value === 'fit') return `${property}: fit-content;`;
+
+        // 3. Fractions (e.g., w-1/2)
+        if (value.includes('/')) {
+            const [num, den] = value.split('/').map(Number);
+            if (!isNaN(num) && !isNaN(den) && den !== 0) return `${property}: ${(num / den) * 100}%;`;
+        }
+
+        // 4. Arbitrary Values (e.g., w-[500px])
+        if (value.startsWith('[') && value.endsWith(']')) {
+            const arbitraryValue = value.substring(1, value.length - 1).replace(/_/g, ' ');
+            return `${property}: ${arbitraryValue};`;
+        }
+
+        // 5. Numeric Scale (e.g., w-4, max-w-96)
+        const num = parseFloat(value);
+        if (!isNaN(num)) {
+            if (num === 0) return `${property}: 0px;`;
+            return `${property}: ${num * spacingScale}rem;`;
+        }
+
+        return null;
+    };
+
+    const handleColor = (property, value) => {
+        let colorValue = value;
+        let opacity = '1';
+
+        if (value.includes('/')) {
+            const parts = value.split('/');
+            colorValue = parts[0];
+            const opacityValue = parseFloat(parts[1]);
+            if (!isNaN(opacityValue) && opacityValue >= 0 && opacityValue <= 100) {
+                opacity = (opacityValue / 100).toString();
+            }
+        }
+
+        let finalColor;
+        if (colorValue === 'transparent') finalColor = 'transparent';
+        else if (colorValue === 'current') finalColor = 'currentColor';
+        else if (colorValue === 'black') finalColor = '#000000';
+        else if (colorValue === 'white') finalColor = '#ffffff';
+        else {
+            const colorVar = `--${colorValue}`;
+            finalColor = `var(${colorVar}, currentColor)`;
+        }
+
+        return `${property}: ${finalColor};` + (opacity !== '1' ? ` ${property}-opacity: ${opacity};` : '');
+    };
+
+    const handleBorderRadius = (corners, value) => {
+        const radiusMap = { 'DEFAULT': '0.25rem', 'none': '0px', 'sm': '0.125rem', 'md': '0.375rem', 'lg': '0.5rem', 'xl': '0.75rem', '2xl': '1rem', '3xl': '1.5rem', 'full': '9999px' };
+        const radiusValue = radiusMap[value] || radiusMap['DEFAULT'];
+
+        if (corners === 'all') {
+            return `border-radius: ${radiusValue};`;
+        } else {
+            const cornerProps = {
+                't': ['border-top-left-radius', 'border-top-right-radius'], 'r': ['border-top-right-radius', 'border-bottom-right-radius'], 'b': ['border-bottom-right-radius', 'border-bottom-left-radius'], 'l': ['border-top-left-radius', 'border-bottom-left-radius'], 'tl': ['border-top-left-radius'], 'tr': ['border-top-right-radius'], 'br': ['border-bottom-right-radius'], 'bl': ['border-bottom-left-radius'],
+            };
+            if (cornerProps[corners]) {
+                return cornerProps[corners].map(prop => `${prop}: ${radiusValue};`).join(' ');
+            }
+        }
+        return null;
+    };
+
+    const handleBorder = (sides, value) => {
+        let width = '1px';
+        let color = defaultBorderColor;
+        let style = 'solid';
+
+        const widthMap = { '0': '0px', '2': '2px', '4': '4px', '8': '8px' };
+        const numValue = parseFloat(value);
+
+        if (widthMap[value]) {
+            width = widthMap[value];
+        } else if (!isNaN(numValue) && value !== '') {
+            width = `${numValue}px`;
+        } else if (value && value !== 'DEFAULT') {
+            const colorResult = handleColor('border-color', value);
+            if (colorResult) {
+                const match = colorResult.match(/border-color:\s*(.*?);/);
+                if (match && match[1]) {
+                    color = match[1];
+                }
+            }
+        }
+
+        const properties = [];
+        if (sides === 'all') {
+            properties.push(`border-width: ${width};`);
+            properties.push(`border-style: ${style};`);
+            properties.push(`border-color: ${color};`);
+        } else {
+            const sideMap = { 't': 'top', 'r': 'right', 'b': 'bottom', 'l': 'left' };
+            if (sideMap[sides]) {
+                const sideName = sideMap[sides];
+                if (width !== '1px' || (!isNaN(numValue) && value !== '')) {
+                    properties.push(`border-${sideName}-width: ${width};`);
+                } else {
+                    properties.push(`border-${sideName}-width: 1px;`);
+                    properties.push(`border-${sideName}-style: ${style};`);
+                    properties.push(`border-${sideName}-color: ${color};`);
+                }
+            }
+        }
+        const classTY = properties.join(' ');
+        return classTY;
+    };
+
+    // --- Main Switch Statement ---
+    let cssProps = null;
+    switch (prefix) {
+        case 'p': cssProps = handleSpacing('padding', valuePart); break;
+        case 'pt': cssProps = handleSpacing('padding-top', valuePart); break;
+        case 'pb': cssProps = handleSpacing('padding-bottom', valuePart); break;
+        case 'pl': cssProps = handleSpacing('padding-left', valuePart); break;
+        case 'pr': cssProps = handleSpacing('padding-right', valuePart); break;
+        case 'px':
+            const padX1 = handleSpacing('padding-left', valuePart);
+            const padX2 = handleSpacing('padding-right', valuePart);
+            if (padX1 && padX2) cssProps = `${padX1} ${padX2}`;
+            break;
+        case 'py':
+            const padY1 = handleSpacing('padding-top', valuePart);
+            const padY2 = handleSpacing('padding-bottom', valuePart);
+            if (padY1 && padY2) cssProps = `${padY1} ${padY2}`;
+            break;
+        case 'm': cssProps = handleSpacing('margin', valuePart, true); break;
+        case 'mt': cssProps = handleSpacing('margin-top', valuePart, true); break;
+        case 'mb': cssProps = handleSpacing('margin-bottom', valuePart, true); break;
+        case 'ml': cssProps = handleSpacing('margin-left', valuePart, true); break;
+        case 'mr': cssProps = handleSpacing('margin-right', valuePart, true); break;
+        case 'mx':
+            const marginX1 = handleSpacing('margin-left', valuePart, true);
+            const marginX2 = handleSpacing('margin-right', valuePart, true);
+            if (marginX1 && marginX2) cssProps = `${marginX1} ${marginX2}`;
+            break;
+        case 'my':
+            const marginY1 = handleSpacing('margin-top', valuePart, true);
+            const marginY2 = handleSpacing('margin-bottom', valuePart, true);
+            if (marginY1 && marginY2) cssProps = `${marginY1} ${marginY2}`;
+            break;
+        case 'gap': cssProps = handleSpacing('gap', valuePart); break;
+        case 'gap-x': cssProps = handleSpacing('column-gap', valuePart); break;
+        case 'gap-y': cssProps = handleSpacing('row-gap', valuePart); break;
+        case 'w': cssProps = handleSize('width', valuePart); break;
+        case 'h': cssProps = handleSize('height', valuePart); break;
+        case 'min-w': cssProps = handleSize('min-width', valuePart); break;
+        case 'min-h': cssProps = handleSize('min-height', valuePart); break;
+        case 'max-w': cssProps = handleSize('max-width', valuePart); break;
+        case 'max-h': cssProps = handleSize('max-height', valuePart); break;
+        case 'bg': cssProps = handleColor('background-color', valuePart); break;
+        case 'text':
+            const sizeMap = { 'xs': '0.75rem', 'sm': '0.875rem', 'base': '1rem', 'lg': '1.125rem', 'xl': '1.25rem', '2xl': '1.5rem', '3xl': '1.875rem', '4xl': '2.25rem', '5xl': '3rem', };
+            const lineHeightMap = { 'xs': '1rem', 'sm': '1.25rem', 'base': '1.5rem', 'lg': '1.75rem', 'xl': '1.75rem', '2xl': '2rem', '3xl': '2.25rem', '4xl': '2.5rem', '5xl': '1', };
+
+            if (sizeMap[valuePart]) {
+                cssProps = `font-size: ${sizeMap[valuePart]}; line-height: ${lineHeightMap[valuePart]};`;
+            } else {
+                cssProps = handleColor('color', valuePart);
+            }
+            break;
+        case 'font':
+            const weightMap = { 'thin': 100, 'extralight': 200, 'light': 300, 'normal': 400, 'medium': 500, 'semibold': 600, 'bold': 700, 'extrabold': 800, 'black': 900 };
+            if (weightMap[valuePart]) cssProps = `font-weight: ${weightMap[valuePart]};`;
+            else if (prefix === 'font-bold') cssProps = `font-weight: 700;`;
+            else if (prefix === 'font-semibold') cssProps = `font-weight: 600;`;
+            break;
+        case 'italic': cssProps = 'font-style: italic;'; break;
+        case 'not-italic': cssProps = 'font-style: normal;'; break;
+        case 'leading':
+            const leadingMap = { 'none': '1', 'tight': '1.25', 'snug': '1.375', 'normal': '1.5', 'relaxed': '1.625', 'loose': '2' };
+            if (leadingMap[valuePart]) cssProps = `line-height: ${leadingMap[valuePart]};`;
+            else {
+                const num = parseFloat(valuePart);
+                if (!isNaN(num)) cssProps = `line-height: ${num * spacingScale}rem;`;
+            }
+            break;
+        case 'text-left': cssProps = 'text-align: left;'; break;
+        case 'text-center': cssProps = 'text-align: center;'; break;
+        case 'text-right': cssProps = 'text-align: right;'; break;
+        case 'text-justify': cssProps = 'text-align: justify;'; break;
+        case 'block': cssProps = 'display: block;'; break;
+        case 'inline-block': cssProps = 'display: inline-block;'; break;
+        case 'inline': cssProps = 'display: inline;'; break;
+        case 'flex': cssProps = 'display: flex;'; break;
+        case 'inline-flex': cssProps = 'display: inline-flex;'; break;
+        case 'grid': cssProps = 'display: grid;'; break;
+        case 'inline-grid': cssProps = 'display: inline-grid;'; break;
+        case 'hidden': cssProps = 'display: none;'; break;
+        case 'visible': cssProps = 'visibility: visible;'; break;
+        case 'invisible': cssProps = 'visibility: hidden;'; break;
+        case 'flex-row': cssProps = 'flex-direction: row;'; break;
+        case 'flex-row-reverse': cssProps = 'flex-direction: row-reverse;'; break;
+        case 'flex-col': cssProps = 'flex-direction: column;'; break;
+        case 'flex-col-reverse': cssProps = 'flex-direction: column-reverse;'; break;
+        case 'flex-wrap': cssProps = 'flex-wrap: wrap;'; break;
+        case 'flex-wrap-reverse': cssProps = 'flex-wrap: wrap-reverse;'; break;
+        case 'flex-nowrap': cssProps = 'flex-wrap: nowrap;'; break;
+        case 'flex-1': cssProps = 'flex: 1 1 0%;'; break;
+        case 'flex-auto': cssProps = 'flex: 1 1 auto;'; break;
+        case 'flex-initial': cssProps = 'flex: 0 1 auto;'; break;
+        case 'flex-none': cssProps = 'flex: none;'; break;
+        case 'flex-grow': cssProps = `flex-grow: ${valuePart || '1'};`; break;
+        case 'flex-shrink': cssProps = `flex-shrink: ${valuePart || '1'};`; break;
+        case 'items':
+            const alignMap = { 'start': 'flex-start', 'end': 'flex-end', 'center': 'center', 'baseline': 'baseline', 'stretch': 'stretch' };
+            if (alignMap[valuePart]) cssProps = `align-items: ${alignMap[valuePart]};`;
+            break;
+        case 'justify':
+            const justifyMap = { 'start': 'flex-start', 'end': 'flex-end', 'center': 'center', 'between': 'space-between', 'around': 'space-around', 'evenly': 'space-evenly' };
+            if (justifyMap[valuePart]) cssProps = `justify-content: ${justifyMap[valuePart]};`;
+            break;
+        case 'grid-cols':
+            const cols = parseInt(valuePart, 10);
+            if (!isNaN(cols)) {
+                cssProps = `grid-template-columns: repeat(${cols}, minmax(0, 1fr));`;
+            } else if (valuePart === 'none') {
+                cssProps = 'grid-template-columns: none;';
+            }
+            break;
+        case 'col-auto': cssProps = 'grid-column: auto;'; break;
+        case 'col-span':
+            const span = parseInt(valuePart, 10);
+            if (!isNaN(span)) {
+                cssProps = `grid-column: span ${span} / span ${span};`;
+            } else if (valuePart === 'full') {
+                cssProps = 'grid-column: 1 / -1;';
+            }
+            break;
+        case 'col-start':
+            const start = parseInt(valuePart, 10);
+            if (!isNaN(start)) cssProps = `grid-column-start: ${start};`;
+            else if (valuePart === 'auto') cssProps = `grid-column-start: auto;`;
+            break;
+        case 'col-end':
+            const end = parseInt(valuePart, 10);
+            if (!isNaN(end)) cssProps = `grid-column-end: ${end};`;
+            else if (valuePart === 'auto') cssProps = `grid-column-end: auto;`;
+            break;
+        case 'border': cssProps = handleBorder('all', valuePart || 'DEFAULT'); break;
+        case 'border-t': cssProps = handleBorder('t', valuePart); break;
+        case 'border-r': cssProps = handleBorder('r', valuePart); break;
+        case 'border-b': cssProps = handleBorder('b', valuePart); break;
+        case 'border-l': cssProps = handleBorder('l', valuePart); break;
+        case 'border-solid': cssProps = 'border-style: solid;'; break;
+        case 'border-dashed': cssProps = 'border-style: dashed;'; break;
+        case 'border-dotted': cssProps = 'border-style: dotted;'; break;
+        case 'border-double': cssProps = 'border-style: double;'; break;
+        case 'border-none': cssProps = 'border-style: none;'; break;
+        case 'rounded': cssProps = handleBorderRadius('all', valuePart || 'DEFAULT'); break;
+        case 'rounded-t': cssProps = handleBorderRadius('t', valuePart || 'DEFAULT'); break;
+        case 'rounded-r': cssProps = handleBorderRadius('r', valuePart || 'DEFAULT'); break;
+        case 'rounded-b': cssProps = handleBorderRadius('b', valuePart || 'DEFAULT'); break;
+        case 'rounded-l': cssProps = handleBorderRadius('l', valuePart || 'DEFAULT'); break;
+        case 'rounded-tl': cssProps = handleBorderRadius('tl', valuePart || 'DEFAULT'); break;
+        case 'rounded-tr': cssProps = handleBorderRadius('tr', valuePart || 'DEFAULT'); break;
+        case 'rounded-br': cssProps = handleBorderRadius('br', valuePart || 'DEFAULT'); break;
+        case 'rounded-bl': cssProps = handleBorderRadius('bl', valuePart || 'DEFAULT'); break;
+        case 'static': cssProps = 'position: static;'; break;
+        case 'fixed': cssProps = 'position: fixed;'; break;
+        case 'absolute': cssProps = 'position: absolute;'; break;
+        case 'relative': cssProps = 'position: relative;'; break;
+        case 'sticky': cssProps = 'position: sticky;'; break;
+        case 'inset': cssProps = handleSpacing('inset', valuePart, true); break;
+        case 'inset-x':
+            const insetX1 = handleSpacing('left', valuePart, true);
+            const insetX2 = handleSpacing('right', valuePart, true);
+            if (insetX1 && insetX2) cssProps = `${insetX1} ${insetX2}`;
+            break;
+        case 'inset-y':
+            const insetY1 = handleSpacing('top', valuePart, true);
+            const insetY2 = handleSpacing('bottom', valuePart, true);
+            if (insetY1 && insetY2) cssProps = `${insetY1} ${insetY2}`;
+            break;
+        case 'top': cssProps = handleSpacing('top', valuePart, true); break;
+        case 'bottom': cssProps = handleSpacing('bottom', valuePart, true); break;
+        case 'left': cssProps = handleSpacing('left', valuePart, true); break;
+        case 'right': cssProps = handleSpacing('right', valuePart, true); break;
+        case 'opacity':
+            const opacityValue = parseFloat(valuePart);
+            if (!isNaN(opacityValue) && opacityValue >= 0 && opacityValue <= 100) {
+                cssProps = `opacity: ${opacityValue / 100};`;
+            }
+            break;
+        case 'z':
+            if (valuePart === 'auto') cssProps = `z-index: auto;`;
+            const zIndexValue = parseInt(valuePart, 10);
+            if (!isNaN(zIndexValue)) {
+                cssProps = `z-index: ${zIndexValue};`;
+            }
+            break;
+        default:
+            return null;
+    }
+
+    // --- Format Output ---
+    if (!cssProps) {
+        return null;
+    }
+
+    const escapedClass = escapeClassName(twClass);
+    let selector = `.${escapedClass}`;
+
+    if (isDarkMode) {
+        selector = `${selector}:is(.dark *)`;
+    }
+
+    selector = `${selector}${pseudoSelector}`;
+
+    let rule = `${selector} { ${cssProps} }`;
+
+    if (screenPrefix && breakpoints[screenPrefix]) {
+        rule = `@media (min-width: ${breakpoints[screenPrefix]}) {\n  ${rule}\n}`;
+    }
+
+    return rule;
+  };
 
 
   const G_CSS = (cs) =>{ 
+    const TW = generateTWRule(cs);
+    if(TW){
+      return TW;
+    }
   const c = cs.split("_");
   let borderProps, borderStyle;
       switch(c[0]){
+
         case "a":
         if(c[1].match(/rotate/)){
           return CR_ani(cs);
@@ -5921,6 +6720,7 @@ const createAppTxt =async(lang)=>{
           return [ssB, ssC, ssD];
         }
         break;
+
       case "hex":
         if (c[1] !== "ST") {
           let cc = c[1];
@@ -5931,41 +6731,42 @@ const createAppTxt =async(lang)=>{
           return ssA;
         }
         break;
+
       case "OPC":
-              if(c.length === 2) return `.${cs} {opacity: 0.${c[1]};} `;
-              break;
+                  if(c.length === 2) return `.${cs} {opacity: 0.${c[1]};} `;
+                  break;
       case "B":
-              if(c[1] == "R") {
-                /**
-                 * border radius
-                 * B_R_B_R_5
-                 */
-                if(c.length === 3) return `.${cs} {border-radius: ${c[2]}px}  `;
-                else if(c.length === 5) {
-                  switch(c[2]+c[3]) {
-                    case "TL":
-                      return `.${cs} {border-top-left-radius: ${c[4]}px;} `;
-                    case "TR":
-                      return `.${cs} {border-top-right-radius: ${c[4]}px;} `;
-                    case "BL":
-                      return `.${cs} {border-bottom-left-radius: ${c[4]}px;} `;
-                    case "BR":
-                      return `.${cs} {border-bottom-right-radius: ${c[4]}px;} `;
+                  if(c[1] == "R") {
+                    /**
+                     * border radius
+                     * B_R_B_R_5
+                     */
+                    if(c.length === 3) return `.${cs} {border-radius: ${c[2]}px}  `;
+                    else if(c.length === 5) {
+                      switch(c[2]+c[3]) {
+                        case "TL":
+                          return `.${cs} {border-top-left-radius: ${c[4]}px;} `;
+                        case "TR":
+                          return `.${cs} {border-top-right-radius: ${c[4]}px;} `;
+                        case "BL":
+                          return `.${cs} {border-bottom-left-radius: ${c[4]}px;} `;
+                        case "BR":
+                          return `.${cs} {border-bottom-right-radius: ${c[4]}px;} `;
+                      }
+                    }
+                  } else {
+                    if(c.length === 2) {
+                      const cc = (cs === "B_B_") ? "B_" : cs.replace(/B_/g, "");
+                      if(selected_theme_colors[cc] ){
+                      
+                      return `.${cs} {background-color: var(--${cc});}  `;
+                      }else{
+                        return  false;
+                      }
+                    }else  if(c.length === 3 && cs === "B_PR_D") {
+                      return `.${cs} {background-color: var(--PR_D);}  `;
+                    }
                   }
-                }
-              } else {
-                if(c.length === 2) {
-                  const cc = (cs === "B_B_") ? "B_" : cs.replace(/B_/g, "");
-                  if(selected_theme_colors[cc] ){
-                  
-                  return `.${cs} {background-color: var(--${cc});}  `;
-                  }else{
-                    return  false;
-                  }
-                }else  if(c.length === 3 && cs === "B_PR_D") {
-                  return `.${cs} {background-color: var(--PR_D);}  `;
-                }
-              }
                   break;
       case "LH":
                   if(c.length === 2) return `.${cs} { line-height:  ${c[1]};} `;
@@ -5996,27 +6797,27 @@ const createAppTxt =async(lang)=>{
                       
                   } else if(c.length === 2) {
                   
-                    return `.${cs} { padding:${c[1]}px;}  `;
+                    return `.${cs} { padding:${c[1]}px;}`;
                   
                   }
                   break;
       case "":
-                      if (c[1] === "MR" && c.length === 3) {
-                        return `.${cs} { margin:${c[2]}px;} `;
-                      }
-                      break;
+                    if (c[1] === "MR" && c.length === 3) {
+                      return `.${cs} { margin:${c[2]}px;}`;
+                    }
+                    break;
       case "H":
-                      if (c[1] === "P" && c.length === 3) {
-                        return `.${cs} {height:${c[2]}%;}   `;
-                      }else  if (c.length === 2) {
-                        return `.${cs} {height:${c[1]}px;}  `;
-                      }
-                      break;
+                    if (c[1] === "P" && c.length === 3) {
+                      return `.${cs} {height:${c[2]}%;}`;
+                    }else  if (c.length === 2) {
+                      return `.${cs} {height:${c[1]}px;}`;
+                    }
+                    break;
       case "W":
                       if (c[1] === "P" && c.length === 3) {
-                        return `.${cs} {width:${c[2]}%;}   `;
+                        return `.${cs} {width:${c[2]}%;}`;
                       }else   if (c.length === 2) {
-                        return `.${cs} {width:${c[1]}px;}  `;
+                        return `.${cs} {width:${c[1]}px;}`;
                       }
                       break;
       case "MHP":
@@ -6240,12 +7041,15 @@ const createAppTxt =async(lang)=>{
         }
         return colorVal;
   }
+
   const getWhite =()=>{
    return GET_COLOR("W");
   }
-   const getBlack =()=>{
+
+  const getBlack =()=>{
     return GET_COLOR("B");
-   }
+  }
+
   const CREATE_COLOR_ROOT_VAR = async(colors,styleElm) => {
   
   var myRoot = '';
@@ -6319,6 +7123,7 @@ const createAppTxt =async(lang)=>{
   }
   
   }
+
   const typeString = (e,st, speed)=>{
     let i = 0;
     const str = st.split(''); 
@@ -6334,6 +7139,7 @@ const createAppTxt =async(lang)=>{
   
     typeNextCharacterX();
   }
+
   const makeAiTime = () => {
   
   var res = '';
@@ -6346,6 +7152,7 @@ const createAppTxt =async(lang)=>{
   }
   return res;
   }
+
   const S_FONT = () => {
   
   var iHead         = E_T("head");
@@ -6378,6 +7185,7 @@ const createAppTxt =async(lang)=>{
       E_I("S_FONT").innerHTML = iFont;
   }
   }
+
   const P_CLS = (c) => {
     var co = c.replace(/ /g, '');
     var res = c;
@@ -6411,6 +7219,7 @@ const createAppTxt =async(lang)=>{
     }
     return res;
   }
+
   const C_CSS = (c) => {
     var isNew = true;
     
@@ -6436,6 +7245,7 @@ const createAppTxt =async(lang)=>{
                         cssAR.push(cssT);
                     }
                     for (const cssC of cssAR) {
+                  
                         if (style.cssRules) {
                             style.insertRule(cssC, style.cssRules.length);
                         } else {
@@ -6488,6 +7298,7 @@ const createAppTxt =async(lang)=>{
       E_I_S(srcBack).src = imgData;
     })
   }
+
   const scrollDir = () => {
       var lastSc = this.lastScroll;
       var crD = window.scrollY;
@@ -6498,6 +7309,7 @@ const createAppTxt =async(lang)=>{
       this.lastScroll = crD;
       return dir;
   }
+
   const rotateY = (element) => {
     let start;
     const step = (timestamp) => {
@@ -6522,6 +7334,7 @@ const createAppTxt =async(lang)=>{
     window.requestAnimationFrame(step);
   
   }
+
   const ANI_CARD = ([ic]) => {
       const tes = window.requestAnimationFrame(() => {
       const boxes = document.querySelectorAll(".lazyCards");
@@ -6635,6 +7448,7 @@ const createAppTxt =async(lang)=>{
   });
   
   }
+
   const G_C = (mw) => {
   
   var ret = "";
@@ -6652,6 +7466,7 @@ const createAppTxt =async(lang)=>{
   }
   return ret;
   }
+
   const U_CSS = (cs) => {
     // use css class
     // auto class libary
@@ -6662,6 +7477,8 @@ const createAppTxt =async(lang)=>{
       
        csAr = stToAr(cs);
     }
+    // cleand dark: mode class 
+   
     for (var w = 0; w < csAr.length; w++) {
       /// clean class name string for auto fix 
 
@@ -6670,6 +7487,7 @@ const createAppTxt =async(lang)=>{
         /// create css class if not exist
         C_CSS(cleanStr_class);
     }
+    const csseFilter = escapeSpecialChars(cs);
     return cs;
   }
   
@@ -6690,7 +7508,9 @@ const createAppTxt =async(lang)=>{
   i_app_style.lc :
   i_app_style.dc;
  
- 
+  if(i_app_theme == "dark"){
+    document.body.className = "dark";
+  }
   i_app_theme_colors = [...selectThemeColors,...i_app_colors];
   selected_theme_colors = selectStyleToOb(i_app_theme_colors);
 
@@ -6725,28 +7545,29 @@ const createAppTxt =async(lang)=>{
   E_I("PASSSTYLE").innerHTML = newCss;
   }
   }
+
   const updateThemeIcon =()=>{
     const themeIconElm =I_O_O('iconTheme');
-  for(let t = 0 ; t < themeIconElm.length; t++){
-   let i = themeIconElm[t].i;
-   if(i_app_theme == "light"){
-    A_CL(i,"ICO-moon");
-    D_CL([i,"ICO-sun"]);
-   } else  if(i_app_theme == "dark"){
-    A_CL(i,"ICO-sun");
-    D_CL([i,"ICO-moon"]);
-   } 
-  }
+      for(let t = 0 ; t < themeIconElm.length; t++){
+      let i = themeIconElm[t].i;
+      if(i_app_theme == "light"){
+        A_CL(i,"ICO-moon");
+        D_CL([i,"ICO-sun"]);
+      } else  if(i_app_theme == "dark"){
+        A_CL(i,"ICO-sun");
+        D_CL([i,"ICO-moon"]);
+      } 
+    }
   
   }
+
   const updateThemeColor = ()=>{
-  
-  
     let themeColor = selected_theme_colors.theme  ?  selected_theme_colors.theme  :  selected_theme_colors.PR_D;
-   const  themeElm = E_N("theme-color")[0];
-   themeElm.content = themeColor;
+    const  themeElm = E_N("theme-color")[0];
+    themeElm.content = themeColor;
 
   }
+
   const switchTheme  = ()=>{
   
     if(i_app_theme === "light"){
@@ -6754,11 +7575,13 @@ const createAppTxt =async(lang)=>{
       createAppTheme("dark");
       updateThemeIcon();
       IND("theme","dark");
+      document.body.className = "dark";
     }else  if(i_app_theme === "dark"){
       i_app_theme = "light";
       createAppTheme("light");
       updateThemeIcon();
       IND("theme","light");
+      document.body.className = "";
     }
     if(poJSOB.length > 0){
       poJS(poJSOB)
@@ -6766,9 +7589,9 @@ const createAppTxt =async(lang)=>{
   }
 
   const createAppContent = (i_app_OB,dataIncome) => {
-  if(E_I("i-app")){
-    E_I("i-app").remove();
-  }
+    if(E_I("i-app")){
+      E_I("i-app").remove();
+    }
     i_sc.ob = i_app_OB;
     var url = window.location.pathname;
 
@@ -6821,18 +7644,19 @@ const createAppTxt =async(lang)=>{
       },5000)
     }  
     CR_(i_app_OB,"i-app",false);
-    };
+  };
 
-    const  START_USER_SERVER = ()=>{
-      if(typeof _SERVER_START ===  'function'){
-        _SERVER_START();
-      }else{
-      const callB = (userD)=>{
-        _SERVER_START(userD);
-      }
-        L_S('/js/server.js',callB,[URS(),userData]);
-      }
+  const  START_USER_SERVER = ()=>{
+    if(typeof _SERVER_START ===  'function'){
+      _SERVER_START();
+    }else{
+    const callB = (userD)=>{
+      _SERVER_START(userD);
     }
+      L_S('/js/server.js',callB,[URS(),userData]);
+    }
+  }
+
   const createApp = async()=>{
     /**
      * load bassc app colors
@@ -6851,6 +7675,7 @@ const createAppTxt =async(lang)=>{
     return true;
     
   }
+
   function copyInnerTextToClipboard(element) {
     const textToCopy = element.innerText;
     navigator.clipboard.writeText(textToCopy)
@@ -6860,16 +7685,18 @@ const createAppTxt =async(lang)=>{
         .catch(err => {
             console.error("Failed to copy text to clipboard: ", err);
         });
-}
-function COPYTX(textToCopy){
-  navigator.clipboard.writeText(textToCopy)
-  .then(() => {
-    showToast("Copied to Clipboard");
-  })
-  .catch(err => {
-      console.error("Failed to copy text to clipboard: ", err);
-  });
-}
+  }
+
+  function COPYTX(textToCopy){
+    navigator.clipboard.writeText(textToCopy)
+    .then(() => {
+      showToast("Copied to Clipboard");
+    })
+    .catch(err => {
+        console.error("Failed to copy text to clipboard: ", err);
+    });
+  }
+
   function handleHistoryChange(event) {
     // Check if the user navigated backward or forward
 
@@ -6932,6 +7759,7 @@ function COPYTX(textToCopy){
 
     }
   };
+
   const startSw = ()=>{
     if(!E_I("divTools") && app.pwa){
      
@@ -6941,15 +7769,16 @@ function COPYTX(textToCopy){
           window.addEventListener('appinstalled', () => {
 
             // Hide the app-provided install promotion
-            hideInstallPromotion();
+              hideInstallPromotion();
             // Clear the deferredPrompt so it can be garbage collected
-            deferredPrompt = null;
+              deferredPrompt = null;
             // Optionally, send analytics event to indicate successful install
          
           });
         }
       }
   }
+
   // This function loads the app data and starts the i-app
   const i_app_start = () => {
     /** 
@@ -6968,13 +7797,15 @@ function COPYTX(textToCopy){
     }
   };
   
-    const _=()=>{
-      //  i_root = i_root_().name;
-        i_app_start();
-        CL_("i-app Start...")
-      }
+  const _=()=>{
+    //  i_root = i_root_().name;
+      i_app_start();
+      CL_("i-app Start...");
+  }
     _();
-  })();
+
+})();
+
   
   
   

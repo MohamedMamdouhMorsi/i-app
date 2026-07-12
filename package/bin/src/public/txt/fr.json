@@ -2,5 +2,8 @@
     "en": "English",
     "ar":"عربي",
     "fr":"Français",
-    "de":"Deutsch"
+    "de":"Deutsch",
+    "about-us": "About",
+    "about_us_title": "About Us",
+    "about_us_desc": "We build ticketing and fleet management software for operators. This page gives a brief overview of the platform and our mission."
 }

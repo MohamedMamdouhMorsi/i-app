@@ -10,7 +10,7 @@ const readAppData =async (makeAppServer,devAppData)=>{
   let messages =  {
     iappError: "Please add i.app file to your project main directory",
     themeError: "Please fix style.json and make sure it's in the same directory as .css in i.app",
-    dbAlert:"Warning: Your project does not have the profile and connection to the database. Please add the file if you are using the user system. If your project does not need a database, please do not pay attention to this warning."
+    dbAlert:"Warning: Your project does not have a ( db.app ) file the profile and connection to the database. Please add the file if you are using the user system. If your project does not need a database, please do not pay attention to this warning."
 
   };
 

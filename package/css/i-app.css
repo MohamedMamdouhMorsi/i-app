@@ -674,6 +674,9 @@ cr {
     background: linear-gradient(0deg, rgba(0,0,0,1) 4%, rgba(41,41,41,1) 61%, rgba(0,0,0,1) 94%);
    
 }
+.SHs{
+    box-shadow: 0 15px 18px rgb(0 0 0 / 20%);
+}
 .SHD{
     box-shadow: 0 15px 18px rgb(0 0 0 / 60%);
 }

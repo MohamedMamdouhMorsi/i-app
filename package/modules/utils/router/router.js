@@ -13,8 +13,10 @@ const router = {
         const urlArr = req.url.split("?");
         var url_ = req.url;
         const getQ = {};
+              
         if(urlArr.length > 0){
           url_ = urlArr[0];
+
           if(urlArr[1] && urlArr[1] !== ""){
             const getQF = urlArr[1].split("&");
               if(getQF && getQF.length > 0){
@@ -30,10 +32,13 @@ const router = {
 
           }
          
+        }else{
+          return false;
         }
+
       if (this.routes[url_]) {
-        
-        return  this.routes[url_].callback(req, res,getQ,this.routes[url_].data);
+          
+        return await this.routes[url_].callback(req, res,getQ,this.routes[url_].data);
      
       } else {
         return false;

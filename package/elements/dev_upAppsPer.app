@@ -134,7 +134,7 @@
 
         };
                       
-    makePermissionForm();
+         makePermissionForm();
         
     }
    }

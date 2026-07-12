@@ -13,7 +13,7 @@
       {
       t:'h1'
       c:'WW TT_0 mT_-50 F_W F_S_60  '
-      s:'app.{name}'
+      s:'app.{title}'
       }]
     }
     {
@@ -32,7 +32,7 @@
     {
       t:'h3'
       c:'WW   F_W FF_courier'
-      s:'Next Big Version of app.{name} .'
+      s:'Next Big Version of app.{title} .'
     }
     {
       t:'br'
@@ -40,7 +40,7 @@
     {
       t:'h3'
       c:'WW  F_W FF_courier'
-      s:'That is a simple UI version for app.{name}'
+      s:'That is a simple UI version for app.{title}'
     }  
       {
       t:'h3'

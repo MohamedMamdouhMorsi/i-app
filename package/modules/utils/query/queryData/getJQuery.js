@@ -1,179 +1,101 @@
-const orAndOptionJoin  = require('./orAndOptionJoin');
+/**
+ * getJQuery — SELECT query builder for JOIN queries.
+ * Refactored to use shared utilities:
+ *   - getLimit (was duplicated inline)
+ *   - queryHelpers (selectAllColumnsJoin, selectAllColumnsJoinKata, getPointer, buildOrderBy, buildGroupBy)
+ *
+ * @param {object} ob — Query descriptor with join definitions
+ * @param {object} tables — Table schema map
+ * @param {object} [options] — Optional flags: { skipLimit: false }
+ * @returns {{ sql: string, params: array }}
+ */
+const orAndOptionJoin = require('./orAndOptionJoin');
 const selectColumnJoin = require('./selectColumnJoin');
 const selectRelColumnJoin = require('./selectRelColumnJoin');
+const getLimit = require('./getLimit');
+const {
+    selectAllColumnsJoin,
+    selectAllColumnsJoinKata,
+    getPointer,
+    buildOrderBy,
+    buildGroupBy
+} = require('./queryHelpers');
 
-const getLimit = (ob)=>{
-        let  limit = '';
-        if(ob.limitAuto){
-            if(ob.last){
-                limit = `LIMIT ${parseInt(ob.last)} , ${parseInt(ob.limitAuto)}`;
-            }else{
-                limit = `LIMIT 0 , ${parseInt(ob.limitAuto)}`;
-            }
-            
-        }else if(ob.l.toString() == '0' ||  ob.l == 0){
-            limit = '';
-        }else{
-            limit = `LIMIT ${ob.l.toString()}`;
-        }
-    return limit;
-}
-function selectAllColumnsJoin(op, tableName) {
-    let opText = "";
-
-    for (let i = 0; i < op.length; i++) {
-        let opKeyName = op[i];
-        let opKey = tableName + '.' + op[i];
-        opText += "'" + opKeyName + "' ," + opKey;
-
-        if (op[i + 1] !== undefined) {
-            opText += " , ";
-        }
-    }
-
-    return opText;
-}
-
-const selectAllColumnsJoinKata = (op,sn)=> {
-    let opText = "";
-
-    for (let i = 0; i < op.length; i++) {
-        var opKeyName = op[i];
-        var opKeyValue = op[i];
-        if(sn[i]){
-            opKeyName = sn[i];
-        }
-        opText += "'" + opKeyName + "' ," + opKeyValue;
-
-        if (op[i + 1] !== undefined) {
-            opText += " , ";
-        }
-    }
-
-    return opText;
-}
-const getPointer =(ob, tableName, table)=> {
-    let columnName = "";
-    const DataKeys = [];
-    for(var r = 0 ; r < ob.length; r++){
-        const ORD_ = ob[r];
-        for(var a = 0 ; a < ORD_.length; a++){
-            const ANDD = ORD_[a];
-            let columnIndex = ANDD[0];
-            if (typeof columnIndex === "string") {
-                let columnExist = table.includes(columnIndex);
-                if (columnExist) {
-                    columnName += columnIndex +", ";
-                    DataKeys.push(columnIndex);
-                } else {
-                    console.error("Error");
-                    return;
-                }
-            } else if (typeof columnIndex === "number") {
-
-                   columnIndex -= 1;
-
-                if (columnIndex >= 0 && columnIndex < table.length) {
-                    columnName += table[columnIndex]+", ";
-                    DataKeys.push( table[columnIndex]);
-                }
-                
-            }
-        }
-    }
-   
-  
-    const Back = {
-        str:columnName,
-        key:DataKeys[DataKeys.length -1]
-    }
-
-    return Back;
-}
-const getJQuery = (ob,tables)=>{
-
+const getJQuery = (ob, tables, options = {}) => {
     const tableName = ob.n;
     const newColumnSelectName = ob.sn ? ob.sn : [];
-    
-    if(tables[tableName]){
-    
-    const orAndOptionText   = orAndOptionJoin(ob.q,tables,tableName,tableName);
-    const limit             = getLimit(ob); 
-    var selectedColumn      = ob.s && ob.s[0] !== 'A' ? selectColumnJoin(ob.s,tableName,newColumnSelectName) :tableName+'.* ';
-    var joinSting           ='';
-   
-    if(ob.j){
-        
-      
-        for(var o = 0 ; o < ob.j.length; o++){
-            if(ob.j[o].s){
+    const allParams = [];
+    const skipLimit = options.skipLimit || false;
 
-                const cureTableName = ob.j[o].n;
-                const newColumnSelectNameJoin = ob.j[o].sn ? ob.j[o].sn : [];
-                var selectedColumnJoin =  cureTableName+'.* ';
-                        if(ob.j[o].s && ob.j[o].s[0] !== 'A' ){
-                            if(ob['j'][o].rel){
-                                selectedColumnJoin =  selectRelColumnJoin(ob['j'][o].rel,ob.j[o].s,cureTableName,newColumnSelectNameJoin) ;
-                            }else{
-                                selectedColumnJoin =  selectColumnJoin(ob.j[o].s,cureTableName,newColumnSelectNameJoin) ;
-                            }
-                           
+    if (tables[tableName]) {
+        const whereResult = orAndOptionJoin(ob.q, tables, tableName, tableName);
+        const limitResult = skipLimit ? { sql: '', params: [] } : getLimit(ob);
+        let selectedColumn = ob.s && ob.s[0] !== 'A' ? selectColumnJoin(ob.s, tableName, newColumnSelectName) : tableName + '.* ';
+        let joinString = '';
+
+        allParams.push(...whereResult.params);
+
+        if (ob.j) {
+            for (let o = 0; o < ob.j.length; o++) {
+                if (ob.j[o].s) {
+                    const cureTableName = ob.j[o].n;
+                    const aliasName = ob.j[o].an ? ob.j[o].an : cureTableName;
+                    const newColumnSelectNameJoin = ob.j[o].sn ? ob.j[o].sn : [];
+                    let selectedColumnJoin = cureTableName + '.* ';
+
+                    if (ob.j[o].s && ob.j[o].s[0] !== 'A') {
+                        if (ob['j'][o].rel) {
+                            selectedColumnJoin = selectRelColumnJoin(ob['j'][o].rel, ob.j[o].s, aliasName, newColumnSelectNameJoin);
+                        } else {
+                            selectedColumnJoin = selectColumnJoin(ob.j[o].s, aliasName, newColumnSelectNameJoin);
                         }
-                       
-                    const cureTableCol            = tables[cureTableName];  
-                    const pointerData             = getPointer(ob['j'][o]['q'],cureTableName,cureTableCol);
-                    const joinJson = !ob['j'][o].rel && ob['j'][o]['l'] && ob['j'][o]['l'] == "0" ? true :false;
+                    }
 
-                    if(joinJson){
-                        selectedColumn += ' , '+cureTableName+'.'+cureTableName;
-                    }else{
+                    const cureTableCol = tables[cureTableName];
+                    const pointerData = getPointer(ob['j'][o]['q'], cureTableName, cureTableCol);
+                    const joinJson = !ob['j'][o].rel && ob['j'][o]['l'] && ob['j'][o]['l'] === '0' ? true : false;
+
+                    if (joinJson) {
+                        selectedColumn += ' , ' + cureTableName + '.' + cureTableName;
+                    } else {
                         selectedColumn += ' , ' + selectedColumnJoin;
                     }
-                   
 
-                if(ob.j[o].q){
-                    var multiArraySelect = "";
-                    if(joinJson){
-                        var selectJoinArray = [];
-                       
-                                    if(ob['j'][o]['s'][0] == "A"){
-                                        selectJoinArray = cureTableCol;
-                                    }else{
-                                        selectJoinArray = ob['j'][o]['s'];
-                                    }
-                        const selectAllColumnsJoin_B = selectAllColumnsJoinKata(selectJoinArray,newColumnSelectNameJoin);
-                        multiArraySelect         = ` (SELECT ${pointerData.str}  JSON_ARRAYAGG(JSON_OBJECT(${selectAllColumnsJoin_B} )) AS ${cureTableName} FROM ${cureTableName} GROUP BY ${pointerData.key} ) AS `;
+                    if (ob.j[o].q) {
+                        let multiArraySelect = '';
+                        if (joinJson) {
+                            let selectJoinArray = [];
+                            if (ob['j'][o]['s'][0] === 'A') {
+                                selectJoinArray = cureTableCol;
+                            } else {
+                                selectJoinArray = ob['j'][o]['s'];
+                            }
+                            const selectAllColumnsJoin_B = selectAllColumnsJoinKata(selectJoinArray, newColumnSelectNameJoin);
+                            multiArraySelect = ` (SELECT ${pointerData.str} JSON_ARRAYAGG(JSON_OBJECT(${selectAllColumnsJoin_B})) AS ${cureTableName} FROM ${cureTableName} GROUP BY ${pointerData.key}) AS `;
+                        }
+                        const joinMethod = ob.j[o].jm ? ob.j[o].jm : 'LEFT';
+                        const joinWhereResult = orAndOptionJoin(ob.j[o].q, tables, cureTableName, tableName, aliasName);
+                        let as_alias = '';
+                        if (aliasName !== cureTableName) {
+                            as_alias = ` AS ${aliasName} `;
+                        }
+                        joinString += ` ${joinMethod} JOIN ${multiArraySelect} ${cureTableName} ${as_alias} ON ${joinWhereResult.sql} `;
+                        allParams.push(...joinWhereResult.params);
                     }
-                    const joinMethod = ob.j[o].jm ? ob.j[o].jm : 'LEFT';
-                    const orAndOptionText_ = orAndOptionJoin(ob.j[o].q,tables,cureTableName,tableName);
-                    joinSting += ` ${joinMethod} JOIN ${multiArraySelect} ${cureTableName} ON ${orAndOptionText_} `;
                 }
             }
         }
-        
-    }
-    let isIdTable = false;
-    const orderByT_ = `${tableName}.id`;
-    if(tables[tableName][0] == "id"){
-        isIdTable = true;
-    }
-   
-    let orderBy = isIdTable  ? `ORDER BY ${orderByT_}` :"";
 
-    if(ob.order){
-        const orderByT = `${tableName}.${ob.order}`;
-        orderBy =  `ORDER BY ${orderByT}` ;
-    }
-    let groupBy = "";
-    if(ob.group){
-        const groupByT = `${tableName}.${ob.order}`;
-        groupBy =  `GROUP BY ${ob.group}` ;
-    }
-    let getText = `SELECT ${selectedColumn} FROM ${tableName} ${joinSting} WHERE ${orAndOptionText} ${groupBy}  ${orderBy} ${limit} ;`;
-    console.log(['getText',getText]);
-        return getText;
-    }else{
+        const orderBy = buildOrderBy(ob, tables, tableName);
+        const groupBy = buildGroupBy(ob, tables, tableName);
+
+        allParams.push(...limitResult.params);
+
+        const getText = `SELECT ${selectedColumn} FROM ${tableName} ${joinString} WHERE ${whereResult.sql} ${groupBy} ${orderBy} ${limitResult.sql} ;`;
+        return { sql: getText, params: allParams };
+    } else {
         console.log(`table ${tableName} is not exist`);
     }
-}
-module.exports = getJQuery
+};
+
+module.exports = getJQuery;

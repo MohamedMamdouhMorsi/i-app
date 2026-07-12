@@ -1,7 +1,8 @@
-const IAppReadQuery = require('../toolsFN/IAppReadQuery');
+
 const path          = require('path');
 const fs            = require('fs');
 const queryFun      = require('./query');
+const IAppReadQuery = require('../toolsFN/iAppReadQuery');
 
 const isUrlDevApp =(url)=>{
     const urlArr = url.split('dev_');
@@ -11,9 +12,116 @@ const isUrlDevApp =(url)=>{
     return false;
 }
 
+const updateQuery = (queryFile, QMAP, QJMAP, DMAP, queryData)=> {
+        if (queryFile && queryFile.a) {
+            const action = queryFile.a;
+            
+            if (action === "get") {
+                if (queryFile.q && queryData.q) {
+                    for (let q = 0; q < queryData.q.length; q++) {
+                        const data = queryData.q[q];
+                        const position = QMAP[q];
+                        const or = position[0];
+                        const and = position[1];
+                        queryFile.q[or][and][1] = data;
+                    }
+                }
+                
+                if(queryFile.l && queryData.l){
+                    queryFile.l = queryData.l;
+                }
+
+                if(queryFile.order && queryData.order){
+                    queryFile.order = queryData.order;
+                }
+
+                if(queryFile.method && queryData.method){
+                    queryFile.method = queryData.method;
+                }
+
+            } else if (action === "getJ") {
+                if (queryFile.q && queryData.q) {
+                    for (let q = 0; q < queryData.q.length; q++) {
+                        const data = queryData.q[q];
+                        const position = QMAP[q];
+                        const or = position[0];
+                        const and = position[1];
+                        queryFile.q[or][and][1] = data;
+                    }
+                }
+                if (queryFile.j && queryData.j) {
+                    for (let q = 0; q < queryData.j.length; q++) {
+                        const data = queryData.j[q];
+                        const position = QJMAP[q];
+                        const join = position[0];
+                        const or = position[1];
+                        const and = position[2];
+                        queryFile.q[join][or][and][1] = data;
+                    }
+                }
+
+                if(queryFile.l && queryData.l){
+                    queryFile.l = queryData.l;
+                }
+                
+                if(queryFile.order && queryData.order){
+                    queryFile.order = queryData.order;
+                }
+
+                if(queryFile.method && queryData.method){
+                    queryFile.method = queryData.method;
+                }
+
+            } else if (action === "in") {
+                queryFile.d= queryData.d;
+                
+            } else if (action === "up") {
+               
+                if (queryFile.q && queryData.q) {
+                    for (let q = 0; q < queryData.q.length; q++) {
+                        const data = queryData.q[q];
+                        const position = QMAP[q];
+                        const or = position[0];
+                        const and = position[1];
+                        queryFile.q[or][and][1] = data;
+                    }
+                }
+                 if (typeof queryData.d === 'object' && queryData.d !== null && !Array.isArray(queryData.d)){
+                         for(const key in queryData.d ){
+                            queryFile.d[key] = queryData.d[key];
+                         }
+                 } else{
+                      for (let q = 0; q < queryData.d.length; q++) {
+                            
+                            const index = DMAP[q];
+                            const data  = queryData.d[q];
+
+                            if( queryFile.d[index] ){
+                                queryFile.d[index][1] = data;
+                            }
+                        
+                        }
+                 }
+              
+            } else if (action === "del") {
+                if (queryFile.q && queryData.q) {
+                    for (let q = 0; q < queryData.q.length; q++) {
+                        const data = queryData.q[q];
+                        const position = QMAP[q];
+                        const or = position[0];
+                        const and = position[1];
+                        queryFile.q[or][and][1] = data;
+                    }
+                }
+            }
+            
+            return queryFile;
+        }
+}
+
 const UpdateQueryInput = async(incomeQuery, dir, i_app,res_)=> {
     const query = [];
-  
+   
     if (incomeQuery && incomeQuery.query) {
         const QQ = incomeQuery.query;
         
@@ -64,6 +172,7 @@ const UpdateQueryInput = async(incomeQuery, dir, i_app,res_)=> {
                         if(query_["last"]){
                             object[0]["last"] = query_["last"];
                         }
+
                         const updatedQuery = updateQuery(object[0], object[1], object[2], object[3], query_);
                
                 
@@ -80,7 +189,7 @@ const UpdateQueryInput = async(incomeQuery, dir, i_app,res_)=> {
               
             }
         }
-         
+        
             queryFun({query:query},res_);
        
        
@@ -92,79 +201,7 @@ const UpdateQueryInput = async(incomeQuery, dir, i_app,res_)=> {
     }
 }
 
-const updateQuery = (queryFile, QMAP, QJMAP, DMAP, queryData)=> {
-        if (queryFile && queryFile.a) {
-            const action = queryFile.a;
-            
-            if (action === "get") {
-                if (queryFile.q && queryData.q) {
-                    for (let q = 0; q < queryData.q.length; q++) {
-                        const data = queryData.q[q];
-                        const position = QMAP[q];
-                        const or = position[0];
-                        const and = position[1];
-                        queryFile.q[or][and][1] = data;
-                    }
-                }
-            } else if (action === "getJ") {
-                if (queryFile.q && queryData.q) {
-                    for (let q = 0; q < queryData.q.length; q++) {
-                        const data = queryData.q[q];
-                        const position = QMAP[q];
-                        const or = position[0];
-                        const and = position[1];
-                        queryFile.q[or][and][1] = data;
-                    }
-                }
-                if (queryFile.j && queryData.j) {
-                    for (let q = 0; q < queryData.j.length; q++) {
-                        const data = queryData.j[q];
-                        const position = QJMAP[q];
-                        const join = position[0];
-                        const or = position[1];
-                        const and = position[2];
-                        queryFile.q[join][or][and][1] = data;
-                    }
-                }
-            } else if (action === "in") {
-                queryFile.d= queryData.d;
-                
-            } else if (action === "up") {
-               
-                if (queryFile.q && queryData.q) {
-                    for (let q = 0; q < queryData.q.length; q++) {
-                        const data = queryData.q[q];
-                        const position = QMAP[q];
-                        const or = position[0];
-                        const and = position[1];
-                        queryFile.q[or][and][1] = data;
-                    }
-                }
-                for (let q = 0; q < queryData.d.length; q++) {
-                     
-                    const index = DMAP[q];
-                    const data  = queryData.d[q];
 
-                    if( queryFile.d[index] ){
-                        queryFile.d[index][1] = data;
-                    }
-                 
-                }
-            } else if (action === "del") {
-                if (queryFile.q && queryData.q) {
-                    for (let q = 0; q < queryData.q.length; q++) {
-                        const data = queryData.q[q];
-                        const position = QMAP[q];
-                        const or = position[0];
-                        const and = position[1];
-                        queryFile.q[or][and][1] = data;
-                    }
-                }
-            }
-            
-            return queryFile;
-        }
-}
 
 
 module.exports = UpdateQueryInput;

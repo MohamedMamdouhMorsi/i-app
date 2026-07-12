@@ -1,6 +1,7 @@
 
-const checkQuery = (ob)=>{
+const checkQuery = (ob) => {
     const tableName = ob.n;
-        return `show tables like '${tableName}' ;`;
-}
-module.exports = checkQuery
+    return { sql: 'SHOW TABLES LIKE ?;', params: [tableName] };
+};
+
+module.exports = checkQuery;

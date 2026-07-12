@@ -8,7 +8,7 @@ const selectColumnJoin =(op,tableName,sn)=>{
             opText += `, `;
         }
     }
- 
+
     return opText;
 
 }

@@ -124,7 +124,7 @@ const base =
 }
 
 const manifestMaker = (i_app,style)=>{
-    console.log([i_app,style])
+   // console.log([i_app,style])
     base.name = i_app.name;
     base.short_name = i_app.short_name;
     base.id = i_app.id;

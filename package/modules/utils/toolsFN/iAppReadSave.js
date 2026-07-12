@@ -1,7 +1,6 @@
 
 const {CL_, DC_, EC_, JDS_, JD_, arToSt, stToAr} =require('../../tools');
 
-const IAppReader = require('./IAppReader');
 var funcKey  = 0;
 var fileName = "File Name";
 var func_id  = "";
@@ -165,7 +164,9 @@ function convertStrToOb (str) {
 // This function takes a string and cleans it by removing comments and converting it to an object
 
 const iAppReadSave = (str,fileName_,userSrcDir) => {
+  
         if(isJson(str)){
+          
             return str;
         }else{
             funcKey  = 0;
@@ -181,7 +182,7 @@ const iAppReadSave = (str,fileName_,userSrcDir) => {
             str = removeComments(str);
 
             str = convertStrToOb(str);
-
+           
             return str;
         }
 
@@ -189,14 +190,14 @@ const iAppReadSave = (str,fileName_,userSrcDir) => {
 
 function updateQueryRender(fileContent, per) {
     let posttxtArray = fileContent.split("_IQuery_");
-    
-    if (posttxtArray.length > 1) {
+   
+    if (posttxtArray.length >= 1) {
         let newPost = posttxtArray[0];
-        
+          
         for (let i = 1; i < posttxtArray.length; i++) {
             let model = posttxtArray[i];
             let is_query = is_query_model(model);
-          
+      
             if (is_query) {
                 newPost += "_IQuery_" + getPostObj(model, funcKey, per);
             } else {
@@ -247,6 +248,7 @@ function replaceTemplateStrings(input) {
   }
 
   function getPostObj(model, key, per) {
+          
     let before = "";
     let after = "";
     let resultObj = "";
@@ -289,11 +291,13 @@ function replaceTemplateStrings(input) {
     }
 
     if (per === "obj") {
+          
         newObj = convertQueryObj(resultObj, key);
     } else {
+
         newObj = convertQueryFun(resultObj, key);
         newObj = replaceTemplateStrings(newObj);
-        console.log(newObj);
+       
     }
   
     let stringObj = before + newObj + after;
@@ -384,6 +388,7 @@ function fixAndParseJSON(inputString) {
 }
 
 function convertQueryFun(jsonString, key) {
+     
    // jsonString = jsonString.replace(/(\r\n|\n|\r)/g, '');
     jsonString = jsonString.replace(/'/g, '"');
     jsonString = jsonString.replace(/(['"])?([a-z0-9A-Z_]+)(['"])?\s*:/g, '"$2": ');
@@ -398,16 +403,56 @@ function convertQueryFun(jsonString, key) {
             let queryId = fileName + "_" + key + "_" + i + "_fun";
 
             if (query["a"]) {
+                
                 let action = query["a"];
+                let limit = "FALSE";
+                let order = "FALSE";
+                let method = "FALSE";
+                
+                if(query["l"] && query["l"] !=="0" && isJsVar(query["l"]) ){
+                    limit = query["l"];
+                }
+                
+                if(query["method"] &&   isJsVar(query["method"]) ){
+                    method = query["method"];
+                }
+                
+                if(query["order"]  && isJsVar(query["order"]) ){
+                    order = query["order"];
+                }
+                
 
                 if (action === "get") {
                     let QE = getInput(query["q"]);
                     let newQ = { "q": QE, "id": queryId };
+                    if(limit !== "FALSE"){
+                        newQ.l = limit;
+                    }
+
+                    if(order !== "FALSE"){
+                        newQ.order = order;
+                    }
+                     if(method !== "FALSE"){
+                        newQ.method = method;
+                    }
                     queryArray.push(newQ);
                 } else if (action === "getJ") {
                     let QE = getInput(query["q"]);
                     let QEJ = getJInput(query["j"]);
                     let newQ = { "q": QE, "j": QEJ, "id": queryId };
+
+                    if(limit !== "FALSE"){
+                        newQ.l = limit;
+                    }
+                    
+                    if(order !== "FALSE"){
+                        newQ.order = order;
+                    }
+                    
+                    if(method !== "FALSE"){
+                        newQ.method = method;
+                    }
+
                     queryArray.push(newQ);
                 } else if (action === "in") {
                     let QD = query["d"];
@@ -456,7 +501,9 @@ function isJsVar (val){
 
 function getInput(QE) {
     let result = [];
-    
+    if (!QE) {
+        return result;
+    }
     for (let or = 0; or < QE.length; or++) {
         let orOB = QE[or];
         
@@ -501,6 +548,9 @@ function getJInput(QEJ) {
 }
 
 function dataInput(QE) {
+     if (typeof QE === 'object' && QE!== null && !Array.isArray(QE)){
+     return {...QE};
+    }else{
     let result = [];
     
     for (let i = 0; i < QE.length; i++) {
@@ -509,6 +559,7 @@ function dataInput(QE) {
     }
     
     return result;
+}
 }
 
 module.exports = iAppReadSave

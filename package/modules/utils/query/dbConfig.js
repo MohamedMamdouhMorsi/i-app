@@ -19,6 +19,8 @@ const dbConfig = {
             this.db.password = dbConfigJD.password;
             this.db.database = dbConfigJD.database;
             this.db.tables   = dbConfigJD.tables;
+            this.db.timeZone = dbConfigJD.timeZone;
+
         
         return true;
     }

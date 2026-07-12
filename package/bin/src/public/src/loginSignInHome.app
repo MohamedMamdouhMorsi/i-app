@@ -20,7 +20,7 @@
                     ]
                         a:{
                                 fn:{
-                                    _.openRoot('login');
+                                      window.location = 'auth/login';
                                 }
                             }
                 }
@@ -45,7 +45,7 @@
                     ]
                     a:{
                                 fn:{
-                                    _.openRoot('signin');
+                                    window.location = 'auth/signin';
                                 }
                             }
                     

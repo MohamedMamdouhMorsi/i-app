@@ -24,6 +24,12 @@ body {
     -moz-osx-font-smoothing: grayscale;
  
 }
+.table_no_border{
+        border-collapse: collapse;
+}
+.tr_bottom_border{
+    border-bottom: 1px  #e5e7eb  solid;
+}
 img {
     width: 100%; /* or any percentage or width value */
     height: auto; /* This maintains the aspect ratio */
@@ -31,7 +37,12 @@ img {
 #VRButton{
     display: none;
 }
-
+.flex-inline{
+    display: inline-flex;
+}
+.flex-grow {
+  flex-grow: 1;
+}
 .iconStep{
     position: absolute;
     margin-top: 7px;
@@ -353,6 +364,7 @@ input[type="submit"] {
     -webkit-appearance: button;
     cursor: pointer;
     font-weight: bold;
+    border:none;
 }
 
 button[disabled],
@@ -365,15 +377,25 @@ input::-moz-focus-inner {
     padding: 0;
     border: 0;
 }
+
 dialog{
     padding: 0.5rem;
     z-index: 10;
     max-width:700px ;
     background-color: var(--W);
+    box-shadow: 0 8px 16px rgb(0 0 0 / 60%);
+    outline: none;
+    border: none;
+    border-radius: 12px;
 }
 dialog::backdrop{
     background-color:hsl(0,0%,0%,0.6);
  
+}
+select,
+option{
+    background-color: var(--W);
+    color: var(--B);
 }
 textarea,
 input {
@@ -512,12 +534,13 @@ dragable
 .hovTW:hover,
 .hovTW:focus{
 width: auto;
-
+   box-shadow: 0 2px 4px rgb(0 0 0 / 20%);
 filter: brightness(100%);
+
 }
 .hovTW{
-    width: 10px;
-    height: 30px;
+    width: 16px;
+    height: 40px;
     transition: width 1s ease, filter 1s ease; 
 }
 .hovTW{
@@ -525,8 +548,9 @@ filter: brightness(100%);
 }
 .hovTW::before{
     content: '\22EE';
-    font-size: 14px;
-    line-height: 0;
+    font-size: 25px;
+    margin-top: 10px;
+    color: var(--B);
     
     cursor: pointer;
 }
@@ -548,6 +572,10 @@ filter: brightness(100%);
 .HOVPR:focus  {
     background-color: var(--PR);
 }
+.HOVAC:hover ,
+.HOVAC:focus  {
+    background-color: var(--AC);
+}
 .HOVPRD:hover ,
 .HOVPRD:focus  {
     background-color: var(--PR_D);
@@ -555,6 +583,10 @@ filter: brightness(100%);
 .HOVL:hover ,
 .HOVL:focus {
     filter: brightness(130%);
+}
+.HOVDB:hover ,
+.HOVDB:focus {
+    filter: brightness(70%);
 }
 .HOVC:hover ,
 .HOVC:focus  {
@@ -600,10 +632,7 @@ filter: brightness(100%);
 kit tools
 smart ui
 */
-tr:hover,
-tr:focus {
-    filter: brightness(70%);
-}
+
 
 ::placeholder {
     color: var(--PR);
@@ -818,6 +847,9 @@ GLASS
 .YELOWGLASS{
     background-color:rgba(255, 233, 106, 0.432);
    
+}
+.invert{
+    filter: invert(1) ;
 }
 /**
 * shadow
@@ -1097,8 +1129,8 @@ custom element
 
 }
 .inputLabel{
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 /* The switch - the box around the slider */
 
@@ -1171,8 +1203,8 @@ custom element
     
 }
 .main,.FLX_C{
-    width: 80%;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1280px;
     margin: 0 auto;
 }
 
@@ -2496,3 +2528,41 @@ slide range
     cursor: pointer;
     font-size: 16px;
   }
+
+.overflow-x-auto	{overflow-x: auto;}	
+.overflow-y-auto	{overflow-y: auto;	}
+.overflow-x-hidden	{overflow-x: hidden;}
+.overflow-y-hidden	{overflow-y: hidden;}
+.overflow-x-clip	{overflow-x: clip;	}
+.overflow-y-clip	{overflow-y: clip;	}
+.overflow-x-visible	{overflow-x: visible;}
+.overflow-y-visible	{overflow-y: visible;}
+.overflow-x-scroll	{ overflow-x: scroll;	}
+.overflow-y-scroll	{ overflow-y: scroll;}
+
+/*cursor*/
+.cursor-pointer {cursor: pointer;}
+.cursor-default {cursor: default;}
+.cursor-wait {cursor: wait;}
+.cursor-text {cursor: text;}    
+.cursor-move {cursor: move;}
+.cursor-not-allowed {cursor: not-allowed;}
+.cursor-crosshair {cursor: crosshair;}
+.cursor-help {cursor: help;}
+.cursor-grab {cursor: grab;}
+.cursor-grabbing {cursor: grabbing;}
+.cursor-zoom-in {cursor: zoom-in;}
+.cursor-zoom-out {cursor: zoom-out;}
+.cursor-all-scroll {cursor: all-scroll;}
+.cursor-col-resize {cursor: col-resize;}
+.cursor-row-resize {cursor: row-resize;}
+.cursor-ns-resize {cursor: ns-resize;}  
+.cursor-ew-resize {cursor: ew-resize;}
+.cursor-nesw-resize {cursor: nesw-resize;}
+.cursor-nwse-resize {cursor: nwse-resize;}
+.cursor-no-drop {cursor: no-drop;}
+.cursor-vertical-text {cursor: vertical-text;}
+.cursor-none {cursor: none;}
+.overflow-hidden{
+    overflow: hidden;
+}

@@ -21,15 +21,15 @@
                     e:[
                         {
                             t:'img'
-                            c:'W_50 '
-                            src:'logo.gif'
+                            c:'W_50 ml-2 mr-2'
+                            src:'logo.png'
                             
                         }
                          {
                             t:'b'
                             c:'F_S_20 POS_AB F_B TT_10 LL_60 W_M_C '
                             writeWait:true
-                            s:'app.{name}'
+                            s:'app.{title}'
                         }
                     ]
                      a:{
@@ -63,35 +63,11 @@
           
                 ]
             }
-{
-                   
-                    c:' HOVCYEL POS_AB RR_62 TT_16 a_riseLeft'
-                    e:[
-                        {
-                                    t:'icon'
-                                
-                                    iconTheme:true
-                                    
-                                }
-                    ]
-                    a:{
-                                        fn:{
-
-                                            if(_.theme == "light"){
-                                        
-                                            _.A_CL('heroHolder', 'heroBack');
-                                            _.A_CL('theme_icon', 'ICO-moon');
-                                            _.E_I_S('heroImg').src = _.G_SRC('hero.png');
-                                            }else  if(_.theme == "dark"){
-                                        
-                                            _.D_CL(['heroHolder', 'heroBack']);
-                                            _.A_CL('theme_icon', 'ICO-sun');
-                                                _.E_I_S('heroImg').src = _.G_SRC('heroW.png');
-                                            }
-                                            _.switchTheme();
-                                        }
-                                    }
-                }
+            {
+                    
+                I:'users/dashboard/seLang' ,Q:{langKey:'menuLang'}
+            }
+            
             {  
                     c:'  POS_FX RR_0 mR_90 TT_0 mT_10  a_riseLeft'
                     e:[
